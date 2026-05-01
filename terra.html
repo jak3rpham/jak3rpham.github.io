@@ -3,673 +3,982 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>terra-plat.vn — Case Study · Tatsuki</title>
-<meta name="description" content="How I built terra-plat.vn from near-zero organic presence to 12x traffic growth in 18 months.">
+<title>Tatsuki - Pham Ngoc Thanh / Digital Marketing & Creative</title>
+<meta name="description" content="Pham Ngoc Thanh (Tatsuki) - Digital Marketing Strategist building full-funnel campaigns for B2B SaaS. SEO, performance, video. Ho Chi Minh City.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@700&family=Outfit:wght@200;300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Outfit:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
+:root{
   --ink:#1C1108; --bark:#3D2B1F; --earth:#6B4226; --clay:#9B6645;
-  --sand:#C4A882; --parchment:#EDE3D5; --cream:#F7F2EA; --fog:#FAF8F4;
+  --sand:#C4A882; --tan:#E8D5B7; --parchment:#EDE3D5; --cream:#F7F2EA; --fog:#FAF8F4;
   --forest:#3D6B47; --forest-lt:#5A8C64; --forest-pale:#E8F0EA;
   --terra:#1B6B58; --terra-lt:#2A8C72; --terra-pale:#E0F0EC;
-  --g-warm:linear-gradient(135deg,#E8D5B7 0%,#C4A882 40%,#6B4226 100%);
+  --rust:#B85C2E;
+  --g-warm:linear-gradient(135deg,#9B6645 0%,#6B4226 60%,#3D2B1F 100%);
+  --g-warm-on-dark:linear-gradient(135deg,#E8D5B7 0%,#C4A882 50%,#9B6645 100%);
   --g-forest:linear-gradient(135deg,#5A8C64 0%,#3D6B47 100%);
+  --g-soft:linear-gradient(160deg,#F0E8DA 0%,#E2D0B8 60%,#C4A882 100%);
   --g-terra:linear-gradient(135deg,#2A8C72 0%,#1B6B58 100%);
+  --g-ink:linear-gradient(180deg,#1C1108 0%,#3D2B1F 100%);
   --ease:cubic-bezier(0.16,1,0.3,1);
-  --P:clamp(1.5rem,5vw,5rem);
-  --W:1200px;
+  --ease-spring:cubic-bezier(.34,1.4,.64,1);
+  --W:1340px;
+  --W-mid:min(1240px,90vw);
+  --P:clamp(1.5rem,4vw,5rem);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:17px}
-body{font-family:'Outfit',sans-serif;background:var(--fog);color:var(--ink);overflow-x:hidden}
+body{font-family:'Outfit',sans-serif;background:var(--fog);color:var(--ink);overflow-x:hidden;cursor:none;font-feature-settings:"ss01","liga"}
 img{display:block;max-width:100%}
-a{text-decoration:none;color:inherit}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--earth);color:var(--cream)}
 
-/* ── CURSOR ── */
-body{cursor:none}
-.cur-dot{position:fixed;width:10px;height:10px;background:var(--clay);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,border-radius .25s;mix-blend-mode:multiply}
-.cur-ring{position:fixed;width:40px;height:40px;border:1.5px solid var(--sand);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;opacity:.45}
+.wrap{width:100%;max-width:var(--W);margin-inline:auto;padding-inline:var(--P)}
+.wrap-mid{width:100%;max-width:var(--W-mid);margin-inline:auto;padding-inline:var(--P)}
 
-/* ── PROGRESS ── */
-#prog{position:fixed;top:0;left:0;height:2px;z-index:500;background:var(--g-terra);width:0;transition:width .06s linear}
+/* ═══════ INTRO SPLASH ═══════ */
+#intro{position:fixed;inset:0;z-index:9000;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;transition:transform 1.1s var(--ease)}
+#intro.gone{transform:translateY(-100%);pointer-events:none}
+.intro-k{font-family:'Noto Serif JP',serif;font-weight:900;font-size:clamp(4.5rem,10vw,8rem);letter-spacing:.08em;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:0;animation:introIn .9s var(--ease) .25s forwards}
+.intro-line{width:0;height:1px;background:var(--sand);opacity:0;animation:introLine 1s var(--ease) .9s forwards}
+.intro-sub{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(196,168,130,.55);opacity:0;animation:introIn .8s var(--ease) 1.1s forwards}
+@keyframes introIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes introLine{to{width:80px;opacity:1}}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:400;border-bottom:1px solid transparent;transition:background .4s,border-color .4s}
-nav.scrolled{background:rgba(250,248,244,.93);backdrop-filter:blur(20px);border-color:rgba(196,168,130,.15)}
-.nav-inner{display:flex;justify-content:space-between;align-items:center;padding:1.1rem var(--P)}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;letter-spacing:.06em;display:flex;align-items:center;gap:.5rem;color:var(--ink)}
-.nav-k{font-family:'Noto Serif JP',serif;font-weight:700;font-size:.95rem;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.nav-back{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);display:flex;align-items:center;gap:.5rem;transition:color .3s,gap .4s var(--ease)}
-.nav-back:hover{color:var(--forest);gap:.9rem}
+/* ═══════ CURSOR ═══════ */
+.cur-dot{position:fixed;width:10px;height:10px;background:var(--clay);border-radius:50%;pointer-events:none;z-index:8999;transform:translate(-50%,-50%);transition:width .25s var(--ease),height .25s var(--ease),background .25s,border-radius .25s,opacity .25s;mix-blend-mode:multiply}
+.cur-ring{position:fixed;width:42px;height:42px;border:1.5px solid var(--sand);border-radius:50%;pointer-events:none;z-index:8998;transform:translate(-50%,-50%);transition:width .35s var(--ease),height .35s var(--ease),opacity .3s,border-color .3s;opacity:.5}
+.cur-dot.hov{width:46px;height:46px;background:var(--forest);border-radius:6px;opacity:.16}
+.cur-ring.hov{width:0;height:0;opacity:0}
+.cur-dot.hov-strong{width:64px;height:64px;background:var(--earth);border-radius:50%;opacity:.18}
 
-/* ── HERO ── */
-#hero{min-height:100vh;background:var(--ink);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:5rem}
-.hero-bg{position:absolute;inset:0;z-index:0}
-.hero-orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none}
-.ho1{width:700px;height:700px;background:var(--terra);top:-200px;right:-150px;opacity:.12}
-.ho2{width:400px;height:400px;background:var(--sand);bottom:-100px;left:5%;opacity:.08}
-.ho3{width:300px;height:300px;background:var(--earth);top:40%;left:30%;opacity:.07}
-.grain{position:absolute;inset:0;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px}
+/* ═══════ PROGRESS ═══════ */
+#prog{position:fixed;top:0;left:0;height:2px;z-index:500;background:var(--g-warm);width:0;transition:width .08s linear}
 
-.hero-inner{position:relative;z-index:1;max-width:var(--W);margin-inline:auto;padding-inline:var(--P);padding-top:140px}
-.hero-eyebrow{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(196,168,130,.6);display:flex;align-items:center;gap:.9rem;margin-bottom:2rem;opacity:0;animation:fadeUp .8s var(--ease) .2s forwards}
-.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--g-terra)}
-.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,6rem);font-weight:300;line-height:1.0;color:var(--cream);margin-bottom:1.5rem;opacity:0;animation:fadeUp .9s var(--ease) .35s forwards}
-.hero-title em{font-style:italic;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero-sub{font-size:1.05rem;font-weight:300;color:rgba(196,168,130,.7);max-width:580px;line-height:1.85;margin-bottom:3rem;opacity:0;animation:fadeUp .9s var(--ease) .5s forwards}
+/* ═══════ KANJI WATERMARKS (fixed parallax) ═══════ */
+.kanji-mark{position:absolute;font-family:'Noto Serif JP',serif;font-weight:900;color:transparent;-webkit-text-stroke:1px rgba(196,168,130,.18);pointer-events:none;user-select:none;line-height:.85;z-index:0;letter-spacing:-.02em}
+.km-1{top:8vh;right:-2vw;font-size:clamp(18rem,30vw,32rem);-webkit-text-stroke-color:rgba(107,66,38,.07)}
+.km-2{bottom:-4rem;left:-3vw;font-size:clamp(14rem,22vw,24rem);-webkit-text-stroke-color:rgba(196,168,130,.1)}
+.km-3{top:50%;right:-1vw;font-size:clamp(10rem,14vw,16rem);-webkit-text-stroke-color:rgba(61,107,71,.18);transform:translateY(-50%)}
 
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(196,168,130,.12);opacity:0;animation:fadeUp .9s var(--ease) .65s forwards}
-.hstat{padding:1.6rem 1.8rem;border-right:1px solid rgba(196,168,130,.12);position:relative;overflow:hidden}
-.hstat:last-child{border-right:none}
-.hstat::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--g-terra);opacity:0;transition:opacity .4s}
-.hstat:hover::before{opacity:1}
-.hstat-n{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;line-height:1;margin-bottom:.3rem;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hstat-l{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(196,168,130,.5)}
+/* ═══════ NAV ═══════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:400;border-bottom:1px solid transparent;transition:background .5s,border-color .5s}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;padding:1.05rem 0;transition:padding .4s}
+nav.scrolled{background:rgba(250,248,244,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-color:rgba(196,168,130,.15)}
+nav.scrolled .nav-inner{padding:.85rem 0}
+.nav-logo{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:300;letter-spacing:.08em;color:var(--ink);display:flex;align-items:center;gap:.55rem}
+.nav-k{font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.1rem;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#7A6355;position:relative;transition:color .3s;padding:.35rem 0}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--g-forest);transition:width .4s var(--ease)}
+.nav-links a:hover,.nav-links a.active{color:var(--ink)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fog);background:var(--ink);padding:.55rem 1.3rem;position:relative;overflow:hidden;display:inline-block}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--g-forest);transform:translateX(-101%);transition:transform .5s var(--ease)}
+.nav-cta:hover::before{transform:translateX(0)}
+.nav-cta span{position:relative;z-index:1}
 
-.hero-scroll{position:absolute;bottom:2.5rem;left:var(--P);z-index:2;display:flex;align-items:center;gap:.7rem;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(196,168,130,.4);opacity:0;animation:fadeUp 1s ease 1.4s forwards}
-.hero-scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,rgba(196,168,130,.4),transparent);animation:sP 2.5s ease-in-out infinite}
+/* ═══════ HERO ═══════ */
+#hero{min-height:100vh;padding-top:72px;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero-grain,.hero-bg-noise{position:absolute;inset:0;pointer-events:none;z-index:1}
+.hero-grain{opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px}
+.blob{position:absolute;border-radius:50%;filter:blur(95px);opacity:.32;pointer-events:none;z-index:0;will-change:transform}
+.b1{width:580px;height:580px;background:radial-gradient(circle,#C4A882,transparent);top:-110px;right:8%;animation:drift1 16s ease-in-out infinite alternate}
+.b2{width:340px;height:340px;background:radial-gradient(circle,#3D6B47,transparent);bottom:60px;left:4%;animation:drift2 12s ease-in-out 2s infinite alternate-reverse;opacity:.2}
+.b3{width:260px;height:260px;background:radial-gradient(circle,#E8D5B7,transparent);top:54%;left:42%;animation:drift1 19s ease-in-out infinite alternate}
+@keyframes drift1{0%{transform:translate(0,0) scale(1)}100%{transform:translate(28px,18px) scale(1.07)}}
+@keyframes drift2{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-22px,-14px) scale(1.05)}}
+
+.hero-inner{width:100%;max-width:var(--W);margin-inline:auto;padding-inline:var(--P);padding-top:3.5rem;padding-bottom:5rem;position:relative;z-index:2;display:block}
+
+.hero-mark-row{display:flex;align-items:center;gap:1.5rem;margin-bottom:1.6rem;opacity:0;animation:fadeUp .9s var(--ease) .2s forwards}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--clay);display:flex;align-items:center;gap:.85rem}
+.hero-eyebrow::before{content:'';width:30px;height:1px;background:var(--g-warm)}
+.hero-locale{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:#A8917E;display:flex;align-items:center;gap:.4rem}
+.hero-locale::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--forest-lt);animation:blink 2.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.hero-name{font-family:'Outfit',sans-serif;font-size:clamp(3rem,5.2vw,5.6rem);font-weight:300;line-height:1;color:var(--ink);position:relative;margin-bottom:.4rem}
+.hero-name .line{display:block;overflow:hidden;line-height:1.18;padding:.3em .35em;margin:-.3em -.35em;white-space:nowrap}
+.hero-name .char{display:inline-block;transform:translateY(110%);transition:transform .85s var(--ease)}
+.hero-name.in .char{transform:translateY(0)}
+.hero-name em{font-style:italic;display:inline-block;background:var(--g-warm);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;-webkit-box-decoration-break:clone;box-decoration-break:clone;opacity:0;transform:translateY(115%);transition:opacity .9s var(--ease) .55s,transform .9s var(--ease) .55s;padding:.1em .3em;margin:-.1em -.3em}
+.hero-name.in em{opacity:1;transform:translateY(0)}
+
+.hero-k-row{display:flex;align-items:center;gap:1.2rem;margin:1rem 0 2rem;opacity:0;animation:fadeUp .9s var(--ease) .85s forwards}
+.hero-k{font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.3rem;letter-spacing:.18em;color:var(--forest)}
+.hero-k-line{flex:1;max-width:90px;height:1px;background:linear-gradient(to right,var(--forest-lt),transparent)}
+.hero-k-tag{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--clay)}
+
+.hero-tagline{font-size:1.05rem;font-weight:300;color:#5A4A3C;line-height:1.85;max-width:520px;margin-bottom:2.2rem;opacity:0;animation:fadeUp .9s var(--ease) 1s forwards}
+.hero-tagline strong{color:var(--ink);font-weight:400}
+
+.hero-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:2.6rem;opacity:0;animation:fadeUp .9s var(--ease) 1.15s forwards}
+.tag{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:#7A6355;border:1px solid var(--parchment);padding:.32rem .8rem;position:relative;overflow:hidden;transition:color .3s,border-color .3s}
+.tag::before{content:'';position:absolute;inset:0;background:var(--forest-pale);transform:translateY(101%);transition:transform .35s var(--ease)}
+.tag:hover{color:var(--forest);border-color:var(--forest-lt)}
+.tag:hover::before{transform:translateY(0)}
+.tag span{position:relative;z-index:1}
+
+.hero-ctas{display:flex;gap:1.3rem;align-items:center;opacity:0;animation:fadeUp .9s var(--ease) 1.3s forwards}
+.btn-fill{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fog);padding:.95rem 2.4rem;background:var(--ink);position:relative;overflow:hidden;transition:transform .3s var(--ease);display:inline-block}
+.btn-fill::before{content:'';position:absolute;inset:0;background:var(--g-forest);transform:translateX(-101%);transition:transform .5s var(--ease)}
+.btn-fill:hover::before{transform:translateX(0)}
+.btn-fill:hover{transform:translateY(-2px)}
+.btn-fill span{position:relative;z-index:1}
+.btn-txt{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#7A6355;display:inline-flex;align-items:center;gap:.5rem;transition:color .3s,gap .4s var(--ease)}
+.btn-txt:hover{color:var(--forest);gap:.95rem}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* HERO CARDS */
+.hero-cards{display:flex;gap:.9rem;align-items:flex-end;flex-shrink:0;opacity:0;animation:fadeUp 1s var(--ease) 1.45s forwards;margin-top:3rem;flex-wrap:wrap}
+.pcard{position:relative;overflow:hidden;background:var(--g-soft);box-shadow:0 25px 60px -10px rgba(107,66,38,.22);flex-shrink:0;will-change:transform;transition:box-shadow .5s var(--ease)}
+.pcard::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(61,107,71,.06) 0%,rgba(28,17,8,0) 35%,rgba(28,17,8,.55) 100%);z-index:1;pointer-events:none}
+.pcard-a{width:135px;height:195px;transform:translateY(10px) rotate(-1.5deg)}
+.pcard-b{width:165px;height:240px}
+.pcard-c{width:150px;height:215px;transform:translateY(6px) rotate(1deg)}
+.pcard:hover{box-shadow:0 35px 80px -10px rgba(107,66,38,.32)}
+.pcard img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 1.4s var(--ease)}
+.pcard:hover img{transform:scale(1.04)}
+.pcard-label{position:absolute;bottom:.7rem;left:.8rem;right:.8rem;z-index:3;font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(250,248,244,.7)}
+.pdot{position:absolute;top:.7rem;right:.7rem;z-index:3;width:7px;height:7px;border-radius:50%;background:var(--forest-lt);animation:blink 2.5s ease-in-out infinite}
+
+.scroll-hint{position:fixed;bottom:2.5rem;left:var(--P);z-index:3;display:flex;align-items:center;gap:.7rem;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#A8917E;opacity:0;animation:fadeUp 1s ease 1.9s forwards;pointer-events:none}
+.scroll-line{width:1px;height:42px;background:linear-gradient(to bottom,var(--sand),transparent);animation:sP 2.5s ease-in-out infinite}
 @keyframes sP{0%,100%{transform:scaleY(1);opacity:.4}50%{transform:scaleY(.4);opacity:1}}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+/* ═══════ MARQUEE STRIP ═══════ */
+.strip{overflow:hidden;white-space:nowrap;padding:1.2rem 0;border-top:1px solid rgba(196,168,130,.16);border-bottom:1px solid rgba(196,168,130,.16);background:var(--cream);position:relative;z-index:2}
+.strip-inner{display:inline-flex;gap:3.5rem;animation:stripScroll 28s linear infinite}
+.strip-inner:hover{animation-play-state:paused}
+.strip-item{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:300;font-style:italic;color:rgba(155,102,69,.55);letter-spacing:.12em;display:flex;align-items:center;gap:1.3rem}
+.strip-item::after{content:'·';color:var(--sand);font-style:normal}
+@keyframes stripScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ── SECTIONS ── */
-.wrap{max-width:var(--W);margin-inline:auto;padding-inline:var(--P)}
-.sp{padding:6rem 0}
-.sp-sm{padding:4rem 0}
-
-/* Section labels */
-.s-label{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;color:var(--clay);display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}
-.s-label::before{content:'';width:20px;height:1px;background:var(--g-warm)}
-.s-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.4rem);font-weight:300;line-height:1.1;margin-bottom:2rem}
-.s-title em{font-style:italic;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-
-/* ── OVERVIEW ── */
-#overview{background:var(--cream)}
-.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.overview-meta{display:flex;flex-direction:column;gap:.6rem;margin-bottom:2.5rem}
-.meta-row{display:flex;gap:1.2rem;padding:.7rem 0;border-bottom:1px solid var(--parchment);font-size:.88rem}
-.meta-key{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);min-width:100px;padding-top:.15rem}
-.meta-val{font-weight:300;color:var(--bark)}
-.overview-body{font-size:1rem;font-weight:300;color:#5A4A3C;line-height:2}
-.overview-body p{margin-bottom:1.2rem}
-.overview-body p:last-child{margin-bottom:0}
-.overview-body strong{color:var(--ink);font-weight:400}
-
-/* Context card */
-.context-card{background:var(--ink);padding:2.2rem;position:relative;overflow:hidden;margin-top:2rem}
-.context-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-terra)}
-.context-card-label{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terra-lt);margin-bottom:.8rem}
-.context-card-text{font-size:.9rem;font-weight:300;color:rgba(237,227,213,.75);line-height:1.85}
-
-/* ── WHAT I BUILT ── */
-#built{background:var(--fog)}
-.built-intro{font-size:1rem;font-weight:300;color:#5A4A3C;line-height:1.95;max-width:660px;margin-bottom:4rem}
-
-.scope-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--parchment)}
-.scope-item{padding:1.8rem;border-right:1px solid var(--parchment);border-bottom:1px solid var(--parchment);position:relative;overflow:hidden;transition:background .3s}
-.scope-item:hover{background:var(--cream)}
-.scope-item::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--g-terra);opacity:0;transition:opacity .4s}
-.scope-item:hover::before{opacity:1}
-.scope-item:nth-child(3n){border-right:none}
-.scope-item:nth-last-child(-n+3){border-bottom:none}
-.scope-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--parchment);margin-bottom:.8rem;line-height:1}
-.scope-title{font-size:.95rem;font-weight:500;color:var(--ink);margin-bottom:.5rem}
-.scope-desc{font-size:.82rem;font-weight:300;color:#7A6355;line-height:1.7}
-
-/* ── PAGES SHOWCASE ── */
-#pages{background:var(--ink);overflow:hidden}
-.pages-intro{font-size:1rem;font-weight:300;color:rgba(196,168,130,.65);line-height:1.9;max-width:580px;margin-bottom:3.5rem}
-
-.pages-track{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
-.page-card{position:relative;overflow:hidden;background:rgba(255,255,255,.03);border:1px solid rgba(196,168,130,.1);cursor:pointer;transition:border-color .3s,transform .5s var(--ease)}
-.page-card:hover{border-color:rgba(61,107,71,.4);transform:translateY(-4px)}
-.page-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-terra);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease);z-index:2}
-.page-card:hover::before{transform:scaleX(1)}
-.page-thumb{height:280px;overflow:hidden;position:relative}
-.page-thumb img{width:100%;height:auto;object-fit:cover;object-position:center top;transition:transform 8s var(--ease)}
-.page-card:hover .page-thumb img{transform:translateY(-30%)}
-.page-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(28,17,8,.7) 100%);z-index:1}
-.page-info{padding:1.4rem 1.6rem}
-.page-tag{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--terra-lt);margin-bottom:.4rem}
-.page-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:var(--cream);margin-bottom:.3rem}
-.page-url{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.06em;color:rgba(196,168,130,.4)}
-.page-link{display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--terra-lt);margin-top:.8rem;transition:gap .3s var(--ease)}
-.page-card:hover .page-link{gap:.7rem}
-
-/* ── RESULTS ── */
-#results{background:var(--cream)}
-.results-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:start}
-.results-left .s-title{margin-bottom:1rem}
-.results-note{font-size:.88rem;font-weight:300;color:#7A6355;line-height:1.8;margin-bottom:2.5rem;padding-left:1rem;border-left:2px solid var(--terra-lt)}
-
-.metric-list{display:flex;flex-direction:column;gap:0}
-.metric-row{display:grid;grid-template-columns:1fr auto;align-items:center;padding:1rem 0;border-bottom:1px solid var(--parchment);gap:1rem}
-.metric-row:first-child{border-top:1px solid var(--parchment)}
-.metric-label{font-size:.88rem;font-weight:300;color:#5A4A3C}
-.metric-val{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--earth);white-space:nowrap;text-align:right}
-.metric-sub{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.08em;color:var(--clay);grid-column:1/-1;margin-top:-.5rem;padding-bottom:.3rem}
-
-/* Traffic chart */
-.chart-wrap{margin-top:0}
-.chart-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--clay);margin-bottom:1.2rem}
-.chart-bars{display:flex;flex-direction:column;gap:.5rem}
-.cbar-row{display:flex;align-items:center;gap:.8rem}
-.cbar-month{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--clay);width:56px;flex-shrink:0;text-align:right}
-.cbar-track{flex:1;height:20px;background:var(--parchment);position:relative;overflow:hidden}
-.cbar-fill{height:100%;background:var(--g-terra);transform:scaleX(0);transform-origin:left;transition:transform 1.2s var(--ease)}
-.cbar-fill.visible{transform:scaleX(1)}
-.cbar-val{font-family:'DM Mono',monospace;font-size:.56rem;color:var(--clay);width:52px;flex-shrink:0}
-.cbar-row.peak .cbar-fill{background:linear-gradient(90deg,#2A8C72,#C4A882)}
-.cbar-row.peak .cbar-month,.cbar-row.peak .cbar-val{color:var(--earth)}
-
-/* ── STRATEGY ── */
-#strategy{background:var(--fog)}
-.strategy-body{font-size:1rem;font-weight:300;color:#5A4A3C;line-height:2;max-width:720px;margin-bottom:3.5rem}
-
-.funnel-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.funnel-card{padding:2.2rem;border:1px solid var(--parchment);background:var(--cream);position:relative;overflow:hidden}
-.funnel-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.funnel-card.layer1::before{background:var(--g-forest)}
-.funnel-card.layer2::before{background:var(--g-terra)}
-.funnel-badge{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .65rem;margin-bottom:1rem;display:inline-block}
-.funnel-card.layer1 .funnel-badge{background:var(--forest-pale);color:var(--forest)}
-.funnel-card.layer2 .funnel-badge{background:var(--terra-pale);color:var(--terra)}
-.funnel-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--ink);margin-bottom:.7rem}
-.funnel-desc{font-size:.88rem;font-weight:300;color:#7A6355;line-height:1.8}
-.funnel-arrow{display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--sand);padding:.5rem 0}
-
-/* ── PROCESS ── */
-#process{background:var(--ink)}
-.process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:3rem}
-.proc-item{padding:1.6rem 1.4rem;border-right:1px solid rgba(196,168,130,.08);position:relative}
-.proc-item:last-child{border-right:none}
-.proc-item::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--g-terra)}
-.proc-num{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:rgba(196,168,130,.1);line-height:1;margin-bottom:1rem}
-.proc-title{font-size:.88rem;font-weight:500;color:var(--cream);margin-bottom:.5rem}
-.proc-desc{font-size:.78rem;font-weight:300;color:rgba(196,168,130,.5);line-height:1.7}
-
-/* ── AI SECTION ── */
-#ai-section{background:var(--cream)}
-.ai-cols{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.ai-body{font-size:1rem;font-weight:300;color:#5A4A3C;line-height:2;margin-bottom:2rem}
-.ai-callout{background:var(--ink);padding:2rem;position:relative;overflow:hidden}
-.ai-callout::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-warm)}
-.ai-callout-text{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;font-style:italic;color:var(--cream);line-height:1.5}
-.ai-callout-attr{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(196,168,130,.45);margin-top:.8rem}
-
-.ai-pills{display:flex;flex-direction:column;gap:.6rem}
-.ai-pill{display:flex;align-items:center;gap:.9rem;padding:.9rem 1.1rem;border:1px solid var(--parchment);background:var(--fog);transition:border-color .3s,background .3s}
-.ai-pill:hover{border-color:rgba(27,107,88,.3);background:var(--terra-pale)}
-.ai-pill-icon{font-size:1.1rem;flex-shrink:0}
-.ai-pill-text{font-size:.88rem;font-weight:300;color:#5A4A3C}
-.ai-result{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.08em;color:var(--terra);margin-top:1rem;padding:.6rem .9rem;border:1px solid rgba(27,107,88,.2);background:var(--terra-pale);display:inline-block}
-
-/* ── REFLECTION ── */
-#reflection{background:var(--fog)}
-.reflection-body{font-size:1.05rem;font-weight:300;color:#5A4A3C;line-height:2.1;max-width:680px}
-.reflection-body p{margin-bottom:1.4rem}
-.reflection-body p:last-child{margin-bottom:0}
-.reflection-body strong{color:var(--ink);font-weight:400}
-.reflection-body em{font-style:italic;color:var(--earth)}
-
-/* ── CTA ── */
-#cta{background:var(--ink);text-align:center}
-.cta-inner{max-width:640px;margin-inline:auto}
-.cta-eyebrow{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(196,168,130,.45);margin-bottom:1.5rem}
-.cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:300;color:var(--cream);line-height:1.1;margin-bottom:2rem}
-.cta-title em{font-style:italic;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.btn-fill{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fog);text-decoration:none;padding:.95rem 2.4rem;background:var(--g-terra);position:relative;overflow:hidden;transition:transform .3s,opacity .3s}
-.btn-fill:hover{transform:translateY(-2px);opacity:.9}
-.btn-ghost{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(196,168,130,.7);text-decoration:none;padding:.95rem 2.4rem;border:1px solid rgba(196,168,130,.2);transition:border-color .3s,color .3s}
-.btn-ghost:hover{border-color:rgba(196,168,130,.5);color:var(--cream)}
-
-/* ── FOOTER ── */
-footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
-.footer-inner{display:flex;justify-content:space-between;align-items:center;padding:1.2rem var(--P)}
-.f-logo{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:300;color:var(--cream);display:flex;align-items:center;gap:.45rem}
-.f-k{font-family:'Noto Serif JP',serif;font-weight:700;font-size:.85rem;background:var(--g-terra);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.f-copy{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.08em;color:#A8917E}
-
-/* ── SCROLL REVEAL ── */
-.fu{opacity:0;transform:translateY(28px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+/* ═══════ FADE UP REVEAL ═══════ */
+.fu{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .fu.visible{opacity:1;transform:translateY(0)}
 .fu[data-d="1"]{transition-delay:.1s}
 .fu[data-d="2"]{transition-delay:.2s}
 .fu[data-d="3"]{transition-delay:.3s}
 .fu[data-d="4"]{transition-delay:.4s}
 
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
-  .hero-stats{grid-template-columns:repeat(2,1fr)}
-  .hstat:nth-child(2){border-right:none}
-  .overview-grid,.results-grid,.ai-cols{grid-template-columns:1fr;gap:3rem}
-  .scope-grid{grid-template-columns:repeat(2,1fr)}
-  .scope-item:nth-child(2n){border-right:none}
-  .scope-item:nth-child(3n){border-right:1px solid var(--parchment)}
-  .pages-track{grid-template-columns:1fr}
-  .funnel-wrap{grid-template-columns:1fr}
-  .process-grid{grid-template-columns:repeat(2,1fr)}
-  .proc-item:nth-child(2n){border-right:none}
-  .proc-item{border-bottom:1px solid rgba(196,168,130,.08)}
+/* split title char-by-char */
+.split-t{display:inline-block;overflow:hidden;line-height:1.18;padding:.3em .35em;margin:-.3em -.35em;max-width:100%}
+.split-t .sc{display:inline-block;transform:translateY(110%);transition:transform .8s var(--ease)}
+.split-t.visible .sc{transform:translateY(0)}
+/* em inside split-t — stays intact (gradient needs text to clip), fades in as a whole after chars complete */
+.split-t em,.split-t .em-italic{display:inline-block;opacity:0;transform:translateY(115%);transition:opacity .85s var(--ease) .45s,transform .85s var(--ease) .45s;padding:.1em .3em;margin:-.1em -.3em}
+.split-t.visible em,.split-t.visible .em-italic{opacity:1;transform:translateY(0)}
+
+/* ═══════ ABOUT ═══════ */
+#about{background:var(--ink);position:relative;overflow:hidden}
+.about-orb{position:absolute;border-radius:50%;filter:blur(115px);pointer-events:none}
+.ao1{width:720px;height:720px;background:var(--sand);top:-260px;right:-110px;opacity:.07}
+.ao2{width:440px;height:440px;background:var(--forest);bottom:-110px;left:5%;opacity:.1}
+.about-grain{position:absolute;inset:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px;pointer-events:none}
+.about-inner{position:relative;z-index:2;padding:8rem 0 8rem}
+.about-eyebrow{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sand);display:flex;align-items:center;gap:.8rem;margin-bottom:1.3rem}
+.about-eyebrow::before{content:'';width:24px;height:1px;background:var(--g-warm)}
+.about-title-row{display:flex;align-items:baseline;gap:2.5rem;margin-bottom:3.5rem;flex-wrap:wrap}
+.about-big-title{font-family:'Outfit',sans-serif;font-size:clamp(3.8rem,6.5vw,6.4rem);font-weight:300;line-height:.98;color:var(--cream);white-space:nowrap}
+.about-big-title .em-italic{font-style:italic;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
+.about-divider{flex:1;height:1px;background:rgba(196,168,130,.18);min-width:50px;align-self:center}
+.about-marker{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.16em;color:rgba(196,168,130,.45);align-self:center;text-transform:uppercase}
+
+.about-cols{display:grid;grid-template-columns:240px 1fr 240px;gap:3.5rem;align-items:start;margin-top:3.5rem}
+.stats{display:flex;flex-direction:column;gap:.9rem}
+.stat{padding:1.4rem 1.5rem;background:rgba(255,255,255,.025);border:1px solid rgba(196,168,130,.12);position:relative;overflow:hidden;transition:border-color .35s,background .35s}
+.stat:hover{border-color:rgba(61,107,71,.55);background:rgba(61,107,71,.04)}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--g-forest);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.stat:hover::before{transform:scaleX(1)}
+.stat-n{font-family:'Outfit',sans-serif;font-size:2.5rem;font-weight:300;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:.3rem}
+.stat-l{font-size:.76rem;font-weight:300;color:#A8917E;letter-spacing:.02em}
+
+.bio-block{font-size:1rem;font-weight:300;line-height:2;color:rgba(237,227,213,.72);padding:1.7rem 0;border-bottom:1px solid rgba(196,168,130,.09)}
+.bio-block:first-child{padding-top:0}
+.bio-block:last-child{border-bottom:none;padding-bottom:0}
+.bio-block strong{color:var(--sand);font-weight:400}
+.bio-block em{font-style:italic;color:var(--parchment)}
+.bio-block a{color:var(--sand);border-bottom:1px solid rgba(196,168,130,.3);transition:border-color .3s}
+.bio-block a:hover{border-color:var(--sand)}
+.bio-num{display:inline-block;font-family:'Outfit',sans-serif;font-style:italic;color:var(--cream);font-weight:400;padding:0 .15em}
+
+.sk-head{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sand);margin-bottom:1.1rem}
+.sk-wrap{display:flex;flex-direction:column;gap:.5rem}
+.sk{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.05em;color:rgba(196,168,130,.7);border:1px solid rgba(196,168,130,.18);padding:.46rem .85rem;transition:all .35s;cursor:default;position:relative;overflow:hidden}
+.sk::before{content:'';position:absolute;inset:0;background:rgba(61,107,71,.14);transform:translateX(-101%);transition:transform .4s var(--ease)}
+.sk:hover{border-color:var(--forest-lt);color:var(--fog)}
+.sk:hover::before{transform:translateX(0)}
+.sk span{position:relative;z-index:1}
+
+/* ═══════ TERRA FEATURED ═══════ */
+#terra-feat{background:var(--cream);position:relative;overflow:hidden;padding:8rem 0}
+.terra-grain{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px;pointer-events:none;z-index:0}
+
+.terra-head{position:relative;z-index:2;margin-bottom:4rem}
+.s-eyebrow{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--clay);display:flex;align-items:center;gap:.9rem;margin-bottom:1.2rem}
+.s-eyebrow::before{content:'';width:24px;height:1px;background:var(--g-warm)}
+.s-title{font-family:'Outfit',sans-serif;font-size:clamp(2.6rem,4.8vw,4rem);font-weight:300;line-height:1.05;margin-bottom:1.4rem}
+.s-title em{font-style:italic;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.terra-lead{font-size:1.05rem;font-weight:300;color:#5A4A3C;line-height:1.9;max-width:680px}
+
+.terra-showcase{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:start}
+
+.terra-mockup-wrap{position:relative}
+.terra-mockup{position:relative;background:var(--ink);box-shadow:0 35px 80px -15px rgba(28,17,8,.35);overflow:hidden;will-change:transform}
+.terra-mockup::before{content:'';position:absolute;top:0;left:0;right:0;height:30px;background:rgba(255,255,255,.04);z-index:2;display:flex;align-items:center}
+.tm-bar{position:absolute;top:0;left:0;right:0;height:30px;display:flex;align-items:center;padding:0 14px;gap:6px;background:rgba(28,17,8,.92);z-index:3;border-bottom:1px solid rgba(196,168,130,.1)}
+.tm-d{width:8px;height:8px;border-radius:50%}
+.tm-d:nth-child(1){background:#E88080}.tm-d:nth-child(2){background:#E8C480}.tm-d:nth-child(3){background:#80C880}
+.tm-url{flex:1;height:14px;background:rgba(196,168,130,.1);border-radius:3px;margin:0 12px;font-family:'DM Mono',monospace;font-size:.55rem;color:rgba(196,168,130,.6);text-align:center;line-height:14px;letter-spacing:.05em}
+.terra-mockup-body{padding-top:30px;aspect-ratio:16/11;position:relative}
+.terra-mockup-body img{position:absolute;top:30px;left:0;width:100%;height:calc(100% - 30px);object-fit:cover;object-position:center top}
+.terra-mockup-tag{position:absolute;bottom:.85rem;right:.85rem;z-index:4;background:var(--terra);color:var(--cream);font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;padding:.32rem .72rem}
+
+.terra-mockup-2{position:absolute;width:55%;bottom:-7%;right:-8%;z-index:1;transform:rotate(2deg)}
+
+.terra-content{padding-top:1rem}
+.terra-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.6rem}
+.terra-meta-pill{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--terra);background:var(--terra-pale);padding:.3rem .7rem;border:1px solid rgba(27,107,88,.2)}
+.terra-h{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:300;color:var(--ink);line-height:1.15;margin-bottom:.7rem}
+.terra-h em{font-style:italic;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.terra-co{font-size:.85rem;color:#7A6355;margin-bottom:1.6rem;font-weight:300;font-family:'DM Mono',monospace;letter-spacing:.04em}
+
+/* numbers grid */
+.terra-nums{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--parchment);background:var(--fog);margin-bottom:1.8rem}
+.tn-cell{padding:1.1rem 1.2rem;border-right:1px solid var(--parchment);border-bottom:1px solid var(--parchment);position:relative;overflow:hidden}
+.tn-cell:nth-child(2n){border-right:none}
+.tn-cell:nth-last-child(-n+2){border-bottom:none}
+.tn-cell::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--g-terra);transform:scaleY(0);transform-origin:top;transition:transform .4s var(--ease)}
+.tn-cell:hover::before{transform:scaleY(1)}
+.tn-n{font-family:'Outfit',sans-serif;font-size:1.85rem;font-weight:300;color:var(--earth);line-height:1;margin-bottom:.25rem}
+.tn-l{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--clay)}
+
+.terra-bullets{list-style:none;margin-bottom:1.8rem}
+.terra-bullets li{font-size:.92rem;font-weight:300;color:#5A4A3C;line-height:1.8;padding:.55rem 0;border-bottom:1px solid var(--parchment);display:flex;gap:.8rem;align-items:baseline}
+.terra-bullets li::before{content:'→';color:var(--terra);flex-shrink:0;font-size:.78rem}
+.terra-bullets li:last-child{border-bottom:none}
+.terra-bullets li strong{color:var(--ink);font-weight:400}
+
+.terra-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.8rem}
+.chip{font-family:'DM Mono',monospace;font-size:.57rem;letter-spacing:.05em;color:var(--forest);background:rgba(61,107,71,.06);border:1px solid rgba(61,107,71,.22);padding:.25rem .65rem}
+
+.terra-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-terra{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);padding:.85rem 1.8rem;background:var(--g-terra);position:relative;overflow:hidden;transition:transform .3s var(--ease),opacity .3s;display:inline-flex;align-items:center;gap:.6rem}
+.btn-terra:hover{transform:translateY(-2px);opacity:.92}
+.btn-line{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);padding:.85rem 1.8rem;border:1px solid var(--earth);transition:background .35s,color .35s;display:inline-flex;align-items:center;gap:.6rem}
+.btn-line:hover{background:var(--ink);color:var(--cream)}
+
+/* ═══════ OTHER WORK ═══════ */
+#other-work{background:var(--fog);padding:7rem 0;position:relative}
+.other-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem}
+.work-card{position:relative;overflow:hidden;background:var(--cream);border:1px solid var(--parchment);transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.work-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-forest);transform:scaleX(0);transform-origin:left;transition:transform .55s var(--ease);z-index:3}
+.work-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -12px rgba(107,66,38,.18)}
+.work-card:hover::before{transform:scaleX(1)}
+.work-card.dark{background:var(--ink);color:var(--cream);border-color:rgba(196,168,130,.12)}
+.work-card.dark::before{background:var(--g-warm)}
+
+.wc-mock{aspect-ratio:16/9;background:var(--parchment);position:relative;overflow:hidden;border-bottom:1px solid var(--parchment)}
+.wc-mock-bar{position:absolute;top:0;left:0;right:0;height:24px;display:flex;align-items:center;padding:0 12px;gap:5px;background:rgba(250,248,244,.92);z-index:2;border-bottom:1px solid rgba(196,168,130,.18)}
+.wc-mock-bar .tm-d{width:6px;height:6px}
+.wc-mock-url{flex:1;height:9px;background:var(--parchment);border-radius:2px;margin:0 8px}
+.wc-mock-body{position:absolute;top:24px;left:0;right:0;bottom:0;overflow:hidden}
+.wc-mock-body img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.wc-mock-tag{position:absolute;bottom:.6rem;right:.6rem;z-index:3;background:var(--earth);color:var(--cream);font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .55rem}
+
+.wc-body{padding:2rem;display:flex;flex-direction:column;gap:.8rem}
+.wc-idx{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.18em;color:#A8917E;display:flex;align-items:center;gap:.6rem}
+.wc-idx::before{content:'';width:18px;height:1px;background:var(--forest-lt)}
+.work-card.dark .wc-idx{color:rgba(196,168,130,.5)}
+.work-card.dark .wc-idx::before{background:var(--sand)}
+.wc-title{font-family:'Outfit',sans-serif;font-size:1.55rem;font-weight:300;color:var(--ink);line-height:1.2}
+.work-card.dark .wc-title{color:var(--cream)}
+.wc-co{font-size:.78rem;color:#A8917E;font-weight:300;font-family:'DM Mono',monospace;letter-spacing:.03em}
+.work-card.dark .wc-co{color:rgba(196,168,130,.5)}
+.wc-text{font-size:.88rem;color:#5A4A3C;font-weight:300;line-height:1.75;margin:.2rem 0 .8rem}
+.work-card.dark .wc-text{color:rgba(237,227,213,.65)}
+.wc-ul{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin-bottom:.8rem}
+.wc-ul li{font-size:.82rem;color:#7A6355;font-weight:300;line-height:1.6;display:flex;gap:.6rem;align-items:baseline}
+.wc-ul li::before{content:'→';color:var(--forest);flex-shrink:0;font-size:.7rem}
+.work-card.dark .wc-ul li{color:rgba(237,227,213,.65)}
+.work-card.dark .wc-ul li::before{color:var(--sand)}
+.wc-cta{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);display:inline-flex;align-items:center;gap:.5rem;margin-top:auto;align-self:flex-start;padding-bottom:2px;border-bottom:1px solid var(--earth);transition:gap .35s var(--ease),color .35s,border-color .35s}
+.wc-cta:hover{gap:.9rem;color:var(--forest);border-color:var(--forest)}
+.work-card.dark .wc-cta{color:var(--cream);border-color:var(--sand)}
+
+/* freelance card variant */
+.fc-cta{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:var(--cream);padding:.85rem 1.5rem;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;text-align:center;transition:background .35s,color .35s,gap .35s var(--ease);align-self:stretch}
+.fc-cta:hover{background:var(--g-warm);gap:.85rem}
+
+/* ═══════ VIDEO REEL ═══════ */
+#video-reel{background:var(--cream);padding:7rem 0;position:relative;overflow:hidden}
+.vr-head{margin-bottom:3rem}
+.vr-lead{font-size:1rem;font-weight:300;color:#5A4A3C;line-height:1.85;max-width:580px;margin-top:1.2rem}
+
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+.vcard{background:var(--ink);overflow:hidden;cursor:pointer;position:relative;transition:transform .5s var(--ease),box-shadow .5s var(--ease);border:1px solid var(--parchment)}
+.vcard.no-yt{cursor:default}
+.vcard.span2{grid-column:span 2}
+.vcard:hover{transform:translateY(-4px);box-shadow:0 20px 40px -12px rgba(28,17,8,.25)}
+.vcard.no-yt:hover{transform:none;box-shadow:none}
+.vthumb{aspect-ratio:16/9;position:relative;overflow:hidden}
+.vcard.span2 .vthumb{aspect-ratio:21/9}
+.vthumb-bg{width:100%;height:100%;background:var(--g-soft);display:flex;align-items:center;justify-content:center;transition:transform .8s var(--ease);position:relative}
+.vcard:hover .vthumb-bg{transform:scale(1.05)}
+.vcard.no-yt:hover .vthumb-bg{transform:none}
+.vthumb-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vthumb::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(61,107,71,.04) 0%,rgba(28,17,8,0) 35%,rgba(28,17,8,.55) 100%)}
+.play-ring{width:50px;height:50px;border:1.5px solid rgba(255,255,255,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;flex-shrink:0;transition:transform .4s var(--ease),border-color .3s,background .3s}
+.play-ring::after{content:'';border-left:14px solid rgba(255,255,255,.9);border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px}
+.vcard:hover .play-ring{transform:scale(1.2);border-color:#fff;background:rgba(61,107,71,.32)}
+.vcard.no-yt .play-ring{opacity:.3}
+.vcard.no-yt:hover .play-ring{transform:none}
+.vbadge{position:absolute;top:.7rem;left:.7rem;z-index:3;font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream);background:rgba(28,17,8,.65);padding:.22rem .55rem;backdrop-filter:blur(6px)}
+.vinfo{padding:1.1rem 1.3rem;background:var(--ink)}
+.vtitle{font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:400;color:var(--cream);line-height:1.35;margin-bottom:.3rem}
+.vmeta{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.05em;color:rgba(196,168,130,.55)}
+.vcard.span2 .vtitle{font-size:1.2rem}
+
+/* ═══════ CONTACT ═══════ */
+#contact{background:var(--ink);position:relative;overflow:hidden;padding:8rem 0}
+.corb{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none}
+.co1{width:720px;height:720px;background:var(--sand);bottom:-220px;right:-160px;opacity:.07}
+.co2{width:360px;height:360px;background:var(--forest);top:-90px;left:18%;opacity:.12}
+.co-grain{position:absolute;inset:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px;pointer-events:none}
+#contact .s-eyebrow{color:var(--sand)}
+#contact .s-eyebrow::before{background:var(--g-warm)}
+#contact .s-title{color:var(--cream)}
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;position:relative;z-index:2;margin-top:3rem}
+.contact-big{font-family:'Outfit',sans-serif;font-size:clamp(2rem,3.4vw,2.9rem);font-weight:300;line-height:1.18;color:var(--cream);margin-bottom:1.3rem}
+.contact-big em{font-style:italic;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.contact-sub{font-size:.92rem;font-weight:300;color:rgba(196,168,130,.65);line-height:1.9;margin-bottom:2.5rem}
+.ci{display:flex;gap:1rem;align-items:center;padding:.95rem 1.15rem;border:1px solid rgba(196,168,130,.12);margin-bottom:.7rem;transition:border-color .35s,background .35s}
+.ci:hover{border-color:rgba(61,107,71,.45);background:rgba(61,107,71,.05)}
+.ci-l{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sand);min-width:72px}
+.ci-v{font-size:.86rem;font-weight:300;color:rgba(237,227,213,.85)}
+.ci-v a{color:inherit;transition:color .3s}
+.ci-v a:hover{color:var(--forest-lt)}
+.soc{display:flex;gap:.5rem;margin-top:1.8rem;flex-wrap:wrap}
+.soc-p{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(196,168,130,.62);border:1px solid rgba(196,168,130,.22);padding:.45rem .95rem;position:relative;overflow:hidden;transition:color .3s,border-color .3s}
+.soc-p::before{content:'';position:absolute;inset:0;background:var(--g-forest);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.soc-p:hover{color:var(--fog);border-color:transparent}
+.soc-p:hover::before{transform:scaleX(1)}
+.soc-p span{position:relative;z-index:1}
+
+.avail-box{background:rgba(255,255,255,.04);border:1px solid rgba(196,168,130,.16);padding:2.4rem;margin-bottom:1.2rem;position:relative;overflow:hidden}
+.avail-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-forest)}
+.avail-dot{width:8px;height:8px;border-radius:50%;background:#7CBA7C;display:inline-block;margin-right:.6rem;animation:blink 2.5s ease-in-out infinite;vertical-align:middle}
+.avail-st{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#7CBA7C;margin-bottom:1.4rem;display:flex;align-items:center}
+.avail-h{font-family:'Outfit',sans-serif;font-size:1.75rem;font-weight:300;color:var(--cream);margin-bottom:.8rem;line-height:1.2}
+.avail-p{font-size:.88rem;font-weight:300;color:rgba(196,168,130,.7);line-height:1.85;margin-bottom:1.8rem}
+.btn-avail{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fog);background:var(--g-forest);padding:.95rem 2rem;display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;transition:opacity .3s,transform .3s}
+.btn-avail:hover{opacity:.88;transform:translateY(-2px)}
+
+.qlinks{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.ql{background:rgba(255,255,255,.03);border:1px solid rgba(196,168,130,.12);padding:1.2rem;display:block;transition:border-color .35s,background .35s}
+.ql:hover{border-color:rgba(61,107,71,.45);background:rgba(61,107,71,.06)}
+.ql-l{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.15em;text-transform:uppercase;color:var(--sand);margin-bottom:.4rem}
+.ql-v{font-size:.82rem;font-weight:300;color:rgba(237,227,213,.82)}
+
+/* ═══════ FOOTER ═══════ */
+footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0;flex-wrap:wrap;gap:1rem}
+.f-logo{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:300;letter-spacing:.08em;color:var(--cream);display:flex;align-items:center;gap:.5rem}
+.f-k{font-family:'Noto Serif JP',serif;font-weight:700;font-size:.92rem;background:var(--g-forest);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.f-copy{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;color:#A8917E}
+.f-link{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;color:#A8917E;transition:color .3s}
+.f-link:hover{color:var(--forest-lt)}
+
+/* ═══════ FLOAT CV ═══════ */
+.float-cv{position:fixed;bottom:2rem;right:2rem;z-index:399;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fog);display:flex;align-items:center;gap:.45rem;padding:.78rem 1.15rem;background:var(--ink);border:1px solid rgba(196,168,130,.22);overflow:hidden;transition:transform .35s,box-shadow .35s}
+.float-cv::before{content:'';position:absolute;inset:0;background:var(--g-forest);opacity:0;transition:opacity .4s}
+.float-cv:hover{transform:translateY(-3px);box-shadow:0 12px 28px -6px rgba(28,17,8,.32)}
+.float-cv:hover::before{opacity:1}
+.float-cv span{position:relative;z-index:1}
+
+/* ═══════ LIGHTBOX ═══════ */
+.lb{position:fixed;inset:0;background:rgba(28,17,8,.94);z-index:5000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.lb.open{opacity:1;pointer-events:all}
+.lb-inner{width:min(960px,90vw);aspect-ratio:16/9;position:relative}
+.lb-inner iframe{width:100%;height:100%;border:none}
+.lb-close{position:absolute;top:-3rem;right:0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(196,168,130,.65);background:none;border:none;cursor:none;transition:color .3s}
+.lb-close:hover{color:var(--cream)}
+
+/* ═══ HEADING WEIGHT OVERRIDES (Outfit needs 400 at display size) ═══ */
+.hero-name,.about-big-title,.s-title,.terra-h,.contact-big,.avail-h,.wc-title,.stat-n,.tn-n,.contact-big em,.about-big-title .em-italic,.hero-name em,.s-title em,.terra-h em{font-weight:400;letter-spacing:-.015em}
+.hero-name,.about-big-title,.s-title{letter-spacing:-.025em}
+.bio-num{font-weight:500}
+.intro-k,.nav-k,.f-k,.hero-k{font-weight:700}
+
+/* ═══ DARK-BG GRADIENT OVERRIDES (lighter gradient for visibility) ═══ */
+.intro-k,
+.about-big-title .em-italic,
+.stat-n,
+.contact-big em{
+  background:var(--g-warm-on-dark);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  color:transparent;
 }
-@media(max-width:600px){
+
+/* ═══════ RESPONSIVE ═══════ */
+@media(max-width:1100px){
+  :root{--W:100%}
+  .hero-cards{justify-content:center}
+  .about-cols{grid-template-columns:1fr 1fr;gap:2.5rem}
+  .about-skills{grid-column:1/-1}
+  .sk-wrap{flex-direction:row;flex-wrap:wrap}
+  .terra-showcase{grid-template-columns:1fr;gap:2.5rem}
+  .terra-mockup-2{display:none}
+  .other-grid{grid-template-columns:1fr}
+  .vgrid{grid-template-columns:1fr 1fr}
+  .vcard.span2{grid-column:span 2}
+  .contact-layout{grid-template-columns:1fr;gap:2.8rem}
+}
+@media(max-width:768px){
+  :root{--P:1.5rem}
+  html{font-size:15px}
+  .nav-links{display:none}
+  body{cursor:auto}
+  .cur-dot,.cur-ring{display:none}
+  .hero-name{font-size:clamp(2.4rem,8vw,3.6rem);line-height:1.05}
+  .hero-name .line{white-space:normal}
+  .pcard-a{width:105px;height:155px}
+  .pcard-b{width:128px;height:185px}
+  .pcard-c{width:115px;height:165px}
+  .about-big-title{white-space:normal;font-size:clamp(3rem,8vw,4.5rem)}
+  .about-cols{grid-template-columns:1fr}
+  .km-1,.km-2,.km-3{font-size:clamp(10rem,30vw,18rem)}
+  .vgrid{grid-template-columns:1fr 1fr}
+  .vcard.span2 .vthumb{aspect-ratio:16/9}
+  .terra-nums{grid-template-columns:1fr 1fr}
+  .footer-inner{justify-content:center;text-align:center}
+  .scroll-hint{display:none}
+  .float-cv{bottom:1.2rem;right:1.2rem}
+}
+@media(max-width:480px){
   :root{--P:1.25rem}
-  .hero-stats{grid-template-columns:1fr 1fr}
-  .scope-grid{grid-template-columns:1fr}
-  .scope-item{border-right:none}
-  .process-grid{grid-template-columns:1fr}
+  .hero-name{font-size:clamp(2rem,9vw,2.8rem)}
+  .vgrid{grid-template-columns:1fr}
+  .vcard.span2{grid-column:span 1}
+  .vcard.span2 .vthumb{aspect-ratio:16/9}
+  .pcard-a{width:88px;height:128px}
+  .pcard-b{width:108px;height:155px}
+  .pcard-c{width:95px;height:135px}
+  .terra-ctas{flex-direction:column}
+  .btn-terra,.btn-line{width:100%;justify-content:center}
 }
 </style>
 </head>
 <body>
 
+<!-- INTRO SPLASH -->
+<div id="intro">
+  <span class="intro-k">達樹</span>
+  <span class="intro-line"></span>
+  <span class="intro-sub">Tatsuki - Portfolio</span>
+</div>
+
+<!-- CURSOR -->
 <div class="cur-dot" id="curDot"></div>
 <div class="cur-ring" id="curRing"></div>
+
+<!-- PROGRESS -->
 <div id="prog"></div>
 
 <!-- NAV -->
 <nav id="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">Tatsuki&nbsp;<span class="nav-k">達樹</span></a>
-    <a href="index.html#projects-web" class="nav-back">← Back to work</a>
+  <div class="wrap">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">Tatsuki&nbsp;<span class="nav-k">達樹</span></a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#terra-feat">Work</a></li>
+        <li><a href="#video-reel">Video</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="CV.pdf" class="nav-cta"><span>↓ CV</span></a>
+    </div>
   </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-bg">
-    <div class="hero-orb ho1"></div>
-    <div class="hero-orb ho2"></div>
-    <div class="hero-orb ho3"></div>
-    <div class="grain"></div>
-  </div>
+  <span class="kanji-mark km-1">達</span>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="hero-grain"></div>
   <div class="hero-inner">
-    <div class="hero-eyebrow">Case Study 01 — terra-plat.vn</div>
-    <h1 class="hero-title">Building a brand<br>from <em>near zero</em><br>to 12× growth</h1>
-    <p class="hero-sub">Full-stack digital marketing for a B2B payroll &amp; HR SaaS platform — from website architecture and technical SEO to analytics infrastructure, content strategy, and AI-driven workflows.</p>
-    <div class="hero-stats">
-      <div class="hstat">
-        <div class="hstat-n">12×</div>
-        <div class="hstat-l">Organic clicks growth</div>
+    <div class="hero-left">
+      <div class="hero-mark-row">
+        <div class="hero-eyebrow">Ho Chi Minh City · Digital · Creative</div>
+        <div class="hero-locale">Available 2026</div>
       </div>
-      <div class="hstat">
-        <div class="hstat-n">978</div>
-        <div class="hstat-l">Keywords Top 10</div>
+      <h1 class="hero-name" id="heroName">
+        <span class="line"><span class="char">P</span><span class="char">h</span><span class="char">a</span><span class="char">m</span><span class="char">&nbsp;</span><span class="char">N</span><span class="char">g</span><span class="char">o</span><span class="char">c</span><span class="char">&nbsp;</span><em>Thanh</em></span>
+      </h1>
+      <div class="hero-k-row">
+        <span class="hero-k">達樹 / Tatsuki</span>
+        <span class="hero-k-line"></span>
+        <span class="hero-k-tag">a tall tree, growing far</span>
       </div>
-      <div class="hstat">
-        <div class="hstat-n">55→90</div>
-        <div class="hstat-l">Site health score</div>
+      <p class="hero-tagline">Digital marketing strategist building <strong>full-funnel campaigns</strong> for B2B SaaS. SEO foundation, performance ads, content systems, video production. I build things that grow - quietly but measurably.</p>
+      <div class="hero-tags">
+        <span class="tag"><span>SEO · Technical</span></span>
+        <span class="tag"><span>Performance Ads</span></span>
+        <span class="tag"><span>GA4 · GSC · Clarity</span></span>
+        <span class="tag"><span>Video Production</span></span>
+        <span class="tag"><span>Content Strategy</span></span>
+        <span class="tag"><span>AI Workflows</span></span>
       </div>
-      <div class="hstat">
-        <div class="hstat-n">18mo</div>
-        <div class="hstat-l">Sep 2024 – Present</div>
+      <div class="hero-ctas">
+        <a href="#terra-feat" class="btn-fill"><span>View Featured Work →</span></a>
+        <a href="#contact" class="btn-txt">Get in touch →</a>
+      </div>
+    </div>
+    <div class="hero-cards">
+      <div class="pcard pcard-a magnetic">
+        <img src="images/photo1.webp" alt="Pham Ngoc Thanh">
+        <div class="pcard-label">HCM · 2025</div>
+      </div>
+      <div class="pcard pcard-b magnetic">
+        <img src="images/photo2.webp" alt="Tatsuki">
+        <div class="pcard-label">Tatsuki · 達樹</div>
+        <div class="pdot"></div>
+      </div>
+      <div class="pcard pcard-c magnetic">
+        <img src="images/photo3.webp" alt="Pham Ngoc Thanh">
+        <div class="pcard-label">2025</div>
       </div>
     </div>
   </div>
-  <div class="hero-scroll"><div class="hero-scroll-line"></div>Scroll</div>
 </section>
+<div class="scroll-hint"><div class="scroll-line"></div>Scroll</div>
 
-<!-- OVERVIEW -->
-<section id="overview">
-  <div class="wrap sp">
-    <div class="overview-grid">
+<!-- MARQUEE -->
+<div class="strip">
+  <div class="strip-inner">
+    <span class="strip-item">Technical SEO</span>
+    <span class="strip-item">12× Organic Growth</span>
+    <span class="strip-item">17.4M Impressions</span>
+    <span class="strip-item">978 Keywords Top 10</span>
+    <span class="strip-item">B2B SaaS Marketing</span>
+    <span class="strip-item">Video Production</span>
+    <span class="strip-item">Top 1 TVC × 2</span>
+    <span class="strip-item">AI-Augmented Workflows</span>
+    <span class="strip-item">Technical SEO</span>
+    <span class="strip-item">12× Organic Growth</span>
+    <span class="strip-item">17.4M Impressions</span>
+    <span class="strip-item">978 Keywords Top 10</span>
+    <span class="strip-item">B2B SaaS Marketing</span>
+    <span class="strip-item">Video Production</span>
+    <span class="strip-item">Top 1 TVC × 2</span>
+    <span class="strip-item">AI-Augmented Workflows</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <span class="kanji-mark km-2">樹</span>
+  <div class="about-orb ao1"></div>
+  <div class="about-orb ao2"></div>
+  <div class="about-grain"></div>
+  <div class="wrap">
+    <div class="about-inner">
       <div class="fu">
-        <div class="s-label">01 — Project</div>
-        <h2 class="s-title">Context &amp; <em>Role</em></h2>
-        <div class="overview-meta">
-          <div class="meta-row"><span class="meta-key">Company</span><span class="meta-val">I-Glocal Co., Ltd. — Vina Payroll Outsourcing</span></div>
-          <div class="meta-row"><span class="meta-key">Product</span><span class="meta-val">terra-plat.vn — B2B HR &amp; Payroll SaaS platform</span></div>
-          <div class="meta-row"><span class="meta-key">My role</span><span class="meta-val">Digital Marketing Staff — technical &amp; creative lead</span></div>
-          <div class="meta-row"><span class="meta-key">Team</span><span class="meta-val">Marketing Manager + Content Strategist + me</span></div>
-          <div class="meta-row"><span class="meta-key">Duration</span><span class="meta-val">Sep 2024 – Present (18 months)</span></div>
-          <div class="meta-row"><span class="meta-key">Stack</span><span class="meta-val">WordPress · Elementor · GA4 · GSC · Clarity · Semrush · Adobe Suite</span></div>
-        </div>
-        <div class="context-card">
-          <div class="context-card-label">Starting Point</div>
-          <div class="context-card-text">When I joined, terra-plat.vn had ~170 organic clicks/day, no SEO foundation, no analytics infrastructure, and no systematic content strategy. The website existed but had a Semrush health score of 55 — with unresolved crawl errors, missing schema, poor Core Web Vitals, and no internal linking architecture.</div>
+        <div class="about-eyebrow">01 - Background</div>
+        <div class="about-title-row">
+          <div class="about-big-title split-t" id="aboutTitle">Who I <span class="em-italic">am</span></div>
+          <div class="about-divider"></div>
+          <div class="about-marker">22 / Cancer / INTJ-T</div>
         </div>
       </div>
-      <div class="fu" data-d="1">
-        <div class="s-label">Target audience</div>
-        <div class="overview-body">
-          <p><strong>terra</strong> serves FDI companies and mid-to-large enterprises operating in Vietnam — primarily <strong>HR managers, CFOs, and business owners</strong> who need compliant payroll outsourcing, HR consulting, and accounting services.</p>
-          <p>The B2B buyer journey is long, research-heavy, and multilingual (Vietnamese + English for Japanese/European decision-makers). Content needs to earn trust before it earns leads.</p>
-          <p>My scope covered everything technical and creative: the website, SEO, analytics, ads monitoring, social assets, video production, and branding materials — while collaborating with the manager on strategy direction and the content strategist on editorial calendar.</p>
+      <div class="about-cols">
+        <div class="fu" data-d="1">
+          <div class="stats">
+            <div class="stat"><div class="stat-n">12×</div><div class="stat-l">Organic clicks growth - terra</div></div>
+            <div class="stat"><div class="stat-n">978</div><div class="stat-l">Keywords ranking Top 10</div></div>
+            <div class="stat"><div class="stat-n">17.4M</div><div class="stat-l">Total impressions</div></div>
+            <div class="stat"><div class="stat-n">10+</div><div class="stat-l">Event productions led</div></div>
+            <div class="stat"><div class="stat-n">7.0</div><div class="stat-l">IELTS - C1 English</div></div>
+            <div class="stat"><div class="stat-n">3.3</div><div class="stat-l">GPA / 4.0 - UEH ISB</div></div>
+          </div>
+        </div>
+        <div class="about-bio fu" data-d="2">
+          <div class="bio-block">I'm a digital marketing professional currently at <strong>I-Glocal Co., Ltd. (Vina Payroll Outsourcing)</strong>, leading the marketing build for <a href="https://terra-plat.vn" target="_blank">terra-plat.vn</a> - a B2B payroll &amp; HR SaaS platform serving FDI enterprises in Vietnam. Over <span class="bio-num">18</span> months I've owned the full digital stack: technical SEO, content architecture, analytics infrastructure, paid monitoring, AI-assisted production, and creative output.</div>
+          <div class="bio-block">I work best at the intersection of <em>strategy and craft</em>. I think in systems - how a keyword maps to a page, how a page architecture compounds into authority, how authority becomes qualified reach for B2B decision-makers. Then I build it. On any given week I'm auditing schema, configuring GA4 events, writing a service page, briefing a video, and presenting a dashboard to BOD.</div>
+          <div class="bio-block">Background in <strong>International Business</strong> at UEH - ISB. VP of <strong>L.O.M Music Club</strong>, Head of Media at <strong>S Communications</strong> - leading teams of 6–50, producing 10+ events with 800+ participants. <em>Top 1 TVC - Business Challenge 2023 &amp; 2024.</em></div>
+          <div class="bio-block">Outside work: photography, short-form video, and obsessing over design systems that hold together under pressure. This portfolio is one of them.</div>
+        </div>
+        <div class="about-skills fu" data-d="3">
+          <div class="sk-head">Core Stack</div>
+          <div class="sk-wrap">
+            <div class="sk"><span>SEO / Technical SEO</span></div>
+            <div class="sk"><span>GA4 · GSC · Clarity</span></div>
+            <div class="sk"><span>Semrush · Ahrefs</span></div>
+            <div class="sk"><span>Facebook · Google Ads</span></div>
+            <div class="sk"><span>Schema · Core Web Vitals</span></div>
+            <div class="sk"><span>WordPress · Elementor</span></div>
+            <div class="sk"><span>Video Production</span></div>
+            <div class="sk"><span>Adobe Suite</span></div>
+            <div class="sk"><span>Power BI · Looker</span></div>
+            <div class="sk"><span>AI Content Workflows</span></div>
+            <div class="sk"><span>MCP Tooling</span></div>
+            <div class="sk"><span>Photography</span></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHAT I BUILT -->
-<section id="built">
-  <div class="wrap sp">
+<!-- TERRA FEATURED -->
+<section id="terra-feat">
+  <span class="kanji-mark km-3">兎</span>
+  <div class="terra-grain"></div>
+  <div class="wrap-mid">
+    <div class="terra-head fu">
+      <div class="s-eyebrow">02 - Featured Case Study</div>
+      <h2 class="s-title split-t">A B2B SaaS brand <em>built from near zero</em></h2>
+      <p class="terra-lead">18 months of full-funnel digital work for terra-plat.vn - a payroll &amp; HR SaaS for FDI enterprises in Vietnam. From near-zero organic presence to 12× growth, 17.4M impressions, and 978 keywords ranking Top 10. Below: the headline. Full case study one click away.</p>
+    </div>
+
+    <div class="terra-showcase">
+      <div class="terra-mockup-wrap fu" data-d="1">
+        <div class="terra-mockup parallax-mockup">
+          <div class="tm-bar">
+            <div class="tm-d"></div><div class="tm-d"></div><div class="tm-d"></div>
+            <div class="tm-url">terra-plat.vn</div>
+          </div>
+          <div class="terra-mockup-body">
+            <img src="images/terra1.webp" alt="terra-plat.vn - English homepage">
+          </div>
+          <span class="terra-mockup-tag">Live ↗</span>
+        </div>
+      </div>
+
+      <div class="terra-content fu" data-d="2">
+        <div class="terra-meta">
+          <span class="terra-meta-pill">Sep 2024 - Present</span>
+          <span class="terra-meta-pill">Sole Tech &amp; Creative Lead</span>
+          <span class="terra-meta-pill">B2B SaaS</span>
+        </div>
+        <h3 class="terra-h">terra-plat.vn - <em>Vina Payroll &amp; HR System</em></h3>
+        <div class="terra-co">I-Glocal Co., Ltd. · Marketing Manager + Content Strategist + me</div>
+
+        <div class="terra-nums">
+          <div class="tn-cell"><div class="tn-n">12×</div><div class="tn-l">Organic clicks growth</div></div>
+          <div class="tn-cell"><div class="tn-n">978</div><div class="tn-l">Keywords Top 10</div></div>
+          <div class="tn-cell"><div class="tn-n">17.4M</div><div class="tn-l">Total impressions</div></div>
+          <div class="tn-cell"><div class="tn-n">55→90</div><div class="tn-l">Site health score</div></div>
+        </div>
+
+        <ul class="terra-bullets">
+          <li><strong>Dual-funnel campaign architecture</strong> - utility content compounds domain authority, B2B service pages convert qualified intent. 51K+ clicks on top utility keyword alone.</li>
+          <li><strong>Full digital stack ownership</strong> - technical SEO, content strategy, GA4 + GSC + Clarity setup, paid ads monitoring, weekly BOD dashboards.</li>
+          <li><strong>AI-augmented production</strong> - prompt-based content pipelines reducing turnaround ~40%, with 100% human QA.</li>
+          <li><strong>Bilingual EN / VI execution</strong> for Vietnamese SMEs and Japanese / European FDI decision-makers.</li>
+        </ul>
+
+        <div class="terra-chips">
+          <span class="chip">Technical SEO</span>
+          <span class="chip">Content Strategy</span>
+          <span class="chip">GA4 · GSC</span>
+          <span class="chip">Performance Ads</span>
+          <span class="chip">AI Workflows</span>
+          <span class="chip">B2B Funnel Design</span>
+        </div>
+
+        <div class="terra-ctas">
+          <a href="terra.html" class="btn-terra">Read full case study →</a>
+          <a href="https://terra-plat.vn" target="_blank" class="btn-line">Visit live site ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OTHER WORK -->
+<section id="other-work">
+  <div class="wrap-mid">
     <div class="fu">
-      <div class="s-label">02 — Scope</div>
-      <h2 class="s-title">What I <em>owned</em></h2>
-      <p class="built-intro">This wasn't a single-channel role. Over 18 months I touched every layer of the digital stack — from crawl infrastructure to creative production. Here's what I built and owned.</p>
+      <div class="s-eyebrow">03 - Other Work</div>
+      <h2 class="s-title split-t">Selected <em>projects</em></h2>
     </div>
-    <div class="scope-grid fu" data-d="1">
-      <div class="scope-item">
-        <div class="scope-num">01</div>
-        <div class="scope-title">Website — Built from Zero</div>
-        <div class="scope-desc">Full architecture rebuild on WordPress + Elementor. Restructured service page hierarchy, URL logic, internal linking. Bilingual structure (VI/EN) for local and FDI audiences.</div>
+
+    <div class="other-grid">
+      <!-- uphub -->
+      <div class="work-card fu" data-d="1">
+        <div class="wc-mock">
+          <div class="wc-mock-bar">
+            <div class="tm-d" style="background:#E88080"></div>
+            <div class="tm-d" style="background:#E8C480"></div>
+            <div class="tm-d" style="background:#80C880"></div>
+            <div class="wc-mock-url"></div>
+          </div>
+          <div class="wc-mock-body"><img src="images/uphub.webp" alt="uphub.vn"></div>
+          <span class="wc-mock-tag">Freelance · 2024</span>
+        </div>
+        <div class="wc-body">
+          <div class="wc-idx">Case Study 02</div>
+          <div class="wc-title">uphub.vn</div>
+          <div class="wc-co">SEO Consulting · Bilingual EN / VI</div>
+          <ul class="wc-ul">
+            <li>Full metadata audit &amp; rebuild across 18 bilingual page variants</li>
+            <li>Keyword gap analysis, H1 / slug restructuring, search-intent alignment</li>
+            <li>301 redirect mapping for deprecated slugs - zero indexed traffic loss</li>
+            <li>Delivered keyword strategy doc &amp; on-page SEO checklist</li>
+          </ul>
+          <a href="https://uphub.vn" target="_blank" class="wc-cta">Visit site ↗</a>
+        </div>
       </div>
-      <div class="scope-item">
-        <div class="scope-num">02</div>
-        <div class="scope-title">Technical SEO</div>
-        <div class="scope-desc">Schema markup (JSON-LD), sitemap, robots.txt, Core Web Vitals, redirect chains, crawl error resolution. Health score: 55 → 90.</div>
-      </div>
-      <div class="scope-item">
-        <div class="scope-num">03</div>
-        <div class="scope-title">SEO Content Strategy</div>
-        <div class="scope-desc">Keyword research, content calendar, service pages, blog articles, utility tools. 978 keywords now ranking in Google Top 10.</div>
-      </div>
-      <div class="scope-item">
-        <div class="scope-num">04</div>
-        <div class="scope-title">Analytics Infrastructure</div>
-        <div class="scope-desc">GA4 setup from scratch — event tracking, conversion goals, source segmentation. GSC + Microsoft Clarity. Weekly BOD dashboard.</div>
-      </div>
-      <div class="scope-item">
-        <div class="scope-num">05</div>
-        <div class="scope-title">AI-Augmented Workflows</div>
-        <div class="scope-desc">Built prompt-based content pipelines with Claude + ChatGPT. Automated reporting. ~40% reduction in production turnaround. All output manually reviewed.</div>
-      </div>
-      <div class="scope-item">
-        <div class="scope-num">06</div>
-        <div class="scope-title">Creative Production</div>
-        <div class="scope-desc">Video production, graphic design, brochures, banners, ad creatives. Adobe Suite end-to-end. Supported social media content and paid ads monitoring.</div>
+
+      <!-- freelance available -->
+      <div class="work-card dark fu" data-d="2">
+        <div class="wc-mock" style="background:var(--bark);position:relative">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.7rem">
+            <span style="font-family:'Noto Serif JP',serif;font-weight:900;font-size:6rem;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:.85">空</span>
+            <span style="font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.18em;color:rgba(196,168,130,.5);text-transform:uppercase">Open · Available</span>
+          </div>
+        </div>
+        <div class="wc-body">
+          <div class="wc-idx">Available</div>
+          <div class="wc-title">Open for freelance</div>
+          <div class="wc-co">Web · SEO · Video Production</div>
+          <p class="wc-text">Full end-to-end website builds - brief to live deployment. SEO audits and keyword strategy. Brand video and photography for commercial use. Selective availability, end-to-end ownership.</p>
+          <a href="mailto:pnthanh.work@gmail.com" class="fc-cta">Let's work together →</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PAGES SHOWCASE -->
-<section id="pages">
-  <div class="wrap sp">
-    <div class="fu">
-      <div class="s-label" style="color:rgba(196,168,130,.5)">03 — Pages Built</div>
-      <h2 class="s-title" style="color:var(--cream)">Service pages <em>I designed &amp; built</em></h2>
-      <p class="pages-intro">Each page was built end-to-end — keyword strategy, copy, Elementor layout, on-page SEO, and technical implementation. These are live production pages, not mockups.</p>
-    </div>
-    <div class="pages-track fu" data-d="1">
-      <a href="https://terra-plat.vn/en/hr-outsourcing-services-in-vietnam" target="_blank" class="page-card">
-        <div class="page-thumb">
-          <img src="images/terra-outsourcing-preview.webp" alt="HR Outsourcing Vietnam">
-        </div>
-        <div class="page-info">
-          <div class="page-tag">Service Page · EN</div>
-          <div class="page-name">HR Outsourcing Services in Vietnam</div>
-          <div class="page-url">terra-plat.vn/en/hr-outsourcing-services-in-vietnam</div>
-          <div class="page-link">View live page →</div>
-        </div>
-      </a>
-      <a href="https://terra-plat.vn/en/hr-compliance-consulting-vietnam" target="_blank" class="page-card">
-        <div class="page-thumb">
-          <img src="images/terra-compliance-preview.webp" alt="HR Compliance Consulting">
-        </div>
-        <div class="page-info">
-          <div class="page-tag">Service Page · EN</div>
-          <div class="page-name">HR Compliance Consulting in Vietnam</div>
-          <div class="page-url">terra-plat.vn/en/hr-compliance-consulting-vietnam</div>
-          <div class="page-link">View live page →</div>
-        </div>
-      </a>
-      <a href="https://terra-plat.vn/en/terra-hr-system" target="_blank" class="page-card">
-        <div class="page-thumb">
-          <img src="images/terra-hrsystem-preview.webp" alt="Terra HR System">
-        </div>
-        <div class="page-info">
-          <div class="page-tag">Product Page · EN</div>
-          <div class="page-name">terra HR System</div>
-          <div class="page-url">terra-plat.vn/en/terra-hr-system</div>
-          <div class="page-link">View live page →</div>
-        </div>
-      </a>
-      <a href="https://terra-plat.vn/vi/cau-chuyen-khach-hang" target="_blank" class="page-card">
-        <div class="page-thumb">
-          <img src="images/terra-customers-preview.webp" alt="Customer Stories">
-        </div>
-        <div class="page-info">
-          <div class="page-tag">Case Study Hub · VI</div>
-          <div class="page-name">Câu chuyện khách hàng</div>
-          <div class="page-url">terra-plat.vn/vi/cau-chuyen-khach-hang</div>
-          <div class="page-link">View live page →</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- RESULTS -->
-<section id="results">
-  <div class="wrap sp">
-    <div class="results-grid">
+<!-- VIDEO REEL -->
+<section id="video-reel">
+  <div class="wrap-mid">
+    <div class="vr-head">
       <div class="fu">
-        <div class="s-label">04 — Results</div>
-        <h2 class="s-title">The <em>numbers</em></h2>
-        <p class="results-note">All data pulled from Google Search Console (Sep 2024 – Apr 2026) and Semrush. Traffic is predominantly organic — paid ads were monitored but not the primary growth driver.</p>
-        <div class="metric-list">
-          <div class="metric-row">
-            <span class="metric-label">Daily organic clicks — baseline</span>
-            <span class="metric-val">~170/day</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Daily organic clicks — Mar 2026 avg</span>
-            <span class="metric-val">~2,100/day</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Peak month total (Mar 2026)</span>
-            <span class="metric-val">66,256</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Total clicks (18 months)</span>
-            <span class="metric-val">253,807</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Total impressions</span>
-            <span class="metric-val">17.4M</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Keywords ranking Top 10</span>
-            <span class="metric-val">978</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Keywords ranking Top 3</span>
-            <span class="metric-val">52</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Website health score (Semrush)</span>
-            <span class="metric-val">55 → 90</span>
-          </div>
-        </div>
+        <div class="s-eyebrow">04 - Creative Work</div>
+        <h2 class="s-title split-t">Video &amp; <em>Brand</em></h2>
       </div>
+      <p class="vr-lead fu" data-d="1">End-to-end video production - TVCs, brand films, event recaps, commercial explainers. Two-time Top 1 TVC at Business Challenge (national student marketing competition). Selected reel below.</p>
+    </div>
+
+    <div class="vgrid fu" data-d="2">
+      <div class="vcard span2" data-yt="Nr8vCC5JWCQ">
+        <div class="vthumb"><div class="vthumb-bg"><img src="https://img.youtube.com/vi/Nr8vCC5JWCQ/maxresdefault.jpg" alt="TVC ARISAQUA" onerror="this.style.display='none'"><div class="play-ring"></div></div><span class="vbadge">TVC · Top 1 - 2024</span></div>
+        <div class="vinfo"><div class="vtitle">Business Challenge 2024 - TVC ARISAQUA</div><div class="vmeta">Top 1 TVC · ISB Academic Team · National student competition</div></div>
+      </div>
+      <div class="vcard no-yt">
+        <div class="vthumb"><div class="vthumb-bg"><div class="play-ring"></div></div><span class="vbadge">TVC · Top 1 - 2023</span></div>
+        <div class="vinfo"><div class="vtitle">Business Challenge 2023 - TVC</div><div class="vmeta">Top 1 TVC · ISB Academic Team · Back-to-back champion</div></div>
+      </div>
+      <div class="vcard" data-yt="1cJGz4wwduA">
+        <div class="vthumb"><div class="vthumb-bg"><img src="https://img.youtube.com/vi/1cJGz4wwduA/maxresdefault.jpg" alt="Let's On Air" onerror="this.style.display='none'"><div class="play-ring"></div></div><span class="vbadge">Social · Top 20</span></div>
+        <div class="vinfo"><div class="vtitle">Let's On Air 2023 - Sống Thay Xô Bồ</div><div class="vmeta">Top 20 Social Video · S Communications</div></div>
+      </div>
+      <div class="vcard no-yt">
+        <div class="vthumb"><div class="vthumb-bg"><div class="play-ring"></div></div><span class="vbadge">Brand Film</span></div>
+        <div class="vinfo"><div class="vtitle">ISB Be Yourself - Theme Song 2023</div><div class="vmeta">Official theme · L.O.M Music Club · 800+ participants</div></div>
+      </div>
+      <div class="vcard" data-yt="BWeBzuIDSRk">
+        <div class="vthumb"><div class="vthumb-bg"><img src="https://img.youtube.com/vi/BWeBzuIDSRk/maxresdefault.jpg" alt="Shadow Funnel" onerror="this.style.display='none'"><div class="play-ring"></div></div><span class="vbadge">Commercial Explainer</span></div>
+        <div class="vinfo"><div class="vtitle">Shadow Funnel - Bán hàng tự động</div><div class="vmeta">Commercial explainer · Mona Media · Edu-marketing client</div></div>
+      </div>
+      <div class="vcard" data-yt="3xfFHWMzung">
+        <div class="vthumb"><div class="vthumb-bg"><img src="https://img.youtube.com/vi/3xfFHWMzung/maxresdefault.jpg" alt="Explainer iPad" onerror="this.style.display='none'"><div class="play-ring"></div></div><span class="vbadge">Product Explainer</span></div>
+        <div class="vinfo"><div class="vtitle">Explainer trên iPad</div><div class="vmeta">Product demo · Mona Media · EdTech client</div></div>
+      </div>
+      <div class="vcard no-yt">
+        <div class="vthumb"><div class="vthumb-bg"><div class="play-ring"></div></div><span class="vbadge">Event Film</span></div>
+        <div class="vinfo"><div class="vtitle">Tết Tròn Tết Vuông 2023</div><div class="vmeta">Tết event film · S Communications · 2023</div></div>
+      </div>
+      <div class="vcard no-yt">
+        <div class="vthumb"><div class="vthumb-bg"><div class="play-ring"></div></div><span class="vbadge">MV Remake</span></div>
+        <div class="vinfo"><div class="vtitle">"Chìm Sâu" Remake by L.O.M</div><div class="vmeta">Music video · L.O.M Music Club · 2023</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="corb co1"></div>
+  <div class="corb co2"></div>
+  <div class="co-grain"></div>
+  <div class="wrap">
+    <div class="fu">
+      <div class="s-eyebrow">05 - Get in touch</div>
+      <h2 class="s-title split-t">Let's <em>connect</em></h2>
+    </div>
+    <div class="contact-layout">
       <div class="fu" data-d="1">
-        <div class="chart-label">Monthly clicks growth — GSC data</div>
-        <div class="chart-bars" id="chartBars">
-          <div class="cbar-row" data-val="3192" data-max="66256"><span class="cbar-month">Dec '24</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">3,192</span></div>
-          <div class="cbar-row" data-val="8343" data-max="66256"><span class="cbar-month">Feb '25</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">8,343</span></div>
-          <div class="cbar-row" data-val="15428" data-max="66256"><span class="cbar-month">Apr '25</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">15,428</span></div>
-          <div class="cbar-row" data-val="44401" data-max="66256"><span class="cbar-month">Aug '25</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">44,401</span></div>
-          <div class="cbar-row peak" data-val="56468" data-max="66256"><span class="cbar-month">Sep '25</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">56,468</span></div>
-          <div class="cbar-row" data-val="46939" data-max="66256"><span class="cbar-month">Dec '25</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">46,939</span></div>
-          <div class="cbar-row" data-val="57619" data-max="66256"><span class="cbar-month">Jan '26</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">57,619</span></div>
-          <div class="cbar-row peak" data-val="66256" data-max="66256"><span class="cbar-month">Mar '26</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">66,256 ↑</span></div>
+        <h3 class="contact-big">Open to the<br><em>right opportunity</em></h3>
+        <p class="contact-sub">Currently exploring full-time roles in digital marketing, growth, and creative strategy - while taking selective freelance projects in web, SEO, and video. Based in Ho Chi Minh City, open to hybrid or remote.</p>
+        <div class="ci"><span class="ci-l">Email</span><span class="ci-v"><a href="mailto:pnthanh.work@gmail.com">pnthanh.work@gmail.com</a></span></div>
+        <div class="ci"><span class="ci-l">Phone</span><span class="ci-v"><a href="tel:+84398812349">+84 398 81 2349</a></span></div>
+        <div class="ci"><span class="ci-l">Location</span><span class="ci-v">Ho Chi Minh City, Vietnam</span></div>
+        <div class="ci"><span class="ci-l">Education</span><span class="ci-v">UEH - ISB · B.Intl Business · 2025</span></div>
+        <div class="ci"><span class="ci-l">Languages</span><span class="ci-v">Vietnamese (native) · English IELTS 7.0</span></div>
+        <div class="soc">
+          <a href="https://linkedin.com/in/jkpham03/" target="_blank" class="soc-p"><span>LinkedIn</span></a>
+          <a href="https://facebook.com/phamth.jaker/" target="_blank" class="soc-p"><span>Facebook</span></a>
+          <a href="https://instagram.com/jak3rpham/" target="_blank" class="soc-p"><span>Instagram</span></a>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- STRATEGY -->
-<section id="strategy">
-  <div class="wrap sp">
-    <div class="fu">
-      <div class="s-label">05 — Strategy</div>
-      <h2 class="s-title">How the traffic<br><em>actually works</em></h2>
-      <p class="strategy-body">Worth being explicit — because the numbers tell two different stories depending on how you read them. The growth came from a deliberate dual-funnel architecture, not a single optimisation win.</p>
-    </div>
-    <div class="funnel-wrap fu" data-d="1">
-      <div class="funnel-card layer1">
-        <span class="funnel-badge">Layer 1 — Volume</span>
-        <div class="funnel-title">High-traffic informational content</div>
-        <div class="funnel-desc">Utility pages and HR compliance guides targeting high-volume informational queries — tax lookup tools, payroll calculators, labour law explainers. Top keyword "tra cứu mã số thuế" alone drove 51,000+ clicks. These users aren't buying payroll services today.<br><br><strong style="color:var(--forest);font-weight:400">Function:</strong> Build domain authority at scale, signal topical relevance across the HR/payroll/tax space, establish terra as a trusted resource in the category.</div>
-      </div>
-      <div class="funnel-card layer2">
-        <span class="funnel-badge">Layer 2 — Intent</span>
-        <div class="funnel-title">B2B service pages optimised for buyers</div>
-        <div class="funnel-desc">Service pages targeting payroll outsourcing, HR consulting, accounting, and the terra SaaS platform — separate keyword clusters, commercial copy structure, conversion-focused CTAs. These pages benefit directly from the authority built by Layer 1.<br><br><strong style="color:var(--terra);font-weight:400">Logic:</strong> A domain ranking for 978 keywords and generating 17M impressions/month competes significantly better for commercial B2B queries than one with no organic footprint.</div>
-      </div>
-    </div>
-    <div class="fu" data-d="2" style="margin-top:2rem;padding:1.5rem 2rem;border-left:3px solid var(--terra-lt);background:var(--cream)">
-      <p style="font-size:.95rem;font-weight:300;color:#5A4A3C;line-height:1.9">Utility traffic is not vanity traffic — it's infrastructure. This is a deliberate compounding strategy: Layer 1 builds the domain's authority ceiling, Layer 2 converts that authority into qualified reach for B2B decision-makers.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section id="process">
-  <div class="wrap sp">
-    <div class="fu">
-      <div class="s-label" style="color:rgba(196,168,130,.5)">06 — How It Was Done</div>
-      <h2 class="s-title" style="color:var(--cream)">The build <em>sequence</em></h2>
-    </div>
-    <div class="process-grid fu" data-d="1">
-      <div class="proc-item">
-        <div class="proc-num">01</div>
-        <div class="proc-title">Technical Foundation</div>
-        <div class="proc-desc">Crawl audit, redirect resolution, schema implementation, Core Web Vitals. Health 55 → 90 before content scale-up.</div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">02</div>
-        <div class="proc-title">Architecture &amp; Structure</div>
-        <div class="proc-desc">Rebuilt URL hierarchy, internal linking, bilingual page structure. Service pages, landing pages, blog framework.</div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">03</div>
-        <div class="proc-title">Analytics Setup</div>
-        <div class="proc-desc">GA4 + GSC + Clarity from scratch. Event tracking, conversion goals, weekly BOD dashboard. Decision-making grounded in data from day one.</div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">04</div>
-        <div class="proc-title">Content at Scale</div>
-        <div class="proc-desc">AI-assisted production pipelines. Keyword research → briefs → drafts → human QA. Consistent publishing cadence across informational and commercial intent.</div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">05</div>
-        <div class="proc-title">Weekly Data Loops</div>
-        <div class="proc-desc">GSC rank tracking, GA4 traffic analysis, Clarity session review. Identify, iterate, improve. No assumptions — every change evidence-backed.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- AI SECTION -->
-<section id="ai-section">
-  <div class="wrap sp">
-    <div class="ai-cols">
-      <div class="fu">
-        <div class="s-label">07 — AI Integration</div>
-        <h2 class="s-title">AI as <em>force multiplier</em></h2>
-        <p class="ai-body">AI tools weren't a shortcut — they were a production layer that let me operate at a breadth that would otherwise require a larger team. The key principle: AI accelerates output volume; human judgment maintains quality.</p>
-        <div class="ai-callout">
-          <div class="ai-callout-text">"Every AI output was reviewed, fact-checked, and edited before publishing. Speed without quality is just faster failure."</div>
-          <div class="ai-callout-attr">— Operating principle</div>
+      <div class="fu" data-d="2">
+        <div class="avail-box">
+          <div class="avail-st"><span class="avail-dot"></span>Available for work</div>
+          <div class="avail-h">Ready for the next chapter</div>
+          <p class="avail-p">I bring data-driven thinking and creative execution - useful in marketing teams that need someone who can move between a spreadsheet and a storyboard. If that sounds like what you need, let's talk.</p>
+          <a href="mailto:pnthanh.work@gmail.com" class="btn-avail">Send an email →</a>
         </div>
-      </div>
-      <div class="fu" data-d="1">
-        <div class="ai-pills">
-          <div class="ai-pill"><span class="ai-pill-icon">✦</span><span class="ai-pill-text">Keyword brief → outline → draft pipeline using Claude + ChatGPT</span></div>
-          <div class="ai-pill"><span class="ai-pill-icon">✦</span><span class="ai-pill-text">Automated reporting compilation — data pull, formatting, insight extraction</span></div>
-          <div class="ai-pill"><span class="ai-pill-icon">✦</span><span class="ai-pill-text">Competitor content gap analysis at scale</span></div>
-          <div class="ai-pill"><span class="ai-pill-icon">✦</span><span class="ai-pill-text">Ad creative variations from single brief</span></div>
-          <div class="ai-pill"><span class="ai-pill-icon">✦</span><span class="ai-pill-text">Schema markup generation and validation</span></div>
-          <div class="ai-pill"><span class="ai-pill-icon">✦</span><span class="ai-pill-text">GEO optimisation — structuring content for AI search retrieval (SGE, ChatGPT, Perplexity)</span></div>
+        <div class="qlinks">
+          <a href="https://linkedin.com/in/jkpham03/" target="_blank" class="ql"><div class="ql-l">LinkedIn</div><div class="ql-v">jkpham03</div></a>
+          <a href="https://instagram.com/jak3rpham/" target="_blank" class="ql"><div class="ql-l">Instagram</div><div class="ql-v">jak3rpham</div></a>
+          <a href="https://facebook.com/phamth.jaker/" target="_blank" class="ql"><div class="ql-l">Facebook</div><div class="ql-v">phamth.jaker</div></a>
+          <a href="CV.pdf" class="ql"><div class="ql-l">CV / Resume</div><div class="ql-v">Download PDF</div></a>
         </div>
-        <div class="ai-result">Result: ~40% reduction in content production turnaround</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- REFLECTION -->
-<section id="reflection">
-  <div class="wrap sp">
-    <div class="fu">
-      <div class="s-label">08 — Reflection</div>
-      <h2 class="s-title">What I <em>learned</em></h2>
-    </div>
-    <div class="reflection-body fu" data-d="1">
-      <p>The biggest lesson from terra: <strong>technical health is not a one-time fix — it's a continuous discipline.</strong> The 55→90 health score improvement happened over months of iterative auditing, not a single sprint. The sites that compound are the ones that get incrementally cleaner every week.</p>
-      <p>The dual-funnel strategy was also a lesson in <em>playing the long game</em>. Early months felt slow — utility pages drove traffic but no obvious commercial signal. Trusting the compounding logic required holding conviction against the instinct to chase short-term conversions. By month 8, the domain authority built by informational content was visibly lifting the service pages in rankings.</p>
-      <p>Working as the sole technical and creative operator in a small team taught me to ruthlessly prioritise. <strong>Not every page needs to be perfect on launch</strong> — a published, indexable page with good fundamentals outperforms a perfect page that ships three months late. Ship, measure, iterate.</p>
-      <p>Finally: <em>AI didn't make me faster at writing — it made me faster at thinking.</em> The real productivity gain wasn't in generating text. It was in using AI to rapidly test angles, surface gaps, and structure thinking before committing to production.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section id="cta">
-  <div class="wrap sp">
-    <div class="cta-inner fu">
-      <div class="cta-eyebrow">Next step</div>
-      <h2 class="cta-title">Let's build something <em>that grows</em></h2>
-      <div class="cta-btns">
-        <a href="mailto:pnthanh.work@gmail.com" class="btn-fill">Get in touch</a>
-        <a href="index.html" class="btn-ghost">← Back to portfolio</a>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-inner">
-    <div class="f-logo">Tatsuki&nbsp;<span class="f-k">達樹</span></div>
-    <div class="f-copy">© 2025 Pham Ngoc Thanh</div>
-    <a href="https://linkedin.com/in/jkpham03/" target="_blank" style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.08em;color:#A8917E;text-decoration:none">linkedin.com/in/jkpham03</a>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="f-logo">Tatsuki&nbsp;<span class="f-k">達樹</span></div>
+      <div class="f-copy">© 2026 Pham Ngoc Thanh - Digital Marketing &amp; Creative</div>
+      <a href="https://linkedin.com/in/jkpham03/" target="_blank" class="f-link">linkedin.com/in/jkpham03</a>
+    </div>
   </div>
 </footer>
 
+<a href="CV.pdf" class="float-cv"><span>↓</span><span>Download CV</span></a>
+
+<div class="lb" id="lb">
+  <div class="lb-inner">
+    <button class="lb-close" id="lbClose">✕ Close</button>
+    <iframe id="lbFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+</div>
+
 <script>
-// Cursor
-const dot=document.getElementById('curDot'),ring=document.getElementById('curRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';},{passive:true});
-(function tr(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tr);})();
-document.querySelectorAll('a,button,.page-card,.scope-item,.hstat,.ai-pill,.metric-row').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{dot.style.width='46px';dot.style.height='46px';dot.style.borderRadius='4px';dot.style.opacity='.12';ring.style.opacity='0';});
-  el.addEventListener('mouseleave',()=>{dot.style.width='10px';dot.style.height='10px';dot.style.borderRadius='50%';dot.style.opacity='1';ring.style.opacity='.45';});
+// ═══════ INTRO ═══════
+setTimeout(()=>{
+  document.getElementById('intro').classList.add('gone');
+  setTimeout(()=>document.getElementById('heroName').classList.add('in'),200);
+},1700);
+
+// ═══════ SPLIT TITLE CHARS (auto on scroll-reveal) ═══════
+document.querySelectorAll('.split-t').forEach(t=>{
+  // Skip if already has explicit .sc spans
+  if(t.querySelector('.sc')) return;
+  // wrap text nodes char by char while preserving inner tags
+  // SKIP em/i/strong/.em-italic — their text needs to stay intact for background-clip:text
+  const SKIP_TAGS=['EM','I','STRONG','B'];
+  let charIdx=0;
+  const wrap=node=>{
+    if(node.nodeType===3){
+      const frag=document.createDocumentFragment();
+      [...node.textContent].forEach(ch=>{
+        const s=document.createElement('span');
+        s.className='sc';
+        s.style.transitionDelay=(charIdx*0.025)+'s';
+        s.textContent=ch===' '?'\u00A0':ch;
+        frag.appendChild(s);
+        charIdx++;
+      });
+      node.replaceWith(frag);
+    } else if(node.nodeType===1 && !SKIP_TAGS.includes(node.tagName) && !node.classList.contains('em-italic')){
+      [...node.childNodes].forEach(wrap);
+    }
+  };
+  [...t.childNodes].forEach(wrap);
 });
 
-// Progress bar
+// ═══════ CURSOR ═══════
+const dot=document.getElementById('curDot'),ring=document.getElementById('curRing');
+let mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';},{passive:true});
+(function tr(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tr);})();
+document.querySelectorAll('a,button,.vcard:not(.no-yt),.sk,.tag,.work-card,.stat,.ci,.soc-p,.ql,.pcard,.tn-cell').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{dot.classList.add('hov');ring.classList.add('hov');});
+  el.addEventListener('mouseleave',()=>{dot.classList.remove('hov');ring.classList.remove('hov');});
+});
+
+// ═══════ PROGRESS + NAV ═══════
+const nav=document.getElementById('nav');
+const secs=[...document.querySelectorAll('section[id]')];
+const navAs=[...document.querySelectorAll('.nav-links a')];
 window.addEventListener('scroll',()=>{
-  document.getElementById('prog').style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';
-  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+  const sy=window.scrollY;
+  document.getElementById('prog').style.width=(sy/(document.body.scrollHeight-window.innerHeight)*100)+'%';
+  nav.classList.toggle('scrolled',sy>60);
+  let c='';secs.forEach(s=>{if(sy>=s.offsetTop-160)c=s.id;});
+  navAs.forEach(a=>{
+    const h=a.getAttribute('href');
+    a.classList.toggle('active',h==='#'+c||(c==='terra-feat'&&h==='#terra-feat')||(c==='other-work'&&h==='#terra-feat'));
+  });
 },{passive:true});
 
-// Scroll reveal
-const fuObs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:.06});
+// ═══════ FADE UP REVEAL ═══════
+const fuObs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');fuObs.unobserve(x.target);}}),{threshold:.08});
 document.querySelectorAll('.fu').forEach(el=>fuObs.observe(el));
 
-// Chart bars animate on scroll
-const barObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(!e.isIntersecting) return;
-    document.querySelectorAll('.cbar-row').forEach((row,i)=>{
-      const val=parseFloat(row.dataset.val);
-      const max=parseFloat(row.dataset.max);
-      const fill=row.querySelector('.cbar-fill');
-      fill.style.transitionDelay=(i*0.08)+'s';
-      fill.style.transform=`scaleX(${val/max})`;
-      fill.classList.add('visible');
-    });
-    barObs.unobserve(e.target);
+// ═══════ SPLIT TITLE REVEAL ═══════
+const stObs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');stObs.unobserve(x.target);}}),{threshold:.3});
+document.querySelectorAll('.split-t').forEach(el=>stObs.observe(el));
+
+// ═══════ PARALLAX ═══════
+let tk=false;
+function applyParallax(){
+  const sy=window.scrollY;
+  document.querySelectorAll('.blob').forEach((b,i)=>b.style.transform=`translateY(${sy*(i%2===0?.04:.07)}px)`);
+  document.querySelectorAll('.kanji-mark').forEach((k,i)=>{
+    const speed=i===0?-.08:i===1?-.06:-.04;
+    k.style.transform=k.classList.contains('km-3')?`translateY(calc(-50% + ${sy*speed}px))`:`translateY(${sy*speed}px)`;
   });
-},{threshold:.2});
-const chartEl=document.getElementById('chartBars');
-if(chartEl) barObs.observe(chartEl);
+  document.querySelectorAll('.parallax-mockup').forEach(m=>{
+    const r=m.getBoundingClientRect();
+    const center=window.innerHeight/2;
+    const offset=(r.top+r.height/2-center)*-.06;
+    m.style.transform=`translateY(${offset}px)`;
+  });
+  tk=false;
+}
+window.addEventListener('scroll',()=>{if(!tk){requestAnimationFrame(applyParallax);tk=true;}},{passive:true});
+applyParallax();
+
+// ═══════ MAGNETIC CARDS ═══════
+document.querySelectorAll('.magnetic').forEach(el=>{
+  const cs=window.getComputedStyle(el);
+  const orig=cs.transform&&cs.transform!=='none'?cs.transform:'';
+  el.dataset.orig=orig;
+  el.addEventListener('mousemove',e=>{
+    const r=el.getBoundingClientRect();
+    const x=(e.clientX-r.left-r.width/2)*.08;
+    const y=(e.clientY-r.top-r.height/2)*.08;
+    el.style.transform=`${orig} translate(${x}px,${y}px)`;
+  });
+  el.addEventListener('mouseleave',()=>{el.style.transform=orig;});
+});
+
+// ═══════ LIGHTBOX ═══════
+const lb=document.getElementById('lb'),lbF=document.getElementById('lbFrame'),lbC=document.getElementById('lbClose');
+document.querySelectorAll('.vcard:not(.no-yt)').forEach(c=>{
+  c.addEventListener('click',()=>{lbF.src=`https://www.youtube.com/embed/${c.dataset.yt}?autoplay=1`;lb.classList.add('open');document.body.style.overflow='hidden';});
+});
+const closeLB=()=>{lb.classList.remove('open');lbF.src='';document.body.style.overflow='';};
+lbC.onclick=closeLB;
+lb.addEventListener('click',e=>{if(e.target===lb)closeLB();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();});
 </script>
 </body>
 </html>
