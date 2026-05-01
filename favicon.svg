@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9B6645"/>
+      <stop offset="60%" stop-color="#6B4226"/>
+      <stop offset="100%" stop-color="#3D2B1F"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="10" fill="#1C1108"/>
+  <text x="32" y="46"
+        font-family="'Noto Serif JP', 'Hiragino Mincho ProN', serif"
+        font-weight="900"
+        font-size="44"
+        text-anchor="middle"
+        fill="url(#g)">達</text>
+</svg>
