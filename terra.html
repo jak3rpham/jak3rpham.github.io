@@ -64,7 +64,7 @@ nav.scrolled{background:rgba(250,248,244,.93);backdrop-filter:blur(20px);border-
 .ho3{width:300px;height:300px;background:var(--earth);top:40%;left:30%;opacity:.07}
 .grain{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px}
 
-.hero-inner{position:relative;z-index:1;width:90%;max-width:1080px;margin-inline:auto;padding-inline:var(--P);padding-top:140px}
+.hero-inner{position:relative;z-index:1;width:90%;max-width:1080px;margin-inline:auto;padding-inline:var(--P);padding-top:140px;padding-bottom:4rem;box-sizing:border-box}
 .hero-eyebrow{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(196,168,130,.6);display:flex;align-items:center;gap:.9rem;margin-bottom:2rem;opacity:0;animation:fadeUp .8s var(--ease) .2s forwards}
 .hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--g-terra)}
 .hero-title{font-family:'Outfit',sans-serif;font-size:clamp(3rem,6vw,6rem);font-weight:300;line-height:1.0;color:var(--cream);margin-bottom:1.5rem;opacity:0;animation:fadeUp .9s var(--ease) .35s forwards}
@@ -86,7 +86,7 @@ nav.scrolled{background:rgba(250,248,244,.93);backdrop-filter:blur(20px);border-
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── SECTIONS ── */
-.wrap{width:90%;max-width:1080px;margin-inline:auto;padding-inline:var(--P)}
+.wrap{width:90%;max-width:1080px;margin-inline:auto;padding-inline:var(--P);box-sizing:border-box}
 .sp{padding:6rem 0}
 .sp-sm{padding:4rem 0}
 
@@ -151,7 +151,7 @@ nav.scrolled{background:rgba(250,248,244,.93);backdrop-filter:blur(20px);border-
 
 /* ── RESULTS ── */
 #results{background:var(--cream)}
-.results-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:start}
+.results-grid{display:grid;grid-template-columns:.72fr 1fr;gap:3rem;align-items:start}
 .results-left .s-title{margin-bottom:1rem}
 .results-note{font-size:.88rem;font-weight:300;color:#7A6355;line-height:1.8;margin-bottom:2.5rem;padding-left:1rem;border-left:2px solid var(--terra-lt)}
 
@@ -204,10 +204,13 @@ nav.scrolled{background:rgba(250,248,244,.93);backdrop-filter:blur(20px);border-
 .tech-num{font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:400;color:var(--earth);line-height:1;letter-spacing:-.03em}
 .tech-title{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:500;color:var(--ink);line-height:1.2;letter-spacing:-.015em}
 .tech-sub{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;color:var(--clay);margin-top:.3rem;text-transform:uppercase}
-.tech-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
-.tech-list li{font-size:.85rem;font-weight:300;color:#5A4A3C;line-height:1.7;display:flex;gap:.7rem;align-items:baseline;padding-left:.1rem}
-.tech-list li::before{content:'→';color:var(--terra);flex-shrink:0;font-size:.78rem}
-.tech-list li strong{color:var(--ink);font-weight:500}
+.tech-list{list-style:none;display:flex;flex-direction:column;gap:.95rem}
+.tech-list li{font-size:.85rem;font-weight:300;color:#5A4A3C;line-height:1.65;display:block;padding-left:.95rem;position:relative;border-left:1px solid var(--parchment);transition:border-color .35s}
+.tech-list li:hover{border-left-color:var(--terra)}
+.tech-list li::before{content:'';position:absolute;left:-1px;top:0;width:1px;height:0;background:var(--terra);transition:height .35s var(--ease)}
+.tech-list li:hover::before{height:100%}
+.tech-list li strong{display:block;color:var(--ink);font-weight:500;font-size:.92rem;margin-bottom:.25rem;letter-spacing:-.005em}
+.tech-list li strong::after{content:'';display:inline-block;margin-left:.5rem;width:14px;height:1px;background:var(--terra);vertical-align:middle;opacity:.5}
 .tech-foot{font-size:.78rem;font-weight:300;color:#7A6355;line-height:1.7;padding-top:1rem;margin-top:1.2rem;border-top:1px solid var(--parchment);font-style:italic}
 
 /* CWV before/after bars */
@@ -278,8 +281,8 @@ nav.scrolled{background:rgba(250,248,244,.93);backdrop-filter:blur(20px);border-
 .ai-flow-node:nth-child(7){animation-delay:.8s}
 .ai-flow-node:nth-child(9){animation-delay:1s}
 .ai-flow line{opacity:0;animation:fadeIn .35s ease forwards;animation-delay:1.15s}
-.ai-flow-result{font-size:.88rem;font-weight:300;color:rgba(196,168,130,.85);line-height:1.75;padding:1rem 1.2rem;margin-top:1.3rem;background:rgba(255,255,255,.04);border:1px solid rgba(196,168,130,.18);border-left:3px solid var(--sand)}
-.ai-flow-result strong{color:var(--cream);font-weight:500}
+.ai-flow-result{font-size:.88rem;font-weight:300;color:#5A4A3C;line-height:1.75;padding:1.1rem 1.3rem;margin-top:1.3rem;background:var(--fog);border:1px solid var(--parchment);border-left:3px solid var(--earth)}
+.ai-flow-result strong{color:var(--ink);font-weight:500}
 
 .ai-pills{display:flex;flex-direction:column;gap:.6rem}
 .ai-pill{display:flex;align-items:center;gap:.9rem;padding:.9rem 1.1rem;border:1px solid var(--parchment);background:var(--fog);transition:border-color .3s,background .3s}
@@ -512,8 +515,8 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
   <div class="wrap sp">
     <div class="fu">
       <div class="s-label" style="color:rgba(196,168,130,.5)">03 - Pages Built</div>
-      <h2 class="s-title" style="color:var(--cream)">Service pages <em>I designed &amp; built</em></h2>
-      <p class="pages-intro">Each page was built end-to-end - keyword strategy, copy, Elementor layout, on-page SEO, and technical implementation. These are live production pages, not mockups.</p>
+      <h2 class="s-title" style="color:var(--cream)">Recent <em>page launches</em></h2>
+      <p class="pages-intro">A small selection of the most recent pages I shipped end-to-end - keyword strategy, copy, Elementor layout, on-page SEO, and technical implementation. The site has dozens of pages I designed and built across services, blog clusters, landing pages, and bilingual variants - these four are simply the latest. All are live production pages, not mockups.</p>
     </div>
     <div class="pages-track fu" data-d="1">
       <a href="https://terra-plat.vn/en/hr-outsourcing-services-in-vietnam" target="_blank" class="page-card">
@@ -571,23 +574,15 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
       <div class="fu">
         <div class="s-label">04 - Results</div>
         <h2 class="s-title">The <em>numbers</em></h2>
-        <p class="results-note">All data pulled directly from Google Search Console (Dec 2024 - Apr 2026) and Semrush Site Audit. Traffic is predominantly organic - paid ads were monitored but not the primary growth driver.</p>
+        <p class="results-note">All numbers from Google Search Console (Dec 2024 - Apr 2026) and Semrush. Predominantly organic — paid ads were monitored but not the primary growth driver.</p>
         <div class="metric-list">
           <div class="metric-row">
-            <span class="metric-label">Daily organic clicks - baseline (Dec 2024)</span>
-            <span class="metric-val">~175/day</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Daily organic clicks - Mar 2026 avg</span>
-            <span class="metric-val">~2,137/day</span>
+            <span class="metric-label">Daily clicks growth</span>
+            <span class="metric-val">175 → 2,137</span>
           </div>
           <div class="metric-row">
             <span class="metric-label">Growth multiplier</span>
             <span class="metric-val">12.2×</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Peak month total (Mar 2026)</span>
-            <span class="metric-val">66,256</span>
           </div>
           <div class="metric-row">
             <span class="metric-label">Total clicks (17 months)</span>
@@ -602,15 +597,7 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
             <span class="metric-val">978</span>
           </div>
           <div class="metric-row">
-            <span class="metric-label">Keywords ranking Top 3</span>
-            <span class="metric-val">52</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Avg position improvement</span>
-            <span class="metric-val">16.2 → 5.8</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Website health score (Semrush)</span>
+            <span class="metric-label">Site health (Semrush)</span>
             <span class="metric-val">55 → 90</span>
           </div>
         </div>
@@ -701,13 +688,13 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
           </div>
         </div>
         <ul class="tech-list">
-          <li><strong>Organization</strong> + <strong>LocalBusiness</strong> — corporate entity surfacing, knowledge panel eligibility</li>
-          <li><strong>Service</strong> schema across payroll, HR, accounting, tax service pages — rich result eligibility for commercial queries</li>
-          <li><strong>Article</strong> + <strong>BlogPosting</strong> for guides and explainers</li>
-          <li><strong>FAQPage</strong> on key landing pages — captures featured snippets in SERPs</li>
-          <li><strong>BreadcrumbList</strong> sitewide — clearer SERP path display</li>
-          <li><strong>Product</strong> schema for terra HR System SaaS pricing</li>
-          <li><strong>WebSite</strong> + sitelinks search box for branded queries</li>
+          <li><strong>Organization + LocalBusiness</strong>Corporate entity surfacing in search and knowledge panel eligibility for branded queries.</li>
+          <li><strong>Service</strong>Across payroll, HR, accounting, tax service pages — rich result eligibility for commercial intent queries.</li>
+          <li><strong>Article + BlogPosting</strong>Applied across all guides, explainers, and content pieces for editorial structured data.</li>
+          <li><strong>FAQPage</strong>On key landing pages — captures featured snippets directly in SERPs above organic results.</li>
+          <li><strong>BreadcrumbList</strong>Sitewide breadcrumb structured data for clearer SERP path display.</li>
+          <li><strong>Product</strong>Schema for terra HR System SaaS pages with pricing and feature data.</li>
+          <li><strong>WebSite + Sitelinks Search Box</strong>For branded query SERPs with direct site search functionality.</li>
         </ul>
       </div>
 
@@ -769,12 +756,12 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
           </div>
         </div>
         <ul class="tech-list">
-          <li><strong>Pillar pages</strong> for each service vertical (payroll, HR, accounting, tax) — designated authority hubs</li>
-          <li><strong>Topical clusters</strong> of 8-15 supporting articles per pillar, all linking up to pillar with descriptive anchor text</li>
-          <li><strong>Layer 1 → Layer 2 cross-links</strong>: utility content references service pages contextually where intent overlaps (e.g. tax tools → tax services)</li>
-          <li><strong>Crawl depth limit</strong>: every commercial page reachable in ≤ 3 clicks from homepage</li>
-          <li><strong>Anchor diversity</strong>: balance between exact-match, partial-match, and branded anchors across the site</li>
-          <li><strong>Bilingual EN / VI mirroring</strong> via hreflang implementation</li>
+          <li><strong>Pillar pages</strong>One designated authority hub per service vertical — payroll, HR, accounting, tax. Each pillar consolidates topical signals upward.</li>
+          <li><strong>Topical clusters</strong>8 to 15 supporting articles per pillar, all linking up with descriptive anchor text — never with bare URL or "click here" generic anchors.</li>
+          <li><strong>Layer 1 → Layer 2 cross-links</strong>Utility content references commercial pages contextually where intent overlaps (e.g. tax lookup tool → tax services page).</li>
+          <li><strong>Crawl depth limit</strong>Every commercial page reachable in ≤ 3 clicks from homepage. Critical for crawl budget on a fast-growing content footprint.</li>
+          <li><strong>Anchor diversity</strong>Balance between exact-match, partial-match, and branded anchors across the site to avoid over-optimization signals.</li>
+          <li><strong>Bilingual EN / VI mirroring</strong>Hreflang implementation across all clusters so search engines serve the right language to the right audience.</li>
         </ul>
       </div>
 
@@ -788,12 +775,12 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
           </div>
         </div>
         <ul class="tech-list">
-          <li>Dynamic XML sitemap split by content type, submitted + monitored in GSC</li>
-          <li>301 redirect mapping for legacy URLs after rebuild — zero indexed-traffic loss</li>
-          <li>robots.txt audit — staging blocks, parameter exclusions, crawl-budget allocation</li>
-          <li>Canonical strategy for paginated and filtered content</li>
-          <li>Coverage report monitored weekly — discover, indexed, excluded, valid with warnings</li>
-          <li>MCP-integrated GSC tooling for automated query/page-level audits and quick-win detection</li>
+          <li><strong>Dynamic sitemap</strong>XML sitemap split by content type, submitted and monitored in Google Search Console.</li>
+          <li><strong>Redirect mapping</strong>301s for all legacy URLs after the rebuild — zero indexed-traffic loss during transition.</li>
+          <li><strong>robots.txt audit</strong>Staging blocks, parameter exclusions, crawl-budget allocation tuned to high-value sections.</li>
+          <li><strong>Canonical strategy</strong>Explicit canonicals for paginated and filtered content, preventing duplicate index signals.</li>
+          <li><strong>Weekly coverage review</strong>Coverage report monitored every week — discovered, indexed, excluded, valid-with-warnings.</li>
+          <li><strong>MCP-integrated GSC tooling</strong>Custom MCP server pulls query/page data into automated audits and quick-win detection.</li>
         </ul>
       </div>
     </div>
@@ -823,95 +810,100 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
 
     <!-- Dual-funnel architecture diagram -->
     <div class="fu funnel-diagram-wrap" data-d="2">
-      <div class="funnel-diagram-label">Architecture flow</div>
-      <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" class="funnel-diagram" role="img" aria-label="Dual-funnel architecture flow diagram">
+      <div class="funnel-diagram-label">How I structured terra's content — content cluster map</div>
+      <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" class="funnel-diagram" role="img" aria-label="Content cluster architecture I designed for terra">
         <defs>
-          <linearGradient id="funnel-l1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#5A8C64"/>
-            <stop offset="100%" stop-color="#3D6B47"/>
-          </linearGradient>
-          <linearGradient id="funnel-l2" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#2A8C72"/>
-            <stop offset="100%" stop-color="#1B6B58"/>
-          </linearGradient>
           <linearGradient id="funnel-auth" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stop-color="#9B6645"/>
             <stop offset="100%" stop-color="#6B4226"/>
           </linearGradient>
-          <marker id="arrow-l1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L8,4 L0,8 z" fill="#3D6B47"/>
+          <marker id="arrow-down" viewBox="0 0 10 10" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto-start-reverse">
+            <path d="M 1 1 L 5 9 L 9 1" fill="none" stroke="#9B6645" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </marker>
-          <marker id="arrow-down" markerWidth="8" markerHeight="8" refX="4" refY="6" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L8,0 L4,8 z" fill="#9B6645"/>
-          </marker>
-          <marker id="arrow-l2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="strokeWidth">
-            <path d="M0,0 L8,4 L0,8 z" fill="#1B6B58"/>
+          <marker id="arrow-down-green" viewBox="0 0 10 10" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto-start-reverse">
+            <path d="M 1 1 L 5 9 L 9 1" fill="none" stroke="#1B6B58" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </marker>
         </defs>
 
-        <!-- Layer 1: Utility content (top row) -->
+        <!-- Top label -->
+        <text x="400" y="22" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#9B6645" letter-spacing="0.18em" font-weight="500">CONTENT I PUBLISHED → AUTHORITY I BUILT → CONVERSION PAGES THAT BENEFIT</text>
+
+        <!-- ROW 1 — Content I publish -->
+        <text x="20" y="60" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.14em" font-weight="500">LAYER 1 · INFORMATIONAL CONTENT (publish at volume)</text>
+
         <g class="diagram-node">
-          <rect x="20" y="40" width="200" height="80" rx="2" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
-          <text x="120" y="62" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.1em" font-weight="500">LAYER 1 — UTILITY</text>
-          <text x="120" y="84" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Tax / payroll / labour</text>
-          <text x="120" y="100" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">High-volume informational</text>
+          <rect x="20" y="74" width="240" height="76" rx="3" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
+          <text x="140" y="98" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Tax / payroll / labour</text>
+          <text x="140" y="116" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">High-volume guides &amp; explainers</text>
+          <text x="140" y="138" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.06em">cluster of 60+ articles</text>
         </g>
 
-        <!-- Layer 1: Tools content (top row 2) -->
         <g class="diagram-node">
-          <rect x="270" y="40" width="200" height="80" rx="2" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
-          <text x="370" y="62" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.1em" font-weight="500">LAYER 1 — TOOLS</text>
-          <text x="370" y="84" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Calculators / lookups</text>
-          <text x="370" y="100" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">"Tra cứu mã số thuế" 51K+</text>
+          <rect x="280" y="74" width="240" height="76" rx="3" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
+          <text x="400" y="98" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Calculators &amp; lookup tools</text>
+          <text x="400" y="116" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">"Tra cứu mã số thuế" — 51K+ clicks</text>
+          <text x="400" y="138" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.06em">cluster of 12+ tools</text>
         </g>
 
-        <!-- Layer 1: Compliance guides (top row 3) -->
         <g class="diagram-node">
-          <rect x="520" y="40" width="220" height="80" rx="2" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
-          <text x="630" y="62" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.1em" font-weight="500">LAYER 1 — GUIDES</text>
-          <text x="630" y="84" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">HR compliance content</text>
-          <text x="630" y="100" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">Topical authority signals</text>
+          <rect x="540" y="74" width="240" height="76" rx="3" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
+          <text x="660" y="98" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">HR compliance content</text>
+          <text x="660" y="116" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">Topical authority signals</text>
+          <text x="660" y="138" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.06em">cluster of 40+ articles</text>
         </g>
 
-        <!-- Arrows from Layer 1 to Authority -->
-        <line x1="120" y1="120" x2="220" y2="170" stroke="#3D6B47" stroke-width="1.4" marker-end="url(#arrow-down)" opacity="0.7"/>
-        <line x1="370" y1="120" x2="370" y2="170" stroke="#3D6B47" stroke-width="1.4" marker-end="url(#arrow-down)" opacity="0.7"/>
-        <line x1="630" y1="120" x2="520" y2="170" stroke="#3D6B47" stroke-width="1.4" marker-end="url(#arrow-down)" opacity="0.7"/>
+        <!-- Side label "compounds into" -->
+        <text x="400" y="180" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#9B6645" letter-spacing="0.16em" font-style="italic">↓ compounds into ↓</text>
 
-        <!-- Authority compound (middle) -->
+        <!-- Arrows from Layer 1 to Authority compound -->
+        <line x1="140" y1="150" x2="270" y2="220" stroke="#9B6645" stroke-width="1.5" marker-end="url(#arrow-down)" opacity="0.7"/>
+        <line x1="400" y1="150" x2="400" y2="220" stroke="#9B6645" stroke-width="1.5" marker-end="url(#arrow-down)" opacity="0.7"/>
+        <line x1="660" y1="150" x2="530" y2="220" stroke="#9B6645" stroke-width="1.5" marker-end="url(#arrow-down)" opacity="0.7"/>
+
+        <!-- ROW 2 — Domain authority compound (middle / highlighted) -->
         <g class="diagram-node">
-          <rect x="180" y="172" width="380" height="68" rx="2" fill="url(#funnel-auth)"/>
-          <text x="370" y="195" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#FAF8F4" letter-spacing="0.14em" font-weight="500">DOMAIN AUTHORITY COMPOUND</text>
-          <text x="370" y="218" text-anchor="middle" font-family="Outfit,sans-serif" font-size="14" fill="#FAF8F4" font-weight="500">978 keywords Top 10 · 31.4M impressions · Health 55→90</text>
+          <rect x="120" y="222" width="560" height="80" rx="3" fill="url(#funnel-auth)"/>
+          <text x="400" y="247" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(255,255,255,.85)" letter-spacing="0.16em" font-weight="500">DOMAIN AUTHORITY (the compounded result)</text>
+          <text x="400" y="272" text-anchor="middle" font-family="Outfit,sans-serif" font-size="14.5" fill="#FAF8F4" font-weight="500">978 keywords Top 10  ·  31.4M impressions  ·  Site health 55 → 90</text>
+          <text x="400" y="290" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="rgba(255,255,255,.7)" font-style="italic">earned through Layer 1, leveraged by Layer 2</text>
         </g>
+
+        <!-- Side label "lifts" -->
+        <text x="400" y="330" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#1B6B58" letter-spacing="0.16em" font-style="italic">↓ lifts the rankings of ↓</text>
 
         <!-- Arrows from Authority to Layer 2 -->
-        <line x1="280" y1="240" x2="180" y2="290" stroke="#1B6B58" stroke-width="1.4" marker-end="url(#arrow-down)" opacity="0.85"/>
-        <line x1="370" y1="240" x2="370" y2="290" stroke="#1B6B58" stroke-width="1.4" marker-end="url(#arrow-down)" opacity="0.85"/>
-        <line x1="460" y1="240" x2="560" y2="290" stroke="#1B6B58" stroke-width="1.4" marker-end="url(#arrow-down)" opacity="0.85"/>
+        <line x1="280" y1="302" x2="160" y2="370" stroke="#1B6B58" stroke-width="1.5" marker-end="url(#arrow-down-green)" opacity="0.85"/>
+        <line x1="400" y1="302" x2="400" y2="370" stroke="#1B6B58" stroke-width="1.5" marker-end="url(#arrow-down-green)" opacity="0.85"/>
+        <line x1="520" y1="302" x2="640" y2="370" stroke="#1B6B58" stroke-width="1.5" marker-end="url(#arrow-down-green)" opacity="0.85"/>
 
-        <!-- Layer 2: Service pages (bottom row) -->
+        <!-- ROW 3 — Conversion pages -->
+        <text x="20" y="356" font-family="DM Mono,monospace" font-size="9" fill="#1B6B58" letter-spacing="0.14em" font-weight="500">LAYER 2 · CONVERSION PAGES (terra's commercial offerings)</text>
+
         <g class="diagram-node">
-          <rect x="20" y="290" width="200" height="56" rx="2" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
-          <text x="120" y="312" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#1B6B58" letter-spacing="0.1em" font-weight="500">LAYER 2 — SERVICE</text>
-          <text x="120" y="332" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12" fill="#1C1108" font-weight="500">Payroll outsourcing</text>
-        </g>
-        <g class="diagram-node">
-          <rect x="270" y="290" width="200" height="56" rx="2" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
-          <text x="370" y="312" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#1B6B58" letter-spacing="0.1em" font-weight="500">LAYER 2 — SAAS</text>
-          <text x="370" y="332" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12" fill="#1C1108" font-weight="500">terra HR platform</text>
-        </g>
-        <g class="diagram-node">
-          <rect x="520" y="290" width="220" height="56" rx="2" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
-          <text x="630" y="312" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#1B6B58" letter-spacing="0.1em" font-weight="500">LAYER 2 — CONSULTING</text>
-          <text x="630" y="332" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12" fill="#1C1108" font-weight="500">HR / accounting / tax</text>
+          <rect x="20" y="378" width="240" height="68" rx="3" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
+          <text x="140" y="402" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12.5" fill="#1C1108" font-weight="500">Payroll outsourcing pages</text>
+          <text x="140" y="420" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#5A4A3C" font-style="italic">B2B service · EN + VI</text>
+          <text x="140" y="436" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1B6B58" letter-spacing="0.05em">cluster of 8 pages</text>
         </g>
 
-        <!-- Side label: Authority compound -->
-        <text x="20" y="200" font-family="DM Mono,monospace" font-size="8.5" fill="#9B6645" letter-spacing="0.1em" font-style="italic">compounds →</text>
-        <text x="690" y="200" font-family="DM Mono,monospace" font-size="8.5" fill="#9B6645" letter-spacing="0.1em" font-style="italic" text-anchor="end">→ ranks B2B</text>
+        <g class="diagram-node">
+          <rect x="280" y="378" width="240" height="68" rx="3" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
+          <text x="400" y="402" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12.5" fill="#1C1108" font-weight="500">terra HR System (SaaS)</text>
+          <text x="400" y="420" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#5A4A3C" font-style="italic">Product pages · EN + VI</text>
+          <text x="400" y="436" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1B6B58" letter-spacing="0.05em">cluster of 6 pages</text>
+        </g>
+
+        <g class="diagram-node">
+          <rect x="540" y="378" width="240" height="68" rx="3" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
+          <text x="660" y="402" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12.5" fill="#1C1108" font-weight="500">HR / accounting / tax</text>
+          <text x="660" y="420" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#5A4A3C" font-style="italic">Consulting service pages</text>
+          <text x="660" y="436" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1B6B58" letter-spacing="0.05em">cluster of 12 pages</text>
+        </g>
+
+        <!-- Bottom outcome label -->
+        <text x="400" y="468" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">→ these pages now compete in commercial B2B SERPs without massive direct backlinks</text>
       </svg>
-      <div class="funnel-diagram-caption">High-volume utility content (Layer 1) earns topical authority that compounds into the domain. Authority lifts B2B service pages (Layer 2) into competitive ranking positions for commercial intent queries — without those pages needing massive direct backlinks.</div>
+      <div class="funnel-diagram-caption">This is the content architecture I designed for terra — not a service catalog. Layer 1 publishes high-volume informational content that earns topical authority for the domain. That authority compounds into the asset shown in the middle band (978 keywords, 31.4M impressions, health 55→90). Layer 2 — terra's actual commercial pages — then ranks in competitive B2B searches because the domain itself is trusted. The whole point of the architecture is that <strong>traffic on Layer 1 isn't the goal</strong>; it's how Layer 2 wins.</div>
     </div>
 
     <div class="fu" data-d="3" style="margin-top:2rem;padding:1.5rem 2rem;border-left:3px solid var(--terra-lt);background:var(--cream)">
