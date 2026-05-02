@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Reel - Tatsuki / Pham Ngoc Thanh</title>
+<meta name="description" content="Video production reel by Pham Ngoc Thanh (Tatsuki) - TVCs, brand films, event recaps, music videos, commercial explainers.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Outfit:ital,wght@0,200;0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1C1108; --bark:#3D2B1F; --earth:#6B4226; --clay:#9B6645;
+  --sand:#C4A882; --tan:#E8D5B7; --parchment:#EDE3D5; --cream:#F7F2EA; --fog:#FAF8F4;
+  --forest:#3D6B47; --forest-lt:#5A8C64; --forest-pale:#E8F0EA;
+  --terra:#1B6B58; --terra-lt:#2A8C72;
+  --g-warm:linear-gradient(135deg,#9B6645 0%,#6B4226 60%,#3D2B1F 100%);
+  --g-warm-on-dark:linear-gradient(135deg,#E8D5B7 0%,#C4A882 50%,#9B6645 100%);
+  --g-forest:linear-gradient(135deg,#5A8C64 0%,#3D6B47 100%);
+  --g-soft:linear-gradient(160deg,#F0E8DA 0%,#E2D0B8 60%,#C4A882 100%);
+  --ease:cubic-bezier(0.16,1,0.3,1);
+  --W:min(1240px,90vw);
+  --P:clamp(1.5rem,4vw,5rem);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:17px}
+body{font-family:'Outfit',sans-serif;background:var(--fog);color:var(--ink);overflow-x:hidden;cursor:none;font-feature-settings:"ss01","liga"}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--earth);color:var(--cream)}
+
+.wrap{width:100%;max-width:var(--W);margin-inline:auto;padding-inline:var(--P)}
+
+/* ── CURSOR ── */
+.cur-dot{position:fixed;width:10px;height:10px;background:var(--clay);border-radius:50%;pointer-events:none;z-index:8999;transform:translate(-50%,-50%);transition:width .25s var(--ease),height .25s var(--ease),background .25s,border-radius .25s,opacity .25s;mix-blend-mode:multiply}
+.cur-ring{position:fixed;width:42px;height:42px;border:1.5px solid var(--sand);border-radius:50%;pointer-events:none;z-index:8998;transform:translate(-50%,-50%);transition:width .35s var(--ease),height .35s var(--ease),opacity .3s;opacity:.5}
+.cur-dot.hov{width:46px;height:46px;background:var(--forest);border-radius:6px;opacity:.16}
+.cur-ring.hov{width:0;height:0;opacity:0}
+
+/* ── PROGRESS ── */
+#prog{position:fixed;top:0;left:0;height:2px;z-index:500;background:var(--g-warm);width:0;transition:width .08s linear}
+
+/* ── KANJI WATERMARK ── */
+.kanji-mark{position:absolute;font-family:'Noto Serif JP',serif;font-weight:900;color:transparent;-webkit-text-stroke:1px rgba(196,168,130,.15);pointer-events:none;user-select:none;line-height:.85;z-index:0;letter-spacing:-.02em;will-change:transform}
+.km-1{top:6vh;right:-2vw;font-size:clamp(15rem,28vw,28rem);-webkit-text-stroke-color:rgba(107,66,38,.08)}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:400;border-bottom:1px solid transparent;transition:background .5s,border-color .5s}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;padding:1.05rem 0;transition:padding .4s}
+nav.scrolled{background:rgba(250,248,244,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-color:rgba(196,168,130,.15)}
+nav.scrolled .nav-inner{padding:.85rem 0}
+.nav-logo{font-family:'Outfit',sans-serif;font-size:1.25rem;font-weight:400;letter-spacing:.04em;color:var(--ink);display:flex;align-items:center;gap:.55rem}
+.nav-k{font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.1rem;background:var(--g-warm);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:#7A6355;position:relative;transition:color .3s;padding:.35rem 0}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--g-forest);transition:width .4s var(--ease)}
+.nav-links a:hover,.nav-links a.active{color:var(--ink)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fog);background:var(--ink);padding:.55rem 1.3rem;position:relative;overflow:hidden;display:inline-block}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--g-forest);transform:translateX(-101%);transition:transform .5s var(--ease)}
+.nav-cta:hover::before{transform:translateX(0)}
+.nav-cta span{position:relative;z-index:1}
+
+/* ── HEADER / HERO ── */
+#hero-vid{padding-top:140px;padding-bottom:3rem;position:relative;overflow:hidden}
+.back-link{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#7A6355;display:inline-flex;align-items:center;gap:.55rem;margin-bottom:2rem;transition:gap .35s var(--ease),color .3s}
+.back-link:hover{color:var(--earth);gap:.8rem}
+.s-eyebrow{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--clay);display:flex;align-items:center;gap:.9rem;margin-bottom:1.2rem}
+.s-eyebrow::before{content:'';width:24px;height:1px;background:var(--g-warm)}
+.page-title{font-family:'Outfit',sans-serif;font-size:clamp(2.8rem,5.5vw,4.8rem);font-weight:400;line-height:1.05;letter-spacing:-.025em;margin-bottom:1.6rem;max-width:1000px}
+.page-title em{font-style:italic;background:var(--g-warm);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;display:inline-block;padding:.05em .3em;margin:-.05em -.3em}
+.page-lead{font-size:1.05rem;font-weight:300;color:#5A4A3C;line-height:1.85;max-width:680px;margin-bottom:2rem}
+
+/* ── STATS ROW ── */
+.vid-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--parchment);background:var(--cream);margin-top:2.5rem;margin-bottom:1rem}
+.vs-cell{padding:1.2rem 1.4rem;border-right:1px solid var(--parchment);position:relative;overflow:hidden}
+.vs-cell:last-child{border-right:none}
+.vs-cell::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-warm);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.vs-cell:hover::before{transform:scaleX(1)}
+.vs-n{font-family:'Outfit',sans-serif;font-size:1.85rem;font-weight:400;color:var(--earth);line-height:1;margin-bottom:.3rem;letter-spacing:-.02em}
+.vs-l{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--clay)}
+
+/* ── CATEGORY SECTIONS ── */
+.cat-section{padding:3rem 0;border-top:1px solid var(--parchment)}
+.cat-section:first-of-type{border-top:none;padding-top:1rem}
+.cat-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1.5rem;margin-bottom:2rem}
+.cat-title{font-family:'Outfit',sans-serif;font-size:clamp(1.7rem,2.5vw,2.2rem);font-weight:400;line-height:1.1;letter-spacing:-.02em;color:var(--ink)}
+.cat-title em{font-style:italic;color:var(--earth)}
+.cat-meta{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--clay);padding-bottom:.4rem}
+
+.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.vcard{background:var(--ink);overflow:hidden;cursor:pointer;position:relative;transition:transform .5s var(--ease),box-shadow .5s var(--ease);border:1px solid var(--parchment)}
+.vcard.no-yt{cursor:default}
+.vcard.span2{grid-column:span 2}
+.vcard:hover{transform:translateY(-4px);box-shadow:0 20px 40px -12px rgba(28,17,8,.25)}
+.vcard.no-yt:hover{transform:none;box-shadow:none}
+.vthumb{aspect-ratio:16/9;position:relative;overflow:hidden}
+.vcard.span2 .vthumb{aspect-ratio:21/9}
+.vthumb-bg{width:100%;height:100%;background:var(--g-soft);display:flex;align-items:center;justify-content:center;transition:transform .8s var(--ease);position:relative}
+.vcard:hover .vthumb-bg{transform:scale(1.05)}
+.vcard.no-yt:hover .vthumb-bg{transform:none}
+.vthumb-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vthumb::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(61,107,71,.04) 0%,rgba(28,17,8,0) 35%,rgba(28,17,8,.55) 100%)}
+.play-ring{width:50px;height:50px;border:1.5px solid rgba(255,255,255,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;flex-shrink:0;transition:transform .4s var(--ease),border-color .3s,background .3s}
+.play-ring::after{content:'';border-left:14px solid rgba(255,255,255,.9);border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px}
+.vcard:hover .play-ring{transform:scale(1.2);border-color:#fff;background:rgba(61,107,71,.32)}
+.vcard.no-yt .play-ring{opacity:.3}
+.vcard.no-yt:hover .play-ring{transform:none}
+.vbadge{position:absolute;top:.7rem;left:.7rem;z-index:3;font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream);background:rgba(28,17,8,.65);padding:.22rem .55rem;backdrop-filter:blur(6px)}
+.vinfo{padding:1.1rem 1.3rem;background:var(--ink)}
+.vtitle{font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:400;color:var(--cream);line-height:1.35;margin-bottom:.3rem}
+.vmeta{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.05em;color:rgba(196,168,130,.55)}
+.vcard.span2 .vtitle{font-size:1.2rem}
+
+/* ── FU REVEAL ── */
+.fu{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.fu.visible{opacity:1;transform:translateY(0)}
+.fu[data-d="1"]{transition-delay:.1s}
+.fu[data-d="2"]{transition-delay:.2s}
+.fu[data-d="3"]{transition-delay:.3s}
+
+/* ── FOOTER CTA ── */
+.foot-cta{padding:6rem 0;background:var(--ink);position:relative;overflow:hidden;text-align:center}
+.foot-cta-orb{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;width:480px;height:480px;background:var(--sand);bottom:-180px;left:50%;transform:translateX(-50%);opacity:.07}
+.foot-cta-h{font-family:'Outfit',sans-serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:400;color:var(--cream);line-height:1.2;margin-bottom:.8rem;letter-spacing:-.02em;position:relative;z-index:1}
+.foot-cta-h em{font-style:italic;background:var(--g-warm-on-dark);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;display:inline-block;padding:.05em .25em;margin:-.05em -.25em}
+.foot-cta-p{font-size:.95rem;color:rgba(196,168,130,.65);max-width:480px;margin:0 auto 2rem;position:relative;z-index:1;line-height:1.85}
+.foot-cta-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.btn-fill{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);padding:.95rem 2.4rem;background:var(--cream);position:relative;overflow:hidden;transition:transform .3s var(--ease);display:inline-block}
+.btn-fill::before{content:'';position:absolute;inset:0;background:var(--g-warm);transform:translateX(-101%);transition:transform .5s var(--ease)}
+.btn-fill:hover::before{transform:translateX(0)}
+.btn-fill:hover{transform:translateY(-2px);color:var(--cream)}
+.btn-fill span{position:relative;z-index:1}
+.btn-line-dark{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);padding:.95rem 2.4rem;border:1px solid rgba(196,168,130,.3);transition:border-color .35s,background .35s;display:inline-block}
+.btn-line-dark:hover{border-color:var(--sand);background:rgba(196,168,130,.06)}
+
+/* ── FOOTER ── */
+footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0;flex-wrap:wrap;gap:1rem}
+.f-logo{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:400;letter-spacing:.04em;color:var(--cream);display:flex;align-items:center;gap:.5rem}
+.f-k{font-family:'Noto Serif JP',serif;font-weight:700;font-size:.92rem;background:var(--g-forest);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.f-copy{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;color:#A8917E}
+.f-link{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;color:#A8917E;transition:color .3s}
+.f-link:hover{color:var(--forest-lt)}
+
+/* ── LIGHTBOX ── */
+.lb{position:fixed;inset:0;background:rgba(28,17,8,.94);z-index:5000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.lb.open{opacity:1;pointer-events:all}
+.lb-inner{width:min(960px,90vw);aspect-ratio:16/9;position:relative}
+.lb-inner iframe{width:100%;height:100%;border:none}
+.lb-close{position:absolute;top:-3rem;right:0;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(196,168,130,.65);background:none;border:none;cursor:none;transition:color .3s}
+.lb-close:hover{color:var(--cream)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .vgrid{grid-template-columns:1fr 1fr}
+  .vcard.span2{grid-column:span 2}
+  .vid-stats{grid-template-columns:1fr 1fr}
+  .vs-cell:nth-child(2){border-right:none}
+  .vs-cell:nth-child(-n+2){border-bottom:1px solid var(--parchment)}
+}
+@media(max-width:600px){
+  body{cursor:auto}
+  .cur-dot,.cur-ring{display:none}
+  .nav-links{display:none}
+  .vgrid{grid-template-columns:1fr}
+  .vcard.span2{grid-column:span 1}
+  .vcard.span2 .vthumb{aspect-ratio:16/9}
+  .footer-inner{justify-content:center;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="cur-dot" id="curDot"></div>
+<div class="cur-ring" id="curRing"></div>
+<div id="prog"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="wrap">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Tatsuki&nbsp;<span class="nav-k">達樹</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#terra-feat">Work</a></li>
+        <li><a href="video.html" class="active">Video</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <a href="CV.pdf" class="nav-cta"><span>↓ CV</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero-vid">
+  <span class="kanji-mark km-1">影</span>
+  <div class="wrap">
+    <a href="index.html" class="back-link">← Back to portfolio</a>
+    <div class="s-eyebrow">Creative Work · Video Reel</div>
+    <h1 class="page-title">Video &amp; <em>Brand Production</em></h1>
+    <p class="page-lead">End-to-end video production across formats — TVCs, brand films, event recaps, music videos, commercial explainers, product demos. Selected from work for I-Glocal (terra-plat.vn), ISB Academic Team, Mona Media, S Communications, and L.O.M Music Club. Two-time Top 1 TVC at Business Challenge — national student marketing competition.</p>
+
+    <div class="vid-stats fu">
+      <div class="vs-cell"><div class="vs-n">15+</div><div class="vs-l">Productions led</div></div>
+      <div class="vs-cell"><div class="vs-n">2×</div><div class="vs-l">Top 1 TVC awards</div></div>
+      <div class="vs-cell"><div class="vs-n">800+</div><div class="vs-l">Largest event audience</div></div>
+      <div class="vs-cell"><div class="vs-n">5</div><div class="vs-l">Categories covered</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TVCs -->
+<section class="cat-section">
+  <div class="wrap">
+    <div class="cat-head fu">
+      <h2 class="cat-title">Award-winning <em>TVCs</em></h2>
+      <span class="cat-meta">Business Challenge · Top 1 × 2</span>
+    </div>
+    <div class="vgrid fu" data-d="1">
+      <div class="vcard span2" data-yt="Nr8vCC5JWCQ">
+        <div class="vthumb"><div class="vthumb-bg"><img src="https://img.youtube.com/vi/Nr8vCC5JWCQ/maxresdefault.jpg" alt="TVC ARISAQUA" onerror="this.style.display='none'"><div class="play-ring"></div></div><span class="vbadge">TVC · Top 1 - 2024</span></div>
+        <div class="vinfo"><div class="vtitle">Business Challenge 2024 - TVC ARISAQUA</div><div class="vmeta">Top 1 TVC · ISB Academic Team · National student competition</div></div>
+      </div>
+      <div class="vcard no-yt">
+        <div class="vthumb"><div class="vthumb-bg"><div class="play-ring"></div></div><span class="vbadge">TVC · Top 1 - 2023</span></div>
+        <div class="vinfo"><div class="vtitle">Business Challenge 2023 - TVC</div><div class="vmeta">Top 1 TVC · ISB Academic Team · Back-to-back champion</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Social / Brand Films -->
+<section class="cat-section">
+  <div class="wrap">
+    <div class="cat-head fu">
+      <h2 class="cat-title">Brand films &amp; <em>social</em></h2>
+      <span class="cat-meta">University clubs · Brand storytelling</span>
+    </div>
+    <div class="vgrid fu" data-d="1">
+      <div class="vcard" data-yt="1cJGz4wwduA">
+        <div class="vthumb"><div class="vthumb-bg"><img src="https://img.youtube.com/vi/1cJGz4wwduA/maxresdefault.jpg" alt="Let's On Air" onerror="this.style.display='none'"><div class="play-ring"></div></div><span class="vbadge">Social · Top 20</span></div>
+        <div class="vinfo"><div class="vtitle">Let's On Air 2023 - Sống Thay Xô Bồ</div><div class="vmeta">Top 20 Social Video · S Communications · 2023</div></div>
+      </div>
+      <div class="vcard no-yt">
+        <div class="vthumb"><div class="vthumb-bg"><div class="play-ring"></div></div><span class="vbadge">Brand Film</span></div>
+        <div class="vinfo"><div class="vtitle">ISB Be Yourself - Theme Song 2023</div><div class="vmeta">Official theme · L.O.M Music Club · 800+ participants</div></div>
+      </div>
+      <div class="vcard no-yt">
+        <div class="vthumb"><div class="vthumb-bg"><div class="play-ring"></div></div><span class="vbadge">MV Remake</span></div>
+        <div class="vinfo"><div class="vtitle">"Chìm Sâu" Remake by L.O.M</div><div class="vmeta">Music video · L.O.M Music Club · 2023</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Commercial -->
+<section class="cat-section">
+  <div class="wrap">
+    <div class="cat-head fu">
+      <h2 class="cat-title">Commercial &amp; <em>explainer</em></h2>
+      <span class="cat-meta">Mona Media · EdTech &amp; SaaS clients</span>
+    </div>
+    <div class="vgrid fu" data-d="1">
+      <div class="vcard" data-yt="BWeBzuIDSRk">
+        <div class="vthumb"><div class="vthumb-bg"><img src="https://img.youtube.com/vi/BWeBzuIDSRk/maxresdefault.jpg" alt="Shadow Funnel" onerror="this.style.display='none'"><div class="play-ring"></div></div><span class="vbadge">Commercial Explainer</span></div>
+        <div class="vinfo"><div class="vtitle">Shadow Funnel - Bán hàng tự động</div><div class="vmeta">Commercial explainer · Mona Media · Edu-marketing client</div></div>
+      </div>
+      <div class="vcard" data-yt="3xfFHWMzung">
+        <div class="vthumb"><div class="vthumb-bg"><img src="https://img.youtube.com/vi/3xfFHWMzung/maxresdefault.jpg" alt="Explainer iPad" onerror="this.style.display='none'"><div class="play-ring"></div></div><span class="vbadge">Product Explainer</span></div>
+        <div class="vinfo"><div class="vtitle">Explainer trên iPad</div><div class="vmeta">Product demo · Mona Media · EdTech client</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Event Films -->
+<section class="cat-section">
+  <div class="wrap">
+    <div class="cat-head fu">
+      <h2 class="cat-title">Event films &amp; <em>recaps</em></h2>
+      <span class="cat-meta">L.O.M Music Club · S Communications</span>
+    </div>
+    <div class="vgrid fu" data-d="1">
+      <div class="vcard no-yt">
+        <div class="vthumb"><div class="vthumb-bg"><div class="play-ring"></div></div><span class="vbadge">Event Film</span></div>
+        <div class="vinfo"><div class="vtitle">Tết Tròn Tết Vuông 2023</div><div class="vmeta">Tết event film · S Communications · 2023</div></div>
+      </div>
+      <div class="vcard no-yt">
+        <div class="vthumb"><div class="vthumb-bg"><div class="play-ring"></div></div><span class="vbadge">Event Teaser</span></div>
+        <div class="vinfo"><div class="vtitle">[DATH2023] Nét Đẹp Từ Nghệ Thuật</div><div class="vmeta">Event teaser · S Communications · Arts festival</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="foot-cta">
+  <div class="foot-cta-orb"></div>
+  <div class="wrap">
+    <h2 class="foot-cta-h">Need video for your <em>brand</em>?</h2>
+    <p class="foot-cta-p">From concept to final delivery — TVCs, brand films, commercial explainers, event recaps. Selectively available for freelance.</p>
+    <div class="foot-cta-buttons">
+      <a href="mailto:pnthanh.work@gmail.com" class="btn-fill"><span>Get in touch →</span></a>
+      <a href="index.html" class="btn-line-dark">Back to portfolio</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <a href="index.html" class="f-logo">Tatsuki&nbsp;<span class="f-k">達樹</span></a>
+      <div class="f-copy">© 2026 Pham Ngoc Thanh - Digital Marketing &amp; Creative</div>
+      <a href="https://linkedin.com/in/jkpham03/" target="_blank" class="f-link">linkedin.com/in/jkpham03</a>
+    </div>
+  </div>
+</footer>
+
+<div class="lb" id="lb">
+  <div class="lb-inner">
+    <button class="lb-close" id="lbClose">✕ Close</button>
+    <iframe id="lbFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const dot=document.getElementById('curDot'),ring=document.getElementById('curRing');
+let mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';},{passive:true});
+(function tr(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tr);})();
+document.querySelectorAll('a,button,.vcard:not(.no-yt),.vs-cell').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{dot.classList.add('hov');ring.classList.add('hov');});
+  el.addEventListener('mouseleave',()=>{dot.classList.remove('hov');ring.classList.remove('hov');});
+});
+
+// PROGRESS + NAV
+const nav=document.getElementById('nav');
+let tk=false;
+window.addEventListener('scroll',()=>{
+  document.getElementById('prog').style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';
+  nav.classList.toggle('scrolled',window.scrollY>60);
+  if(!tk){
+    requestAnimationFrame(()=>{
+      const sy=window.scrollY;
+      document.querySelectorAll('.kanji-mark').forEach(k=>{
+        k.style.transform=`translateY(${sy*-.08}px)`;
+      });
+      tk=false;
+    });
+    tk=true;
+  }
+},{passive:true});
+
+// FU REVEAL
+const fuObs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');fuObs.unobserve(x.target);}}),{threshold:.08});
+document.querySelectorAll('.fu').forEach(el=>fuObs.observe(el));
+
+// LIGHTBOX
+const lb=document.getElementById('lb'),lbF=document.getElementById('lbFrame'),lbC=document.getElementById('lbClose');
+document.querySelectorAll('.vcard:not(.no-yt)').forEach(c=>{
+  c.addEventListener('click',()=>{lbF.src=`https://www.youtube.com/embed/${c.dataset.yt}?autoplay=1`;lb.classList.add('open');document.body.style.overflow='hidden';});
+});
+const closeLB=()=>{lb.classList.remove('open');lbF.src='';document.body.style.overflow='';};
+lbC.onclick=closeLB;
+lb.addEventListener('click',e=>{if(e.target===lb)closeLB();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();});
+</script>
+</body>
+</html>
