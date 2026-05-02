@@ -95,7 +95,7 @@ nav.scrolled .nav-inner{padding:.85rem 0}
 @keyframes drift1{0%{transform:translate(0,0) scale(1)}100%{transform:translate(28px,18px) scale(1.07)}}
 @keyframes drift2{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-22px,-14px) scale(1.05)}}
 
-.hero-inner{width:100%;max-width:var(--W);margin-inline:auto;padding-inline:var(--P);padding-top:3.5rem;padding-bottom:5rem;position:relative;z-index:2;display:block}
+.hero-inner{width:100%;max-width:var(--W);margin-inline:auto;padding-inline:var(--P);padding-top:3.5rem;padding-bottom:5rem;position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:3.5rem;align-items:center}
 
 .hero-mark-row{display:flex;align-items:center;gap:1.5rem;margin-bottom:1.6rem;opacity:0;animation:fadeUp .9s var(--ease) .2s forwards}
 .hero-eyebrow{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--clay);display:flex;align-items:center;gap:.85rem}
@@ -137,13 +137,13 @@ nav.scrolled .nav-inner{padding:.85rem 0}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 
-/* HERO CARDS */
-.hero-cards{display:flex;gap:.9rem;align-items:flex-end;flex-shrink:0;opacity:0;animation:fadeUp 1s var(--ease) 1.45s forwards;margin-top:3rem;flex-wrap:wrap}
+/* HERO CARDS - right column */
+.hero-cards{display:flex;gap:.85rem;align-items:flex-end;flex-shrink:0;opacity:0;animation:fadeUp 1s var(--ease) .65s forwards}
 .pcard{position:relative;overflow:hidden;background:var(--g-soft);box-shadow:0 25px 60px -10px rgba(107,66,38,.22);flex-shrink:0;will-change:transform;transition:box-shadow .5s var(--ease)}
 .pcard::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(61,107,71,.06) 0%,rgba(28,17,8,0) 35%,rgba(28,17,8,.55) 100%);z-index:1;pointer-events:none}
-.pcard-a{width:135px;height:195px;transform:translateY(10px) rotate(-1.5deg)}
-.pcard-b{width:165px;height:240px}
-.pcard-c{width:150px;height:215px;transform:translateY(6px) rotate(1deg)}
+.pcard-a{width:155px;height:225px;align-self:center;transform:translateY(12px) rotate(-1.8deg)}
+.pcard-b{width:200px;height:285px}
+.pcard-c{width:185px;height:265px;transform:translateY(8px) rotate(1.2deg)}
 .pcard:hover{box-shadow:0 35px 80px -10px rgba(107,66,38,.32)}
 .pcard img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform 1.4s var(--ease)}
 .pcard:hover img{transform:scale(1.04)}
@@ -230,7 +230,9 @@ nav.scrolled .nav-inner{padding:.85rem 0}
 .s-title em{font-style:italic;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .terra-lead{font-size:1.05rem;font-weight:300;color:#5A4A3C;line-height:1.9;max-width:680px}
 
-.terra-showcase{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:start}
+.terra-showcase{position:relative;z-index:2;display:flex;flex-direction:column;gap:2.8rem;align-items:stretch}
+.terra-showcase .terra-mockup-wrap{width:100%}
+.terra-showcase .terra-content{width:100%;max-width:920px;margin-inline:auto}
 
 .terra-mockup-wrap{position:relative}
 .terra-mockup{position:relative;background:var(--ink);box-shadow:0 35px 80px -15px rgba(28,17,8,.35);overflow:hidden;will-change:transform}
@@ -246,6 +248,7 @@ nav.scrolled .nav-inner{padding:.85rem 0}
 .terra-mockup-2{position:absolute;width:55%;bottom:-7%;right:-8%;z-index:1;transform:rotate(2deg)}
 
 .terra-content{padding-top:1rem}
+.terra-content-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:3rem;align-items:start;margin-top:.5rem}
 .terra-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.6rem}
 .terra-meta-pill{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--terra);background:var(--terra-pale);padding:.3rem .7rem;border:1px solid rgba(27,107,88,.2)}
 .terra-h{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:300;color:var(--ink);line-height:1.15;margin-bottom:.7rem}
@@ -325,6 +328,8 @@ nav.scrolled .nav-inner{padding:.85rem 0}
 .vr-lead{font-size:1rem;font-weight:300;color:#5A4A3C;line-height:1.85;max-width:580px;margin-top:1.2rem}
 
 .vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+.vgrid-feat{grid-template-columns:repeat(3,1fr)}
+.vgrid-feat .span2{grid-column:span 2}
 .vcard{background:var(--ink);overflow:hidden;cursor:pointer;position:relative;transition:transform .5s var(--ease),box-shadow .5s var(--ease);border:1px solid var(--parchment)}
 .vcard.no-yt{cursor:default}
 .vcard.span2{grid-column:span 2}
@@ -347,6 +352,18 @@ nav.scrolled .nav-inner{padding:.85rem 0}
 .vtitle{font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:400;color:var(--cream);line-height:1.35;margin-bottom:.3rem}
 .vmeta{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.05em;color:rgba(196,168,130,.55)}
 .vcard.span2 .vtitle{font-size:1.2rem}
+
+/* Video CTA - link to full video page */
+.video-cta-wrap{margin-top:2.2rem;display:flex;justify-content:center}
+.video-cta{display:inline-flex;flex-direction:column;align-items:center;gap:.4rem;padding:1.4rem 2.6rem;background:var(--ink);color:var(--cream);border:1px solid rgba(196,168,130,.2);position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .4s var(--ease);min-width:340px;text-align:center}
+.video-cta::before{content:'';position:absolute;inset:0;background:var(--g-forest);opacity:0;transition:opacity .4s var(--ease)}
+.video-cta:hover{transform:translateY(-3px);box-shadow:0 18px 38px -12px rgba(28,17,8,.34)}
+.video-cta:hover::before{opacity:1}
+.video-cta-text,.video-cta-meta,.video-cta-arrow{position:relative;z-index:1}
+.video-cta-text{font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:400;letter-spacing:.02em;display:flex;align-items:center;gap:.7rem}
+.video-cta-arrow{position:absolute;top:50%;right:1.4rem;transform:translateY(-50%);font-family:'DM Mono',monospace;font-size:1.1rem;color:var(--sand);transition:right .4s var(--ease),color .3s}
+.video-cta:hover .video-cta-arrow{right:1rem;color:var(--cream)}
+.video-cta-meta{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:rgba(196,168,130,.55);text-transform:uppercase}
 
 /* ═══════ CONTACT ═══════ */
 #contact{background:var(--ink);position:relative;overflow:hidden;padding:8rem 0}
@@ -434,11 +451,13 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
 /* ═══════ RESPONSIVE ═══════ */
 @media(max-width:1100px){
   :root{--W:100%}
+  .hero-inner{grid-template-columns:1fr;gap:3rem}
   .hero-cards{justify-content:center}
   .about-cols{grid-template-columns:1fr 1fr;gap:2.5rem}
   .about-skills{grid-column:1/-1}
   .sk-wrap{flex-direction:row;flex-wrap:wrap}
-  .terra-showcase{grid-template-columns:1fr;gap:2.5rem}
+  .terra-showcase{gap:2rem}
+  .terra-content-grid{grid-template-columns:1fr;gap:1.5rem}
   .terra-mockup-2{display:none}
   .other-grid{grid-template-columns:1fr}
   .vgrid{grid-template-columns:1fr 1fr}
@@ -504,7 +523,7 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#terra-feat">Work</a></li>
-        <li><a href="#video-reel">Video</a></li>
+        <li><a href="video.html">Video</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <a href="CV.pdf" class="nav-cta"><span>↓ CV</span></a>
@@ -672,37 +691,45 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
         <div class="terra-meta">
           <span class="terra-meta-pill">Sep 2024 - Present</span>
           <span class="terra-meta-pill">Sole Tech &amp; Creative Lead</span>
-          <span class="terra-meta-pill">B2B SaaS</span>
+          <span class="terra-meta-pill">B2B SaaS · FDI Targeting</span>
         </div>
         <h3 class="terra-h">terra-plat.vn - <em>Vina Payroll &amp; HR System</em></h3>
         <div class="terra-co">I-Glocal Co., Ltd. · Marketing Manager + Content Strategist + me</div>
 
-        <div class="terra-nums">
-          <div class="tn-cell"><div class="tn-n">12×</div><div class="tn-l">Organic clicks growth</div></div>
-          <div class="tn-cell"><div class="tn-n">978</div><div class="tn-l">Keywords Top 10</div></div>
-          <div class="tn-cell"><div class="tn-n">31.4M</div><div class="tn-l">Total impressions</div></div>
-          <div class="tn-cell"><div class="tn-n">55→90</div><div class="tn-l">Site health score</div></div>
-        </div>
+        <div class="terra-content-grid">
+          <div>
+            <div class="terra-nums">
+              <div class="tn-cell"><div class="tn-n">12×</div><div class="tn-l">Organic clicks growth</div></div>
+              <div class="tn-cell"><div class="tn-n">978</div><div class="tn-l">Keywords Top 10</div></div>
+              <div class="tn-cell"><div class="tn-n">31.4M</div><div class="tn-l">Total impressions</div></div>
+              <div class="tn-cell"><div class="tn-n">55→90</div><div class="tn-l">Site health score</div></div>
+            </div>
 
-        <ul class="terra-bullets">
-          <li><strong>Dual-funnel campaign architecture</strong> - utility content compounds domain authority, B2B service pages convert qualified intent. 51K+ clicks on top utility keyword alone.</li>
-          <li><strong>Full digital stack ownership</strong> - technical SEO, content strategy, GA4 + GSC + Clarity setup, paid ads monitoring, weekly BOD dashboards.</li>
-          <li><strong>AI-augmented production</strong> - prompt-based content pipelines reducing turnaround ~40%, with 100% human QA.</li>
-          <li><strong>Bilingual EN / VI execution</strong> for Vietnamese SMEs and Japanese / European FDI decision-makers.</li>
-        </ul>
+            <div class="terra-chips">
+              <span class="chip">Growth Marketing</span>
+              <span class="chip">Performance Ads</span>
+              <span class="chip">Technical SEO</span>
+              <span class="chip">Content Strategy</span>
+              <span class="chip">GA4 · GSC</span>
+              <span class="chip">AI Workflows</span>
+              <span class="chip">B2B Funnel Design</span>
+            </div>
+          </div>
 
-        <div class="terra-chips">
-          <span class="chip">Technical SEO</span>
-          <span class="chip">Content Strategy</span>
-          <span class="chip">GA4 · GSC</span>
-          <span class="chip">Performance Ads</span>
-          <span class="chip">AI Workflows</span>
-          <span class="chip">B2B Funnel Design</span>
-        </div>
+          <div>
+            <ul class="terra-bullets">
+              <li><strong>Dual-funnel growth architecture</strong> - utility content compounds domain authority, B2B service pages convert qualified intent. 51K+ clicks on top utility keyword alone.</li>
+              <li><strong>Full digital stack ownership</strong> - technical SEO, content strategy, performance ads coordination, GA4 + GSC + Clarity setup, weekly BOD dashboards.</li>
+              <li><strong>Growth + performance marketing</strong> - audience research, channel mix, A/B testing, budget allocation, ROI tracking across paid and organic.</li>
+              <li><strong>AI-augmented production</strong> - prompt-based content pipelines reducing turnaround ~40%, with 100% human QA.</li>
+              <li><strong>Bilingual EN / VI execution</strong> for Vietnamese SMEs and Japanese / European FDI decision-makers.</li>
+            </ul>
 
-        <div class="terra-ctas">
-          <a href="terra.html" class="btn-terra">Read full case study →</a>
-          <a href="https://terra-plat.vn" target="_blank" class="btn-line">Visit live site ↗</a>
+            <div class="terra-ctas">
+              <a href="terra.html" class="btn-terra">Read full case study →</a>
+              <a href="https://terra-plat.vn" target="_blank" class="btn-line">Visit live site ↗</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -772,25 +799,17 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
         <div class="s-eyebrow">04 - Creative Work</div>
         <h2 class="s-title split-t">Video &amp; <em>Brand</em></h2>
       </div>
-      <p class="vr-lead fu" data-d="1">End-to-end video production - TVCs, brand films, event recaps, commercial explainers. Two-time Top 1 TVC at Business Challenge (national student marketing competition). Selected reel below.</p>
+      <p class="vr-lead fu" data-d="1">End-to-end video production - TVCs, brand films, event recaps, music videos, commercial explainers. Two-time Top 1 TVC at Business Challenge (national student marketing competition). A few highlights below; full reel one click away.</p>
     </div>
 
-    <div class="vgrid fu" data-d="2">
+    <div class="vgrid vgrid-feat fu" data-d="2">
       <div class="vcard span2" data-yt="Nr8vCC5JWCQ">
         <div class="vthumb"><div class="vthumb-bg"><img src="https://img.youtube.com/vi/Nr8vCC5JWCQ/maxresdefault.jpg" alt="TVC ARISAQUA" onerror="this.style.display='none'"><div class="play-ring"></div></div><span class="vbadge">TVC · Top 1 - 2024</span></div>
         <div class="vinfo"><div class="vtitle">Business Challenge 2024 - TVC ARISAQUA</div><div class="vmeta">Top 1 TVC · ISB Academic Team · National student competition</div></div>
       </div>
-      <div class="vcard no-yt">
-        <div class="vthumb"><div class="vthumb-bg"><div class="play-ring"></div></div><span class="vbadge">TVC · Top 1 - 2023</span></div>
-        <div class="vinfo"><div class="vtitle">Business Challenge 2023 - TVC</div><div class="vmeta">Top 1 TVC · ISB Academic Team · Back-to-back champion</div></div>
-      </div>
       <div class="vcard" data-yt="1cJGz4wwduA">
         <div class="vthumb"><div class="vthumb-bg"><img src="https://img.youtube.com/vi/1cJGz4wwduA/maxresdefault.jpg" alt="Let's On Air" onerror="this.style.display='none'"><div class="play-ring"></div></div><span class="vbadge">Social · Top 20</span></div>
         <div class="vinfo"><div class="vtitle">Let's On Air 2023 - Sống Thay Xô Bồ</div><div class="vmeta">Top 20 Social Video · S Communications</div></div>
-      </div>
-      <div class="vcard no-yt">
-        <div class="vthumb"><div class="vthumb-bg"><div class="play-ring"></div></div><span class="vbadge">Brand Film</span></div>
-        <div class="vinfo"><div class="vtitle">ISB Be Yourself - Theme Song 2023</div><div class="vmeta">Official theme · L.O.M Music Club · 800+ participants</div></div>
       </div>
       <div class="vcard" data-yt="BWeBzuIDSRk">
         <div class="vthumb"><div class="vthumb-bg"><img src="https://img.youtube.com/vi/BWeBzuIDSRk/maxresdefault.jpg" alt="Shadow Funnel" onerror="this.style.display='none'"><div class="play-ring"></div></div><span class="vbadge">Commercial Explainer</span></div>
@@ -800,14 +819,14 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
         <div class="vthumb"><div class="vthumb-bg"><img src="https://img.youtube.com/vi/3xfFHWMzung/maxresdefault.jpg" alt="Explainer iPad" onerror="this.style.display='none'"><div class="play-ring"></div></div><span class="vbadge">Product Explainer</span></div>
         <div class="vinfo"><div class="vtitle">Explainer trên iPad</div><div class="vmeta">Product demo · Mona Media · EdTech client</div></div>
       </div>
-      <div class="vcard no-yt">
-        <div class="vthumb"><div class="vthumb-bg"><div class="play-ring"></div></div><span class="vbadge">Event Film</span></div>
-        <div class="vinfo"><div class="vtitle">Tết Tròn Tết Vuông 2023</div><div class="vmeta">Tết event film · S Communications · 2023</div></div>
-      </div>
-      <div class="vcard no-yt">
-        <div class="vthumb"><div class="vthumb-bg"><div class="play-ring"></div></div><span class="vbadge">MV Remake</span></div>
-        <div class="vinfo"><div class="vtitle">"Chìm Sâu" Remake by L.O.M</div><div class="vmeta">Music video · L.O.M Music Club · 2023</div></div>
-      </div>
+    </div>
+
+    <div class="video-cta-wrap fu" data-d="3">
+      <a href="video.html" class="video-cta">
+        <span class="video-cta-text">View full video reel</span>
+        <span class="video-cta-meta">Brand films · TVCs · Events · Music videos · Explainers</span>
+        <span class="video-cta-arrow">→</span>
+      </a>
     </div>
   </div>
 </section>
