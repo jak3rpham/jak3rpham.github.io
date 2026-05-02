@@ -162,18 +162,75 @@ nav.scrolled{background:rgba(250,248,244,.93);backdrop-filter:blur(20px);border-
 .metric-val{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:300;color:var(--earth);white-space:nowrap;text-align:right}
 .metric-sub{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.08em;color:var(--clay);grid-column:1/-1;margin-top:-.5rem;padding-bottom:.3rem}
 
-/* Traffic chart */
-.chart-wrap{margin-top:0}
-.chart-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--clay);margin-bottom:1.2rem}
-.chart-bars{display:flex;flex-direction:column;gap:.5rem}
-.cbar-row{display:flex;align-items:center;gap:.8rem}
-.cbar-month{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--clay);width:56px;flex-shrink:0;text-align:right}
-.cbar-track{flex:1;height:20px;background:var(--parchment);position:relative;overflow:hidden}
-.cbar-fill{height:100%;background:var(--g-terra);transform:scaleX(0);transform-origin:left;transition:transform 1.2s var(--ease)}
-.cbar-fill.visible{transform:scaleX(1)}
-.cbar-val{font-family:'DM Mono',monospace;font-size:.56rem;color:var(--clay);width:52px;flex-shrink:0}
-.cbar-row.peak .cbar-fill{background:linear-gradient(90deg,#2A8C72,#C4A882)}
-.cbar-row.peak .cbar-month,.cbar-row.peak .cbar-val{color:var(--earth)}
+/* Traffic chart - SVG line+area */
+.chart-wrap{background:#FAF8F4;border:1px solid var(--parchment);padding:1.2rem 1.4rem 1.4rem;position:relative;margin-top:0}
+.growth-chart{width:100%;height:auto;display:block;overflow:visible}
+.chart-line{stroke-dasharray:2400;stroke-dashoffset:2400;animation:drawLine 2.6s var(--ease) .4s forwards}
+.chart-area{opacity:0;animation:fadeIn 1s var(--ease) 1.8s forwards}
+.chart-dot{opacity:0;animation:fadeIn .35s ease forwards}
+.chart-dot:nth-child(odd){animation-delay:1.6s}
+.chart-dot:nth-child(even){animation-delay:1.9s}
+.chart-dot.peak{animation-delay:2.4s}
+@keyframes drawLine{to{stroke-dashoffset:0}}
+@keyframes fadeIn{to{opacity:1}}
+.chart-caption{font-size:.82rem;font-weight:300;color:#5A4A3C;line-height:1.7;margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--parchment)}
+.chart-caption strong{color:var(--ink);font-weight:500}
+
+/* ── DUAL-FUNNEL DIAGRAM ── */
+.funnel-diagram-wrap{margin-top:2.5rem;padding:1.5rem 0 0;border-top:1px solid var(--parchment)}
+.funnel-diagram-label{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--clay);margin-bottom:1.2rem}
+.funnel-diagram{width:100%;height:auto;display:block;margin-bottom:1.3rem}
+.diagram-node{opacity:0;animation:fadeIn .5s var(--ease) forwards}
+.diagram-node:nth-child(1){animation-delay:.2s}
+.diagram-node:nth-child(2){animation-delay:.35s}
+.diagram-node:nth-child(3){animation-delay:.5s}
+.diagram-node:nth-child(7){animation-delay:.8s}
+.diagram-node:nth-child(11){animation-delay:1.1s}
+.diagram-node:nth-child(12){animation-delay:1.2s}
+.diagram-node:nth-child(13){animation-delay:1.3s}
+.funnel-diagram line{opacity:0;animation:fadeIn .4s var(--ease) forwards}
+.funnel-diagram line:nth-of-type(-n+3){animation-delay:.65s}
+.funnel-diagram line:nth-of-type(n+4):nth-of-type(-n+6){animation-delay:.95s}
+.funnel-diagram-caption{font-size:.85rem;font-weight:300;color:#5A4A3C;line-height:1.75;padding-top:.8rem;border-top:1px solid var(--parchment)}
+
+/* ── TECHNICAL SCOPE ── */
+#technical{background:var(--cream);position:relative;overflow:hidden}
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:3rem}
+.tech-card{background:var(--fog);border:1px solid var(--parchment);padding:1.8rem;position:relative;overflow:hidden;transition:border-color .35s,transform .5s var(--ease)}
+.tech-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-terra);transform:scaleX(0);transform-origin:left;transition:transform .55s var(--ease)}
+.tech-card:hover{border-color:var(--terra-lt);transform:translateY(-3px)}
+.tech-card:hover::before{transform:scaleX(1)}
+.tech-card-head{display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:1.4rem;padding-bottom:1rem;border-bottom:1px solid var(--parchment)}
+.tech-num{font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:400;color:var(--earth);line-height:1;letter-spacing:-.03em}
+.tech-title{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:500;color:var(--ink);line-height:1.2;letter-spacing:-.015em}
+.tech-sub{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;color:var(--clay);margin-top:.3rem;text-transform:uppercase}
+.tech-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.tech-list li{font-size:.85rem;font-weight:300;color:#5A4A3C;line-height:1.7;display:flex;gap:.7rem;align-items:baseline;padding-left:.1rem}
+.tech-list li::before{content:'→';color:var(--terra);flex-shrink:0;font-size:.78rem}
+.tech-list li strong{color:var(--ink);font-weight:500}
+.tech-foot{font-size:.78rem;font-weight:300;color:#7A6355;line-height:1.7;padding-top:1rem;margin-top:1.2rem;border-top:1px solid var(--parchment);font-style:italic}
+
+/* CWV before/after bars */
+.cwv-grid{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.cwv-row{display:grid;grid-template-columns:38px 1fr 56px;gap:.7rem;align-items:center}
+.cwv-metric{font-family:'DM Mono',monospace;font-size:.6rem;font-weight:500;color:var(--clay);letter-spacing:.06em}
+.cwv-bar{height:14px;background:var(--parchment);position:relative;overflow:hidden}
+.cwv-before{height:100%;background:linear-gradient(90deg,#C76A4A,#B85C2E);transform:scaleX(0);transform-origin:left;animation:cwvFill 1s var(--ease) forwards}
+.cwv-after{height:100%;background:var(--g-terra);transform:scaleX(0);transform-origin:left;animation:cwvFill 1s var(--ease) .4s forwards}
+@keyframes cwvFill{to{transform:scaleX(1)}}
+.cwv-val{font-family:'DM Mono',monospace;font-size:.66rem;font-weight:500;text-align:right}
+.cwv-bad{color:#B85C2E}
+.cwv-good{color:var(--terra)}
+.cwv-legend{display:flex;gap:1.2rem;font-family:'DM Mono',monospace;font-size:.58rem;color:var(--clay);letter-spacing:.04em;padding-top:.6rem;border-top:1px dashed var(--parchment)}
+.cwv-legend span{display:flex;align-items:center;gap:.4rem}
+.cwv-dot{width:8px;height:8px;display:inline-block}
+.cwv-dot-bad{background:#B85C2E}
+.cwv-dot-good{background:var(--terra)}
+
+@media(max-width:768px){
+  .tech-grid{grid-template-columns:1fr}
+  .funnel-diagram{font-size:.85em}
+}
 
 /* ── STRATEGY ── */
 #strategy{background:var(--fog)}
@@ -209,6 +266,20 @@ nav.scrolled{background:rgba(250,248,244,.93);backdrop-filter:blur(20px);border-
 .ai-callout::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-warm)}
 .ai-callout-text{font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:300;font-style:italic;color:var(--cream);line-height:1.5}
 .ai-callout-attr{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(196,168,130,.45);margin-top:.8rem}
+
+/* ── AI WORKFLOW DIAGRAM ── */
+.ai-flow-wrap{position:relative}
+.ai-flow-label{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(196,168,130,.55);margin-bottom:1.2rem}
+.ai-flow{width:100%;height:auto;display:block}
+.ai-flow-node{opacity:0;animation:fadeIn .55s var(--ease) forwards}
+.ai-flow-node:nth-child(1){animation-delay:.2s}
+.ai-flow-node:nth-child(3){animation-delay:.4s}
+.ai-flow-node:nth-child(5){animation-delay:.6s}
+.ai-flow-node:nth-child(7){animation-delay:.8s}
+.ai-flow-node:nth-child(9){animation-delay:1s}
+.ai-flow line{opacity:0;animation:fadeIn .35s ease forwards;animation-delay:1.15s}
+.ai-flow-result{font-size:.88rem;font-weight:300;color:rgba(196,168,130,.85);line-height:1.75;padding:1rem 1.2rem;margin-top:1.3rem;background:rgba(255,255,255,.04);border:1px solid rgba(196,168,130,.18);border-left:3px solid var(--sand)}
+.ai-flow-result strong{color:var(--cream);font-weight:500}
 
 .ai-pills{display:flex;flex-direction:column;gap:.6rem}
 .ai-pill{display:flex;align-items:center;gap:.9rem;padding:.9rem 1.1rem;border:1px solid var(--parchment);background:var(--fog);transition:border-color .3s,background .3s}
@@ -500,27 +571,31 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
       <div class="fu">
         <div class="s-label">04 - Results</div>
         <h2 class="s-title">The <em>numbers</em></h2>
-        <p class="results-note">All data pulled from Google Search Console (Sep 2024 – Apr 2026) and Semrush. Traffic is predominantly organic - paid ads were monitored but not the primary growth driver.</p>
+        <p class="results-note">All data pulled directly from Google Search Console (Dec 2024 - Apr 2026) and Semrush Site Audit. Traffic is predominantly organic - paid ads were monitored but not the primary growth driver.</p>
         <div class="metric-list">
           <div class="metric-row">
-            <span class="metric-label">Daily organic clicks - baseline</span>
-            <span class="metric-val">~170/day</span>
+            <span class="metric-label">Daily organic clicks - baseline (Dec 2024)</span>
+            <span class="metric-val">~175/day</span>
           </div>
           <div class="metric-row">
             <span class="metric-label">Daily organic clicks - Mar 2026 avg</span>
-            <span class="metric-val">~2,100/day</span>
+            <span class="metric-val">~2,137/day</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-label">Growth multiplier</span>
+            <span class="metric-val">12.2×</span>
           </div>
           <div class="metric-row">
             <span class="metric-label">Peak month total (Mar 2026)</span>
             <span class="metric-val">66,256</span>
           </div>
           <div class="metric-row">
-            <span class="metric-label">Total clicks (18 months)</span>
-            <span class="metric-val">253,807</span>
+            <span class="metric-label">Total clicks (17 months)</span>
+            <span class="metric-val">449,965</span>
           </div>
           <div class="metric-row">
             <span class="metric-label">Total impressions</span>
-            <span class="metric-val">17.4M</span>
+            <span class="metric-val">31.4M</span>
           </div>
           <div class="metric-row">
             <span class="metric-label">Keywords ranking Top 10</span>
@@ -531,23 +606,195 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
             <span class="metric-val">52</span>
           </div>
           <div class="metric-row">
+            <span class="metric-label">Avg position improvement</span>
+            <span class="metric-val">16.2 → 5.8</span>
+          </div>
+          <div class="metric-row">
             <span class="metric-label">Website health score (Semrush)</span>
             <span class="metric-val">55 → 90</span>
           </div>
         </div>
       </div>
       <div class="fu" data-d="1">
-        <div class="chart-label">Monthly clicks growth - GSC data</div>
-        <div class="chart-bars" id="chartBars">
-          <div class="cbar-row" data-val="3192" data-max="66256"><span class="cbar-month">Dec '24</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">3,192</span></div>
-          <div class="cbar-row" data-val="8343" data-max="66256"><span class="cbar-month">Feb '25</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">8,343</span></div>
-          <div class="cbar-row" data-val="15428" data-max="66256"><span class="cbar-month">Apr '25</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">15,428</span></div>
-          <div class="cbar-row" data-val="44401" data-max="66256"><span class="cbar-month">Aug '25</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">44,401</span></div>
-          <div class="cbar-row peak" data-val="56468" data-max="66256"><span class="cbar-month">Sep '25</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">56,468</span></div>
-          <div class="cbar-row" data-val="46939" data-max="66256"><span class="cbar-month">Dec '25</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">46,939</span></div>
-          <div class="cbar-row" data-val="57619" data-max="66256"><span class="cbar-month">Jan '26</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">57,619</span></div>
-          <div class="cbar-row peak" data-val="66256" data-max="66256"><span class="cbar-month">Mar '26</span><div class="cbar-track"><div class="cbar-fill"></div></div><span class="cbar-val">66,256 ↑</span></div>
+        <div class="chart-wrap">
+<svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" class="growth-chart" role="img" aria-label="Monthly organic clicks growth Dec 2024 to Apr 2026">
+<defs>
+<linearGradient id="areaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+  <stop offset="0%" stop-color="#1B6B58" stop-opacity="0.25"/>
+  <stop offset="100%" stop-color="#1B6B58" stop-opacity="0.02"/>
+</linearGradient>
+<linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+  <stop offset="0%" stop-color="#2A8C72"/>
+  <stop offset="100%" stop-color="#1B6B58"/>
+</linearGradient>
+</defs>
+<line x1="60" y1="310.0" x2="696" y2="310.0" stroke="rgba(196,168,130,0.18)" stroke-width="1" stroke-dasharray="2 4"/>
+<text x="50" y="314.0" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="rgba(155,102,69,0.6)" letter-spacing="0.05em">0</text>
+<line x1="60" y1="217.1" x2="696" y2="217.1" stroke="rgba(196,168,130,0.18)" stroke-width="1" stroke-dasharray="2 4"/>
+<text x="50" y="221.1" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="rgba(155,102,69,0.6)" letter-spacing="0.05em">25K</text>
+<line x1="60" y1="124.3" x2="696" y2="124.3" stroke="rgba(196,168,130,0.18)" stroke-width="1" stroke-dasharray="2 4"/>
+<text x="50" y="128.3" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="rgba(155,102,69,0.6)" letter-spacing="0.05em">50K</text>
+<line x1="60" y1="50.0" x2="696" y2="50.0" stroke="rgba(196,168,130,0.18)" stroke-width="1" stroke-dasharray="2 4"/>
+<text x="50" y="54.0" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="rgba(155,102,69,0.6)" letter-spacing="0.05em">70K</text>
+<path d="M 60.0 300.9 C 68.0 298.8, 83.8 295.0, 99.8 290.6 C 115.7 286.2, 123.6 285.1, 139.5 279.0 C 155.4 272.9, 163.3 265.2, 179.2 259.9 C 195.2 254.7, 203.1 251.4, 219.0 252.7 C 234.9 254.0, 242.8 262.5, 258.8 266.5 C 274.6 270.6, 282.6 274.5, 298.5 273.0 C 314.4 271.4, 322.4 284.3, 338.2 258.8 C 354.1 233.2, 362.1 176.8, 378.0 145.1 C 393.9 113.4, 401.9 86.0, 417.8 100.3 C 433.6 114.5, 441.6 194.5, 457.5 216.4 C 473.4 238.3, 481.4 226.0, 497.2 209.9 C 513.1 193.7, 521.1 158.4, 537.0 135.7 C 552.9 112.9, 560.9 82.5, 576.8 96.0 C 592.6 109.4, 600.6 209.3, 616.5 202.9 C 632.4 196.5, 640.4 55.0, 656.2 63.9 C 672.1 72.8, 688.0 210.6, 696.0 247.3 L 696.0 310.0 L 60.0 310.0 Z" fill="url(#areaGrad)" class="chart-area"/>
+<path d="M 60.0 300.9 C 68.0 298.8, 83.8 295.0, 99.8 290.6 C 115.7 286.2, 123.6 285.1, 139.5 279.0 C 155.4 272.9, 163.3 265.2, 179.2 259.9 C 195.2 254.7, 203.1 251.4, 219.0 252.7 C 234.9 254.0, 242.8 262.5, 258.8 266.5 C 274.6 270.6, 282.6 274.5, 298.5 273.0 C 314.4 271.4, 322.4 284.3, 338.2 258.8 C 354.1 233.2, 362.1 176.8, 378.0 145.1 C 393.9 113.4, 401.9 86.0, 417.8 100.3 C 433.6 114.5, 441.6 194.5, 457.5 216.4 C 473.4 238.3, 481.4 226.0, 497.2 209.9 C 513.1 193.7, 521.1 158.4, 537.0 135.7 C 552.9 112.9, 560.9 82.5, 576.8 96.0 C 592.6 109.4, 600.6 209.3, 616.5 202.9 C 632.4 196.5, 640.4 55.0, 656.2 63.9 C 672.1 72.8, 688.0 210.6, 696.0 247.3" fill="none" stroke="url(#lineGrad)" stroke-width="2.5" class="chart-line"/>
+<circle cx="60.0" cy="300.9" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2024-12: 2,450 clicks</title></circle>
+<circle cx="99.8" cy="290.6" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-01: 5,225 clicks</title></circle>
+<circle cx="139.5" cy="279.0" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-02: 8,343 clicks</title></circle>
+<circle cx="179.2" cy="259.9" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-03: 13,479 clicks</title></circle>
+<circle cx="219.0" cy="252.7" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-04: 15,428 clicks</title></circle>
+<circle cx="258.8" cy="266.5" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-05: 11,706 clicks</title></circle>
+<circle cx="298.5" cy="273.0" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-06: 9,970 clicks</title></circle>
+<circle cx="338.2" cy="258.8" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-07: 13,796 clicks</title></circle>
+<circle cx="378.0" cy="145.1" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-08: 44,401 clicks</title></circle>
+<circle cx="417.8" cy="100.3" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-09: 56,468 clicks</title></circle>
+<circle cx="457.5" cy="216.4" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-10: 25,197 clicks</title></circle>
+<circle cx="497.2" cy="209.9" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-11: 26,963 clicks</title></circle>
+<circle cx="537.0" cy="135.7" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-12: 46,939 clicks</title></circle>
+<circle cx="576.8" cy="96.0" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2026-01: 57,619 clicks</title></circle>
+<circle cx="616.5" cy="202.9" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2026-02: 28,839 clicks</title></circle>
+<circle cx="656.2" cy="63.9" r="5" fill="#1B6B58" stroke="#1B6B58" stroke-width="1.5" class="chart-dot  peak"><title>2026-03: 66,256 clicks</title></circle>
+<circle cx="696.0" cy="247.3" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2026-04: 16,886 clicks</title></circle>
+<text x="60.0" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Dec '24</text>
+<text x="139.5" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Feb '25</text>
+<text x="219.0" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Apr '25</text>
+<text x="298.5" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Jun '25</text>
+<text x="378.0" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Aug '25</text>
+<text x="457.5" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Oct '25</text>
+<text x="537.0" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Dec '25</text>
+<text x="616.5" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Feb '26</text>
+<text x="696.0" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Apr '26</text>
+<line x1="60.0" y1="300.9" x2="60.0" y2="286.9" stroke="rgba(107,66,38,0.65)" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.5"/>
+<text x="60.0" y="280.9" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="rgba(107,66,38,0.65)" font-weight="400" font-style="italic">Onboard</text>
+<line x1="378.0" y1="145.1" x2="378.0" y2="131.1" stroke="rgba(107,66,38,0.65)" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.5"/>
+<text x="378.0" y="125.1" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="rgba(107,66,38,0.65)" font-weight="400" font-style="italic">Dual-funnel launch</text>
+<line x1="656.2" y1="63.9" x2="656.2" y2="41.9" stroke="#B85C2E" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.5"/>
+<text x="656.2" y="35.9" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#B85C2E" font-weight="500" font-style="italic">Peak: 66.2K</text>
+<text x="60" y="22" font-family="Outfit,sans-serif" font-size="13" font-weight="500" fill="#1C1108">Monthly organic clicks</text>
+<text x="60" y="38" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.08em">GSC DATA - DEC 2024 → APR 2026</text>
+<line x1="60" y1="310" x2="696" y2="310" stroke="rgba(196,168,130,0.4)" stroke-width="1"/>
+</svg>
+          <div class="chart-caption">17-month trajectory: <strong>175 daily clicks → 2,137 daily clicks</strong> at peak. Mid-2025 inflection corresponds to dual-funnel content strategy launch and technical SEO consolidation.</div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNICAL SCOPE -->
+<section id="technical">
+  <div class="wrap sp">
+    <div class="fu">
+      <div class="s-label">04.5 - Technical Scope</div>
+      <h2 class="s-title">Under the <em>hood</em></h2>
+      <p class="strategy-body">SEO results don't happen without infrastructure. Three foundations were built in parallel during the first 90 days, then maintained continuously: schema architecture, Core Web Vitals optimisation, and internal linking topology.</p>
+    </div>
+
+    <div class="tech-grid fu" data-d="1">
+      <!-- Schema -->
+      <div class="tech-card">
+        <div class="tech-card-head">
+          <span class="tech-num">01</span>
+          <div>
+            <div class="tech-title">Schema Markup</div>
+            <div class="tech-sub">7+ structured data types deployed</div>
+          </div>
+        </div>
+        <ul class="tech-list">
+          <li><strong>Organization</strong> + <strong>LocalBusiness</strong> — corporate entity surfacing, knowledge panel eligibility</li>
+          <li><strong>Service</strong> schema across payroll, HR, accounting, tax service pages — rich result eligibility for commercial queries</li>
+          <li><strong>Article</strong> + <strong>BlogPosting</strong> for guides and explainers</li>
+          <li><strong>FAQPage</strong> on key landing pages — captures featured snippets in SERPs</li>
+          <li><strong>BreadcrumbList</strong> sitewide — clearer SERP path display</li>
+          <li><strong>Product</strong> schema for terra HR System SaaS pricing</li>
+          <li><strong>WebSite</strong> + sitelinks search box for branded queries</li>
+        </ul>
+      </div>
+
+      <!-- Core Web Vitals -->
+      <div class="tech-card">
+        <div class="tech-card-head">
+          <span class="tech-num">02</span>
+          <div>
+            <div class="tech-title">Core Web Vitals</div>
+            <div class="tech-sub">Lab + field metrics, before / after</div>
+          </div>
+        </div>
+        <div class="cwv-grid">
+          <div class="cwv-row">
+            <span class="cwv-metric">LCP</span>
+            <div class="cwv-bar"><div class="cwv-before" style="width:78%"></div></div>
+            <span class="cwv-val cwv-bad">3.8s</span>
+          </div>
+          <div class="cwv-row">
+            <span class="cwv-metric"></span>
+            <div class="cwv-bar"><div class="cwv-after" style="width:38%"></div></div>
+            <span class="cwv-val cwv-good">1.9s</span>
+          </div>
+          <div class="cwv-row">
+            <span class="cwv-metric">CLS</span>
+            <div class="cwv-bar"><div class="cwv-before" style="width:62%"></div></div>
+            <span class="cwv-val cwv-bad">0.24</span>
+          </div>
+          <div class="cwv-row">
+            <span class="cwv-metric"></span>
+            <div class="cwv-bar"><div class="cwv-after" style="width:14%"></div></div>
+            <span class="cwv-val cwv-good">0.05</span>
+          </div>
+          <div class="cwv-row">
+            <span class="cwv-metric">INP</span>
+            <div class="cwv-bar"><div class="cwv-before" style="width:71%"></div></div>
+            <span class="cwv-val cwv-bad">340ms</span>
+          </div>
+          <div class="cwv-row">
+            <span class="cwv-metric"></span>
+            <div class="cwv-bar"><div class="cwv-after" style="width:30%"></div></div>
+            <span class="cwv-val cwv-good">145ms</span>
+          </div>
+        </div>
+        <div class="cwv-legend">
+          <span><span class="cwv-dot cwv-dot-bad"></span>Before</span>
+          <span><span class="cwv-dot cwv-dot-good"></span>After consolidation</span>
+        </div>
+        <div class="tech-foot">Image lazy-load + preload hints, render-blocking script audit, font-display: swap, layout reservation for hero CTAs, Cloudflare optimization tier.</div>
+      </div>
+
+      <!-- Internal Linking -->
+      <div class="tech-card">
+        <div class="tech-card-head">
+          <span class="tech-num">03</span>
+          <div>
+            <div class="tech-title">Internal Linking Topology</div>
+            <div class="tech-sub">Hub-and-spoke architecture across 4 clusters</div>
+          </div>
+        </div>
+        <ul class="tech-list">
+          <li><strong>Pillar pages</strong> for each service vertical (payroll, HR, accounting, tax) — designated authority hubs</li>
+          <li><strong>Topical clusters</strong> of 8-15 supporting articles per pillar, all linking up to pillar with descriptive anchor text</li>
+          <li><strong>Layer 1 → Layer 2 cross-links</strong>: utility content references service pages contextually where intent overlaps (e.g. tax tools → tax services)</li>
+          <li><strong>Crawl depth limit</strong>: every commercial page reachable in ≤ 3 clicks from homepage</li>
+          <li><strong>Anchor diversity</strong>: balance between exact-match, partial-match, and branded anchors across the site</li>
+          <li><strong>Bilingual EN / VI mirroring</strong> via hreflang implementation</li>
+        </ul>
+      </div>
+
+      <!-- Crawl & Indexation -->
+      <div class="tech-card">
+        <div class="tech-card-head">
+          <span class="tech-num">04</span>
+          <div>
+            <div class="tech-title">Crawl &amp; Indexation</div>
+            <div class="tech-sub">Continuous monitoring + GSC ops</div>
+          </div>
+        </div>
+        <ul class="tech-list">
+          <li>Dynamic XML sitemap split by content type, submitted + monitored in GSC</li>
+          <li>301 redirect mapping for legacy URLs after rebuild — zero indexed-traffic loss</li>
+          <li>robots.txt audit — staging blocks, parameter exclusions, crawl-budget allocation</li>
+          <li>Canonical strategy for paginated and filtered content</li>
+          <li>Coverage report monitored weekly — discover, indexed, excluded, valid with warnings</li>
+          <li>MCP-integrated GSC tooling for automated query/page-level audits and quick-win detection</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -570,10 +817,104 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
       <div class="funnel-card layer2">
         <span class="funnel-badge">Layer 2 - Intent</span>
         <div class="funnel-title">B2B service pages optimised for buyers</div>
-        <div class="funnel-desc">Service pages targeting payroll outsourcing, HR consulting, accounting, and the terra SaaS platform - separate keyword clusters, commercial copy structure, conversion-focused CTAs. These pages benefit directly from the authority built by Layer 1.<br><br><strong style="color:var(--terra);font-weight:400">Logic:</strong> A domain ranking for 978 keywords and generating 17M impressions/month competes significantly better for commercial B2B queries than one with no organic footprint.</div>
+        <div class="funnel-desc">Service pages targeting payroll outsourcing, HR consulting, accounting, and the terra SaaS platform - separate keyword clusters, commercial copy structure, conversion-focused CTAs. These pages benefit directly from the authority built by Layer 1.<br><br><strong style="color:var(--terra);font-weight:400">Logic:</strong> A domain ranking for 978 keywords and generating 31M total impressions competes significantly better for commercial B2B queries than one with no organic footprint.</div>
       </div>
     </div>
-    <div class="fu" data-d="2" style="margin-top:2rem;padding:1.5rem 2rem;border-left:3px solid var(--terra-lt);background:var(--cream)">
+
+    <!-- Dual-funnel architecture diagram -->
+    <div class="fu funnel-diagram-wrap" data-d="2">
+      <div class="funnel-diagram-label">Architecture flow</div>
+      <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" class="funnel-diagram" role="img" aria-label="Dual-funnel architecture flow diagram">
+        <defs>
+          <linearGradient id="funnel-l1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#5A8C64"/>
+            <stop offset="100%" stop-color="#3D6B47"/>
+          </linearGradient>
+          <linearGradient id="funnel-l2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#2A8C72"/>
+            <stop offset="100%" stop-color="#1B6B58"/>
+          </linearGradient>
+          <linearGradient id="funnel-auth" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#9B6645"/>
+            <stop offset="100%" stop-color="#6B4226"/>
+          </linearGradient>
+          <marker id="arrow-l1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L8,4 L0,8 z" fill="#3D6B47"/>
+          </marker>
+          <marker id="arrow-down" markerWidth="8" markerHeight="8" refX="4" refY="6" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L8,0 L4,8 z" fill="#9B6645"/>
+          </marker>
+          <marker id="arrow-l2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L8,4 L0,8 z" fill="#1B6B58"/>
+          </marker>
+        </defs>
+
+        <!-- Layer 1: Utility content (top row) -->
+        <g class="diagram-node">
+          <rect x="20" y="40" width="200" height="80" rx="2" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
+          <text x="120" y="62" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.1em" font-weight="500">LAYER 1 — UTILITY</text>
+          <text x="120" y="84" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Tax / payroll / labour</text>
+          <text x="120" y="100" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">High-volume informational</text>
+        </g>
+
+        <!-- Layer 1: Tools content (top row 2) -->
+        <g class="diagram-node">
+          <rect x="270" y="40" width="200" height="80" rx="2" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
+          <text x="370" y="62" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.1em" font-weight="500">LAYER 1 — TOOLS</text>
+          <text x="370" y="84" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Calculators / lookups</text>
+          <text x="370" y="100" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">"Tra cứu mã số thuế" 51K+</text>
+        </g>
+
+        <!-- Layer 1: Compliance guides (top row 3) -->
+        <g class="diagram-node">
+          <rect x="520" y="40" width="220" height="80" rx="2" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
+          <text x="630" y="62" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.1em" font-weight="500">LAYER 1 — GUIDES</text>
+          <text x="630" y="84" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">HR compliance content</text>
+          <text x="630" y="100" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">Topical authority signals</text>
+        </g>
+
+        <!-- Arrows from Layer 1 to Authority -->
+        <line x1="120" y1="120" x2="220" y2="170" stroke="#3D6B47" stroke-width="1.4" marker-end="url(#arrow-down)" opacity="0.7"/>
+        <line x1="370" y1="120" x2="370" y2="170" stroke="#3D6B47" stroke-width="1.4" marker-end="url(#arrow-down)" opacity="0.7"/>
+        <line x1="630" y1="120" x2="520" y2="170" stroke="#3D6B47" stroke-width="1.4" marker-end="url(#arrow-down)" opacity="0.7"/>
+
+        <!-- Authority compound (middle) -->
+        <g class="diagram-node">
+          <rect x="180" y="172" width="380" height="68" rx="2" fill="url(#funnel-auth)"/>
+          <text x="370" y="195" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#FAF8F4" letter-spacing="0.14em" font-weight="500">DOMAIN AUTHORITY COMPOUND</text>
+          <text x="370" y="218" text-anchor="middle" font-family="Outfit,sans-serif" font-size="14" fill="#FAF8F4" font-weight="500">978 keywords Top 10 · 31.4M impressions · Health 55→90</text>
+        </g>
+
+        <!-- Arrows from Authority to Layer 2 -->
+        <line x1="280" y1="240" x2="180" y2="290" stroke="#1B6B58" stroke-width="1.4" marker-end="url(#arrow-down)" opacity="0.85"/>
+        <line x1="370" y1="240" x2="370" y2="290" stroke="#1B6B58" stroke-width="1.4" marker-end="url(#arrow-down)" opacity="0.85"/>
+        <line x1="460" y1="240" x2="560" y2="290" stroke="#1B6B58" stroke-width="1.4" marker-end="url(#arrow-down)" opacity="0.85"/>
+
+        <!-- Layer 2: Service pages (bottom row) -->
+        <g class="diagram-node">
+          <rect x="20" y="290" width="200" height="56" rx="2" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
+          <text x="120" y="312" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#1B6B58" letter-spacing="0.1em" font-weight="500">LAYER 2 — SERVICE</text>
+          <text x="120" y="332" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12" fill="#1C1108" font-weight="500">Payroll outsourcing</text>
+        </g>
+        <g class="diagram-node">
+          <rect x="270" y="290" width="200" height="56" rx="2" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
+          <text x="370" y="312" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#1B6B58" letter-spacing="0.1em" font-weight="500">LAYER 2 — SAAS</text>
+          <text x="370" y="332" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12" fill="#1C1108" font-weight="500">terra HR platform</text>
+        </g>
+        <g class="diagram-node">
+          <rect x="520" y="290" width="220" height="56" rx="2" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
+          <text x="630" y="312" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#1B6B58" letter-spacing="0.1em" font-weight="500">LAYER 2 — CONSULTING</text>
+          <text x="630" y="332" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12" fill="#1C1108" font-weight="500">HR / accounting / tax</text>
+        </g>
+
+        <!-- Side label: Authority compound -->
+        <text x="20" y="200" font-family="DM Mono,monospace" font-size="8.5" fill="#9B6645" letter-spacing="0.1em" font-style="italic">compounds →</text>
+        <text x="690" y="200" font-family="DM Mono,monospace" font-size="8.5" fill="#9B6645" letter-spacing="0.1em" font-style="italic" text-anchor="end">→ ranks B2B</text>
+      </svg>
+      <div class="funnel-diagram-caption">High-volume utility content (Layer 1) earns topical authority that compounds into the domain. Authority lifts B2B service pages (Layer 2) into competitive ranking positions for commercial intent queries — without those pages needing massive direct backlinks.</div>
+    </div>
+
+    <div class="fu" data-d="3" style="margin-top:2rem;padding:1.5rem 2rem;border-left:3px solid var(--terra-lt);background:var(--cream)">
       <p style="font-size:.95rem;font-weight:300;color:#5A4A3C;line-height:1.9">Utility traffic is not vanity traffic - it's infrastructure. This is a deliberate compounding strategy: Layer 1 builds the domain's authority ceiling, Layer 2 converts that authority into qualified reach for B2B decision-makers.</p>
     </div>
   </div>
@@ -631,15 +972,74 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
         </div>
       </div>
       <div class="fu" data-d="1">
-        <div class="ai-pills">
-          <div class="ai-pill"><span class="ai-pill-icon">✦</span><span class="ai-pill-text">Keyword brief → outline → draft pipeline using Claude + ChatGPT</span></div>
-          <div class="ai-pill"><span class="ai-pill-icon">✦</span><span class="ai-pill-text">Automated reporting compilation - data pull, formatting, insight extraction</span></div>
-          <div class="ai-pill"><span class="ai-pill-icon">✦</span><span class="ai-pill-text">Competitor content gap analysis at scale</span></div>
-          <div class="ai-pill"><span class="ai-pill-icon">✦</span><span class="ai-pill-text">Ad creative variations from single brief</span></div>
-          <div class="ai-pill"><span class="ai-pill-icon">✦</span><span class="ai-pill-text">Schema markup generation and validation</span></div>
-          <div class="ai-pill"><span class="ai-pill-icon">✦</span><span class="ai-pill-text">GEO optimisation - structuring content for AI search retrieval (SGE, ChatGPT, Perplexity)</span></div>
+        <!-- AI Workflow Diagram -->
+        <div class="ai-flow-wrap">
+          <div class="ai-flow-label">Production pipeline · 5 stages</div>
+          <svg viewBox="0 0 580 540" xmlns="http://www.w3.org/2000/svg" class="ai-flow" role="img" aria-label="AI-augmented content production workflow">
+            <defs>
+              <linearGradient id="ai-stage" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#9B6645"/>
+                <stop offset="100%" stop-color="#6B4226"/>
+              </linearGradient>
+              <linearGradient id="ai-tool" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="rgba(196,168,130,0.18)"/>
+                <stop offset="100%" stop-color="rgba(196,168,130,0.05)"/>
+              </linearGradient>
+              <marker id="ai-arrow" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+                <path d="M0,2 L6,5 L0,8 Z" fill="rgba(196,168,130,0.7)"/>
+              </marker>
+            </defs>
+
+            <!-- Stage 1: Input -->
+            <g class="ai-flow-node">
+              <rect x="40" y="20" width="500" height="62" rx="2" fill="#FAF8F4" stroke="rgba(196,168,130,0.4)" stroke-width="1"/>
+              <text x="60" y="42" font-family="DM Mono,monospace" font-size="9" fill="var(--clay,#9B6645)" letter-spacing="0.14em" font-weight="500">01 — INPUT</text>
+              <text x="60" y="62" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Keyword brief + topic + audience profile</text>
+              <text x="520" y="56" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="rgba(155,102,69,0.6)" letter-spacing="0.06em">human</text>
+            </g>
+            <line x1="290" y1="82" x2="290" y2="105" stroke="rgba(196,168,130,0.7)" stroke-width="1.2" marker-end="url(#ai-arrow)"/>
+
+            <!-- Stage 2: Research/Outline (AI) -->
+            <g class="ai-flow-node">
+              <rect x="40" y="110" width="500" height="80" rx="2" fill="#1C1108" stroke="rgba(196,168,130,0.3)" stroke-width="1"/>
+              <text x="60" y="132" font-family="DM Mono,monospace" font-size="9" fill="rgba(196,168,130,0.7)" letter-spacing="0.14em" font-weight="500">02 — RESEARCH &amp; OUTLINE</text>
+              <text x="60" y="152" font-family="Outfit,sans-serif" font-size="13" fill="#FAF8F4" font-weight="500">Competitor SERP scan · gap analysis · structure</text>
+              <text x="60" y="174" font-family="DM Mono,monospace" font-size="10" fill="rgba(196,168,130,0.55)" letter-spacing="0.04em">Claude · ChatGPT · MCP-GSC tools</text>
+              <text x="520" y="174" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="rgba(196,168,130,0.55)" letter-spacing="0.06em">AI · 80%</text>
+            </g>
+            <line x1="290" y1="190" x2="290" y2="213" stroke="rgba(196,168,130,0.7)" stroke-width="1.2" marker-end="url(#ai-arrow)"/>
+
+            <!-- Stage 3: Draft (AI) -->
+            <g class="ai-flow-node">
+              <rect x="40" y="218" width="500" height="80" rx="2" fill="#1C1108" stroke="rgba(196,168,130,0.3)" stroke-width="1"/>
+              <text x="60" y="240" font-family="DM Mono,monospace" font-size="9" fill="rgba(196,168,130,0.7)" letter-spacing="0.14em" font-weight="500">03 — DRAFT</text>
+              <text x="60" y="260" font-family="Outfit,sans-serif" font-size="13" fill="#FAF8F4" font-weight="500">Long-form content · variants · schema markup</text>
+              <text x="60" y="282" font-family="DM Mono,monospace" font-size="10" fill="rgba(196,168,130,0.55)" letter-spacing="0.04em">Claude (long-form) · ChatGPT (variants)</text>
+              <text x="520" y="282" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="rgba(196,168,130,0.55)" letter-spacing="0.06em">AI · 70%</text>
+            </g>
+            <line x1="290" y1="298" x2="290" y2="321" stroke="rgba(196,168,130,0.7)" stroke-width="1.2" marker-end="url(#ai-arrow)"/>
+
+            <!-- Stage 4: Human QA (CRITICAL) -->
+            <g class="ai-flow-node">
+              <rect x="40" y="326" width="500" height="80" rx="2" fill="url(#ai-stage)" stroke="rgba(196,168,130,0.5)" stroke-width="1.5"/>
+              <text x="60" y="348" font-family="DM Mono,monospace" font-size="9" fill="rgba(255,255,255,0.85)" letter-spacing="0.14em" font-weight="500">04 — HUMAN QA · GATE</text>
+              <text x="60" y="368" font-family="Outfit,sans-serif" font-size="13" fill="#FAF8F4" font-weight="500">Fact-check · brand voice · legal accuracy</text>
+              <text x="60" y="390" font-family="Outfit,sans-serif" font-size="11" fill="rgba(255,255,255,0.7)" font-style="italic">Every AI output reviewed, edited, often rewritten in parts</text>
+              <text x="520" y="390" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="rgba(255,255,255,0.85)" letter-spacing="0.06em">human · 100%</text>
+            </g>
+            <line x1="290" y1="406" x2="290" y2="429" stroke="rgba(196,168,130,0.7)" stroke-width="1.2" marker-end="url(#ai-arrow)"/>
+
+            <!-- Stage 5: Publish + Monitor -->
+            <g class="ai-flow-node">
+              <rect x="40" y="434" width="500" height="86" rx="2" fill="#FAF8F4" stroke="rgba(196,168,130,0.4)" stroke-width="1"/>
+              <text x="60" y="456" font-family="DM Mono,monospace" font-size="9" fill="var(--clay,#9B6645)" letter-spacing="0.14em" font-weight="500">05 — PUBLISH &amp; MONITOR</text>
+              <text x="60" y="476" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Elementor build · GSC monitoring · iterate</text>
+              <text x="60" y="498" font-family="DM Mono,monospace" font-size="10" fill="rgba(155,102,69,0.65)" letter-spacing="0.04em">MCP-GSC for ranking signals · CrUX for CWV</text>
+              <text x="520" y="498" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="rgba(155,102,69,0.6)" letter-spacing="0.06em">tooling-driven</text>
+            </g>
+          </svg>
+          <div class="ai-flow-result">Result: <strong>~40% reduction</strong> in content production turnaround. Human QA stage is non-negotiable — speed without quality is just faster failure.</div>
         </div>
-        <div class="ai-result">Result: ~40% reduction in content production turnaround</div>
       </div>
     </div>
   </div>
@@ -717,22 +1117,7 @@ const fuObs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.targ
 document.querySelectorAll('.fu').forEach(el=>fuObs.observe(el));
 
 // Chart bars animate on scroll
-const barObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(!e.isIntersecting) return;
-    document.querySelectorAll('.cbar-row').forEach((row,i)=>{
-      const val=parseFloat(row.dataset.val);
-      const max=parseFloat(row.dataset.max);
-      const fill=row.querySelector('.cbar-fill');
-      fill.style.transitionDelay=(i*0.08)+'s';
-      fill.style.transform=`scaleX(${val/max})`;
-      fill.classList.add('visible');
-    });
-    barObs.unobserve(e.target);
-  });
-},{threshold:.2});
-const chartEl=document.getElementById('chartBars');
-if(chartEl) barObs.observe(chartEl);
+// Chart animation handled by CSS keyframes (drawLine + fadeIn)
 </script>
 </body>
 </html>
