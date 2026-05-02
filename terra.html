@@ -811,97 +811,93 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
     <!-- Dual-funnel architecture diagram -->
     <div class="fu funnel-diagram-wrap" data-d="2">
       <div class="funnel-diagram-label">How I structured terra's content — content cluster map</div>
-      <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" class="funnel-diagram" role="img" aria-label="Content cluster architecture I designed for terra">
+      <svg viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" class="funnel-diagram" role="img" aria-label="Content cluster architecture I designed for terra">
         <defs>
           <linearGradient id="funnel-auth" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stop-color="#9B6645"/>
             <stop offset="100%" stop-color="#6B4226"/>
           </linearGradient>
-          <marker id="arrow-down" viewBox="0 0 10 10" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto-start-reverse">
-            <path d="M 1 1 L 5 9 L 9 1" fill="none" stroke="#9B6645" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <marker id="arrow-earth" viewBox="0 0 10 10" markerWidth="9" markerHeight="9" refX="9" refY="5" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#9B6645"/>
           </marker>
-          <marker id="arrow-down-green" viewBox="0 0 10 10" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto-start-reverse">
-            <path d="M 1 1 L 5 9 L 9 1" fill="none" stroke="#1B6B58" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <marker id="arrow-terra" viewBox="0 0 10 10" markerWidth="9" markerHeight="9" refX="9" refY="5" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B6B58"/>
           </marker>
         </defs>
 
-        <!-- Top label -->
-        <text x="400" y="22" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#9B6645" letter-spacing="0.18em" font-weight="500">CONTENT I PUBLISHED → AUTHORITY I BUILT → CONVERSION PAGES THAT BENEFIT</text>
+        <!-- Top header (the only text frame needed) -->
+        <text x="400" y="22" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#9B6645" letter-spacing="0.18em" font-weight="500">CONTENT I PUBLISHED  →  AUTHORITY I BUILT  →  CONVERSION PAGES THAT BENEFIT</text>
 
-        <!-- ROW 1 — Content I publish -->
-        <text x="20" y="60" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.14em" font-weight="500">LAYER 1 · INFORMATIONAL CONTENT (publish at volume)</text>
-
+        <!-- Layer 1 boxes -->
         <g class="diagram-node">
-          <rect x="20" y="74" width="240" height="76" rx="3" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
-          <text x="140" y="98" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Tax / payroll / labour</text>
-          <text x="140" y="116" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">High-volume guides &amp; explainers</text>
-          <text x="140" y="138" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.06em">cluster of 60+ articles</text>
+          <rect x="20" y="50" width="240" height="86" rx="3" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
+          <rect x="20" y="50" width="240" height="3" fill="#3D6B47"/>
+          <text x="140" y="78" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Tax / payroll / labour</text>
+          <text x="140" y="98" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">High-volume guides &amp; explainers</text>
+          <text x="140" y="122" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.06em">cluster of 60+ articles</text>
         </g>
 
         <g class="diagram-node">
-          <rect x="280" y="74" width="240" height="76" rx="3" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
-          <text x="400" y="98" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Calculators &amp; lookup tools</text>
-          <text x="400" y="116" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">"Tra cứu mã số thuế" — 51K+ clicks</text>
-          <text x="400" y="138" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.06em">cluster of 12+ tools</text>
+          <rect x="280" y="50" width="240" height="86" rx="3" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
+          <rect x="280" y="50" width="240" height="3" fill="#3D6B47"/>
+          <text x="400" y="78" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Calculators &amp; lookup tools</text>
+          <text x="400" y="98" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">"Tra cứu mã số thuế" — 51K+ clicks</text>
+          <text x="400" y="122" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.06em">cluster of 12+ tools</text>
         </g>
 
         <g class="diagram-node">
-          <rect x="540" y="74" width="240" height="76" rx="3" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
-          <text x="660" y="98" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">HR compliance content</text>
-          <text x="660" y="116" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">Topical authority signals</text>
-          <text x="660" y="138" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.06em">cluster of 40+ articles</text>
+          <rect x="540" y="50" width="240" height="86" rx="3" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
+          <rect x="540" y="50" width="240" height="3" fill="#3D6B47"/>
+          <text x="660" y="78" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">HR compliance content</text>
+          <text x="660" y="98" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">Topical authority signals</text>
+          <text x="660" y="122" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.06em">cluster of 40+ articles</text>
         </g>
 
-        <!-- Side label "compounds into" -->
-        <text x="400" y="180" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#9B6645" letter-spacing="0.16em" font-style="italic">↓ compounds into ↓</text>
+        <!-- Arrows: Layer 1 to Authority compound -->
+        <line x1="140" y1="138" x2="280" y2="190" stroke="#9B6645" stroke-width="1.6" marker-end="url(#arrow-earth)" opacity="0.75"/>
+        <line x1="400" y1="138" x2="400" y2="190" stroke="#9B6645" stroke-width="1.6" marker-end="url(#arrow-earth)" opacity="0.75"/>
+        <line x1="660" y1="138" x2="520" y2="190" stroke="#9B6645" stroke-width="1.6" marker-end="url(#arrow-earth)" opacity="0.75"/>
 
-        <!-- Arrows from Layer 1 to Authority compound -->
-        <line x1="140" y1="150" x2="270" y2="220" stroke="#9B6645" stroke-width="1.5" marker-end="url(#arrow-down)" opacity="0.7"/>
-        <line x1="400" y1="150" x2="400" y2="220" stroke="#9B6645" stroke-width="1.5" marker-end="url(#arrow-down)" opacity="0.7"/>
-        <line x1="660" y1="150" x2="530" y2="220" stroke="#9B6645" stroke-width="1.5" marker-end="url(#arrow-down)" opacity="0.7"/>
-
-        <!-- ROW 2 — Domain authority compound (middle / highlighted) -->
+        <!-- Authority compound -->
         <g class="diagram-node">
-          <rect x="120" y="222" width="560" height="80" rx="3" fill="url(#funnel-auth)"/>
-          <text x="400" y="247" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(255,255,255,.85)" letter-spacing="0.16em" font-weight="500">DOMAIN AUTHORITY (the compounded result)</text>
-          <text x="400" y="272" text-anchor="middle" font-family="Outfit,sans-serif" font-size="14.5" fill="#FAF8F4" font-weight="500">978 keywords Top 10  ·  31.4M impressions  ·  Site health 55 → 90</text>
-          <text x="400" y="290" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="rgba(255,255,255,.7)" font-style="italic">earned through Layer 1, leveraged by Layer 2</text>
+          <rect x="120" y="200" width="560" height="84" rx="3" fill="url(#funnel-auth)"/>
+          <text x="400" y="226" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(255,255,255,.85)" letter-spacing="0.16em" font-weight="500">DOMAIN AUTHORITY (the compounded result)</text>
+          <text x="400" y="252" text-anchor="middle" font-family="Outfit,sans-serif" font-size="14.5" fill="#FAF8F4" font-weight="500">978 keywords Top 10  ·  31.4M impressions  ·  Site health 55 → 90</text>
+          <text x="400" y="272" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="rgba(255,255,255,.7)" font-style="italic">earned through Layer 1, leveraged by Layer 2</text>
         </g>
 
-        <!-- Side label "lifts" -->
-        <text x="400" y="330" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#1B6B58" letter-spacing="0.16em" font-style="italic">↓ lifts the rankings of ↓</text>
+        <!-- Arrows: Authority to Layer 2 -->
+        <line x1="280" y1="284" x2="160" y2="336" stroke="#1B6B58" stroke-width="1.6" marker-end="url(#arrow-terra)" opacity="0.85"/>
+        <line x1="400" y1="284" x2="400" y2="336" stroke="#1B6B58" stroke-width="1.6" marker-end="url(#arrow-terra)" opacity="0.85"/>
+        <line x1="520" y1="284" x2="640" y2="336" stroke="#1B6B58" stroke-width="1.6" marker-end="url(#arrow-terra)" opacity="0.85"/>
 
-        <!-- Arrows from Authority to Layer 2 -->
-        <line x1="280" y1="302" x2="160" y2="370" stroke="#1B6B58" stroke-width="1.5" marker-end="url(#arrow-down-green)" opacity="0.85"/>
-        <line x1="400" y1="302" x2="400" y2="370" stroke="#1B6B58" stroke-width="1.5" marker-end="url(#arrow-down-green)" opacity="0.85"/>
-        <line x1="520" y1="302" x2="640" y2="370" stroke="#1B6B58" stroke-width="1.5" marker-end="url(#arrow-down-green)" opacity="0.85"/>
-
-        <!-- ROW 3 — Conversion pages -->
-        <text x="20" y="356" font-family="DM Mono,monospace" font-size="9" fill="#1B6B58" letter-spacing="0.14em" font-weight="500">LAYER 2 · CONVERSION PAGES (terra's commercial offerings)</text>
-
+        <!-- Layer 2 boxes -->
         <g class="diagram-node">
-          <rect x="20" y="378" width="240" height="68" rx="3" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
-          <text x="140" y="402" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12.5" fill="#1C1108" font-weight="500">Payroll outsourcing pages</text>
-          <text x="140" y="420" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#5A4A3C" font-style="italic">B2B service · EN + VI</text>
-          <text x="140" y="436" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1B6B58" letter-spacing="0.05em">cluster of 8 pages</text>
+          <rect x="20" y="346" width="240" height="74" rx="3" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
+          <rect x="20" y="346" width="240" height="3" fill="#1B6B58"/>
+          <text x="140" y="372" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12.5" fill="#1C1108" font-weight="500">Payroll outsourcing pages</text>
+          <text x="140" y="390" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#5A4A3C" font-style="italic">B2B service · EN + VI</text>
+          <text x="140" y="410" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1B6B58" letter-spacing="0.05em">cluster of 8 pages</text>
         </g>
 
         <g class="diagram-node">
-          <rect x="280" y="378" width="240" height="68" rx="3" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
-          <text x="400" y="402" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12.5" fill="#1C1108" font-weight="500">terra HR System (SaaS)</text>
-          <text x="400" y="420" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#5A4A3C" font-style="italic">Product pages · EN + VI</text>
-          <text x="400" y="436" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1B6B58" letter-spacing="0.05em">cluster of 6 pages</text>
+          <rect x="280" y="346" width="240" height="74" rx="3" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
+          <rect x="280" y="346" width="240" height="3" fill="#1B6B58"/>
+          <text x="400" y="372" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12.5" fill="#1C1108" font-weight="500">terra HR System (SaaS)</text>
+          <text x="400" y="390" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#5A4A3C" font-style="italic">Product pages · EN + VI</text>
+          <text x="400" y="410" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1B6B58" letter-spacing="0.05em">cluster of 6 pages</text>
         </g>
 
         <g class="diagram-node">
-          <rect x="540" y="378" width="240" height="68" rx="3" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
-          <text x="660" y="402" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12.5" fill="#1C1108" font-weight="500">HR / accounting / tax</text>
-          <text x="660" y="420" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#5A4A3C" font-style="italic">Consulting service pages</text>
-          <text x="660" y="436" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1B6B58" letter-spacing="0.05em">cluster of 12 pages</text>
+          <rect x="540" y="346" width="240" height="74" rx="3" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
+          <rect x="540" y="346" width="240" height="3" fill="#1B6B58"/>
+          <text x="660" y="372" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12.5" fill="#1C1108" font-weight="500">HR / accounting / tax</text>
+          <text x="660" y="390" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#5A4A3C" font-style="italic">Consulting service pages</text>
+          <text x="660" y="410" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1B6B58" letter-spacing="0.05em">cluster of 12 pages</text>
         </g>
 
-        <!-- Bottom outcome label -->
-        <text x="400" y="468" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">→ these pages now compete in commercial B2B SERPs without massive direct backlinks</text>
+        <!-- Bottom outcome -->
+        <text x="400" y="434" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">→ these pages now compete in commercial B2B SERPs without massive direct backlinks</text>
       </svg>
       <div class="funnel-diagram-caption">This is the content architecture I designed for terra — not a service catalog. Layer 1 publishes high-volume informational content that earns topical authority for the domain. That authority compounds into the asset shown in the middle band (978 keywords, 31.4M impressions, health 55→90). Layer 2 — terra's actual commercial pages — then ranks in competitive B2B searches because the domain itself is trusted. The whole point of the architecture is that <strong>traffic on Layer 1 isn't the goal</strong>; it's how Layer 2 wins.</div>
     </div>
