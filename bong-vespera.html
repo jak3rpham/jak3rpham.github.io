@@ -55,7 +55,7 @@ nav.scrolled{background:rgba(10,20,22,.92);backdrop-filter:blur(20px);border-col
 
 /* Hero */
 #hero{min-height:100vh;background:#000;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:5rem}
-.hero-bg{position:absolute;inset:0;z-index:0;background:url('images/vng-demo/stills/kf5-after-the-recognition.png') center/cover no-repeat}
+.hero-bg{position:absolute;inset:0;z-index:0;background:url('images/vng-demo/stills/kf5-after-the-recognition.webp') center/cover no-repeat}
 .hero-vignette{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 60% 50%,transparent 0%,rgba(10,20,22,.4) 50%,rgba(10,20,22,.95) 100%)}
 .hero-grain{position:absolute;inset:0;z-index:2;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px;mix-blend-mode:overlay}
 .hero-inner{position:relative;z-index:3;width:90%;max-width:1080px;margin-inline:auto;padding-inline:var(--P);padding-top:140px;padding-bottom:4rem;box-sizing:border-box}
@@ -164,7 +164,7 @@ nav.scrolled{background:rgba(10,20,22,.92);backdrop-filter:blur(20px);border-col
 
 /* Final */
 #final{background:#000;position:relative;overflow:hidden;padding:0}
-.final-frame{position:relative;min-height:90vh;display:flex;flex-direction:column;justify-content:flex-end;padding:5rem var(--P);background:url('images/vng-demo/final/ad-mockup-final.png') center/contain no-repeat #000}
+.final-frame{position:relative;min-height:90vh;display:flex;flex-direction:column;justify-content:flex-end;padding:5rem var(--P);background:url('images/vng-demo/final/ad-mockup-final.webp') center/contain no-repeat #000}
 .final-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 50%)}
 .final-info{position:relative;z-index:2;max-width:680px}
 .final-label{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ember);margin-bottom:1rem}
@@ -178,6 +178,7 @@ nav.scrolled{background:rgba(10,20,22,.92);backdrop-filter:blur(20px);border-col
 .motion-card{display:flex;flex-direction:column;gap:1rem}
 .motion-video{aspect-ratio:3/4;background:#000;border:1px solid var(--teal-line);overflow:hidden;position:relative}
 .motion-video video{width:100%;height:100%;object-fit:contain;background:#000}
+.motion-video iframe{width:100%;height:100%;border:0;display:block}
 .motion-tag{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);margin-top:.4rem}
 .motion-card.experimental .motion-tag{color:var(--vermillion-lt)}
 .motion-name{font-family:'Outfit',sans-serif;font-size:1.15rem;font-weight:400;color:var(--moon);margin-bottom:.3rem}
@@ -413,7 +414,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--teal-line)}
       <p class="pipeline-intro">The actual canvas, with iteration evidence parked. The top row is the working pipeline; the lower zone preserves dropped attempts — gradient overlay rejected, Flux text-rendering failures (Biông typo, Sống Mã glitch), Hook layer dropped due to composition conflict.</p>
     </div>
     <div class="pipeline-canvas-wrap fu" data-d="1">
-      <img src="images/vng-demo/workflow/weave-canvas-full.png" alt="Figma Weave canvas — full orchestration workflow with iteration evidence">
+      <img src="images/vng-demo/workflow/weave-canvas-full.webp" alt="Figma Weave canvas — full orchestration workflow with iteration evidence">
       <div class="pipeline-canvas-caption">Figma Weave canvas · production pipeline + parked iterations</div>
     </div>
     <div class="pipeline-flow-wrap fu" data-d="2">
@@ -495,7 +496,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--teal-line)}
     </div>
     <div class="kf-list">
       <div class="kf-row fu" data-d="1">
-        <div class="kf-image"><img src="images/vng-demo/stills/kf1-the-gate-at-dawn.png" alt="The Gate at Dawn"></div>
+        <div class="kf-image"><img src="images/vng-demo/stills/kf1-the-gate-at-dawn.webp" alt="The Gate at Dawn"></div>
         <div class="kf-info">
           <div class="kf-info-num">KF1 · The Gate at Dawn</div>
           <div class="kf-info-title">Threshold</div>
@@ -509,7 +510,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--teal-line)}
       </div>
 
       <div class="kf-row fu" data-d="1">
-        <div class="kf-image"><img src="images/vng-demo/stills/kf2-the-wanderer-enters.png" alt="The Wanderer Enters"></div>
+        <div class="kf-image"><img src="images/vng-demo/stills/kf2-the-wanderer-enters.webp" alt="The Wanderer Enters"></div>
         <div class="kf-info">
           <div class="kf-info-num">KF2 · The Wanderer Enters</div>
           <div class="kf-info-title">Solitary entry</div>
@@ -523,7 +524,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--teal-line)}
       </div>
 
       <div class="kf-row fu" data-d="1">
-        <div class="kf-image"><img src="images/vng-demo/stills/kf3-path-of-guardians.png" alt="Path of Guardians"></div>
+        <div class="kf-image"><img src="images/vng-demo/stills/kf3-path-of-guardians.webp" alt="Path of Guardians"></div>
         <div class="kf-info">
           <div class="kf-info-num">KF3 · Path of Guardians</div>
           <div class="kf-info-title">Watched</div>
@@ -537,7 +538,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--teal-line)}
       </div>
 
       <div class="kf-row fu" data-d="1">
-        <div class="kf-image"><img src="images/vng-demo/stills/kf4-the-kneeling-moment.png" alt="The Kneeling Moment"></div>
+        <div class="kf-image"><img src="images/vng-demo/stills/kf4-the-kneeling-moment.webp" alt="The Kneeling Moment"></div>
         <div class="kf-info">
           <div class="kf-info-num">KF4 · The Kneeling Moment</div>
           <div class="kf-info-title">Tenderness, before</div>
@@ -551,7 +552,7 @@ footer{background:var(--bg-deep);border-top:1px solid var(--teal-line)}
       </div>
 
       <div class="kf-row fu" data-d="1">
-        <div class="kf-image"><img src="images/vng-demo/stills/kf5-after-the-recognition.png" alt="After the Recognition"></div>
+        <div class="kf-image"><img src="images/vng-demo/stills/kf5-after-the-recognition.webp" alt="After the Recognition"></div>
         <div class="kf-info">
           <div class="kf-info-num">KF5 · After the Recognition</div>
           <div class="kf-info-title">The pivot — hero shot</div>
@@ -589,13 +590,13 @@ footer{background:var(--bg-deep);border-top:1px solid var(--teal-line)}
     </div>
     <div class="motion-grid">
       <div class="motion-card experimental fu" data-d="1">
-        <div class="motion-video"><video src="images/vng-demo/motion/motion-multiframes-experimental.mp4" controls muted loop playsinline preload="metadata"></video></div>
+        <div class="motion-video"><iframe src="https://www.youtube.com/embed/E_INdEl6GFs" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
         <div class="motion-tag">Free tier · Multiframes · 720p</div>
         <div class="motion-name">Chained 5-frame transition</div>
         <p class="motion-desc">All 5 keyframes fed sequentially into Dreamina Multiframes. Output is visually inconsistent — "ảo đá" — because the scene gaps between frames exceed the model's coherence threshold. Included deliberately. It shows where the boundary is.</p>
       </div>
       <div class="motion-card fu" data-d="2">
-        <div class="motion-video"><video src="images/vng-demo/motion/motion-kf3-to-kf5-seedance.mp4" controls muted loop playsinline preload="metadata"></video></div>
+        <div class="motion-video"><iframe src="https://www.youtube.com/embed/H4BxWBe8BTg" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
         <div class="motion-tag">Seedance 2.0 · 1080p · 485 credits</div>
         <div class="motion-name">KF3 → KF5 cinematic transition</div>
         <p class="motion-desc">Two coherent frames (forest path → wide reveal) interpolated via Seedance 2.0 image-to-video. Smooth dolly-out, mist drift, ember pulse intact. This is what production-tier motion looks like when the input frames share visual language.</p>
