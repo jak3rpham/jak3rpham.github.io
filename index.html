@@ -447,7 +447,60 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
   -webkit-text-fill-color:transparent;
   color:transparent;
 }
+/* ═══════ BÓNG VESPERA FEATURED ═══════ */
+#bong-feat{background:var(--ink);position:relative;overflow:hidden;padding:8rem 0;color:var(--cream)}
+.bv-grain{position:absolute;inset:0;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px;pointer-events:none;z-index:0}
+.bv-orb{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
+.bv-orb-1{width:600px;height:600px;background:#B23838;top:-200px;right:-100px;opacity:.09}
+.bv-orb-2{width:400px;height:400px;background:#E8A87C;bottom:-100px;left:5%;opacity:.06}
 
+#bong-feat .s-eyebrow{color:#E8A87C}
+#bong-feat .s-eyebrow::before{background:linear-gradient(90deg,#E8A87C,#B23838)}
+#bong-feat .s-title{color:var(--cream)}
+#bong-feat .s-title em{font-style:italic;background:linear-gradient(135deg,#E8A87C 0%,#B23838 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;padding:.05em .25em;margin:-.05em -.25em}
+
+.bv-lead{font-size:1.05rem;font-weight:300;color:rgba(230,223,200,.72);line-height:1.9;max-width:680px;margin-bottom:3.5rem}
+
+.bv-showcase{display:grid;grid-template-columns:1fr 1.3fr;gap:3rem;align-items:center;position:relative;z-index:2}
+.bv-mockup{position:relative;aspect-ratio:3/4;background:#000;overflow:hidden;border:1px solid rgba(232,168,124,.18);box-shadow:0 35px 80px -15px rgba(0,0,0,.6);will-change:transform}
+.bv-mockup img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 1.4s var(--ease)}
+.bv-mockup:hover img{transform:scale(1.04)}
+.bv-mockup-tag{position:absolute;bottom:.85rem;left:.85rem;background:rgba(178,56,56,.85);color:var(--cream);font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;padding:.32rem .72rem;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:2}
+
+.bv-content{padding-top:0}
+.bv-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.6rem}
+.bv-meta-pill{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:#E8A87C;background:rgba(232,168,124,.06);padding:.3rem .7rem;border:1px solid rgba(232,168,124,.25)}
+.bv-h{font-family:'Outfit',sans-serif;font-size:clamp(1.6rem,2.3vw,2.2rem);font-weight:400;color:var(--cream);line-height:1.2;margin-bottom:.7rem;letter-spacing:-.015em}
+.bv-h em{font-style:italic;background:linear-gradient(135deg,#E8A87C 0%,#B23838 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block;padding:.05em .15em;margin:-.05em -.15em}
+.bv-co{font-size:.82rem;color:rgba(196,168,130,.55);margin-bottom:1.6rem;font-weight:300;font-family:'DM Mono',monospace;letter-spacing:.04em}
+
+.bv-nums{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(232,168,124,.18);background:rgba(255,255,255,.02);margin-bottom:1.6rem}
+.bv-num-cell{padding:1rem 1.1rem;border-right:1px solid rgba(232,168,124,.18);position:relative;overflow:hidden}
+.bv-num-cell:last-child{border-right:none}
+.bv-num-cell::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#E8A87C,#B23838);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.bv-num-cell:hover::before{transform:scaleX(1)}
+.bv-num-n{font-family:'Outfit',sans-serif;font-size:1.55rem;font-weight:400;color:#E8A87C;line-height:1;margin-bottom:.25rem;letter-spacing:-.015em}
+.bv-num-l{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(196,168,130,.55)}
+
+.bv-bullets{list-style:none;margin-bottom:1.8rem}
+.bv-bullets li{font-size:.88rem;font-weight:300;color:rgba(230,223,200,.72);line-height:1.7;padding:.55rem 0;border-bottom:1px solid rgba(232,168,124,.1);display:flex;gap:.7rem;align-items:baseline}
+.bv-bullets li::before{content:'→';color:#E8A87C;flex-shrink:0;font-size:.78rem}
+.bv-bullets li:last-child{border-bottom:none}
+.bv-bullets li strong{color:var(--cream);font-weight:400}
+
+.bv-ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-bv{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);padding:.95rem 2rem;background:linear-gradient(135deg,#C84A4A 0%,#7A2424 100%);position:relative;overflow:hidden;transition:transform .3s var(--ease),opacity .3s,box-shadow .4s var(--ease);display:inline-flex;align-items:center;gap:.6rem}
+.btn-bv:hover{transform:translateY(-2px);opacity:.92;box-shadow:0 12px 28px -8px rgba(178,56,56,.5)}
+
+@media(max-width:1100px){
+  .bv-showcase{grid-template-columns:1fr;gap:2.2rem}
+  .bv-mockup{max-width:480px;margin-inline:auto;width:100%}
+}
+@media(max-width:600px){
+  .bv-nums{grid-template-columns:repeat(2,1fr)}
+  .bv-num-cell:nth-child(2){border-right:none}
+  .bv-num-cell:nth-child(1),.bv-num-cell:nth-child(2){border-bottom:1px solid rgba(232,168,124,.18)}
+}
 /* ═══════ RESPONSIVE ═══════ */
 @media(max-width:1100px){
   :root{--W:100%}
@@ -668,7 +721,7 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
   <div class="terra-grain"></div>
   <div class="wrap-mid">
     <div class="terra-head fu">
-      <div class="s-eyebrow">02 - Featured Case Study</div>
+      <div class="s-eyebrow">02 - Featured Case Study · Live Work</div>
       <h2 class="s-title split-t">A B2B SaaS brand <em>built from near zero</em></h2>
       <p class="terra-lead">17 months of full-funnel digital work for terra-plat.vn - a payroll &amp; HR SaaS for FDI enterprises in Vietnam. From near-zero organic presence to 12× growth, 31.4M impressions, and 978 keywords ranking Top 10. Below: the headline. Full case study one click away.</p>
     </div>
@@ -735,12 +788,62 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
     </div>
   </div>
 </section>
+<!-- BÓNG VESPERA FEATURED -->
+<section id="bong-feat">
+  <div class="bv-grain"></div>
+  <div class="bv-orb bv-orb-1"></div>
+  <div class="bv-orb bv-orb-2"></div>
+  <div class="wrap-mid" style="position:relative;z-index:2">
+    <div class="fu">
+      <div class="s-eyebrow">03 - Latest Experiment</div>
+      <h2 class="s-title split-t">A creative pipeline, <em>directed across many models</em></h2>
+      <p class="bv-lead">A self-directed experiment in AI orchestration - six hours, four models, one fictional mid-core mobile RPG ad campaign. Built to test what happens when AI is treated as orchestration, not tool.</p>
+    </div>
 
+    <div class="bv-showcase">
+      <div class="fu" data-d="1">
+        <div class="bv-mockup">
+          <img src="images/vng-demo/final/ad-mockup-final.png" alt="BÓNG VESPERA — final ad mockup">
+          <span class="bv-mockup-tag">May 2026 · Self-directed</span>
+        </div>
+      </div>
+
+      <div class="bv-content fu" data-d="2">
+        <div class="bv-meta">
+          <span class="bv-meta-pill">AI Orchestration</span>
+          <span class="bv-meta-pill">Creative Pipeline</span>
+          <span class="bv-meta-pill">Solo Build</span>
+        </div>
+        <h3 class="bv-h">BÓNG VESPERA - <em>an experiment in pipeline thinking</em></h3>
+        <div class="bv-co">Tatsuki Lab · 6 hours · May 2026</div>
+
+        <div class="bv-nums">
+          <div class="bv-num-cell"><div class="bv-num-n">6h</div><div class="bv-num-l">End-to-end</div></div>
+          <div class="bv-num-cell"><div class="bv-num-n">5+1</div><div class="bv-num-l">KFs + ad mockup</div></div>
+          <div class="bv-num-cell"><div class="bv-num-n">4</div><div class="bv-num-l">Models orchestrated</div></div>
+          <div class="bv-num-cell"><div class="bv-num-n">$0</div><div class="bv-num-l">Free tier only</div></div>
+        </div>
+
+        <ul class="bv-bullets">
+          <li><strong>Concept expansion → Claude Opus 4.7</strong> for production-prompt construction from short brief.</li>
+          <li><strong>Atmospheric keyframes → Flux Pro 1.1 Ultra</strong> - 5 cinematic stills, Vietnamese dark fantasy aesthetic.</li>
+          <li><strong>Vietnamese typography → GPT Image 1</strong> - accurate diacritics, transparent background support.</li>
+          <li><strong>Cinematic motion → Seedance 2.0</strong> - 1080p image-to-video transition.</li>
+          <li><strong>Failures documented, not hidden</strong> - Multiframes "ảo đá" output, Flux's demonic-eye prior. Transparency is the senior signal.</li>
+        </ul>
+
+        <div class="bv-ctas">
+          <a href="bong-vespera.html" class="btn-bv">Read full case study →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- OTHER WORK -->
 <section id="other-work">
   <div class="wrap-mid">
     <div class="fu">
-      <div class="s-eyebrow">03 - Other Work</div>
+      <div class="s-eyebrow">04 - Other Work</div>
       <h2 class="s-title split-t">Selected <em>projects</em></h2>
     </div>
 
@@ -796,7 +899,7 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
   <div class="wrap-mid">
     <div class="vr-head">
       <div class="fu">
-        <div class="s-eyebrow">04 - Creative Work</div>
+        <div class="s-eyebrow">05 - Creative Work</div>
         <h2 class="s-title split-t">Video &amp; <em>Brand</em></h2>
       </div>
       <p class="vr-lead fu" data-d="1">End-to-end video production - TVCs, brand films, event recaps, music videos, commercial explainers. Two-time Top 1 TVC at Business Challenge (national student marketing competition). A few highlights below; full reel one click away.</p>
@@ -838,7 +941,7 @@ footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
   <div class="co-grain"></div>
   <div class="wrap">
     <div class="fu">
-      <div class="s-eyebrow">05 - Get in touch</div>
+      <div class="s-eyebrow">06 - Get in touch</div>
       <h2 class="s-title split-t">Let's <em>connect</em></h2>
     </div>
     <div class="contact-layout">

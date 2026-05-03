@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BÓNG VESPERA — AI-Orchestrated Creative Pipeline · Tatsuki</title>
+<meta name="description" content="A self-directed experiment in AI orchestration — six hours, five keyframes, four models, one fictional RPG ad. By Tatsuki.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400;1,500&family=Outfit:wght@200;300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep:#0A1416; --bg-mid:#0F2426; --bg-card:#142A2D;
+  --teal:#1F3A3D; --teal-lt:#2A4A4D; --teal-line:rgba(122,155,142,.12);
+  --mist:#7A9B8E; --mist-dim:rgba(122,155,142,.55);
+  --moon:#E6DFC8; --moon-dim:rgba(230,223,200,.65); --moon-faint:rgba(230,223,200,.18);
+  --vermillion:#B23838; --vermillion-lt:#C84A4A; --vermillion-deep:#7A2424;
+  --ember:#E8A87C;
+  --g-vermillion:linear-gradient(135deg,#C84A4A 0%,#B23838 60%,#7A2424 100%);
+  --g-mist:linear-gradient(135deg,#7A9B8E 0%,#4A6B5E 100%);
+  --g-ember:linear-gradient(135deg,#E8A87C 0%,#B23838 100%);
+  --ease:cubic-bezier(0.16,1,0.3,1);
+  --P:clamp(2.5rem,5.5vw,6rem);
+  --W:1080px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:17px}
+body{font-family:'Outfit',sans-serif;background:var(--bg-deep);color:var(--moon);overflow-x:hidden;font-weight:300}
+img,video{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+
+/* Cursor */
+body{cursor:none}
+.cur-dot{position:fixed;width:8px;height:8px;background:var(--vermillion);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .25s}
+.cur-ring{position:fixed;width:36px;height:36px;border:1px solid var(--mist);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;opacity:.4}
+
+/* Progress */
+#prog{position:fixed;top:0;left:0;height:2px;z-index:500;background:var(--g-vermillion);width:0;transition:width .06s linear}
+
+/* Atmospheric mist watermarks */
+.mist-mark{position:absolute;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;color:transparent;-webkit-text-stroke:1px rgba(122,155,142,.1);pointer-events:none;user-select:none;line-height:.85;z-index:0;letter-spacing:-.02em;will-change:transform}
+.mm-1{top:14vh;right:-3vw;font-size:clamp(14rem,22vw,22rem)}
+.mm-2{bottom:-2rem;left:-3vw;font-size:clamp(12rem,18vw,18rem);-webkit-text-stroke-color:rgba(178,56,56,.08)}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:400;border-bottom:1px solid transparent;transition:background .4s,border-color .4s}
+nav.scrolled{background:rgba(10,20,22,.92);backdrop-filter:blur(20px);border-color:var(--teal-line)}
+.nav-inner{display:flex;justify-content:space-between;align-items:center;padding:1.1rem var(--P)}
+.nav-logo{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:300;letter-spacing:.06em;color:var(--moon);display:flex;align-items:center;gap:.5rem}
+.nav-logo em{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:1.05rem;color:var(--ember)}
+.nav-back{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mist-dim);transition:color .3s,gap .4s var(--ease);display:flex;align-items:center;gap:.5rem}
+.nav-back:hover{color:var(--ember);gap:.9rem}
+
+/* Hero */
+#hero{min-height:100vh;background:#000;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:5rem}
+.hero-bg{position:absolute;inset:0;z-index:0;background:url('images/vng-demo/stills/kf5-after-the-recognition.png') center/cover no-repeat}
+.hero-vignette{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 60% 50%,transparent 0%,rgba(10,20,22,.4) 50%,rgba(10,20,22,.95) 100%)}
+.hero-grain{position:absolute;inset:0;z-index:2;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px;mix-blend-mode:overlay}
+.hero-inner{position:relative;z-index:3;width:90%;max-width:1080px;margin-inline:auto;padding-inline:var(--P);padding-top:140px;padding-bottom:4rem;box-sizing:border-box}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ember);display:flex;align-items:center;gap:.9rem;margin-bottom:2rem;opacity:0;animation:fadeUp .8s var(--ease) .2s forwards}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--g-ember)}
+.hero-title{font-family:'Outfit',sans-serif;font-size:clamp(2.6rem,5.5vw,5.4rem);font-weight:300;line-height:1.05;color:var(--moon);margin-bottom:1.6rem;letter-spacing:-.02em;opacity:0;animation:fadeUp .9s var(--ease) .35s forwards;max-width:920px}
+.hero-title em{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;background:var(--g-ember);-webkit-background-clip:text;-webkit-text-fill-color:transparent;padding:.05em .15em;margin:-.05em -.15em;display:inline-block}
+.hero-sub{font-size:1.05rem;font-weight:300;color:var(--moon-dim);max-width:580px;line-height:1.85;margin-bottom:3rem;opacity:0;animation:fadeUp .9s var(--ease) .5s forwards}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--moon-faint);background:rgba(10,20,22,.4);backdrop-filter:blur(10px);opacity:0;animation:fadeUp .9s var(--ease) .65s forwards}
+.hstat{padding:1.5rem 1.6rem;border-right:1px solid var(--moon-faint);position:relative;overflow:hidden}
+.hstat:last-child{border-right:none}
+.hstat::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--g-vermillion);opacity:0;transition:opacity .4s}
+.hstat:hover::before{opacity:1}
+.hstat-n{font-family:'Outfit',sans-serif;font-size:2.2rem;font-weight:300;line-height:1;margin-bottom:.4rem;color:var(--ember);letter-spacing:-.02em}
+.hstat-l{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist-dim)}
+.hero-scroll{position:absolute;bottom:2.5rem;left:var(--P);z-index:4;display:flex;align-items:center;gap:.7rem;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--moon-faint);opacity:0;animation:fadeUp 1s ease 1.4s forwards}
+.hero-scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--moon-faint),transparent);animation:sP 2.5s ease-in-out infinite}
+@keyframes sP{0%,100%{transform:scaleY(1);opacity:.4}50%{transform:scaleY(.4);opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* Sections */
+.wrap{width:90%;max-width:1080px;margin-inline:auto;padding-inline:var(--P);box-sizing:border-box}
+.sp{padding:6rem 0}
+.s-label{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ember);display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}
+.s-label::before{content:'';width:20px;height:1px;background:var(--g-ember)}
+.s-title{font-family:'Outfit',sans-serif;font-size:clamp(2.1rem,4vw,3.4rem);font-weight:300;line-height:1.15;margin-bottom:2rem;color:var(--moon);letter-spacing:-.02em}
+.s-title em{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;color:var(--ember)}
+
+/* Brief */
+#brief{background:var(--bg-mid);position:relative;overflow:hidden}
+.brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.brief-meta{display:flex;flex-direction:column;gap:.6rem;margin-bottom:2.5rem}
+.meta-row{display:flex;gap:1.2rem;padding:.7rem 0;border-bottom:1px solid var(--teal-line);font-size:.88rem}
+.meta-key{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist-dim);min-width:100px;padding-top:.15rem}
+.meta-val{font-weight:300;color:var(--moon-dim)}
+.brief-body{font-size:1rem;font-weight:300;color:var(--moon-dim);line-height:2}
+.brief-body p{margin-bottom:1.2rem}
+.brief-body p:last-child{margin-bottom:0}
+.brief-body strong{color:var(--moon);font-weight:400}
+.brief-callout{background:var(--bg-card);padding:2.2rem;position:relative;overflow:hidden;margin-top:2rem;border:1px solid var(--teal-line)}
+.brief-callout::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-vermillion)}
+.brief-callout-label{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--vermillion-lt);margin-bottom:.8rem}
+.brief-callout-text{font-size:.92rem;font-weight:300;color:var(--moon-dim);line-height:1.85}
+.brief-callout-text strong{color:var(--moon);font-weight:400}
+
+/* Concept */
+#concept{background:var(--bg-deep)}
+.concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.5rem}
+.concept-card{background:var(--bg-card);padding:2rem;border:1px solid var(--teal-line);position:relative;overflow:hidden;transition:border-color .35s,transform .5s var(--ease)}
+.concept-card:hover{border-color:var(--mist-dim);transform:translateY(-3px)}
+.concept-card.picked{border-color:var(--vermillion);background:linear-gradient(180deg,rgba(178,56,56,.06) 0%,var(--bg-card) 60%)}
+.concept-card.picked::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--g-vermillion)}
+.concept-letter{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:3.5rem;color:var(--moon-faint);line-height:1;margin-bottom:.6rem}
+.concept-card.picked .concept-letter{color:var(--ember)}
+.concept-name{font-family:'Outfit',sans-serif;font-size:1.25rem;font-weight:400;color:var(--moon);margin-bottom:.4rem;letter-spacing:-.01em}
+.concept-essence{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--mist);margin-bottom:1.2rem;line-height:1.5}
+.concept-meta{display:flex;flex-direction:column;gap:.5rem;font-size:.78rem;color:var(--moon-dim);line-height:1.6}
+.concept-meta-row{display:flex;gap:.7rem}
+.concept-meta-key{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mist-dim);min-width:60px;padding-top:.15rem}
+.concept-palette{display:flex;gap:.3rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--teal-line)}
+.concept-swatch{width:18px;height:18px;border-radius:50%}
+.concept-tag{position:absolute;top:1rem;right:1rem;font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--vermillion-lt);padding:.25rem .55rem;border:1px solid var(--vermillion);background:rgba(178,56,56,.08)}
+.concept-reasoning{margin-top:3rem;padding:1.5rem 2rem;border-left:3px solid var(--vermillion);background:rgba(178,56,56,.05)}
+.concept-reasoning p{font-size:.95rem;font-weight:300;color:var(--moon-dim);line-height:1.9}
+.concept-reasoning p strong{color:var(--moon);font-weight:400}
+
+/* Pipeline */
+#pipeline{background:var(--bg-mid);position:relative;overflow:hidden}
+.pipeline-intro{font-size:1rem;font-weight:300;color:var(--moon-dim);line-height:1.95;max-width:680px;margin-bottom:3rem}
+.pipeline-canvas-wrap{margin:2rem 0;border:1px solid var(--teal-line);background:var(--bg-card);padding:1rem;overflow:hidden}
+.pipeline-canvas-wrap img{width:100%;height:auto}
+.pipeline-canvas-caption{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist-dim);margin-top:1rem;text-align:center}
+.pipeline-flow-wrap{margin-top:3rem;padding:1.5rem 0;border-top:1px solid var(--teal-line)}
+.pipeline-flow-label{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mist-dim);margin-bottom:1.2rem}
+.pipeline-flow{width:100%;height:auto;display:block}
+.flow-node{opacity:0;animation:fadeIn .5s var(--ease) forwards}
+.flow-node:nth-child(1){animation-delay:.2s}
+.flow-node:nth-child(2){animation-delay:.4s}
+.flow-node:nth-child(3){animation-delay:.6s}
+.flow-node:nth-child(4){animation-delay:.8s}
+.flow-node:nth-child(5){animation-delay:1s}
+.flow-node:nth-child(6){animation-delay:1.2s}
+.pipeline-flow line{opacity:0;animation:fadeIn .35s ease forwards;animation-delay:1.3s}
+@keyframes fadeIn{to{opacity:1}}
+
+/* Keyframes Gallery */
+#keyframes{background:var(--bg-deep)}
+.kf-list{display:flex;flex-direction:column;gap:5rem;margin-top:3rem}
+.kf-row{display:grid;grid-template-columns:1.4fr 1fr;gap:3rem;align-items:center}
+.kf-row:nth-child(even){grid-template-columns:1fr 1.4fr}
+.kf-row:nth-child(even) .kf-image{order:2}
+.kf-image{position:relative;overflow:hidden;border:1px solid var(--teal-line)}
+.kf-image img{width:100%;height:auto;transition:transform 8s var(--ease)}
+.kf-image:hover img{transform:scale(1.03)}
+.kf-image::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-vermillion);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.kf-row.visible .kf-image::after{transform:scaleX(1)}
+.kf-info-num{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ember);margin-bottom:.8rem}
+.kf-info-title{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:300;color:var(--moon);margin-bottom:.4rem;letter-spacing:-.01em}
+.kf-info-essence{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--mist);margin-bottom:1.5rem;line-height:1.5}
+.kf-meta{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem;padding-bottom:1.2rem;border-bottom:1px solid var(--teal-line)}
+.kf-meta-row{display:flex;gap:.7rem;font-size:.8rem}
+.kf-meta-key{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mist-dim);min-width:90px;padding-top:.15rem}
+.kf-meta-val{color:var(--moon-dim);font-weight:300}
+.kf-insight{font-size:.92rem;font-weight:300;color:var(--moon-dim);line-height:1.8}
+.kf-insight strong{color:var(--moon);font-weight:400}
+
+/* Final */
+#final{background:#000;position:relative;overflow:hidden;padding:0}
+.final-frame{position:relative;min-height:90vh;display:flex;flex-direction:column;justify-content:flex-end;padding:5rem var(--P);background:url('images/vng-demo/final/ad-mockup-final.png') center/contain no-repeat #000}
+.final-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 50%)}
+.final-info{position:relative;z-index:2;max-width:680px}
+.final-label{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ember);margin-bottom:1rem}
+.final-title{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:300;color:var(--moon);margin-bottom:.8rem;letter-spacing:-.01em}
+.final-title em{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;color:var(--ember)}
+.final-caption{font-size:.95rem;font-weight:300;color:var(--moon-dim);line-height:1.85}
+
+/* Motion */
+#motion{background:var(--bg-mid)}
+.motion-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem}
+.motion-card{display:flex;flex-direction:column;gap:1rem}
+.motion-video{aspect-ratio:3/4;background:#000;border:1px solid var(--teal-line);overflow:hidden;position:relative}
+.motion-video video{width:100%;height:100%;object-fit:contain;background:#000}
+.motion-tag{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);margin-top:.4rem}
+.motion-card.experimental .motion-tag{color:var(--vermillion-lt)}
+.motion-name{font-family:'Outfit',sans-serif;font-size:1.15rem;font-weight:400;color:var(--moon);margin-bottom:.3rem}
+.motion-desc{font-size:.85rem;font-weight:300;color:var(--moon-dim);line-height:1.7}
+.motion-reflection{margin-top:3rem;padding:1.6rem 2rem;border-left:3px solid var(--ember);background:rgba(232,168,124,.04)}
+.motion-reflection p{font-size:.95rem;font-weight:300;color:var(--moon-dim);line-height:1.85}
+.motion-reflection p strong{color:var(--moon);font-weight:400}
+
+/* Model Selection Table */
+#models{background:var(--bg-deep)}
+.models-intro{font-size:1rem;font-weight:300;color:var(--moon-dim);line-height:1.95;max-width:680px;margin-bottom:3rem}
+.models-table{width:100%;border-collapse:collapse;margin-top:2rem;font-size:.92rem}
+.models-table thead th{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);text-align:left;padding:1rem 1.2rem;border-bottom:1px solid var(--mist-dim);font-weight:500}
+.models-table tbody td{padding:1.1rem 1.2rem;border-bottom:1px solid var(--teal-line);color:var(--moon-dim);vertical-align:top;font-weight:300;line-height:1.6}
+.models-table tbody tr:hover td{background:rgba(122,155,142,.03)}
+.models-table tbody td:first-child{color:var(--moon);font-weight:400}
+.models-table .tool{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--ember)}
+.models-quote{margin-top:3rem;padding:2rem;background:var(--bg-card);border-left:3px solid var(--vermillion);position:relative}
+.models-quote-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.4rem;font-weight:400;color:var(--moon);line-height:1.5;margin-bottom:.8rem}
+.models-quote-attr{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mist-dim)}
+
+/* Learnings */
+#learnings{background:var(--bg-mid)}
+.learn-grid{display:flex;flex-direction:column;gap:3.5rem;margin-top:3rem}
+.learn-block{display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:start}
+.learn-num{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:4rem;color:var(--ember);line-height:.85;letter-spacing:-.02em}
+.learn-title{font-family:'Outfit',sans-serif;font-size:1.35rem;font-weight:400;color:var(--moon);margin-bottom:1rem;letter-spacing:-.01em}
+.learn-body{font-size:.95rem;font-weight:300;color:var(--moon-dim);line-height:1.95}
+.learn-body p{margin-bottom:1rem}
+.learn-body p:last-child{margin-bottom:0}
+.learn-body strong{color:var(--moon);font-weight:400}
+.learn-body em{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--ember)}
+
+/* Next */
+#next{background:var(--bg-deep)}
+.next-list{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;margin-top:2.5rem}
+.next-item{padding:1.6rem 1.8rem;border:1px solid var(--teal-line);background:var(--bg-card);position:relative;transition:border-color .3s,transform .4s var(--ease)}
+.next-item:hover{border-color:var(--mist-dim);transform:translateY(-2px)}
+.next-item::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--g-vermillion);opacity:0;transition:opacity .4s}
+.next-item:hover::before{opacity:1}
+.next-tag{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);margin-bottom:.6rem}
+.next-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:400;color:var(--moon);margin-bottom:.4rem}
+.next-desc{font-size:.82rem;font-weight:300;color:var(--moon-dim);line-height:1.7}
+
+/* CTA */
+#cta{background:#000;text-align:center;position:relative;overflow:hidden}
+.cta-glow{position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(232,168,124,.08),transparent 60%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-inner{max-width:720px;margin-inline:auto;position:relative;z-index:1}
+.cta-eyebrow{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ember);margin-bottom:1.5rem}
+.cta-title{font-family:'Outfit',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:300;color:var(--moon);line-height:1.2;margin-bottom:1.2rem;letter-spacing:-.02em}
+.cta-title em{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;color:var(--ember)}
+.cta-sub{font-size:1rem;font-weight:300;color:var(--moon-dim);max-width:560px;margin:0 auto 2.5rem;line-height:1.85}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-fill{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--moon);text-decoration:none;padding:1rem 2.4rem;background:var(--g-vermillion);transition:transform .3s,opacity .3s}
+.btn-fill:hover{transform:translateY(-2px);opacity:.9}
+.btn-ghost{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--moon-dim);text-decoration:none;padding:1rem 2.4rem;border:1px solid var(--teal-line);transition:border-color .3s,color .3s}
+.btn-ghost:hover{border-color:var(--mist);color:var(--moon)}
+
+/* Footer */
+footer{background:var(--bg-deep);border-top:1px solid var(--teal-line)}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;padding:1.4rem var(--P);flex-wrap:wrap;gap:1rem}
+.f-logo{font-family:'Outfit',sans-serif;font-size:.92rem;font-weight:300;color:var(--moon)}
+.f-logo em{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;color:var(--ember)}
+.f-copy{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.08em;color:var(--mist-dim)}
+.f-link{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.08em;color:var(--mist-dim);text-decoration:none;transition:color .3s}
+.f-link:hover{color:var(--ember)}
+
+/* Reveal */
+.fu{opacity:0;transform:translateY(28px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+.fu.visible{opacity:1;transform:translateY(0)}
+.fu[data-d="1"]{transition-delay:.1s}
+.fu[data-d="2"]{transition-delay:.2s}
+.fu[data-d="3"]{transition-delay:.3s}
+
+/* Responsive */
+@media(max-width:900px){
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .hstat:nth-child(2){border-right:none}
+  .brief-grid{grid-template-columns:1fr;gap:3rem}
+  .concept-grid{grid-template-columns:1fr}
+  .kf-row,.kf-row:nth-child(even){grid-template-columns:1fr;gap:1.5rem}
+  .kf-row:nth-child(even) .kf-image{order:0}
+  .motion-grid{grid-template-columns:1fr}
+  .next-list{grid-template-columns:1fr}
+  .learn-block{grid-template-columns:1fr;gap:1rem}
+}
+@media(max-width:600px){
+  :root{--P:1.25rem}
+  body{cursor:auto}
+  .cur-dot,.cur-ring{display:none}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .models-table{font-size:.8rem}
+  .models-table thead th,.models-table tbody td{padding:.7rem .8rem}
+}
+</style>
+</head>
+<body>
+
+<div class="cur-dot" id="curDot"></div>
+<div class="cur-ring" id="curRing"></div>
+<div id="prog"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Tatsuki <em>達樹</em></a>
+    <a href="index.html" class="nav-back">← Back to portfolio</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <span class="mist-mark mm-1">霧</span>
+  <div class="hero-bg"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Case Study · AI-First Creative Pipeline</div>
+    <h1 class="hero-title">An AI-Orchestrated <em>Creative Pipeline</em></h1>
+    <p class="hero-sub">A self-directed experiment in matching AI tools to creative stages — six hours, four models, one fictional RPG ad campaign. From blank brief to ad-ready output.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n">6h</div><div class="hstat-l">End-to-end build</div></div>
+      <div class="hstat"><div class="hstat-n">5+1</div><div class="hstat-l">Keyframes + ad mockup</div></div>
+      <div class="hstat"><div class="hstat-n">13</div><div class="hstat-l">Generations across 4 models</div></div>
+      <div class="hstat"><div class="hstat-n">$0</div><div class="hstat-l">Free tier only</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="hero-scroll-line"></div>Scroll</div>
+</section>
+
+<!-- BRIEF -->
+<section id="brief">
+  <div class="wrap sp">
+    <div class="brief-grid">
+      <div class="fu">
+        <div class="s-label">01 — Premise</div>
+        <h2 class="s-title">A self-directed <em>experiment</em></h2>
+        <div class="brief-meta">
+          <div class="meta-row"><span class="meta-key">Project</span><span class="meta-val">BÓNG VESPERA — fictional mid-core mobile RPG</span></div>
+          <div class="meta-row"><span class="meta-key">Brief</span><span class="meta-val">Generated by myself, no client, no stakeholder</span></div>
+          <div class="meta-row"><span class="meta-key">Constraint</span><span class="meta-val">Single working day, free-tier tools only, $0 budget</span></div>
+          <div class="meta-row"><span class="meta-key">Output</span><span class="meta-val">5 keyframes · 1 ad mockup · 2 motion samples</span></div>
+          <div class="meta-row"><span class="meta-key">Date</span><span class="meta-val">May 3, 2026</span></div>
+        </div>
+        <div class="brief-callout">
+          <div class="brief-callout-label">Why fictional</div>
+          <div class="brief-callout-text">A real campaign requires audience testing, media planning, and stakeholder alignment that a solo experiment cannot produce. <strong>What this study demonstrates is the orchestration logic underneath</strong> — how a creative brief decomposes across the right AI models, how model boundaries get identified and routed around, and what shippable output looks like under credit constraint.</div>
+        </div>
+      </div>
+      <div class="fu" data-d="1">
+        <div class="brief-body">
+          <p>Most "AI in creative" demos use AI as a single tool — Midjourney here, ChatGPT there, finished in Photoshop. That demonstrates <em>usage</em>.</p>
+          <p>What I wanted to test: what does it look like when AI is treated as <strong>orchestration</strong>, not tool? What if every stage of a creative brief — concept expansion, atmospheric stills, typography, motion — gets handed to a different model based on what that model is genuinely good at?</p>
+          <p>The pipeline below is the answer I built for myself. Concept expansion goes to Claude. Atmospheric keyframes go to Flux Pro 1.1 Ultra. Vietnamese typography goes to GPT Image 1. Cinematic motion goes to Seedance 2.0.</p>
+          <p>No model does everything. The work is in matching them.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPT -->
+<section id="concept">
+  <div class="wrap sp">
+    <div class="fu">
+      <div class="s-label">02 — Concept</div>
+      <h2 class="s-title">Three directions explored, <em>one chosen</em></h2>
+    </div>
+    <div class="concept-grid fu" data-d="1">
+      <div class="concept-card">
+        <div class="concept-letter">A</div>
+        <div class="concept-name">The Last Lantern</div>
+        <p class="concept-essence">A small girl carries the last living flame through a fallen empire, accompanied by the ghost of her sworn protector.</p>
+        <div class="concept-meta">
+          <div class="concept-meta-row"><span class="concept-meta-key">Mood</span><span>Quiet, aching, after-war stillness</span></div>
+          <div class="concept-meta-row"><span class="concept-meta-key">Target</span><span>Narrative seekers · loyal companion</span></div>
+        </div>
+        <div class="concept-palette">
+          <div class="concept-swatch" style="background:#0A0E1A"></div>
+          <div class="concept-swatch" style="background:#E8A87C"></div>
+          <div class="concept-swatch" style="background:#4A5D52"></div>
+          <div class="concept-swatch" style="background:#6B2B3A"></div>
+          <div class="concept-swatch" style="background:#F4ECD8"></div>
+        </div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-letter">B</div>
+        <div class="concept-name">Heaven's Edge</div>
+        <p class="concept-essence">A mortal warrior climbs a thousand-step shrine to break a sword across the face of the god who burned the world.</p>
+        <div class="concept-meta">
+          <div class="concept-meta-row"><span class="concept-meta-key">Mood</span><span>Thunderous, defiant, cosmic</span></div>
+          <div class="concept-meta-row"><span class="concept-meta-key">Target</span><span>Power fantasy · meta-DPS rollers</span></div>
+        </div>
+        <div class="concept-palette">
+          <div class="concept-swatch" style="background:#1B2845"></div>
+          <div class="concept-swatch" style="background:#C8102E"></div>
+          <div class="concept-swatch" style="background:#D4A437"></div>
+          <div class="concept-swatch" style="background:#6B6B6B"></div>
+          <div class="concept-swatch" style="background:#FFFFFF"></div>
+        </div>
+      </div>
+      <div class="concept-card picked">
+        <div class="concept-tag">Picked</div>
+        <div class="concept-letter">C</div>
+        <div class="concept-name">What the Mist Remembers</div>
+        <p class="concept-essence">A masked wanderer enters a forgotten valley where every ruin whispers a name they shouldn't know — including their own.</p>
+        <div class="concept-meta">
+          <div class="concept-meta-row"><span class="concept-meta-key">Mood</span><span>Hushed, hypnotic, slow-pulse uncanny</span></div>
+          <div class="concept-meta-row"><span class="concept-meta-key">Target</span><span>Lone explorer · lore-readers</span></div>
+        </div>
+        <div class="concept-palette">
+          <div class="concept-swatch" style="background:#7A9B8E"></div>
+          <div class="concept-swatch" style="background:#1F3A3D"></div>
+          <div class="concept-swatch" style="background:#1A1A1F"></div>
+          <div class="concept-swatch" style="background:#E6DFC8"></div>
+          <div class="concept-swatch" style="background:#B23838"></div>
+        </div>
+      </div>
+    </div>
+    <div class="concept-reasoning fu" data-d="2">
+      <p><strong>Why C:</strong> single-subject + atmospheric scenes maximize per-credit yield on Flux. The mood is also recruiter-distinctive — most VN game ads default to power fantasy (B), so picking C creates immediate visual differentiation. Decision-under-constraint matters more than picking the "best" concept.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PIPELINE -->
+<section id="pipeline">
+  <div class="wrap sp">
+    <span class="mist-mark mm-2">影</span>
+    <div class="fu">
+      <div class="s-label">03 — Pipeline</div>
+      <h2 class="s-title">The <em>orchestration</em></h2>
+      <p class="pipeline-intro">The actual canvas, with iteration evidence parked. The top row is the working pipeline; the lower zone preserves dropped attempts — gradient overlay rejected, Flux text-rendering failures (Biông typo, Sống Mã glitch), Hook layer dropped due to composition conflict.</p>
+    </div>
+    <div class="pipeline-canvas-wrap fu" data-d="1">
+      <img src="images/vng-demo/workflow/weave-canvas-full.png" alt="Figma Weave canvas — full orchestration workflow with iteration evidence">
+      <div class="pipeline-canvas-caption">Figma Weave canvas · production pipeline + parked iterations</div>
+    </div>
+    <div class="pipeline-flow-wrap fu" data-d="2">
+      <div class="pipeline-flow-label">Logical flow — model selection by stage</div>
+      <svg viewBox="0 0 1000 200" xmlns="http://www.w3.org/2000/svg" class="pipeline-flow" role="img" aria-label="Creative pipeline flow diagram">
+        <defs>
+          <linearGradient id="stage-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#C84A4A"/><stop offset="100%" stop-color="#B23838"/>
+          </linearGradient>
+          <marker id="flow-arrow" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
+            <path d="M0,2 L6,5 L0,8 Z" fill="rgba(122,155,142,0.7)"/>
+          </marker>
+        </defs>
+
+        <g class="flow-node">
+          <rect x="20" y="60" width="130" height="80" rx="2" fill="#142A2D" stroke="rgba(122,155,142,0.3)" stroke-width="1"/>
+          <text x="85" y="84" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#E8A87C" letter-spacing="0.14em" font-weight="500">01 — INPUT</text>
+          <text x="85" y="108" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11.5" fill="#E6DFC8" font-weight="400">Short brief</text>
+          <text x="85" y="124" text-anchor="middle" font-family="Outfit,sans-serif" font-size="9" fill="rgba(230,223,200,0.6)" font-style="italic">3-4 sentences</text>
+        </g>
+
+        <line x1="155" y1="100" x2="180" y2="100" stroke="rgba(122,155,142,0.7)" stroke-width="1.5" marker-end="url(#flow-arrow)"/>
+
+        <g class="flow-node">
+          <rect x="185" y="60" width="140" height="80" rx="2" fill="#142A2D" stroke="rgba(122,155,142,0.3)" stroke-width="1"/>
+          <text x="255" y="84" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#E8A87C" letter-spacing="0.14em" font-weight="500">02 — EXPAND</text>
+          <text x="255" y="108" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11.5" fill="#E6DFC8" font-weight="400">Claude Opus 4.7</text>
+          <text x="255" y="124" text-anchor="middle" font-family="Outfit,sans-serif" font-size="9" fill="rgba(230,223,200,0.6)" font-style="italic">production prompt</text>
+        </g>
+
+        <line x1="330" y1="100" x2="355" y2="100" stroke="rgba(122,155,142,0.7)" stroke-width="1.5" marker-end="url(#flow-arrow)"/>
+
+        <g class="flow-node">
+          <rect x="360" y="60" width="150" height="80" rx="2" fill="#142A2D" stroke="rgba(122,155,142,0.3)" stroke-width="1"/>
+          <text x="435" y="84" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#E8A87C" letter-spacing="0.14em" font-weight="500">03 — KEYFRAMES</text>
+          <text x="435" y="108" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11.5" fill="#E6DFC8" font-weight="400">Flux Pro 1.1 Ultra</text>
+          <text x="435" y="124" text-anchor="middle" font-family="Outfit,sans-serif" font-size="9" fill="rgba(230,223,200,0.6)" font-style="italic">5 atmospheric stills</text>
+        </g>
+
+        <line x1="515" y1="100" x2="540" y2="100" stroke="rgba(122,155,142,0.7)" stroke-width="1.5" marker-end="url(#flow-arrow)"/>
+
+        <g class="flow-node">
+          <rect x="545" y="60" width="140" height="80" rx="2" fill="#142A2D" stroke="rgba(122,155,142,0.3)" stroke-width="1"/>
+          <text x="615" y="84" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#E8A87C" letter-spacing="0.14em" font-weight="500">04 — TYPOGRAPHY</text>
+          <text x="615" y="108" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11.5" fill="#E6DFC8" font-weight="400">GPT Image 1</text>
+          <text x="615" y="124" text-anchor="middle" font-family="Outfit,sans-serif" font-size="9" fill="rgba(230,223,200,0.6)" font-style="italic">VN diacritics</text>
+        </g>
+
+        <line x1="690" y1="100" x2="715" y2="100" stroke="rgba(122,155,142,0.7)" stroke-width="1.5" marker-end="url(#flow-arrow)"/>
+
+        <g class="flow-node">
+          <rect x="720" y="60" width="130" height="80" rx="2" fill="url(#stage-grad)" stroke="rgba(232,168,124,0.4)" stroke-width="1.2"/>
+          <text x="785" y="84" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="rgba(255,255,255,0.85)" letter-spacing="0.14em" font-weight="500">05 — ASSEMBLE</text>
+          <text x="785" y="108" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11.5" fill="#FAF8F4" font-weight="400">Compositor</text>
+          <text x="785" y="124" text-anchor="middle" font-family="Outfit,sans-serif" font-size="9" fill="rgba(255,255,255,0.7)" font-style="italic">final mockup</text>
+        </g>
+
+        <line x1="855" y1="100" x2="880" y2="100" stroke="rgba(122,155,142,0.7)" stroke-width="1.5" marker-end="url(#flow-arrow)"/>
+
+        <g class="flow-node">
+          <rect x="885" y="60" width="105" height="80" rx="2" fill="#142A2D" stroke="rgba(122,155,142,0.3)" stroke-width="1"/>
+          <text x="937" y="84" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#E8A87C" letter-spacing="0.14em" font-weight="500">06 — MOTION</text>
+          <text x="937" y="108" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11.5" fill="#E6DFC8" font-weight="400">Seedance 2.0</text>
+          <text x="937" y="124" text-anchor="middle" font-family="Outfit,sans-serif" font-size="9" fill="rgba(230,223,200,0.6)" font-style="italic">cinematic clip</text>
+        </g>
+
+        <text x="500" y="180" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="rgba(230,223,200,0.55)" font-style="italic">Each stage hands off the artifact to the next. No single model handles two stages.</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- KEYFRAMES -->
+<section id="keyframes">
+  <div class="wrap sp">
+    <div class="fu">
+      <div class="s-label">04 — Keyframes</div>
+      <h2 class="s-title">Direction C, <em>frame by frame</em></h2>
+    </div>
+    <div class="kf-list">
+      <div class="kf-row fu" data-d="1">
+        <div class="kf-image"><img src="images/vng-demo/stills/kf1-the-gate-at-dawn.png" alt="The Gate at Dawn"></div>
+        <div class="kf-info">
+          <div class="kf-info-num">KF1 · The Gate at Dawn</div>
+          <div class="kf-info-title">Threshold</div>
+          <p class="kf-info-essence">A weathered đền gate stands alone on a misty hillside at pre-dawn — entry point into a valley that remembers.</p>
+          <div class="kf-meta">
+            <div class="kf-meta-row"><span class="kf-meta-key">Model</span><span class="kf-meta-val">Flux Pro 1.1 Ultra · 14 credits · 2 attempts</span></div>
+            <div class="kf-meta-row"><span class="kf-meta-key">Iteration</span><span class="kf-meta-val">v1 rendered Japanese torii — wrong cultural register. v2 added "đầu đao curves, double-tier roof" + negative prompt "NOT Japanese torii". Architecture corrected.</span></div>
+          </div>
+          <p class="kf-insight"><strong>Lesson:</strong> Vietnamese-specific architectural vocabulary is non-negotiable in prompts. Generic "Asian gate" defaults the model to torii every time.</p>
+        </div>
+      </div>
+
+      <div class="kf-row fu" data-d="1">
+        <div class="kf-image"><img src="images/vng-demo/stills/kf2-the-wanderer-enters.png" alt="The Wanderer Enters"></div>
+        <div class="kf-info">
+          <div class="kf-info-num">KF2 · The Wanderer Enters</div>
+          <div class="kf-info-title">Solitary entry</div>
+          <p class="kf-info-essence">A hooded traveler in deep teal robes and conical nón lá steps through the mist into the gate's opening.</p>
+          <div class="kf-meta">
+            <div class="kf-meta-row"><span class="kf-meta-key">Model</span><span class="kf-meta-val">Flux Pro 1.1 Ultra · 7 credits · 1 attempt (single-shot)</span></div>
+            <div class="kf-meta-row"><span class="kf-meta-key">Why it worked</span><span class="kf-meta-val">Architectural vocabulary established in KF1 v2 transferred. Back-to-camera framing eliminated face-consistency burden.</span></div>
+          </div>
+          <p class="kf-insight"><strong>Lesson:</strong> prompt vocabulary calibrated on one frame compounds — subsequent generations inherit the visual grammar without re-engineering.</p>
+        </div>
+      </div>
+
+      <div class="kf-row fu" data-d="1">
+        <div class="kf-image"><img src="images/vng-demo/stills/kf3-path-of-guardians.png" alt="Path of Guardians"></div>
+        <div class="kf-info">
+          <div class="kf-info-num">KF3 · Path of Guardians</div>
+          <div class="kf-info-title">Watched</div>
+          <p class="kf-info-essence">An overgrown stone path lined with weathered guardian statues, the wanderer small in mid-frame walking deeper.</p>
+          <div class="kf-meta">
+            <div class="kf-meta-row"><span class="kf-meta-key">Model</span><span class="kf-meta-val">Flux Pro 1.1 Ultra · 7 credits · 1 attempt</span></div>
+            <div class="kf-meta-row"><span class="kf-meta-key">Why it worked</span><span class="kf-meta-val">Specific statue variety (kneeling, headless, eroded, mossy) gave the model anchor points instead of uniform rows.</span></div>
+          </div>
+          <p class="kf-insight"><strong>Lesson:</strong> when generating multiple of the same object class, specifying internal variation prevents the model from defaulting to identical replicas.</p>
+        </div>
+      </div>
+
+      <div class="kf-row fu" data-d="1">
+        <div class="kf-image"><img src="images/vng-demo/stills/kf4-the-kneeling-moment.png" alt="The Kneeling Moment"></div>
+        <div class="kf-info">
+          <div class="kf-info-num">KF4 · The Kneeling Moment</div>
+          <div class="kf-info-title">Tenderness, before</div>
+          <p class="kf-info-essence">The wanderer's gloved hand brushes moss from a fallen statue's serene closed-eye face. A vermillion leaf rests nearby.</p>
+          <div class="kf-meta">
+            <div class="kf-meta-row"><span class="kf-meta-key">Model</span><span class="kf-meta-val">Flux Pro 1.1 Ultra · 7 credits · 1 attempt (accepted with compromises)</span></div>
+            <div class="kf-meta-row"><span class="kf-meta-key">Compromise</span><span class="kf-meta-val">Statue rendered as Buddha (urna gem, curled hair) instead of Vietnamese folk deity. Hand anatomy correct (5 fingers).</span></div>
+          </div>
+          <p class="kf-insight"><strong>Lesson:</strong> Flux has a strong Buddha prior on "stone deity statue." Aggressive negative prompts (NOT Buddha, NOT urna mark, NOT curled hair) would override — but credits were conserved for the harder KF5.</p>
+        </div>
+      </div>
+
+      <div class="kf-row fu" data-d="1">
+        <div class="kf-image"><img src="images/vng-demo/stills/kf5-after-the-recognition.png" alt="After the Recognition"></div>
+        <div class="kf-info">
+          <div class="kf-info-num">KF5 · After the Recognition</div>
+          <div class="kf-info-title">The pivot — hero shot</div>
+          <p class="kf-info-essence">The wanderer stands frozen, head tilted toward distant ember points awakening in the fog. Three pinpricks of vermillion in the deep distance — implication, not spectacle.</p>
+          <div class="kf-meta">
+            <div class="kf-meta-row"><span class="kf-meta-key">Model</span><span class="kf-meta-val">Flux Pro 1.1 Ultra · 21 credits · 3 attempts (2 failed, 1 success after pivot)</span></div>
+            <div class="kf-meta-row"><span class="kf-meta-key">Failure</span><span class="kf-meta-val">Attempts 1+2 prompted "subtle red eye glow" → both rendered demonic horror eyes. Model has trained prior coupling stone statue + glowing eye → demon. Cannot override via prompt.</span></div>
+            <div class="kf-meta-row"><span class="kf-meta-key">Pivot</span><span class="kf-meta-val">Reframed entire shot to show implication, not literal reveal. Wanderer reacting to distant ember points instead of statue's eye opening.</span></div>
+          </div>
+          <p class="kf-insight"><strong>Lesson:</strong> the implication landed harder than the literal would have. Identifying a model boundary, accepting it, and finding a creative path around it under credit constraint — <strong>that is the senior signal</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section id="final">
+  <div class="final-frame">
+    <div class="final-info fu">
+      <div class="final-label">05 — Final</div>
+      <h2 class="final-title">BÓNG VESPERA — <em>ad cover</em></h2>
+      <p class="final-caption">KF Branch 1 (LLM-orchestrated regeneration of the hero scene) as background, GPT Image 1 logo overlay with transparent background, composited in Figma Weave. Ornamental flourish below logotype was unprompted — model bonus.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MOTION -->
+<section id="motion">
+  <div class="wrap sp">
+    <div class="fu">
+      <div class="s-label">06 — Motion</div>
+      <h2 class="s-title">Two video samples, <em>intentionally</em></h2>
+      <p class="pipeline-intro">Both included to show the boundary between free tier capability and production capability. The contrast is the lesson.</p>
+    </div>
+    <div class="motion-grid">
+      <div class="motion-card experimental fu" data-d="1">
+        <div class="motion-video"><video src="images/vng-demo/motion/motion-multiframes-experimental.mp4" controls muted loop playsinline preload="metadata"></video></div>
+        <div class="motion-tag">Free tier · Multiframes · 720p</div>
+        <div class="motion-name">Chained 5-frame transition</div>
+        <p class="motion-desc">All 5 keyframes fed sequentially into Dreamina Multiframes. Output is visually inconsistent — "ảo đá" — because the scene gaps between frames exceed the model's coherence threshold. Included deliberately. It shows where the boundary is.</p>
+      </div>
+      <div class="motion-card fu" data-d="2">
+        <div class="motion-video"><video src="images/vng-demo/motion/motion-kf3-to-kf5-seedance.mp4" controls muted loop playsinline preload="metadata"></video></div>
+        <div class="motion-tag">Seedance 2.0 · 1080p · 485 credits</div>
+        <div class="motion-name">KF3 → KF5 cinematic transition</div>
+        <p class="motion-desc">Two coherent frames (forest path → wide reveal) interpolated via Seedance 2.0 image-to-video. Smooth dolly-out, mist drift, ember pulse intact. This is what production-tier motion looks like when the input frames share visual language.</p>
+      </div>
+    </div>
+    <div class="motion-reflection fu" data-d="3">
+      <p><strong>The lesson:</strong> Multiframes free tier is the wrong tool for chained narrative. Pair-wise generation across coherent frame couples + manual timeline assembly in CapCut is the production workflow. Free tier reveals the architecture; paid tier executes it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MODEL SELECTION -->
+<section id="models">
+  <div class="wrap sp">
+    <div class="fu">
+      <div class="s-label">07 — Reflection</div>
+      <h2 class="s-title">Model selection <em>by task</em></h2>
+      <p class="models-intro">The defining insight from six hours of generation. There is no best AI. There is only the right model for each stage of the work.</p>
+    </div>
+    <div class="fu" data-d="1" style="overflow-x:auto">
+      <table class="models-table">
+        <thead>
+          <tr><th>Stage</th><th>Best tool</th><th>Why this model, here</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Atmospheric keyframes</td><td class="tool">Flux Pro 1.1 Ultra</td><td>Cinematic depth, painterly finish, layered fog handling, single-subject composition</td></tr>
+          <tr><td>Vietnamese typography</td><td class="tool">GPT Image 1</td><td>Accurate diacritic rendering (BÓNG, SƯƠNG, KHÔNG); transparent background support</td></tr>
+          <tr><td>Concept expansion</td><td class="tool">Claude Opus 4.7</td><td>Production-prompt construction from short brief, art reference inference, structured output</td></tr>
+          <tr><td>Single-frame motion</td><td class="tool">Seedance 2.0</td><td>1080p cinematic transition between coherent frame pairs, smooth dolly motion</td></tr>
+          <tr><td>Pipeline automation</td><td class="tool">LLM + Flux chain</td><td>Reproducible — same brief structure generates any keyframe in this aesthetic</td></tr>
+          <tr><td>Multi-image narrative</td><td class="tool">Pair-wise + manual assembly</td><td>Multiframes free tier failed at chained scene gaps. Production workflow splits the problem.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="models-quote fu" data-d="2">
+      <p class="models-quote-text">"Flux fails at text. ChatGPT Images 2.0 fails at transparent backgrounds. GPT Image 1 succeeds where 2.0 doesn't. The orchestration is matching them."</p>
+      <div class="models-quote-attr">— Operating principle</div>
+    </div>
+  </div>
+</section>
+
+<!-- LEARNINGS -->
+<section id="learnings">
+  <div class="wrap sp">
+    <div class="fu">
+      <div class="s-label">08 — Learnings</div>
+      <h2 class="s-title">What I <em>learned</em></h2>
+    </div>
+    <div class="learn-grid">
+      <div class="learn-block fu" data-d="1">
+        <div class="learn-num">i</div>
+        <div>
+          <div class="learn-title">Pivot under constraint</div>
+          <div class="learn-body">
+            <p>KF5 — the payoff frame — failed twice in a row. Both Flux attempts produced demonic horror eyes when prompted for a stone statue with subtle red glow. The fault wasn't prompt engineering. It was Flux's trained prior coupling <em>stone statue + glowing eye → demon</em>.</p>
+            <p>The fix wasn't a better prompt. The fix was <strong>reframing the entire shot</strong> — instead of showing the eye opening literally, I rebuilt the frame to show the wanderer reacting to distant embers awakening in the fog. The implication landed harder than the literal would have.</p>
+            <p>The pivot is the senior signal. Identifying a model boundary, accepting it, and finding a creative path around it under credit constraint.</p>
+          </div>
+        </div>
+      </div>
+      <div class="learn-block fu" data-d="1">
+        <div class="learn-num">ii</div>
+        <div>
+          <div class="learn-title">Free tier as transparency</div>
+          <div class="learn-body">
+            <p>Two video samples are intentionally included in this demo. The Multiframes "ảo đá" output is not a bug to apologise for — <strong>it's evidence of where the free tier breaks</strong>. The Seedance 2.0 single-frame is what the same project looks like when the right tool meets a constrained problem.</p>
+            <p>Hiding the failure would have been easier. Showing it, with the diagnosis written underneath, is what distinguishes a portfolio piece from a marketing brochure.</p>
+          </div>
+        </div>
+      </div>
+      <div class="learn-block fu" data-d="1">
+        <div class="learn-num">iii</div>
+        <div>
+          <div class="learn-title">Process &gt; output</div>
+          <div class="learn-body">
+            <p>This is not a finished campaign. There is no media plan, no audience testing, no production budget context. The CTA layer was dropped. The hook copy was deferred to caption text rather than baked into the image.</p>
+            <p>What this proves: I can take a creative brief, decompose it across the right AI models, identify and route around model limitations, and ship a coherent visual deliverable in a single workday — including the transparency to flag what didn't work.</p>
+            <p><strong>The orchestration is the work.</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT -->
+<section id="next">
+  <div class="wrap sp">
+    <div class="fu">
+      <div class="s-label">09 — Next</div>
+      <h2 class="s-title">What I'd <em>ship next</em></h2>
+      <p class="pipeline-intro">With paid-tier access and a real campaign brief, the architecture above scales in three directions:</p>
+    </div>
+    <div class="next-list fu" data-d="1">
+      <div class="next-item">
+        <div class="next-tag">Motion · Production tier</div>
+        <div class="next-title">Pair-wise Seedance 2.0 across all transitions</div>
+        <div class="next-desc">KF1→KF2, KF2→KF3, KF3→KF4, KF4→KF5 generated separately and assembled in CapCut timeline. Solves the Multiframes chain coherence problem entirely.</div>
+      </div>
+      <div class="next-item">
+        <div class="next-tag">Variants · Scale</div>
+        <div class="next-title">Full ad variant set — 3 hooks × 2 formats</div>
+        <div class="next-desc">Six final ad variants for A/B testing across Facebook video, TikTok creative, and Google Display banners. The pipeline above generates each in &lt;2 hours per variant.</div>
+      </div>
+      <div class="next-item">
+        <div class="next-tag">Typography · Quality</div>
+        <div class="next-title">Ideogram or Adobe Firefly for typography layer</div>
+        <div class="next-desc">Replace GPT Image 1 typography step with a model that has stronger typeface control and brand-asset consistency. Iterate on logo treatment with brand-kit constraints.</div>
+      </div>
+      <div class="next-item">
+        <div class="next-tag">Pipeline · Automation</div>
+        <div class="next-title">n8n orchestration for brief-to-keyframe</div>
+        <div class="next-desc">Wrap the LLM + Flux chain in an n8n workflow with Notion brief input. One trigger generates concept directions, picks the strongest, and produces 5 keyframes — all logged to a project folder automatically.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-glow"></div>
+  <div class="wrap sp">
+    <div class="cta-inner fu">
+      <div class="cta-eyebrow">Built in 6 hours · May 2026</div>
+      <h2 class="cta-title">An ad campaign isn't built by one model.<br><em>It's directed across many.</em></h2>
+      <p class="cta-sub">This was an experiment. The architecture scales. If you're building something that needs this kind of orchestration thinking, get in touch.</p>
+      <div class="cta-btns">
+        <a href="mailto:pnthanh.work@gmail.com" class="btn-fill">Get in touch</a>
+        <a href="index.html" class="btn-ghost">← Back to portfolio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="f-logo">Tatsuki <em>達樹</em></div>
+    <div class="f-copy">© 2026 Phạm Ngọc Thanh — A Tatsuki experiment</div>
+    <a href="https://linkedin.com/in/jkpham03/" target="_blank" class="f-link">linkedin.com/in/jkpham03</a>
+  </div>
+</footer>
+
+<script>
+    // Cursor follow
+    const dot=document.getElementById('curDot'),ring=document.getElementById('curRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{
+      mx=e.clientX;my=e.clientY;
+      dot.style.left=mx+'px';dot.style.top=my+'px';
+    },{passive:true});
+    (function tr(){
+      rx+=(mx-rx)*.11;ry+=(my-ry)*.11;
+      ring.style.left=rx+'px';ring.style.top=ry+'px';
+      requestAnimationFrame(tr);
+    })();
+    
+    // Cursor hover state
+    document.querySelectorAll('a,button,.concept-card,.kf-image,.next-item,.hstat,.motion-video').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{
+        dot.style.width='40px';dot.style.height='40px';dot.style.opacity='.18';
+        ring.style.opacity='0';
+      });
+      el.addEventListener('mouseleave',()=>{
+        dot.style.width='8px';dot.style.height='8px';dot.style.opacity='1';
+        ring.style.opacity='.4';
+      });
+    });
+    
+    // Progress bar + nav scrolled state + parallax mist marks
+    let pTk=false;
+    window.addEventListener('scroll',()=>{
+      document.getElementById('prog').style.width=
+        (window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';
+      document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+      if(!pTk){
+        requestAnimationFrame(()=>{
+          const sy=window.scrollY;
+          document.querySelectorAll('.mist-mark').forEach((k,i)=>{
+            const speed=i===0?-.08:-.06;
+            k.style.transform=`translateY(${sy*speed}px)`;
+          });
+          pTk=false;
+        });
+        pTk=true;
+      }
+    },{passive:true});
+    
+    // Scroll reveal
+    const fuObs=new IntersectionObserver(e=>e.forEach(x=>{
+      if(x.isIntersecting)x.target.classList.add('visible');
+    }),{threshold:.06});
+    document.querySelectorAll('.fu').forEach(el=>fuObs.observe(el));
+    
+    // KF row hover effect (underline animation)
+    const kfObs=new IntersectionObserver(e=>e.forEach(x=>{
+      if(x.isIntersecting)x.target.classList.add('visible');
+    }),{threshold:.2});
+    document.querySelectorAll('.kf-row').forEach(el=>kfObs.observe(el));
+    </script>
+    </body>
+    </html>
