@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workflow Architect Challenge — Phạm Ngọc Thanh</title>
+  <meta name="description" content="Three AI workflow architectures, designed and built. Submission for PATI Group's Workflow Architect Challenge by Phạm Ngọc Thanh." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #F5F0E8;
+      --bg-alt: #EFE8DC;
+      --paper: #FAF7F2;
+      --ink: #1F1B16;
+      --ink-soft: #4A4239;
+      --ink-mute: #7A6F62;
+      --line: #D9CFBE;
+      --line-soft: #E8DFD0;
+      --accent: #6B4423;
+      --accent-warm: #B8693D;
+      --accent-deep: #3A2817;
+
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Manrope", -apple-system, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+
+      --radius: 4px;
+      --maxw: 1180px;
+      --gutter: clamp(20px, 4vw, 48px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    img, svg { max-width: 100%; display: block; }
+    a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--line); transition: all 0.2s ease; }
+    a:hover { color: var(--accent-deep); border-bottom-color: var(--accent); }
+
+    /* ============ LAYOUT ============ */
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding-left: var(--gutter);
+      padding-right: var(--gutter);
+    }
+
+    .section { padding: clamp(60px, 9vw, 120px) 0; }
+    .section + .section { border-top: 1px solid var(--line); }
+
+    /* ============ TOP BAR ============ */
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+    .topbar .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .topbar .right { color: var(--ink-soft); }
+
+    /* ============ HERO ============ */
+    .hero { padding: clamp(80px, 14vw, 160px) 0 clamp(60px, 8vw, 100px); }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(40px, 7vw, 88px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      max-width: 16ch;
+      margin-bottom: 32px;
+    }
+    .hero-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--accent-deep);
+      font-variation-settings: "opsz" 144;
+    }
+    .hero-sub {
+      font-size: clamp(17px, 1.5vw, 20px);
+      line-height: 1.55;
+      color: var(--ink-soft);
+      max-width: 60ch;
+      margin-bottom: 56px;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 24px;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+    }
+    .meta-item .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: 6px;
+    }
+    .meta-item .value {
+      font-size: 15px;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* ============ INDEX ============ */
+    .index-section { background: var(--bg-alt); }
+    .index-list { display: grid; gap: 0; }
+    .index-row {
+      display: grid;
+      grid-template-columns: 60px 1fr auto;
+      align-items: baseline;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--line);
+      gap: 24px;
+    }
+    .index-row:first-child { border-top: 1px solid var(--line); }
+    .index-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--ink-mute);
+      letter-spacing: 0.04em;
+    }
+    .index-title {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.4vw, 30px);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+    .index-title em { font-style: italic; color: var(--accent-deep); }
+    .index-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      white-space: nowrap;
+    }
+
+    /* ============ CASE SECTION ============ */
+    .case-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+      margin-bottom: clamp(40px, 6vw, 72px);
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .case-title {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 5.5vw, 64px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      max-width: 22ch;
+    }
+    .case-title em { font-style: italic; color: var(--accent-deep); }
+    .case-tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+    }
+
+    .case-body { display: grid; gap: clamp(40px, 5vw, 64px); }
+
+    .block { display: grid; grid-template-columns: minmax(0, 200px) 1fr; gap: clamp(24px, 4vw, 56px); align-items: start; }
+    @media (max-width: 720px) {
+      .block { grid-template-columns: 1fr; gap: 16px; }
+    }
+
+    .block-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      padding-top: 4px;
+    }
+    .block-content { max-width: 70ch; }
+    .block-content p {
+      font-size: clamp(16px, 1.2vw, 18px);
+      line-height: 1.65;
+      color: var(--ink-soft);
+    }
+    .block-content p + p { margin-top: 1em; }
+
+    /* ============ DIAGRAM ============ */
+    .diagram-wrap {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: clamp(24px, 4vw, 48px) clamp(20px, 3vw, 32px);
+      overflow-x: auto;
+    }
+    .diagram-caption {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    /* ============ STEPS ============ */
+    .steps { display: grid; gap: 24px; counter-reset: step; }
+    .step {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .step:last-child { border-bottom: none; padding-bottom: 0; }
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent);
+      padding-top: 4px;
+      letter-spacing: 0.04em;
+    }
+    .step-content h4 {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 6px;
+      letter-spacing: -0.005em;
+    }
+    .step-tools {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      background: var(--bg-alt);
+      padding: 2px 8px;
+      border-radius: 2px;
+      margin-left: 8px;
+      vertical-align: middle;
+      letter-spacing: 0.04em;
+    }
+    .step-content p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--ink-soft);
+    }
+
+    /* ============ CALLOUT ============ */
+    .callout {
+      background: var(--bg-alt);
+      border-left: 3px solid var(--accent);
+      padding: 24px 28px;
+      margin-top: 12px;
+    }
+    .callout-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .callout p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+    .callout p + p { margin-top: 0.8em; }
+
+    /* ============ OUTCOME ============ */
+    .outcome-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0;
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .outcome-cell {
+      padding: 20px 24px;
+      border-right: 1px solid var(--line);
+    }
+    .outcome-cell:last-child { border-right: none; }
+    @media (max-width: 720px) {
+      .outcome-cell { border-right: none; border-bottom: 1px solid var(--line); }
+      .outcome-cell:last-child { border-bottom: none; }
+    }
+    .outcome-cell .label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: 8px;
+    }
+    .outcome-cell .value {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1;
+      letter-spacing: -0.015em;
+    }
+    .outcome-cell .value-sub {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--ink-mute);
+      margin-top: 4px;
+    }
+
+    /* ============ SYNTHESIS ============ */
+    .synthesis { background: var(--accent-deep); color: var(--paper); }
+    .synthesis .eyebrow { color: var(--accent-warm); }
+    .synthesis h2 {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 5vw, 56px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      max-width: 22ch;
+      margin-bottom: 40px;
+      color: var(--paper);
+    }
+    .synthesis h2 em { font-style: italic; color: var(--accent-warm); }
+    .synthesis p {
+      font-size: 18px;
+      line-height: 1.65;
+      color: rgba(250, 247, 242, 0.85);
+      max-width: 64ch;
+      margin-bottom: 1em;
+    }
+    .synthesis .pattern-list {
+      display: grid;
+      gap: 24px;
+      margin: 48px 0;
+      max-width: 800px;
+    }
+    .pattern-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 32px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(184, 105, 61, 0.3);
+    }
+    .pattern-row:last-child { border-bottom: 1px solid rgba(184, 105, 61, 0.3); }
+    @media (max-width: 720px) {
+      .pattern-row { grid-template-columns: 1fr; gap: 8px; }
+    }
+    .pattern-shape {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-warm);
+    }
+    .pattern-text {
+      font-size: 16px;
+      color: rgba(250, 247, 242, 0.92);
+      line-height: 1.5;
+    }
+
+    /* ============ FOOTER ============ */
+    .footer {
+      padding: 60px 0 80px;
+      border-top: 1px solid var(--line);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--ink-mute);
+    }
+    .footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-links { display: flex; gap: 32px; flex-wrap: wrap; }
+    .footer a { color: var(--ink-soft); border-bottom-color: var(--line); }
+
+    /* ============ MOTION ============ */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(16px); animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+      .reveal-1 { animation-delay: 0.05s; }
+      .reveal-2 { animation-delay: 0.18s; }
+      .reveal-3 { animation-delay: 0.32s; }
+      .reveal-4 { animation-delay: 0.46s; }
+      @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+      .diagram-wrap svg .anim-stroke {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: draw 1.6s ease-out forwards;
+      }
+      .diagram-wrap svg .anim-stroke-d2 { animation-delay: 0.3s; }
+      .diagram-wrap svg .anim-stroke-d3 { animation-delay: 0.6s; }
+      @keyframes draw { to { stroke-dashoffset: 0; } }
+    }
+
+    /* SVG token defaults */
+    .wfd-text { font-family: var(--font-mono); font-size: 11px; fill: var(--ink); letter-spacing: 0.02em; }
+    .wfd-label { font-family: var(--font-mono); font-size: 9px; fill: var(--ink-mute); letter-spacing: 0.06em; text-transform: uppercase; }
+    .wfd-title { font-family: var(--font-body); font-size: 13px; font-weight: 600; fill: var(--ink); }
+    .wfd-line { stroke: var(--ink-soft); stroke-width: 1.2; fill: none; }
+    .wfd-line-accent { stroke: var(--accent); stroke-width: 1.5; fill: none; }
+    .wfd-line-soft { stroke: var(--line); stroke-width: 1; fill: none; stroke-dasharray: 3 3; }
+    .wfd-node-fill { fill: var(--paper); }
+    .wfd-node-stroke { stroke: var(--ink); stroke-width: 1.2; fill: var(--paper); }
+    .wfd-node-accent { stroke: var(--accent); stroke-width: 1.5; fill: var(--bg-alt); }
+    .wfd-node-deep { fill: var(--accent-deep); }
+    .wfd-node-deep-text { fill: var(--paper); }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="wrap">
+      <div class="left">PATI Group / Workflow Architect Challenge</div>
+      <div class="right">Submitted by Phạm Ngọc Thanh — May 2026</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow reveal reveal-1">Submission · Three Workflows</div>
+      <h1 class="hero-title reveal reveal-2">Three problems. Three workflow <em>architectures.</em></h1>
+      <p class="hero-sub reveal reveal-3">Not finished products — workflows, designed for the question each one was asked. Each case stresses a different shape of thinking: routing tools across creative stages, building research pipelines that hold their accuracy, and bridging fragmented data into a single decision layer.</p>
+
+      <div class="hero-meta reveal reveal-4">
+        <div class="meta-item">
+          <div class="label">Submitted by</div>
+          <div class="value">Phạm Ngọc Thanh</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Role</div>
+          <div class="value">Senior Digital Marketing (Creative &amp; AI)</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Format</div>
+          <div class="value">Single-page architecture brief</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Portfolio</div>
+          <div class="value"><a href="https://jak3rpham.github.io" target="_blank" rel="noopener">jak3rpham.github.io</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDEX -->
+  <section class="section index-section">
+    <div class="wrap">
+      <div class="eyebrow">Index</div>
+      <div class="index-list" style="margin-top: 32px;">
+        <a href="#case-01" class="index-row" style="border: 0; color: inherit;">
+          <div class="index-num">01</div>
+          <div class="index-title">Creative <em>orchestration</em> — multi-model ad pipeline</div>
+          <div class="index-tag">Branching · Converging</div>
+        </a>
+        <a href="#case-02" class="index-row" style="border: 0; color: inherit; border-top: 1px solid var(--line);">
+          <div class="index-num">02</div>
+          <div class="index-title">Bias-reduced expert <em>discovery</em> — 8-phase research pipeline</div>
+          <div class="index-tag">Sequential · Bias-reduced · Audited</div>
+        </a>
+        <a href="#case-03" class="index-row" style="border: 0; color: inherit; border-top: 1px solid var(--line);">
+          <div class="index-num">03</div>
+          <div class="index-title">Analytics-to-<em>decision</em> — MCP-integrated reporting</div>
+          <div class="index-tag">AI in design · Locked runtime</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASE 01 ============ -->
+  <section class="section" id="case-01">
+    <div class="wrap">
+      <div class="case-head">
+        <div class="case-num">Case 01 — Creative Orchestration</div>
+        <h2 class="case-title">Brief to ad-ready in <em>six hours,</em> by routing each stage to the right model.</h2>
+        <div class="case-tag">Pipeline shape · Branching → Converging · Tools: Claude · Flux Pro · GPT Image · Seedance</div>
+      </div>
+
+      <div class="case-body">
+
+        <!-- BOTTLENECK -->
+        <div class="block">
+          <div class="block-label">Bottleneck</div>
+          <div class="block-content">
+            <p>A creative brief for a fictional mobile RPG game ad. Six hours of self-imposed constraint: blank input, ad-ready output expected. The default path — prompt one model into doing everything — caps out fast. Text-to-image models lose composition fidelity at scale, image-to-video tools need clean keyframes to work with, copy generators don't think visually.</p>
+            <p>The bottleneck is not "use AI." It is: what tool, at what stage, with what handoff between them.</p>
+          </div>
+        </div>
+
+        <!-- DIAGRAM -->
+        <div class="block">
+          <div class="block-label">Architecture</div>
+          <div class="block-content" style="max-width: none;">
+            <a href="https://jak3rpham.github.io/bong-vespera" target="_blank" rel="noopener" style="display: block; border: 0;">
+              <div class="diagram-wrap" style="padding: 0; overflow: hidden;">
+                <picture>
+                  <source srcset="https://jak3rpham.github.io/images/vng-demo/workflow/weave-canvas-full.webp" type="image/webp"/>
+                  <img src="https://jak3rpham.github.io/images/vng-demo/workflow/weave-canvas-full.png" alt="BÓNG VESPERA AI orchestration workflow — Claude → Flux Pro → GPT Image → Seedance pipeline, full Weavy canvas" style="width: 100%; height: auto; display: block;"/>
+                </picture>
+              </div>
+              <div class="diagram-caption" style="margin-top: 16px;">
+                Full Weavy canvas with workflow diagram · model selection rationale · iteration evidence — at <span style="color: var(--accent); border-bottom: 1px solid var(--accent);">jak3rpham.github.io/bong-vespera ↗</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- WORKFLOW STEPS -->
+        <div class="block">
+          <div class="block-label">Workflow</div>
+          <div class="block-content">
+            <div class="steps">
+              <div class="step">
+                <div class="step-num">01</div>
+                <div class="step-content">
+                  <h4>Concept decomposition <span class="step-tools">Claude</span></h4>
+                  <p>Brief → 5 concept directions (visual codes, emotional register, audience cue). Pick 1, lock the visual codes that downstream stages will inherit.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">02</div>
+                <div class="step-content">
+                  <h4>Storyboard &amp; copy <span class="step-tools">Claude</span></h4>
+                  <p>Shot list, copy hooks, technical keyframe descriptions written in a format the next stage's models can ingest directly. Each frame description includes composition, lighting, and mood tokens.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">03</div>
+                <div class="step-content">
+                  <h4>Hero keyframes <span class="step-tools">Flux Pro</span></h4>
+                  <p>Five high-fidelity keyframes generated from the locked descriptions. Flux Pro picked here because it holds composition and atmosphere best at this scale — expensive per call but the cleanest hero output.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">04</div>
+                <div class="step-content">
+                  <h4>Vietnamese typography <span class="step-tools">GPT Image</span></h4>
+                  <p>Title cards and Vietnamese display copy. Picked here because GPT Image handles Vietnamese diacritics cleaner than Flux at this scale — the kind of detail that matters when the audience is local and "almost-right" typography reads as foreign-made ad.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">05</div>
+                <div class="step-content">
+                  <h4>Motion samples <span class="step-tools">Seedance</span></h4>
+                  <p>Locked keyframes → motion clips. Seedance is doing the one thing image-only models can't, with a clean keyframe input it actually has something to work with.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">06</div>
+                <div class="step-content">
+                  <h4>Assembly <span class="step-tools">Manual</span></h4>
+                  <p>Final cut, copy overlay, sound design. The judgment call about what survives and what gets cut is human — AI is upstream of taste, not a replacement for it.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WHY -->
+        <div class="block">
+          <div class="block-label">Why this routing</div>
+          <div class="block-content">
+            <div class="callout">
+              <div class="callout-label">The decision behind the architecture — and the reroute mid-pipeline</div>
+              <p>Every model has a sweet spot. Flux Pro's is hero fidelity. GPT Image's is Vietnamese typography. Seedance's is motion. Claude's is the reasoning layer that keeps prompts coherent across handoffs so each downstream model gets clean inputs.</p>
+              <p>What actually happened mid-build: Flux character consistency broke between keyframes — same character, different frames, the model lost the face. The decision wasn't to abandon the concept. It was to reroute: lock the character codes more tightly in Claude's prompt layer, regenerate, accept the cost. That reroute is the work. A single-model pipeline doesn't give you that escape hatch — you either ship the inconsistency or restart from zero. Routing across specialists means you can fail at one stage without burning the whole run.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- OUTCOME -->
+        <div class="block">
+          <div class="block-label">Outcome</div>
+          <div class="block-content" style="max-width: none;">
+            <div class="outcome-grid">
+              <div class="outcome-cell">
+                <div class="label">Total time</div>
+                <div class="value">6 h</div>
+                <div class="value-sub">From blank brief to deliverables</div>
+              </div>
+              <div class="outcome-cell">
+                <div class="label">Hero frames</div>
+                <div class="value">5</div>
+                <div class="value-sub">Locked composition</div>
+              </div>
+              <div class="outcome-cell">
+                <div class="label">Motion samples</div>
+                <div class="value">2</div>
+                <div class="value-sub">Keyframe-derived</div>
+              </div>
+              <div class="outcome-cell">
+                <div class="label">Final ad mockup</div>
+                <div class="value">1</div>
+                <div class="value-sub">Assembled output</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASE 02 ============ -->
+  <section class="section" id="case-02">
+    <div class="wrap">
+      <div class="case-head">
+        <div class="case-num">Case 02 — Bias-Reduced Research Pipeline</div>
+        <h2 class="case-title">Top experts — <em>measured,</em> not guessed. An 8-phase research pipeline.</h2>
+        <div class="case-tag">Pipeline shape · Sequential phases · Bias reduction by cross-reference · Tools: DataForSEO · YouTube API v3 · Supadata · Claude API · Python in Cursor</div>
+      </div>
+
+      <div class="case-body">
+
+        <div class="block">
+          <div class="block-label">Bottleneck</div>
+          <div class="block-content">
+            <p>A research challenge: identify the top 10 voices in AI-powered SEO content — a niche covering SEO, AEO, GEO, and LLMO. The naive approach (list the people I follow) fails three ways. It's biased toward who's loud in my feed, not who's actually shaping the field. It's static — no signal on who's recently active versus who's coasting on past reputation. And it can't be defended — when the receiver asks "why these ten," there's no answer except "I picked them."</p>
+            <p>The bottleneck wasn't writing the list. It was building a process where the list comes from measurable signals, where the result is reproducible, where bias is reduced by cross-referencing independent sources, and where every exclusion has a reason.</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Architecture</div>
+          <div class="block-content" style="max-width: none;">
+            <div class="diagram-wrap">
+              <svg viewBox="0 0 880 620" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+
+                <!-- Phase 1 -->
+                <rect x="180" y="20" width="420" height="50" rx="3" class="wfd-node-stroke"/>
+                <text x="200" y="40" class="wfd-label">P1 · Keyword Validation</text>
+                <text x="200" y="58" class="wfd-title">DataForSEO API</text>
+                <text x="580" y="50" text-anchor="end" class="wfd-text">15 seeds → 4 high-signal</text>
+
+                <!-- Phase 2 -->
+                <rect x="180" y="90" width="420" height="50" rx="3" class="wfd-node-stroke"/>
+                <text x="200" y="110" class="wfd-label">P2 · Channel Discovery</text>
+                <text x="200" y="128" class="wfd-title">YouTube Data API v3</text>
+                <text x="580" y="120" text-anchor="end" class="wfd-text">38 unique channels</text>
+
+                <!-- Phase 3 -->
+                <rect x="180" y="160" width="420" height="50" rx="3" class="wfd-node-stroke"/>
+                <text x="200" y="180" class="wfd-label">P3 · Channel Scoring</text>
+                <text x="200" y="198" class="wfd-title">Engagement · Recency · Subs</text>
+                <text x="580" y="190" text-anchor="end" class="wfd-text">Auto-exclude fraud signals</text>
+
+                <!-- Phase 4 -->
+                <rect x="180" y="230" width="420" height="50" rx="3" class="wfd-node-stroke"/>
+                <text x="200" y="250" class="wfd-label">P4 · Relevance Filter</text>
+                <text x="200" y="268" class="wfd-title">Keyword match · titles + desc</text>
+                <text x="580" y="260" text-anchor="end" class="wfd-text">Off-topic out</text>
+
+                <!-- Phase 5 -->
+                <rect x="180" y="300" width="420" height="50" rx="3" class="wfd-node-accent"/>
+                <text x="200" y="320" class="wfd-label">P5 · Cross-Reference</text>
+                <text x="200" y="338" class="wfd-title">LinkedIn · Newsletters · Speaker lists</text>
+                <text x="580" y="330" text-anchor="end" class="wfd-text">Bias reduction</text>
+
+                <!-- Phase 6 -->
+                <rect x="180" y="370" width="420" height="50" rx="3" class="wfd-node-stroke"/>
+                <text x="200" y="390" class="wfd-label">P6 · Content Collection</text>
+                <text x="200" y="408" class="wfd-title">Supadata API · Browser collection</text>
+                <text x="580" y="400" text-anchor="end" class="wfd-text">Transcripts · Articles</text>
+
+                <!-- Phase 7 -->
+                <rect x="180" y="440" width="420" height="50" rx="3" class="wfd-node-stroke"/>
+                <text x="200" y="460" class="wfd-label">P7 · Targeted Expansion</text>
+                <text x="200" y="478" class="wfd-title">Interview appearance discovery</text>
+                <text x="580" y="470" text-anchor="end" class="wfd-text">Catches quiet experts</text>
+
+                <!-- Phase 8 -->
+                <rect x="180" y="510" width="420" height="50" rx="3" class="wfd-node-deep"/>
+                <text x="200" y="530" class="wfd-label" style="fill: var(--accent-warm);">P8 · Quality Audit</text>
+                <text x="200" y="548" class="wfd-title" style="fill: var(--paper);">Claude API · Final Gate</text>
+                <text x="580" y="540" text-anchor="end" class="wfd-text" style="fill: var(--paper); opacity: 0.85;">10 selected</text>
+
+                <!-- Vertical flow lines -->
+                <path d="M 390 70 L 390 90" class="wfd-line anim-stroke"/>
+                <path d="M 390 140 L 390 160" class="wfd-line anim-stroke"/>
+                <path d="M 390 210 L 390 230" class="wfd-line anim-stroke"/>
+                <path d="M 390 280 L 390 300" class="wfd-line anim-stroke"/>
+                <path d="M 390 350 L 390 370" class="wfd-line-accent anim-stroke anim-stroke-d2"/>
+                <path d="M 390 420 L 390 440" class="wfd-line anim-stroke anim-stroke-d2"/>
+                <path d="M 390 490 L 390 510" class="wfd-line-accent anim-stroke anim-stroke-d3"/>
+
+                <!-- Side annotation: utility branches -->
+                <rect x="640" y="160" width="200" height="50" rx="3" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 3"/>
+                <text x="740" y="180" text-anchor="middle" class="wfd-label">Utility</text>
+                <text x="740" y="198" text-anchor="middle" class="wfd-text">Channel ID lookup</text>
+                <path d="M 600 185 L 640 185" class="wfd-line-soft anim-stroke anim-stroke-d2"/>
+
+                <rect x="640" y="370" width="200" height="50" rx="3" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 3"/>
+                <text x="740" y="390" text-anchor="middle" class="wfd-label">Utility</text>
+                <text x="740" y="408" text-anchor="middle" class="wfd-text">Transcript retry · Ahrefs verify</text>
+                <path d="M 600 395 L 640 395" class="wfd-line-soft anim-stroke anim-stroke-d3"/>
+
+                <!-- Side annotation: stage labels -->
+                <text x="50" y="50" class="wfd-label" style="fill: var(--ink-mute);">DISCOVERY</text>
+                <text x="50" y="200" class="wfd-label" style="fill: var(--ink-mute);">FILTERING</text>
+                <text x="50" y="335" class="wfd-label" style="fill: var(--accent);">DEBIAS</text>
+                <text x="50" y="475" class="wfd-label" style="fill: var(--ink-mute);">COLLECTION</text>
+                <text x="50" y="540" class="wfd-label" style="fill: var(--accent);">AUDIT</text>
+              </svg>
+              <div class="diagram-caption">Sequential 8-phase pipeline · Bias reduction at P5 · Claude API audit gate at P8</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Workflow</div>
+          <div class="block-content">
+            <div class="steps">
+              <div class="step">
+                <div class="step-num">P1</div>
+                <div class="step-content">
+                  <h4>Keyword validation <span class="step-tools">DataForSEO API</span></h4>
+                  <p>Test 15 seed keywords against US Google search volume. Keep 4 with real community traction (AI SEO 8,100/mo, GEO SEO 2,400/mo, AI search optimization 1,000/mo, LLM SEO 880/mo). Drop terms that read accurate but lack volume — "AI content production" sounds right and gets 10/mo. Validation prevents searching against vocabulary nobody actually uses.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">P2</div>
+                <div class="step-content">
+                  <h4>YouTube channel discovery <span class="step-tools">YouTube Data API v3</span></h4>
+                  <p>Search the four validated keywords. Output: 38 unique channels surfaced. The discovery layer is intentionally wide — over-include here, filter downstream.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">P3</div>
+                <div class="step-content">
+                  <h4>Channel scoring <span class="step-tools">Engagement · Recency · Subs</span></h4>
+                  <p>Weighted scoring: engagement rate (35%) + recency over 90 days (30%) + subscriber base (35%). Auto-exclude fraud signals — channels where average views fall under 10 relative to subscriber count. Threshold-based, not vibes-based.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">P4</div>
+                <div class="step-content">
+                  <h4>Relevance scoring <span class="step-tools">Keyword match</span></h4>
+                  <p>Keyword matching against video titles and descriptions. Auto-exclude zero engagement and clearly off-topic channels. Removes the noise that pure subscriber-count surveys keep.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">P5</div>
+                <div class="step-content">
+                  <h4>Cross-reference for bias reduction <span class="step-tools">LinkedIn · Newsletter · Speaker lists</span></h4>
+                  <p>This is the phase that does the most work. Cross-reference against ≥2 independent industry sources: BrightonSEO, MozCon, SEO Week speaker lists, plus practitioner newsletter rankings. YouTube alone surfaces who YouTube rewards (frequent video format, often US-centric); cross-referencing pulls in voices that publish primarily in long-form or talk circuits. Merged scoring across platforms reduces single-platform bias.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">P6</div>
+                <div class="step-content">
+                  <h4>Content collection <span class="step-tools">Supadata API</span></h4>
+                  <p>YouTube transcripts pulled programmatically via Supadata API. Blog and newsletter articles via browser collection. Output is structured: one JSON per expert containing transcript text, video metadata, article URLs, dates. Consistent shape across sources is what makes downstream auditing feasible.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">P7</div>
+                <div class="step-content">
+                  <h4>Targeted expansion <span class="step-tools">Interview discovery</span></h4>
+                  <p>Some experts are quiet on their own channels but loud on others' shows. Interview-appearance discovery catches them. Without this phase, the pipeline misses voices like Koray Tuğberk — founded the Topical Authority methodology, primarily long-form on holisticseo.digital, quiet on YouTube directly but heavily cited in industry interviews.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">P8</div>
+                <div class="step-content">
+                  <h4>Quality audit gate <span class="step-tools">Claude API</span></h4>
+                  <p>Claude API audits the collected content for relevance to the niche, recency, and depth. Final filter before the list locks. The gate is where AI judgment lives in this pipeline — everything upstream is deterministic scoring; this phase is where qualitative reasoning happens, but only after the data has been narrowed to a reviewable set.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Why this design</div>
+          <div class="block-content">
+            <div class="callout">
+              <div class="callout-label">The architecture is built around two failure modes</div>
+              <p><strong>Bias from a single platform.</strong> YouTube alone surfaces who YouTube rewards — frequent video output, often US-centric, often optimized for the algorithm rather than depth. P5's cross-reference against LinkedIn and newsletter speaker lists pulls in voices that publish primarily in other formats. Merged scoring is what produces a list that holds up across communities, not just one.</p>
+              <p><strong>Bias from prior knowledge.</strong> If I'd just listed "experts I think are top," the list would have been who I follow. The pipeline is designed to find people I wouldn't have found, AND to filter out people who'd survive my prior bias but fail the data — channels with high subscriber counts and zero recent depth, voices loud in my feed but absent from speaker circuits.</p>
+              <p>The output isn't "Tatsuki's opinion of top experts." It's a list defensible to a stranger who asks "why these ten." Every exclusion has a phase number attached.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Outcome</div>
+          <div class="block-content" style="max-width: none;">
+            <div class="outcome-grid">
+              <div class="outcome-cell">
+                <div class="label">Channels evaluated</div>
+                <div class="value">38</div>
+                <div class="value-sub">vs. ~10 by gut</div>
+              </div>
+              <div class="outcome-cell">
+                <div class="label">Final list</div>
+                <div class="value">10</div>
+                <div class="value-sub">Cross-platform verified</div>
+              </div>
+              <div class="outcome-cell">
+                <div class="label">APIs orchestrated</div>
+                <div class="value">4</div>
+                <div class="value-sub">DataForSEO · YT · Supadata · Claude</div>
+              </div>
+              <div class="outcome-cell">
+                <div class="label">Pipeline phases</div>
+                <div class="value">8</div>
+                <div class="value-sub">Reproducible</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASE 03 ============ -->
+  <section class="section" id="case-03">
+    <div class="wrap">
+      <div class="case-head">
+        <div class="case-num">Case 03 — Analytics-to-Decision</div>
+        <h2 class="case-title">AI designed the contracts. <em>n8n executes them.</em> Determinism by design.</h2>
+        <div class="case-tag">Pipeline shape · AI in design-time · Locked deterministic runtime · Tools: Custom MCP servers · n8n · GitHub · Static template</div>
+      </div>
+
+      <div class="case-body">
+
+        <div class="block">
+          <div class="block-label">Bottleneck</div>
+          <div class="block-content">
+            <p>Stage A — the obvious bottleneck. Marketing data fragmented across GSC, GA4, CrUX, PageSpeed. Each platform has its own dashboard, its own latency, its own anomaly definitions. Manual aggregation = 4–6 hours per week of mechanical work where human judgment adds zero value, and by the time the report is ready, the data is already stale.</p>
+            <p>Stage B — the bottleneck I only found after building v1. With Claude in the rendering loop, every weekly report came out subtly different: section order shifted, threshold descriptions used different phrasing, layout breathed differently each run. For internal stakeholders who scan reports weekly, this is anti-usability — the cognitive cost becomes "where do I look this week" instead of "what changed this week." The bug wasn't in the analysis. It was in letting an LLM render a recurring artifact that needs to look the same.</p>
+            <p>The diagnosis: LLM non-determinism is a feature for analysis (different angles each week) and a bug for layout (must be the same each week). The architecture had to separate the two.</p>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Architecture</div>
+          <div class="block-content" style="max-width: none;">
+            <div class="diagram-wrap">
+              <svg viewBox="0 0 880 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+
+                <!-- v1 (top, faded — discovered to fail) -->
+                <text x="40" y="36" class="wfd-label" style="fill: var(--ink-mute);">V1 · Original — Claude in render loop</text>
+                <rect x="40" y="50" width="800" height="60" rx="3" fill="none" stroke="var(--line)" stroke-dasharray="4 3" stroke-width="1"/>
+                <text x="80" y="76" class="wfd-text" style="fill: var(--ink-mute);">MCP servers</text>
+                <text x="200" y="76" class="wfd-text" style="fill: var(--ink-mute);">→</text>
+                <text x="225" y="76" class="wfd-text" style="fill: var(--ink-mute);">Claude (analyze + render HTML)</text>
+                <text x="475" y="76" class="wfd-text" style="fill: var(--ink-mute);">→</text>
+                <text x="500" y="76" class="wfd-text" style="fill: var(--ink-mute);">Report</text>
+                <text x="80" y="96" class="wfd-label" style="fill: var(--accent-warm);">⚠ inconsistent layout each run · stakeholders lost reference points</text>
+
+                <!-- Diagnosis arrow -->
+                <text x="440" y="135" text-anchor="middle" class="wfd-label" style="fill: var(--accent);">↓ Diagnosis: LLM non-determinism is a feature for analysis, a bug for layout ↓</text>
+
+                <!-- v2 (bottom, primary — the fix) -->
+                <text x="40" y="170" class="wfd-label">V2 · Current — AI in design-time, locked runtime</text>
+
+                <!-- Design-time zone (left) -->
+                <rect x="40" y="190" width="220" height="280" rx="3" fill="var(--bg-alt)" stroke="var(--line)" stroke-width="1"/>
+                <text x="60" y="212" class="wfd-label" style="fill: var(--accent);">Design-time · AI assists</text>
+
+                <rect x="60" y="230" width="180" height="50" rx="3" class="wfd-node-stroke"/>
+                <text x="150" y="250" text-anchor="middle" class="wfd-label">Schema design</text>
+                <text x="150" y="266" text-anchor="middle" class="wfd-text">MCP tool contracts</text>
+
+                <rect x="60" y="295" width="180" height="50" rx="3" class="wfd-node-stroke"/>
+                <text x="150" y="315" text-anchor="middle" class="wfd-label">JSON contract</text>
+                <text x="150" y="331" text-anchor="middle" class="wfd-text">Fixed payload shape</text>
+
+                <rect x="60" y="360" width="180" height="50" rx="3" class="wfd-node-stroke"/>
+                <text x="150" y="380" text-anchor="middle" class="wfd-label">HTML template</text>
+                <text x="150" y="396" text-anchor="middle" class="wfd-text">Locked layout slots</text>
+
+                <text x="60" y="445" class="wfd-text" style="font-size: 10px; fill: var(--ink-mute);">Claude used here, one-time,</text>
+                <text x="60" y="458" class="wfd-text" style="font-size: 10px; fill: var(--ink-mute);">to architect the contracts.</text>
+
+                <!-- Connector from design to runtime -->
+                <path d="M 260 330 L 295 330" class="wfd-line-soft"/>
+                <text x="278" y="320" text-anchor="middle" class="wfd-label" style="font-size: 9px;">designs</text>
+
+                <!-- Runtime zone (right) -->
+                <rect x="295" y="190" width="545" height="280" rx="3" fill="var(--paper)" stroke="var(--line)" stroke-width="1"/>
+                <text x="315" y="212" class="wfd-label" style="fill: var(--accent);">Runtime · Locked deterministic + AI in slots</text>
+
+                <!-- Schedule -->
+                <rect x="315" y="230" width="120" height="50" rx="3" class="wfd-node-stroke"/>
+                <text x="375" y="250" text-anchor="middle" class="wfd-label">Weekly</text>
+                <text x="375" y="266" text-anchor="middle" class="wfd-title">n8n schedule</text>
+
+                <!-- 4 MCP servers grouped -->
+                <rect x="315" y="295" width="120" height="100" rx="3" class="wfd-node-stroke"/>
+                <text x="375" y="315" text-anchor="middle" class="wfd-label">Direct call</text>
+                <text x="375" y="332" text-anchor="middle" class="wfd-text">MCP · GSC</text>
+                <text x="375" y="348" text-anchor="middle" class="wfd-text">MCP · GA4</text>
+                <text x="375" y="364" text-anchor="middle" class="wfd-text">MCP · CrUX</text>
+                <text x="375" y="380" text-anchor="middle" class="wfd-text">MCP · PageSpeed</text>
+
+                <!-- Claude analysis (slot fill) -->
+                <rect x="465" y="295" width="140" height="100" rx="3" class="wfd-node-accent"/>
+                <text x="535" y="315" text-anchor="middle" class="wfd-label">Slot fill only</text>
+                <text x="535" y="334" text-anchor="middle" class="wfd-title">Claude API</text>
+                <text x="535" y="354" text-anchor="middle" class="wfd-text">"What changed</text>
+                <text x="535" y="370" text-anchor="middle" class="wfd-text">and why" prose</text>
+                <text x="535" y="386" text-anchor="middle" class="wfd-label" style="fill: var(--accent);">Structured output</text>
+
+                <!-- JSON + GitHub + Template -->
+                <rect x="635" y="230" width="180" height="50" rx="3" class="wfd-node-stroke"/>
+                <text x="725" y="250" text-anchor="middle" class="wfd-label">Combined</text>
+                <text x="725" y="266" text-anchor="middle" class="wfd-title">JSON payload</text>
+
+                <rect x="635" y="295" width="180" height="50" rx="3" class="wfd-node-stroke"/>
+                <text x="725" y="315" text-anchor="middle" class="wfd-label">Push commit</text>
+                <text x="725" y="331" text-anchor="middle" class="wfd-title">GitHub repo</text>
+
+                <rect x="635" y="360" width="180" height="50" rx="3" class="wfd-node-deep"/>
+                <text x="725" y="380" text-anchor="middle" class="wfd-label" style="fill: var(--accent-warm);">Render</text>
+                <text x="725" y="396" text-anchor="middle" class="wfd-title" style="fill: var(--paper);">Template + JSON</text>
+
+                <!-- Runtime connectors -->
+                <path d="M 375 280 L 375 295" class="wfd-line anim-stroke"/>
+                <path d="M 435 345 L 465 345" class="wfd-line anim-stroke anim-stroke-d2"/>
+                <path d="M 605 345 Q 625 345, 635 320" class="wfd-line anim-stroke anim-stroke-d2"/>
+                <path d="M 435 240 Q 540 240, 635 250" class="wfd-line-soft anim-stroke"/>
+                <path d="M 725 280 L 725 295" class="wfd-line anim-stroke anim-stroke-d3"/>
+                <path d="M 725 345 L 725 360" class="wfd-line-accent anim-stroke anim-stroke-d3"/>
+
+                <!-- Bottom annotation -->
+                <text x="440" y="500" text-anchor="middle" class="wfd-label" style="fill: var(--ink-soft);">Layout never moves · Numbers and prose update every week · Same scan path every time</text>
+              </svg>
+              <div class="diagram-caption">v1 failed at rendering · v2 separates AI design-time from locked runtime · AI lives in content slots, not in layout</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Workflow</div>
+          <div class="block-content">
+            <div class="steps">
+              <div class="step">
+                <div class="step-num">DT</div>
+                <div class="step-content">
+                  <h4>Design-time · Build with Claude <span class="step-tools">One-time</span></h4>
+                  <p>Use Claude to design the MCP server tool contracts, the JSON payload schema (what every weekly report must contain), and the HTML template (what slots exist, what data goes where, what the page looks like). High-leverage AI work: the contracts get reused every week. Claude is in the design loop, not the runtime.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">01</div>
+                <div class="step-content">
+                  <h4>Weekly trigger <span class="step-tools">n8n on Docker</span></h4>
+                  <p>Scheduled workflow runs every Monday morning. n8n on Docker handles orchestration. Trigger is deterministic — same time, same flow, no LLM in the dispatcher.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">02</div>
+                <div class="step-content">
+                  <h4>Direct MCP tool calls <span class="step-tools">n8n → MCP servers</span></h4>
+                  <p>n8n calls each MCP server's tools as structured HTTP endpoints. <code style="font-family: var(--font-mono); font-size: 13px; background: var(--bg-alt); padding: 1px 5px;">gsc_query_performance</code>, <code style="font-family: var(--font-mono); font-size: 13px; background: var(--bg-alt); padding: 1px 5px;">ga4_compare_period</code>, etc. — no LLM in the data-fetch path. The MCP servers were originally built for Claude to use; once contracts stabilized, n8n can hit them directly. They're just structured APIs at this point.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">03</div>
+                <div class="step-content">
+                  <h4>Analysis prose generation <span class="step-tools">Claude API · Slot fill</span></h4>
+                  <p>n8n passes raw weekly data to a Claude API call with a structured-output schema. Claude returns prose for specific slots: "what changed this week and why," "anomaly explanations," "recommended actions." The output schema is fixed — Claude can't invent new sections, only fill the slots the template expects. AI judgment lives here, but inside locked boundaries.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">04</div>
+                <div class="step-content">
+                  <h4>JSON composition <span class="step-tools">n8n</span></h4>
+                  <p>n8n combines raw data + Claude prose into a single JSON payload conforming to the design-time schema. Every field is positional, every section is named. If a field is missing, the build fails — no half-rendered reports.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">05</div>
+                <div class="step-content">
+                  <h4>GitHub commit <span class="step-tools">n8n GitHub node</span></h4>
+                  <p>JSON pushed as a commit to the GitHub repo. Version-controlled by definition — every weekly report's data lives in git history, auditable, diffable. Pages rebuild triggers automatically.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">06</div>
+                <div class="step-content">
+                  <h4>Static template renders <span class="step-tools">GitHub Pages</span></h4>
+                  <p>The HTML template lives in the same repo. On page load it fetches the JSON and populates slots. Layout never moves. Same template every week. Reviewers know exactly where the "what changed" section is, where the action items list is, where the metrics tile sits — every time.</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">07</div>
+                <div class="step-content">
+                  <h4>Distribution <span class="step-tools">Single URL</span></h4>
+                  <p>Stakeholders bookmark one URL. No email attachment, no shared drive folder, no version conflicts. The report exists where the data is fresh, and looks identical week to week — which is the entire point.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">The engineering call</div>
+          <div class="block-content">
+            <div class="callout">
+              <div class="callout-label">Where AI helps the system, where it hurts it</div>
+              <p>LLMs are non-deterministic. That's a feature for analysis — different angles each week, fresh framing, language that adapts to what actually changed. It's a bug for layout — stakeholders need to scan the same report shape every Monday morning, not relearn where things are.</p>
+              <p>The naive AI-First answer is: put Claude everywhere, let it fetch, analyze, render. V1 did this. The reports came out subtly different every week. The bug wasn't analysis quality — it was the rendering loop.</p>
+              <p>V2 separates the two. AI lives where its non-determinism helps (analysis prose, "what changed and why"). Determinism is locked where stakeholders need it (layout, structure, section order, JSON schema). The MCP servers — originally built FOR Claude — turn out to be reusable as plain APIs once their contracts are stable. n8n calls them directly.</p>
+              <p>The senior version of "AI-First" isn't AI everywhere. It's knowing which parts of the system AI improves and which parts AI breaks — and architecting the boundary deliberately.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Outcome &amp; status</div>
+          <div class="block-content" style="max-width: none;">
+            <div class="outcome-grid">
+              <div class="outcome-cell">
+                <div class="label">MCP layer</div>
+                <div class="value">Live</div>
+                <div class="value-sub">4 servers built</div>
+              </div>
+              <div class="outcome-cell">
+                <div class="label">n8n + GitHub</div>
+                <div class="value">In build</div>
+                <div class="value-sub">Schedule + commit live</div>
+              </div>
+              <div class="outcome-cell">
+                <div class="label">Manual reporting</div>
+                <div class="value">4–6 h</div>
+                <div class="value-sub">Per week, before</div>
+              </div>
+              <div class="outcome-cell">
+                <div class="label">Use</div>
+                <div class="value">Internal</div>
+                <div class="value-sub">Stakeholder review</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SYNTHESIS ============ -->
+  <section class="section synthesis">
+    <div class="wrap">
+      <div class="eyebrow">Synthesis</div>
+      <h2>Three different shapes. <em>One pattern</em> underneath.</h2>
+      <p>The cases were picked to stress different shapes of thinking — branching for creative production, linear with feedback for research, hub-and-spoke for analytics. The shapes are different because the problems are different.</p>
+      <p>What stays constant is the design discipline:</p>
+
+      <div class="pattern-list">
+        <div class="pattern-row">
+          <div class="pattern-shape">Identify</div>
+          <div class="pattern-text">The actual bottleneck — not "we should use AI more," but the specific point in the existing process where time, accuracy, or throughput breaks.</div>
+        </div>
+        <div class="pattern-row">
+          <div class="pattern-shape">Design</div>
+          <div class="pattern-text">The contracts between stages. Each stage has a clear input/output. Failures isolate. Stages stay swappable.</div>
+        </div>
+        <div class="pattern-row">
+          <div class="pattern-shape">Route</div>
+          <div class="pattern-text">The right tool to the right job — including knowing when "no AI at runtime" is the right tool. Flux Pro for hero fidelity. GPT Image for Vietnamese typography. Seedance for motion. Claude API for design-time architecture and runtime slot-fill prose. n8n for deterministic plumbing where layout cannot move. The decision is which to use, and where.</div>
+        </div>
+        <div class="pattern-row">
+          <div class="pattern-shape">Build</div>
+          <div class="pattern-text">Infrastructure that makes the system queryable. MCP servers, custom skills, structured prompts — the difference between using AI and architecting around it.</div>
+        </div>
+        <div class="pattern-row">
+          <div class="pattern-shape">Gate</div>
+          <div class="pattern-text">Human judgment where stakes demand it. Domain experts on regulatory content. Taste on creative cuts. AI is upstream of decision, not a replacement for it.</div>
+        </div>
+      </div>
+
+      <p>The pattern isn't "use AI." The pattern is: see the system, design the joints, route the right tool to the right job at each joint, and build the infrastructure that makes the whole thing queryable instead of hardcoded.</p>
+      <p style="margin-top: 24px;">That is what I would do at PATI in week one — and in week fifty.</p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="wrap">
+      <div>Phạm Ngọc Thanh · May 2026 · Submitted for PATI Workflow Architect Challenge</div>
+      <div class="footer-links">
+        <a href="mailto:pnthanh.work@gmail.com">pnthanh.work@gmail.com</a>
+        <a href="https://jak3rpham.github.io" target="_blank" rel="noopener">Portfolio</a>
+        <a href="https://linkedin.com/in/jkpham03" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
