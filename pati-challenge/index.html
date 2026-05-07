@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Workflow Architect Challenge — Phạm Ngọc Thanh</title>
+  <title>Workflow Architect Challenge - Phạm Ngọc Thanh</title>
   <meta name="description" content="Three AI workflow architectures, designed and built. Submission for PATI Group's Workflow Architect Challenge by Phạm Ngọc Thanh." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -415,6 +415,84 @@
     .footer-links { display: flex; gap: 32px; flex-wrap: wrap; }
     .footer a { color: var(--ink-soft); border-bottom-color: var(--line); }
 
+    /* ============ LIGHTBOX ============ */
+    .zoomable {
+      cursor: zoom-in;
+      transition: opacity 0.2s ease;
+    }
+    .zoomable:hover { opacity: 0.88; }
+    .zoom-hint {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 2px 8px;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      margin-left: 12px;
+      vertical-align: middle;
+    }
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(31, 27, 22, 0.96);
+      z-index: 9999;
+      cursor: zoom-out;
+      overflow: auto;
+      padding: 60px 20px;
+      animation: fadein 0.2s ease;
+    }
+    .lightbox.active { display: block; }
+    .lightbox img {
+      max-width: none;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      box-shadow: 0 10px 60px rgba(0, 0, 0, 0.6);
+      cursor: default;
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-family: var(--font-body);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease;
+    }
+    .lightbox-close:hover { transform: scale(1.08); }
+    .lightbox-hint {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--paper);
+      color: var(--ink-soft);
+      padding: 10px 18px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      z-index: 10000;
+    }
+    @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
     /* ============ MOTION ============ */
     @media (prefers-reduced-motion: no-preference) {
       .reveal { opacity: 0; transform: translateY(16px); animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
@@ -454,7 +532,7 @@
   <div class="topbar">
     <div class="wrap">
       <div class="left">PATI Group / Workflow Architect Challenge</div>
-      <div class="right">Submitted by Phạm Ngọc Thanh — May 2026</div>
+      <div class="right">PATI_PhamNgocThanh_Test — May 2026</div>
     </div>
   </div>
 
@@ -463,9 +541,13 @@
     <div class="wrap">
       <div class="eyebrow reveal reveal-1">Submission · Three Workflows</div>
       <h1 class="hero-title reveal reveal-2">Three problems. Three workflow <em>architectures.</em></h1>
-      <p class="hero-sub reveal reveal-3">Not finished products — workflows, designed for the question each one was asked. Each case stresses a different shape of thinking: routing tools across creative stages, building research pipelines that hold their accuracy, and bridging fragmented data into a single decision layer.</p>
+      <p class="hero-sub reveal reveal-3">Not finished products - workflows, designed for the question each one was asked. Each case stresses a different shape of thinking: routing tools across creative stages, building research pipelines that hold their accuracy, and bridging fragmented data into a single decision layer.</p>
 
       <div class="hero-meta reveal reveal-4">
+        <div class="meta-item">
+          <div class="label">Submission</div>
+          <div class="value" style="font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.02em;">PATI_PhamNgocThanh_Test</div>
+        </div>
         <div class="meta-item">
           <div class="label">Submitted by</div>
           <div class="value">Phạm Ngọc Thanh</div>
@@ -473,10 +555,6 @@
         <div class="meta-item">
           <div class="label">Role</div>
           <div class="value">Senior Digital Marketing (Creative &amp; AI)</div>
-        </div>
-        <div class="meta-item">
-          <div class="label">Format</div>
-          <div class="value">Single-page architecture brief</div>
         </div>
         <div class="meta-item">
           <div class="label">Portfolio</div>
@@ -493,17 +571,17 @@
       <div class="index-list" style="margin-top: 32px;">
         <a href="#case-01" class="index-row" style="border: 0; color: inherit;">
           <div class="index-num">01</div>
-          <div class="index-title">Creative <em>orchestration</em> — multi-model ad pipeline</div>
+          <div class="index-title">Creative <em>orchestration</em> - multi-model ad pipeline</div>
           <div class="index-tag">Branching · Converging</div>
         </a>
         <a href="#case-02" class="index-row" style="border: 0; color: inherit; border-top: 1px solid var(--line);">
           <div class="index-num">02</div>
-          <div class="index-title">Bias-reduced expert <em>discovery</em> — 8-phase research pipeline</div>
+          <div class="index-title">Bias-reduced expert <em>discovery</em> - 8-phase research pipeline</div>
           <div class="index-tag">Sequential · Bias-reduced · Audited</div>
         </a>
         <a href="#case-03" class="index-row" style="border: 0; color: inherit; border-top: 1px solid var(--line);">
           <div class="index-num">03</div>
-          <div class="index-title">Analytics-to-<em>decision</em> — MCP-integrated reporting</div>
+          <div class="index-title">Analytics-to-<em>decision</em> - MCP-integrated reporting</div>
           <div class="index-tag">AI in design · Locked runtime</div>
         </a>
       </div>
@@ -514,7 +592,7 @@
   <section class="section" id="case-01">
     <div class="wrap">
       <div class="case-head">
-        <div class="case-num">Case 01 — Creative Orchestration</div>
+        <div class="case-num">Case 01 - Creative Orchestration</div>
         <h2 class="case-title">Brief to ad-ready in <em>six hours,</em> by routing each stage to the right model.</h2>
         <div class="case-tag">Pipeline shape · Branching → Converging · Tools: Claude · Flux Pro · GPT Image · Seedance</div>
       </div>
@@ -525,7 +603,7 @@
         <div class="block">
           <div class="block-label">Bottleneck</div>
           <div class="block-content">
-            <p>A creative brief for a fictional mobile RPG game ad. Six hours of self-imposed constraint: blank input, ad-ready output expected. The default path — prompt one model into doing everything — caps out fast. Text-to-image models lose composition fidelity at scale, image-to-video tools need clean keyframes to work with, copy generators don't think visually.</p>
+            <p>A creative brief for a fictional mobile RPG game ad. Six hours of self-imposed constraint: blank input, ad-ready output expected. The default path - prompt one model into doing everything - caps out fast. Text-to-image models lose composition fidelity at scale, image-to-video tools need clean keyframes to work with, copy generators don't think visually.</p>
             <p>The bottleneck is not "use AI." It is: what tool, at what stage, with what handoff between them.</p>
           </div>
         </div>
@@ -534,17 +612,16 @@
         <div class="block">
           <div class="block-label">Architecture</div>
           <div class="block-content" style="max-width: none;">
-            <a href="https://jak3rpham.github.io/bong-vespera" target="_blank" rel="noopener" style="display: block; border: 0;">
-              <div class="diagram-wrap" style="padding: 0; overflow: hidden;">
-                <picture>
-                  <source srcset="https://jak3rpham.github.io/images/vng-demo/workflow/weave-canvas-full.webp" type="image/webp"/>
-                  <img src="https://jak3rpham.github.io/images/vng-demo/workflow/weave-canvas-full.png" alt="BÓNG VESPERA AI orchestration workflow — Claude → Flux Pro → GPT Image → Seedance pipeline, full Weavy canvas" style="width: 100%; height: auto; display: block;"/>
-                </picture>
-              </div>
-              <div class="diagram-caption" style="margin-top: 16px;">
-                Full Weavy canvas with workflow diagram · model selection rationale · iteration evidence — at <span style="color: var(--accent); border-bottom: 1px solid var(--accent);">jak3rpham.github.io/bong-vespera ↗</span>
-              </div>
-            </a>
+            <div class="diagram-wrap zoomable" style="padding: 0; overflow: hidden;">
+              <picture>
+                <source srcset="https://jak3rpham.github.io/images/vng-demo/workflow/weave-canvas-full.webp" type="image/webp"/>
+                <img src="https://jak3rpham.github.io/images/vng-demo/workflow/weave-canvas-full.png" alt="BÓNG VESPERA AI orchestration workflow - Claude → Flux Pro → GPT Image → Seedance pipeline, full Weavy canvas" style="width: 100%; height: auto; display: block;"/>
+              </picture>
+            </div>
+            <div class="diagram-caption" style="margin-top: 16px;">
+              Full Weavy canvas <span class="zoom-hint">Click to zoom</span><br/>
+              Full case study with workflow diagram, model selection rationale, iteration evidence at <a href="https://jak3rpham.github.io/bong-vespera" target="_blank" rel="noopener" style="color: var(--accent); border-bottom: 1px solid var(--accent);">jak3rpham.github.io/bong-vespera ↗</a>
+            </div>
           </div>
         </div>
 
@@ -571,14 +648,14 @@
                 <div class="step-num">03</div>
                 <div class="step-content">
                   <h4>Hero keyframes <span class="step-tools">Flux Pro</span></h4>
-                  <p>Five high-fidelity keyframes generated from the locked descriptions. Flux Pro picked here because it holds composition and atmosphere best at this scale — expensive per call but the cleanest hero output.</p>
+                  <p>Five high-fidelity keyframes generated from the locked descriptions. Flux Pro picked here because it holds composition and atmosphere best at this scale - expensive per call but the cleanest hero output.</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-num">04</div>
                 <div class="step-content">
                   <h4>Vietnamese typography <span class="step-tools">GPT Image</span></h4>
-                  <p>Title cards and Vietnamese display copy. Picked here because GPT Image handles Vietnamese diacritics cleaner than Flux at this scale — the kind of detail that matters when the audience is local and "almost-right" typography reads as foreign-made ad.</p>
+                  <p>Title cards and Vietnamese display copy. Picked here because GPT Image handles Vietnamese diacritics cleaner than Flux at this scale - the kind of detail that matters when the audience is local and "almost-right" typography reads as foreign-made ad.</p>
                 </div>
               </div>
               <div class="step">
@@ -592,7 +669,7 @@
                 <div class="step-num">06</div>
                 <div class="step-content">
                   <h4>Assembly <span class="step-tools">Manual</span></h4>
-                  <p>Final cut, copy overlay, sound design. The judgment call about what survives and what gets cut is human — AI is upstream of taste, not a replacement for it.</p>
+                  <p>Final cut, copy overlay, sound design. The judgment call about what survives and what gets cut is human - AI is upstream of taste, not a replacement for it.</p>
                 </div>
               </div>
             </div>
@@ -604,9 +681,9 @@
           <div class="block-label">Why this routing</div>
           <div class="block-content">
             <div class="callout">
-              <div class="callout-label">The decision behind the architecture — and the reroute mid-pipeline</div>
+              <div class="callout-label">The decision behind the architecture - and the reroute mid-pipeline</div>
               <p>Every model has a sweet spot. Flux Pro's is hero fidelity. GPT Image's is Vietnamese typography. Seedance's is motion. Claude's is the reasoning layer that keeps prompts coherent across handoffs so each downstream model gets clean inputs.</p>
-              <p>What actually happened mid-build: Flux character consistency broke between keyframes — same character, different frames, the model lost the face. The decision wasn't to abandon the concept. It was to reroute: lock the character codes more tightly in Claude's prompt layer, regenerate, accept the cost. That reroute is the work. A single-model pipeline doesn't give you that escape hatch — you either ship the inconsistency or restart from zero. Routing across specialists means you can fail at one stage without burning the whole run.</p>
+              <p>What actually happened mid-build: Flux character consistency broke between keyframes - same character, different frames, the model lost the face. The decision wasn't to abandon the concept. It was to reroute: lock the character codes more tightly in Claude's prompt layer, regenerate, accept the cost. That reroute is the work. A single-model pipeline doesn't give you that escape hatch - you either ship the inconsistency or restart from zero. Routing across specialists means you can fail at one stage without burning the whole run.</p>
             </div>
           </div>
         </div>
@@ -648,8 +725,8 @@
   <section class="section" id="case-02">
     <div class="wrap">
       <div class="case-head">
-        <div class="case-num">Case 02 — Bias-Reduced Research Pipeline</div>
-        <h2 class="case-title">Top experts — <em>measured,</em> not guessed. An 8-phase research pipeline.</h2>
+        <div class="case-num">Case 02 - Bias-Reduced Research Pipeline</div>
+        <h2 class="case-title">Top experts - <em>measured,</em> not guessed. An 8-phase research pipeline.</h2>
         <div class="case-tag">Pipeline shape · Sequential phases · Bias reduction by cross-reference · Tools: DataForSEO · YouTube API v3 · Supadata · Claude API · Python in Cursor</div>
       </div>
 
@@ -658,7 +735,7 @@
         <div class="block">
           <div class="block-label">Bottleneck</div>
           <div class="block-content">
-            <p>A research challenge: identify the top 10 voices in AI-powered SEO content — a niche covering SEO, AEO, GEO, and LLMO. The naive approach (list the people I follow) fails three ways. It's biased toward who's loud in my feed, not who's actually shaping the field. It's static — no signal on who's recently active versus who's coasting on past reputation. And it can't be defended — when the receiver asks "why these ten," there's no answer except "I picked them."</p>
+            <p>A research challenge: identify the top 10 voices in AI-powered SEO content - a niche covering SEO, AEO, GEO, and LLMO. The naive approach (list the people I follow) fails three ways. It's biased toward who's loud in my feed, not who's actually shaping the field. It's static - no signal on who's recently active versus who's coasting on past reputation. And it can't be defended - when the receiver asks "why these ten," there's no answer except "I picked them."</p>
             <p>The bottleneck wasn't writing the list. It was building a process where the list comes from measurable signals, where the result is reproducible, where bias is reduced by cross-referencing independent sources, and where every exclusion has a reason.</p>
           </div>
         </div>
@@ -666,14 +743,14 @@
         <div class="block">
           <div class="block-label">Architecture</div>
           <div class="block-content" style="max-width: none;">
-            <div class="diagram-wrap" style="padding: 0; overflow: hidden;">
+            <div class="diagram-wrap zoomable" style="padding: 0; overflow: hidden;">
               <picture>
                 <source srcset="https://jak3rpham.github.io/images/pati-challenge/case02-research-pipeline.webp" type="image/webp"/>
-                <img src="https://jak3rpham.github.io/images/pati-challenge/case02-research-pipeline.png" alt="n8n workflow canvas — 8-phase research pipeline: DataForSEO → YouTube API → scoring → bias-reduction merge → Supadata → Claude API audit gate" style="width: 100%; height: auto; display: block;"/>
+                <img src="https://jak3rpham.github.io/images/pati-challenge/case02-research-pipeline.png" alt="n8n workflow canvas - 8-phase research pipeline: DataForSEO → YouTube API → scoring → bias-reduction merge → Supadata → Claude API audit gate" style="width: 100%; height: auto; display: block;"/>
               </picture>
             </div>
             <div class="diagram-caption" style="margin-top: 16px;">
-              n8n workflow canvas · 8 phases · DataForSEO → YouTube → scoring → cross-reference → Supadata → Claude API audit
+              n8n workflow canvas, 8 phases: DataForSEO → YouTube → scoring → cross-reference → Supadata → Claude API audit <span class="zoom-hint">Click to zoom</span>
             </div>
           </div>
         </div>
@@ -686,21 +763,21 @@
                 <div class="step-num">P1</div>
                 <div class="step-content">
                   <h4>Keyword validation <span class="step-tools">DataForSEO API</span></h4>
-                  <p>Test 15 seed keywords against US Google search volume. Keep 4 with real community traction (AI SEO 8,100/mo, GEO SEO 2,400/mo, AI search optimization 1,000/mo, LLM SEO 880/mo). Drop terms that read accurate but lack volume — "AI content production" sounds right and gets 10/mo. Validation prevents searching against vocabulary nobody actually uses.</p>
+                  <p>Test 15 seed keywords against US Google search volume. Keep 4 with real community traction (AI SEO 8,100/mo, GEO SEO 2,400/mo, AI search optimization 1,000/mo, LLM SEO 880/mo). Drop terms that read accurate but lack volume - "AI content production" sounds right and gets 10/mo. Validation prevents searching against vocabulary nobody actually uses.</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-num">P2</div>
                 <div class="step-content">
                   <h4>YouTube channel discovery <span class="step-tools">YouTube Data API v3</span></h4>
-                  <p>Search the four validated keywords. Output: 38 unique channels surfaced. The discovery layer is intentionally wide — over-include here, filter downstream.</p>
+                  <p>Search the four validated keywords. Output: 38 unique channels surfaced. The discovery layer is intentionally wide - over-include here, filter downstream.</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-num">P3</div>
                 <div class="step-content">
                   <h4>Channel scoring <span class="step-tools">Engagement · Recency · Subs</span></h4>
-                  <p>Weighted scoring: engagement rate (35%) + recency over 90 days (30%) + subscriber base (35%). Auto-exclude fraud signals — channels where average views fall under 10 relative to subscriber count. Threshold-based, not vibes-based.</p>
+                  <p>Weighted scoring: engagement rate (35%) + recency over 90 days (30%) + subscriber base (35%). Auto-exclude fraud signals - channels where average views fall under 10 relative to subscriber count. Threshold-based, not vibes-based.</p>
                 </div>
               </div>
               <div class="step">
@@ -728,14 +805,14 @@
                 <div class="step-num">P7</div>
                 <div class="step-content">
                   <h4>Targeted expansion <span class="step-tools">Interview discovery</span></h4>
-                  <p>Some experts are quiet on their own channels but loud on others' shows. Interview-appearance discovery catches them. Without this phase, the pipeline misses voices like Koray Tuğberk — founded the Topical Authority methodology, primarily long-form on holisticseo.digital, quiet on YouTube directly but heavily cited in industry interviews.</p>
+                  <p>Some experts are quiet on their own channels but loud on others' shows. Interview-appearance discovery catches them. Without this phase, the pipeline misses voices like Koray Tuğberk - founded the Topical Authority methodology, primarily long-form on holisticseo.digital, quiet on YouTube directly but heavily cited in industry interviews.</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-num">P8</div>
                 <div class="step-content">
                   <h4>Quality audit gate <span class="step-tools">Claude API</span></h4>
-                  <p>Claude API audits the collected content for relevance to the niche, recency, and depth. Final filter before the list locks. The gate is where AI judgment lives in this pipeline — everything upstream is deterministic scoring; this phase is where qualitative reasoning happens, but only after the data has been narrowed to a reviewable set.</p>
+                  <p>Claude API audits the collected content for relevance to the niche, recency, and depth. Final filter before the list locks. The gate is where AI judgment lives in this pipeline - everything upstream is deterministic scoring; this phase is where qualitative reasoning happens, but only after the data has been narrowed to a reviewable set.</p>
                 </div>
               </div>
             </div>
@@ -747,8 +824,8 @@
           <div class="block-content">
             <div class="callout">
               <div class="callout-label">The architecture is built around two failure modes</div>
-              <p><strong>Bias from a single platform.</strong> YouTube alone surfaces who YouTube rewards — frequent video output, often US-centric, often optimized for the algorithm rather than depth. P5's cross-reference against LinkedIn and newsletter speaker lists pulls in voices that publish primarily in other formats. Merged scoring is what produces a list that holds up across communities, not just one.</p>
-              <p><strong>Bias from prior knowledge.</strong> If I'd just listed "experts I think are top," the list would have been who I follow. The pipeline is designed to find people I wouldn't have found, AND to filter out people who'd survive my prior bias but fail the data — channels with high subscriber counts and zero recent depth, voices loud in my feed but absent from speaker circuits.</p>
+              <p><strong>Bias from a single platform.</strong> YouTube alone surfaces who YouTube rewards - frequent video output, often US-centric, often optimized for the algorithm rather than depth. P5's cross-reference against LinkedIn and newsletter speaker lists pulls in voices that publish primarily in other formats. Merged scoring is what produces a list that holds up across communities, not just one.</p>
+              <p><strong>Bias from prior knowledge.</strong> If I'd just listed "experts I think are top," the list would have been who I follow. The pipeline is designed to find people I wouldn't have found, AND to filter out people who'd survive my prior bias but fail the data - channels with high subscriber counts and zero recent depth, voices loud in my feed but absent from speaker circuits.</p>
               <p>The output isn't "Tatsuki's opinion of top experts." It's a list defensible to a stranger who asks "why these ten." Every exclusion has a phase number attached.</p>
             </div>
           </div>
@@ -790,7 +867,7 @@
   <section class="section" id="case-03">
     <div class="wrap">
       <div class="case-head">
-        <div class="case-num">Case 03 — Analytics-to-Decision</div>
+        <div class="case-num">Case 03 - Analytics-to-Decision</div>
         <h2 class="case-title">AI designed the contracts. <em>n8n executes them.</em> Determinism by design.</h2>
         <div class="case-tag">Pipeline shape · AI in design-time · Locked deterministic runtime · Tools: Custom MCP servers · n8n · GitHub · Static template</div>
       </div>
@@ -800,8 +877,8 @@
         <div class="block">
           <div class="block-label">Bottleneck</div>
           <div class="block-content">
-            <p>Stage A — the obvious bottleneck. Marketing data fragmented across GSC, GA4, CrUX, PageSpeed. Each platform has its own dashboard, its own latency, its own anomaly definitions. Manual aggregation = 4–6 hours per week of mechanical work where human judgment adds zero value, and by the time the report is ready, the data is already stale.</p>
-            <p>Stage B — the bottleneck I only found after building v1. With Claude in the rendering loop, every weekly report came out subtly different: section order shifted, threshold descriptions used different phrasing, layout breathed differently each run. For internal stakeholders who scan reports weekly, this is anti-usability — the cognitive cost becomes "where do I look this week" instead of "what changed this week." The bug wasn't in the analysis. It was in letting an LLM render a recurring artifact that needs to look the same.</p>
+            <p>Stage A - the obvious bottleneck. Marketing data fragmented across GSC, GA4, CrUX, PageSpeed. Each platform has its own dashboard, its own latency, its own anomaly definitions. Manual aggregation = 4–6 hours per week of mechanical work where human judgment adds zero value, and by the time the report is ready, the data is already stale.</p>
+            <p>Stage B - the bottleneck I only found after building v1. With Claude in the rendering loop, every weekly report came out subtly different: section order shifted, threshold descriptions used different phrasing, layout breathed differently each run. For internal stakeholders who scan reports weekly, this is anti-usability - the cognitive cost becomes "where do I look this week" instead of "what changed this week." The bug wasn't in the analysis. It was in letting an LLM render a recurring artifact that needs to look the same.</p>
             <p>The diagnosis: LLM non-determinism is a feature for analysis (different angles each week) and a bug for layout (must be the same each week). The architecture had to separate the two.</p>
           </div>
         </div>
@@ -809,14 +886,14 @@
         <div class="block">
           <div class="block-label">Architecture</div>
           <div class="block-content" style="max-width: none;">
-            <div class="diagram-wrap" style="padding: 0; overflow: hidden;">
+            <div class="diagram-wrap zoomable" style="padding: 0; overflow: hidden;">
               <picture>
                 <source srcset="https://jak3rpham.github.io/images/pati-challenge/case03-weekly-report.webp" type="image/webp"/>
-                <img src="https://jak3rpham.github.io/images/pati-challenge/case03-weekly-report.png" alt="n8n workflow canvas — weekly report pipeline: scheduled trigger → 4 parallel MCP calls → merge → Claude API structured output → JSON compose → GitHub commit (archive + latest)" style="width: 100%; height: auto; display: block;"/>
+                <img src="https://jak3rpham.github.io/images/pati-challenge/case03-weekly-report.png" alt="n8n workflow canvas - weekly report pipeline: scheduled trigger → 4 parallel MCP calls → merge → Claude API structured output → JSON compose → GitHub commit (archive + latest)" style="width: 100%; height: auto; display: block;"/>
               </picture>
             </div>
             <div class="diagram-caption" style="margin-top: 16px;">
-              n8n workflow canvas · Schedule → 4 parallel MCP fetches → Claude API (structured output, slot-fill only) → JSON compose → dual GitHub commit
+              n8n workflow canvas: Schedule → 4 parallel MCP fetches → Claude API (structured output, slot-fill only) → JSON compose → dual GitHub commit <span class="zoom-hint">Click to zoom</span>
             </div>
           </div>
         </div>
@@ -836,49 +913,49 @@
                 <div class="step-num">01</div>
                 <div class="step-content">
                   <h4>Weekly trigger <span class="step-tools">n8n on Docker</span></h4>
-                  <p>Scheduled workflow runs every Monday morning. n8n on Docker handles orchestration. Trigger is deterministic — same time, same flow, no LLM in the dispatcher.</p>
+                  <p>Scheduled workflow runs every Monday morning. n8n on Docker handles orchestration. Trigger is deterministic - same time, same flow, no LLM in the dispatcher.</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-num">02</div>
                 <div class="step-content">
                   <h4>Direct MCP tool calls <span class="step-tools">n8n → MCP servers</span></h4>
-                  <p>n8n calls each MCP server's tools as structured HTTP endpoints. <code style="font-family: var(--font-mono); font-size: 13px; background: var(--bg-alt); padding: 1px 5px;">gsc_query_performance</code>, <code style="font-family: var(--font-mono); font-size: 13px; background: var(--bg-alt); padding: 1px 5px;">ga4_compare_period</code>, etc. — no LLM in the data-fetch path. The MCP servers were originally built for Claude to use; once contracts stabilized, n8n can hit them directly. They're just structured APIs at this point.</p>
+                  <p>n8n calls each MCP server's tools as structured HTTP endpoints. <code style="font-family: var(--font-mono); font-size: 13px; background: var(--bg-alt); padding: 1px 5px;">gsc_query_performance</code>, <code style="font-family: var(--font-mono); font-size: 13px; background: var(--bg-alt); padding: 1px 5px;">ga4_compare_period</code>, etc. - no LLM in the data-fetch path. The MCP servers were originally built for Claude to use; once contracts stabilized, n8n can hit them directly. They're just structured APIs at this point.</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-num">03</div>
                 <div class="step-content">
                   <h4>Analysis prose generation <span class="step-tools">Claude API · Slot fill</span></h4>
-                  <p>n8n passes raw weekly data to a Claude API call with a structured-output schema. Claude returns prose for specific slots: "what changed this week and why," "anomaly explanations," "recommended actions." The output schema is fixed — Claude can't invent new sections, only fill the slots the template expects. AI judgment lives here, but inside locked boundaries.</p>
+                  <p>n8n passes raw weekly data to a Claude API call with a structured-output schema. Claude returns prose for specific slots: "what changed this week and why," "anomaly explanations," "recommended actions." The output schema is fixed - Claude can't invent new sections, only fill the slots the template expects. AI judgment lives here, but inside locked boundaries.</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-num">04</div>
                 <div class="step-content">
                   <h4>JSON composition <span class="step-tools">n8n</span></h4>
-                  <p>n8n combines raw data + Claude prose into a single JSON payload conforming to the design-time schema. Every field is positional, every section is named. If a field is missing, the build fails — no half-rendered reports.</p>
+                  <p>n8n combines raw data + Claude prose into a single JSON payload conforming to the design-time schema. Every field is positional, every section is named. If a field is missing, the build fails - no half-rendered reports.</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-num">05</div>
                 <div class="step-content">
                   <h4>GitHub commit <span class="step-tools">n8n GitHub node</span></h4>
-                  <p>JSON pushed as a commit to the GitHub repo. Version-controlled by definition — every weekly report's data lives in git history, auditable, diffable. Pages rebuild triggers automatically.</p>
+                  <p>JSON pushed as a commit to the GitHub repo. Version-controlled by definition - every weekly report's data lives in git history, auditable, diffable. Pages rebuild triggers automatically.</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-num">06</div>
                 <div class="step-content">
                   <h4>Static template renders <span class="step-tools">GitHub Pages</span></h4>
-                  <p>The HTML template lives in the same repo. On page load it fetches the JSON and populates slots. Layout never moves. Same template every week. Reviewers know exactly where the "what changed" section is, where the action items list is, where the metrics tile sits — every time.</p>
+                  <p>The HTML template lives in the same repo. On page load it fetches the JSON and populates slots. Layout never moves. Same template every week. Reviewers know exactly where the "what changed" section is, where the action items list is, where the metrics tile sits - every time.</p>
                 </div>
               </div>
               <div class="step">
                 <div class="step-num">07</div>
                 <div class="step-content">
                   <h4>Distribution <span class="step-tools">Single URL</span></h4>
-                  <p>Stakeholders bookmark one URL. No email attachment, no shared drive folder, no version conflicts. The report exists where the data is fresh, and looks identical week to week — which is the entire point.</p>
+                  <p>Stakeholders bookmark one URL. No email attachment, no shared drive folder, no version conflicts. The report exists where the data is fresh, and looks identical week to week - which is the entire point.</p>
                 </div>
               </div>
             </div>
@@ -890,10 +967,10 @@
           <div class="block-content">
             <div class="callout">
               <div class="callout-label">Where AI helps the system, where it hurts it</div>
-              <p>LLMs are non-deterministic. That's a feature for analysis — different angles each week, fresh framing, language that adapts to what actually changed. It's a bug for layout — stakeholders need to scan the same report shape every Monday morning, not relearn where things are.</p>
-              <p>The naive AI-First answer is: put Claude everywhere, let it fetch, analyze, render. V1 did this. The reports came out subtly different every week. The bug wasn't analysis quality — it was the rendering loop.</p>
-              <p>V2 separates the two. AI lives where its non-determinism helps (analysis prose, "what changed and why"). Determinism is locked where stakeholders need it (layout, structure, section order, JSON schema). The MCP servers — originally built FOR Claude — turn out to be reusable as plain APIs once their contracts are stable. n8n calls them directly.</p>
-              <p>The senior version of "AI-First" isn't AI everywhere. It's knowing which parts of the system AI improves and which parts AI breaks — and architecting the boundary deliberately.</p>
+              <p>LLMs are non-deterministic. That's a feature for analysis - different angles each week, fresh framing, language that adapts to what actually changed. It's a bug for layout - stakeholders need to scan the same report shape every Monday morning, not relearn where things are.</p>
+              <p>The naive AI-First answer is: put Claude everywhere, let it fetch, analyze, render. V1 did this. The reports came out subtly different every week. The bug wasn't analysis quality - it was the rendering loop.</p>
+              <p>V2 separates the two. AI lives where its non-determinism helps (analysis prose, "what changed and why"). Determinism is locked where stakeholders need it (layout, structure, section order, JSON schema). The MCP servers - originally built FOR Claude - turn out to be reusable as plain APIs once their contracts are stable. n8n calls them directly.</p>
+              <p>The senior version of "AI-First" isn't AI everywhere. It's knowing which parts of the system AI improves and which parts AI breaks - and architecting the boundary deliberately.</p>
             </div>
           </div>
         </div>
@@ -929,7 +1006,7 @@
         <div class="block">
           <div class="block-label">Buildable artifacts</div>
           <div class="block-content" style="max-width: none;">
-            <p style="font-size: 15px; color: var(--ink-soft); margin-bottom: 24px; max-width: 70ch;">Four n8n workflow files that compose the runtime. Importable into any n8n instance — schema-validated, env-var driven, drop-in deployable. The JSON below is the actual code, not pseudocode.</p>
+            <p style="font-size: 15px; color: var(--ink-soft); margin-bottom: 24px; max-width: 70ch;">Four n8n workflow files that compose the runtime. Importable into any n8n instance - schema-validated, env-var driven, drop-in deployable. The JSON below is the actual code, not pseudocode.</p>
             <div style="display: grid; gap: 0; border: 1px solid var(--line); background: var(--paper);">
               <a href="./n8n-workflows/01-weekly-orchestrator.json" download style="display: grid; grid-template-columns: auto 1fr auto; gap: 24px; padding: 20px 24px; border-bottom: 1px solid var(--line); color: var(--ink); border-radius: 0; align-items: center;">
                 <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.04em; min-width: 28px;">01</div>
@@ -943,7 +1020,7 @@
                 <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.04em; min-width: 28px;">02</div>
                 <div>
                   <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink); font-weight: 500; margin-bottom: 4px;">02-mcp-fetch-multi.json</div>
-                  <div style="font-size: 14px; color: var(--ink-soft); line-height: 1.5;">Four MCP servers (GSC · GA4 · CrUX · PageSpeed) called in parallel. Soft-fail merge — one source down doesn't kill the run.</div>
+                  <div style="font-size: 14px; color: var(--ink-soft); line-height: 1.5;">Four MCP servers (GSC · GA4 · CrUX · PageSpeed) called in parallel. Soft-fail merge - one source down doesn't kill the run.</div>
                 </div>
                 <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);">Download ↓</div>
               </a>
@@ -951,7 +1028,7 @@
                 <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.04em; min-width: 28px;">03</div>
                 <div>
                   <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink); font-weight: 500; margin-bottom: 4px;">03-claude-analysis.json</div>
-                  <div style="font-size: 14px; color: var(--ink-soft); line-height: 1.5;">Claude API call with <code style="font-family: var(--font-mono); font-size: 12px; background: var(--bg-alt); padding: 1px 5px;">tool_choice</code> forced — locks Claude into the slot-fill schema. No free-form prose, only structured output.</div>
+                  <div style="font-size: 14px; color: var(--ink-soft); line-height: 1.5;">Claude API call with <code style="font-family: var(--font-mono); font-size: 12px; background: var(--bg-alt); padding: 1px 5px;">tool_choice</code> forced - locks Claude into the slot-fill schema. No free-form prose, only structured output.</div>
                 </div>
                 <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);">Download ↓</div>
               </a>
@@ -976,13 +1053,13 @@
     <div class="wrap">
       <div class="eyebrow">Synthesis</div>
       <h2>Three different shapes. <em>One pattern</em> underneath.</h2>
-      <p>The cases were picked to stress different shapes of thinking — branching for creative production, linear with feedback for research, hub-and-spoke for analytics. The shapes are different because the problems are different.</p>
+      <p>The cases were picked to stress different shapes of thinking - branching for creative production, linear with feedback for research, hub-and-spoke for analytics. The shapes are different because the problems are different.</p>
       <p>What stays constant is the design discipline:</p>
 
       <div class="pattern-list">
         <div class="pattern-row">
           <div class="pattern-shape">Identify</div>
-          <div class="pattern-text">The actual bottleneck — not "we should use AI more," but the specific point in the existing process where time, accuracy, or throughput breaks.</div>
+          <div class="pattern-text">The actual bottleneck - not "we should use AI more," but the specific point in the existing process where time, accuracy, or throughput breaks.</div>
         </div>
         <div class="pattern-row">
           <div class="pattern-shape">Design</div>
@@ -990,11 +1067,11 @@
         </div>
         <div class="pattern-row">
           <div class="pattern-shape">Route</div>
-          <div class="pattern-text">The right tool to the right job — including knowing when "no AI at runtime" is the right tool. Flux Pro for hero fidelity. GPT Image for Vietnamese typography. Seedance for motion. Claude API for design-time architecture and runtime slot-fill prose. n8n for deterministic plumbing where layout cannot move. The decision is which to use, and where.</div>
+          <div class="pattern-text">The right tool to the right job - including knowing when "no AI at runtime" is the right tool. Flux Pro for hero fidelity. GPT Image for Vietnamese typography. Seedance for motion. Claude API for design-time architecture and runtime slot-fill prose. n8n for deterministic plumbing where layout cannot move. The decision is which to use, and where.</div>
         </div>
         <div class="pattern-row">
           <div class="pattern-shape">Build</div>
-          <div class="pattern-text">Infrastructure that makes the system queryable. MCP servers, custom skills, structured prompts — the difference between using AI and architecting around it.</div>
+          <div class="pattern-text">Infrastructure that makes the system queryable. MCP servers, custom skills, structured prompts - the difference between using AI and architecting around it.</div>
         </div>
         <div class="pattern-row">
           <div class="pattern-shape">Gate</div>
@@ -1003,7 +1080,7 @@
       </div>
 
       <p>The pattern isn't "use AI." The pattern is: see the system, design the joints, route the right tool to the right job at each joint, and build the infrastructure that makes the whole thing queryable instead of hardcoded.</p>
-      <p style="margin-top: 24px;">That is what I would do at PATI in week one — and in week fifty.</p>
+      <p style="margin-top: 24px;">That is what I would do at PATI in week one - and in week fifty.</p>
     </div>
   </section>
 
@@ -1018,6 +1095,43 @@
       </div>
     </div>
   </footer>
+
+  <!-- LIGHTBOX (zoom for images) -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox(); event.stopPropagation();" aria-label="Close zoom view">×</button>
+    <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()"/>
+    <div class="lightbox-hint">Click outside · Press ESC to close · Scroll to pan</div>
+  </div>
+
+  <script>
+    function openLightbox(src, alt) {
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      img.src = src;
+      img.alt = alt || '';
+      lb.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      const lb = document.getElementById('lightbox');
+      lb.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.zoomable').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          const img = el.tagName === 'IMG' ? el : el.querySelector('img');
+          if (!img) return;
+          const src = img.currentSrc || img.src;
+          openLightbox(src, img.alt);
+        });
+      });
+    });
+  </script>
 
 </body>
 </html>
