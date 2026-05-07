@@ -666,85 +666,14 @@
         <div class="block">
           <div class="block-label">Architecture</div>
           <div class="block-content" style="max-width: none;">
-            <div class="diagram-wrap">
-              <svg viewBox="0 0 880 620" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-
-                <!-- Phase 1 -->
-                <rect x="180" y="20" width="420" height="50" rx="3" class="wfd-node-stroke"/>
-                <text x="200" y="40" class="wfd-label">P1 · Keyword Validation</text>
-                <text x="200" y="58" class="wfd-title">DataForSEO API</text>
-                <text x="580" y="50" text-anchor="end" class="wfd-text">15 seeds → 4 high-signal</text>
-
-                <!-- Phase 2 -->
-                <rect x="180" y="90" width="420" height="50" rx="3" class="wfd-node-stroke"/>
-                <text x="200" y="110" class="wfd-label">P2 · Channel Discovery</text>
-                <text x="200" y="128" class="wfd-title">YouTube Data API v3</text>
-                <text x="580" y="120" text-anchor="end" class="wfd-text">38 unique channels</text>
-
-                <!-- Phase 3 -->
-                <rect x="180" y="160" width="420" height="50" rx="3" class="wfd-node-stroke"/>
-                <text x="200" y="180" class="wfd-label">P3 · Channel Scoring</text>
-                <text x="200" y="198" class="wfd-title">Engagement · Recency · Subs</text>
-                <text x="580" y="190" text-anchor="end" class="wfd-text">Auto-exclude fraud signals</text>
-
-                <!-- Phase 4 -->
-                <rect x="180" y="230" width="420" height="50" rx="3" class="wfd-node-stroke"/>
-                <text x="200" y="250" class="wfd-label">P4 · Relevance Filter</text>
-                <text x="200" y="268" class="wfd-title">Keyword match · titles + desc</text>
-                <text x="580" y="260" text-anchor="end" class="wfd-text">Off-topic out</text>
-
-                <!-- Phase 5 -->
-                <rect x="180" y="300" width="420" height="50" rx="3" class="wfd-node-accent"/>
-                <text x="200" y="320" class="wfd-label">P5 · Cross-Reference</text>
-                <text x="200" y="338" class="wfd-title">LinkedIn · Newsletters · Speaker lists</text>
-                <text x="580" y="330" text-anchor="end" class="wfd-text">Bias reduction</text>
-
-                <!-- Phase 6 -->
-                <rect x="180" y="370" width="420" height="50" rx="3" class="wfd-node-stroke"/>
-                <text x="200" y="390" class="wfd-label">P6 · Content Collection</text>
-                <text x="200" y="408" class="wfd-title">Supadata API · Browser collection</text>
-                <text x="580" y="400" text-anchor="end" class="wfd-text">Transcripts · Articles</text>
-
-                <!-- Phase 7 -->
-                <rect x="180" y="440" width="420" height="50" rx="3" class="wfd-node-stroke"/>
-                <text x="200" y="460" class="wfd-label">P7 · Targeted Expansion</text>
-                <text x="200" y="478" class="wfd-title">Interview appearance discovery</text>
-                <text x="580" y="470" text-anchor="end" class="wfd-text">Catches quiet experts</text>
-
-                <!-- Phase 8 -->
-                <rect x="180" y="510" width="420" height="50" rx="3" class="wfd-node-deep"/>
-                <text x="200" y="530" class="wfd-label" style="fill: var(--accent-warm);">P8 · Quality Audit</text>
-                <text x="200" y="548" class="wfd-title" style="fill: var(--paper);">Claude API · Final Gate</text>
-                <text x="580" y="540" text-anchor="end" class="wfd-text" style="fill: var(--paper); opacity: 0.85;">10 selected</text>
-
-                <!-- Vertical flow lines -->
-                <path d="M 390 70 L 390 90" class="wfd-line anim-stroke"/>
-                <path d="M 390 140 L 390 160" class="wfd-line anim-stroke"/>
-                <path d="M 390 210 L 390 230" class="wfd-line anim-stroke"/>
-                <path d="M 390 280 L 390 300" class="wfd-line anim-stroke"/>
-                <path d="M 390 350 L 390 370" class="wfd-line-accent anim-stroke anim-stroke-d2"/>
-                <path d="M 390 420 L 390 440" class="wfd-line anim-stroke anim-stroke-d2"/>
-                <path d="M 390 490 L 390 510" class="wfd-line-accent anim-stroke anim-stroke-d3"/>
-
-                <!-- Side annotation: utility branches -->
-                <rect x="640" y="160" width="200" height="50" rx="3" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 3"/>
-                <text x="740" y="180" text-anchor="middle" class="wfd-label">Utility</text>
-                <text x="740" y="198" text-anchor="middle" class="wfd-text">Channel ID lookup</text>
-                <path d="M 600 185 L 640 185" class="wfd-line-soft anim-stroke anim-stroke-d2"/>
-
-                <rect x="640" y="370" width="200" height="50" rx="3" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 3"/>
-                <text x="740" y="390" text-anchor="middle" class="wfd-label">Utility</text>
-                <text x="740" y="408" text-anchor="middle" class="wfd-text">Transcript retry · Ahrefs verify</text>
-                <path d="M 600 395 L 640 395" class="wfd-line-soft anim-stroke anim-stroke-d3"/>
-
-                <!-- Side annotation: stage labels -->
-                <text x="50" y="50" class="wfd-label" style="fill: var(--ink-mute);">DISCOVERY</text>
-                <text x="50" y="200" class="wfd-label" style="fill: var(--ink-mute);">FILTERING</text>
-                <text x="50" y="335" class="wfd-label" style="fill: var(--accent);">DEBIAS</text>
-                <text x="50" y="475" class="wfd-label" style="fill: var(--ink-mute);">COLLECTION</text>
-                <text x="50" y="540" class="wfd-label" style="fill: var(--accent);">AUDIT</text>
-              </svg>
-              <div class="diagram-caption">Sequential 8-phase pipeline · Bias reduction at P5 · Claude API audit gate at P8</div>
+            <div class="diagram-wrap" style="padding: 0; overflow: hidden;">
+              <picture>
+                <source srcset="https://jak3rpham.github.io/images/pati-challenge/case02-research-pipeline.webp" type="image/webp"/>
+                <img src="https://jak3rpham.github.io/images/pati-challenge/case02-research-pipeline.png" alt="n8n workflow canvas — 8-phase research pipeline: DataForSEO → YouTube API → scoring → bias-reduction merge → Supadata → Claude API audit gate" style="width: 100%; height: auto; display: block;"/>
+              </picture>
+            </div>
+            <div class="diagram-caption" style="margin-top: 16px;">
+              n8n workflow canvas · 8 phases · DataForSEO → YouTube → scoring → cross-reference → Supadata → Claude API audit
             </div>
           </div>
         </div>
@@ -880,98 +809,14 @@
         <div class="block">
           <div class="block-label">Architecture</div>
           <div class="block-content" style="max-width: none;">
-            <div class="diagram-wrap">
-              <svg viewBox="0 0 880 540" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-
-                <!-- v1 (top, faded — discovered to fail) -->
-                <text x="40" y="36" class="wfd-label" style="fill: var(--ink-mute);">V1 · Original — Claude in render loop</text>
-                <rect x="40" y="50" width="800" height="60" rx="3" fill="none" stroke="var(--line)" stroke-dasharray="4 3" stroke-width="1"/>
-                <text x="80" y="76" class="wfd-text" style="fill: var(--ink-mute);">MCP servers</text>
-                <text x="200" y="76" class="wfd-text" style="fill: var(--ink-mute);">→</text>
-                <text x="225" y="76" class="wfd-text" style="fill: var(--ink-mute);">Claude (analyze + render HTML)</text>
-                <text x="475" y="76" class="wfd-text" style="fill: var(--ink-mute);">→</text>
-                <text x="500" y="76" class="wfd-text" style="fill: var(--ink-mute);">Report</text>
-                <text x="80" y="96" class="wfd-label" style="fill: var(--accent-warm);">⚠ inconsistent layout each run · stakeholders lost reference points</text>
-
-                <!-- Diagnosis arrow -->
-                <text x="440" y="135" text-anchor="middle" class="wfd-label" style="fill: var(--accent);">↓ Diagnosis: LLM non-determinism is a feature for analysis, a bug for layout ↓</text>
-
-                <!-- v2 (bottom, primary — the fix) -->
-                <text x="40" y="170" class="wfd-label">V2 · Current — AI in design-time, locked runtime</text>
-
-                <!-- Design-time zone (left) -->
-                <rect x="40" y="190" width="220" height="280" rx="3" fill="var(--bg-alt)" stroke="var(--line)" stroke-width="1"/>
-                <text x="60" y="212" class="wfd-label" style="fill: var(--accent);">Design-time · AI assists</text>
-
-                <rect x="60" y="230" width="180" height="50" rx="3" class="wfd-node-stroke"/>
-                <text x="150" y="250" text-anchor="middle" class="wfd-label">Schema design</text>
-                <text x="150" y="266" text-anchor="middle" class="wfd-text">MCP tool contracts</text>
-
-                <rect x="60" y="295" width="180" height="50" rx="3" class="wfd-node-stroke"/>
-                <text x="150" y="315" text-anchor="middle" class="wfd-label">JSON contract</text>
-                <text x="150" y="331" text-anchor="middle" class="wfd-text">Fixed payload shape</text>
-
-                <rect x="60" y="360" width="180" height="50" rx="3" class="wfd-node-stroke"/>
-                <text x="150" y="380" text-anchor="middle" class="wfd-label">HTML template</text>
-                <text x="150" y="396" text-anchor="middle" class="wfd-text">Locked layout slots</text>
-
-                <text x="60" y="445" class="wfd-text" style="font-size: 10px; fill: var(--ink-mute);">Claude used here, one-time,</text>
-                <text x="60" y="458" class="wfd-text" style="font-size: 10px; fill: var(--ink-mute);">to architect the contracts.</text>
-
-                <!-- Connector from design to runtime -->
-                <path d="M 260 330 L 295 330" class="wfd-line-soft"/>
-                <text x="278" y="320" text-anchor="middle" class="wfd-label" style="font-size: 9px;">designs</text>
-
-                <!-- Runtime zone (right) -->
-                <rect x="295" y="190" width="545" height="280" rx="3" fill="var(--paper)" stroke="var(--line)" stroke-width="1"/>
-                <text x="315" y="212" class="wfd-label" style="fill: var(--accent);">Runtime · Locked deterministic + AI in slots</text>
-
-                <!-- Schedule -->
-                <rect x="315" y="230" width="120" height="50" rx="3" class="wfd-node-stroke"/>
-                <text x="375" y="250" text-anchor="middle" class="wfd-label">Weekly</text>
-                <text x="375" y="266" text-anchor="middle" class="wfd-title">n8n schedule</text>
-
-                <!-- 4 MCP servers grouped -->
-                <rect x="315" y="295" width="120" height="100" rx="3" class="wfd-node-stroke"/>
-                <text x="375" y="315" text-anchor="middle" class="wfd-label">Direct call</text>
-                <text x="375" y="332" text-anchor="middle" class="wfd-text">MCP · GSC</text>
-                <text x="375" y="348" text-anchor="middle" class="wfd-text">MCP · GA4</text>
-                <text x="375" y="364" text-anchor="middle" class="wfd-text">MCP · CrUX</text>
-                <text x="375" y="380" text-anchor="middle" class="wfd-text">MCP · PageSpeed</text>
-
-                <!-- Claude analysis (slot fill) -->
-                <rect x="465" y="295" width="140" height="100" rx="3" class="wfd-node-accent"/>
-                <text x="535" y="315" text-anchor="middle" class="wfd-label">Slot fill only</text>
-                <text x="535" y="334" text-anchor="middle" class="wfd-title">Claude API</text>
-                <text x="535" y="354" text-anchor="middle" class="wfd-text">"What changed</text>
-                <text x="535" y="370" text-anchor="middle" class="wfd-text">and why" prose</text>
-                <text x="535" y="386" text-anchor="middle" class="wfd-label" style="fill: var(--accent);">Structured output</text>
-
-                <!-- JSON + GitHub + Template -->
-                <rect x="635" y="230" width="180" height="50" rx="3" class="wfd-node-stroke"/>
-                <text x="725" y="250" text-anchor="middle" class="wfd-label">Combined</text>
-                <text x="725" y="266" text-anchor="middle" class="wfd-title">JSON payload</text>
-
-                <rect x="635" y="295" width="180" height="50" rx="3" class="wfd-node-stroke"/>
-                <text x="725" y="315" text-anchor="middle" class="wfd-label">Push commit</text>
-                <text x="725" y="331" text-anchor="middle" class="wfd-title">GitHub repo</text>
-
-                <rect x="635" y="360" width="180" height="50" rx="3" class="wfd-node-deep"/>
-                <text x="725" y="380" text-anchor="middle" class="wfd-label" style="fill: var(--accent-warm);">Render</text>
-                <text x="725" y="396" text-anchor="middle" class="wfd-title" style="fill: var(--paper);">Template + JSON</text>
-
-                <!-- Runtime connectors -->
-                <path d="M 375 280 L 375 295" class="wfd-line anim-stroke"/>
-                <path d="M 435 345 L 465 345" class="wfd-line anim-stroke anim-stroke-d2"/>
-                <path d="M 605 345 Q 625 345, 635 320" class="wfd-line anim-stroke anim-stroke-d2"/>
-                <path d="M 435 240 Q 540 240, 635 250" class="wfd-line-soft anim-stroke"/>
-                <path d="M 725 280 L 725 295" class="wfd-line anim-stroke anim-stroke-d3"/>
-                <path d="M 725 345 L 725 360" class="wfd-line-accent anim-stroke anim-stroke-d3"/>
-
-                <!-- Bottom annotation -->
-                <text x="440" y="500" text-anchor="middle" class="wfd-label" style="fill: var(--ink-soft);">Layout never moves · Numbers and prose update every week · Same scan path every time</text>
-              </svg>
-              <div class="diagram-caption">v1 failed at rendering · v2 separates AI design-time from locked runtime · AI lives in content slots, not in layout</div>
+            <div class="diagram-wrap" style="padding: 0; overflow: hidden;">
+              <picture>
+                <source srcset="https://jak3rpham.github.io/images/pati-challenge/case03-weekly-report.webp" type="image/webp"/>
+                <img src="https://jak3rpham.github.io/images/pati-challenge/case03-weekly-report.png" alt="n8n workflow canvas — weekly report pipeline: scheduled trigger → 4 parallel MCP calls → merge → Claude API structured output → JSON compose → GitHub commit (archive + latest)" style="width: 100%; height: auto; display: block;"/>
+              </picture>
+            </div>
+            <div class="diagram-caption" style="margin-top: 16px;">
+              n8n workflow canvas · Schedule → 4 parallel MCP fetches → Claude API (structured output, slot-fill only) → JSON compose → dual GitHub commit
             </div>
           </div>
         </div>
@@ -1077,6 +922,47 @@
                 <div class="value">Internal</div>
                 <div class="value-sub">Stakeholder review</div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-label">Buildable artifacts</div>
+          <div class="block-content" style="max-width: none;">
+            <p style="font-size: 15px; color: var(--ink-soft); margin-bottom: 24px; max-width: 70ch;">Four n8n workflow files that compose the runtime. Importable into any n8n instance — schema-validated, env-var driven, drop-in deployable. The JSON below is the actual code, not pseudocode.</p>
+            <div style="display: grid; gap: 0; border: 1px solid var(--line); background: var(--paper);">
+              <a href="./n8n-workflows/01-weekly-orchestrator.json" download style="display: grid; grid-template-columns: auto 1fr auto; gap: 24px; padding: 20px 24px; border-bottom: 1px solid var(--line); color: var(--ink); border-radius: 0; align-items: center;">
+                <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.04em; min-width: 28px;">01</div>
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink); font-weight: 500; margin-bottom: 4px;">01-weekly-orchestrator.json</div>
+                  <div style="font-size: 14px; color: var(--ink-soft); line-height: 1.5;">Schedule trigger (Mondays 08:00) → period computation → sub-workflow dispatch → schema-validated payload composition.</div>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);">Download ↓</div>
+              </a>
+              <a href="./n8n-workflows/02-mcp-fetch-multi.json" download style="display: grid; grid-template-columns: auto 1fr auto; gap: 24px; padding: 20px 24px; border-bottom: 1px solid var(--line); color: var(--ink); border-radius: 0; align-items: center;">
+                <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.04em; min-width: 28px;">02</div>
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink); font-weight: 500; margin-bottom: 4px;">02-mcp-fetch-multi.json</div>
+                  <div style="font-size: 14px; color: var(--ink-soft); line-height: 1.5;">Four MCP servers (GSC · GA4 · CrUX · PageSpeed) called in parallel. Soft-fail merge — one source down doesn't kill the run.</div>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);">Download ↓</div>
+              </a>
+              <a href="./n8n-workflows/03-claude-analysis.json" download style="display: grid; grid-template-columns: auto 1fr auto; gap: 24px; padding: 20px 24px; border-bottom: 1px solid var(--line); color: var(--ink); border-radius: 0; align-items: center;">
+                <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.04em; min-width: 28px;">03</div>
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink); font-weight: 500; margin-bottom: 4px;">03-claude-analysis.json</div>
+                  <div style="font-size: 14px; color: var(--ink-soft); line-height: 1.5;">Claude API call with <code style="font-family: var(--font-mono); font-size: 12px; background: var(--bg-alt); padding: 1px 5px;">tool_choice</code> forced — locks Claude into the slot-fill schema. No free-form prose, only structured output.</div>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);">Download ↓</div>
+              </a>
+              <a href="./n8n-workflows/04-github-commit.json" download style="display: grid; grid-template-columns: auto 1fr auto; gap: 24px; padding: 20px 24px; color: var(--ink); border-radius: 0; align-items: center;">
+                <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent); letter-spacing: 0.04em; min-width: 28px;">04</div>
+                <div>
+                  <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink); font-weight: 500; margin-bottom: 4px;">04-github-commit.json</div>
+                  <div style="font-size: 14px; color: var(--ink-soft); line-height: 1.5;">Parallel write: immutable archive (<code style="font-family: var(--font-mono); font-size: 12px; background: var(--bg-alt); padding: 1px 5px;">data/reports/*.json</code>) + updated latest pointer (<code style="font-family: var(--font-mono); font-size: 12px; background: var(--bg-alt); padding: 1px 5px;">data/latest.json</code>) → Pages auto-rebuilds.</div>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);">Download ↓</div>
+              </a>
             </div>
           </div>
         </div>
