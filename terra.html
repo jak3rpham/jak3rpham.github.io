@@ -3,1109 +3,509 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>terra-plat.vn - Case Study · Tatsuki</title>
-<meta name="description" content="How I built terra-plat.vn's organic growth engine — 12× clicks growth and 978 Top-10 keywords in 18 months.">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-<link rel="shortcut icon" href="favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>terra-plat.vn · Case Study / Tatsuki</title>
+<meta name="description" content="Case study: 12x organic growth for terra-plat.vn plus the custom tooling I built. Pham Ngoc Thanh (Tatsuki).">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@700&family=Outfit:ital,wght@0,200;0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --ink:#1C1108; --bark:#3D2B1F; --earth:#6B4226; --clay:#9B6645;
-  --sand:#C4A882; --parchment:#EDE3D5; --cream:#F7F2EA; --fog:#FAF8F4;
-  --forest:#3D6B47; --forest-lt:#5A8C64; --forest-pale:#E8F0EA;
-  --terra:#1B6B58; --terra-lt:#2A8C72; --terra-pale:#E0F0EC;
-  --g-warm:linear-gradient(135deg,#9B6645 0%,#6B4226 60%,#3D2B1F 100%);
-  --g-warm-on-dark:linear-gradient(135deg,#E8D5B7 0%,#C4A882 50%,#9B6645 100%);
-  --g-forest:linear-gradient(135deg,#5A8C64 0%,#3D6B47 100%);
-  --g-terra:linear-gradient(135deg,#2A8C72 0%,#1B6B58 100%);
-  --ease:cubic-bezier(0.16,1,0.3,1);
-  --P:clamp(2.5rem,5.5vw,6rem);
-  --W:1040px;
+:root{
+  --bg:#140D07;--panel:rgba(31,21,12,.5);--panel-bd:rgba(196,168,130,.18);
+  --cream:#FBF5EC;--tan:#EADBC6;--sand:#CDB28C;--clay:#B07A4E;--earth:#C08A56;
+  --forest:#79B488;--amber:#EDA055;--rule:rgba(205,178,140,.2);
+  --g-accent:linear-gradient(120deg,#EFDDC0 0%,#EDA055 100%);
+  --ease:cubic-bezier(.22,1,.36,1);--pad:clamp(1.6rem,5vw,5rem);--MAX:1640px;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:17px}
-body{font-family:'Outfit',sans-serif;background:var(--fog);color:var(--ink);overflow-x:hidden}
-img{display:block;max-width:100%}
-a{text-decoration:none;color:inherit}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--cream);overflow-x:hidden;line-height:1.7;font-size:17px}
+a{color:inherit;text-decoration:none}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px}
 
-/* ── CURSOR ── */
-body{cursor:none}
-.cur-dot{position:fixed;width:10px;height:10px;background:var(--clay);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s,border-radius .25s;mix-blend-mode:multiply}
-.cur-ring{position:fixed;width:40px;height:40px;border:1.5px solid var(--sand);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s;opacity:.45}
+/* ===== per-section liquid background ===== */
+.sbg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.lq{position:absolute;border-radius:50%;filter:blur(72px);opacity:.5;will-change:transform,border-radius;animation-play-state:paused}
+.live .lq{animation-play-state:running}
+@keyframes mphA{0%,100%{border-radius:58% 42% 55% 45%/48% 52% 48% 52%;transform:translate(0,0) scale(1)}50%{border-radius:42% 58% 45% 55%/58% 42% 55% 45%;transform:translate(8%,6%) scale(1.14)}}
+@keyframes mphB{0%,100%{border-radius:50% 50% 52% 48%/52% 48% 50% 50%;transform:translate(0,0) scale(1)}50%{border-radius:60% 40% 42% 58%/45% 55% 48% 52%;transform:translate(-7%,-5%) scale(1.18)}}
+@keyframes mphC{0%,100%{border-radius:55% 45% 48% 52%/50% 50% 52% 48%;transform:translate(0,0) scale(1.05)}50%{border-radius:45% 55% 55% 45%/55% 45% 48% 52%;transform:translate(6%,-7%) scale(1.22)}}
 
-/* ── PROGRESS ── */
-#prog{position:fixed;top:0;left:0;height:2px;z-index:500;background:var(--g-terra);width:0;transition:width .06s linear}
+.mono{font-family:'DM Mono',monospace}
 
-/* ── KANJI WATERMARKS (parity with homepage) ── */
-.kanji-mark{position:absolute;font-family:'Noto Serif JP',serif;font-weight:900;color:transparent;-webkit-text-stroke:1px rgba(196,168,130,.18);pointer-events:none;user-select:none;line-height:.85;z-index:0;letter-spacing:-.02em;will-change:transform}
-.km-1{top:8vh;right:-2vw;font-size:clamp(18rem,30vw,32rem);-webkit-text-stroke-color:rgba(196,168,130,.16)}
-.km-2{bottom:-3rem;left:-3vw;font-size:clamp(14rem,22vw,24rem);-webkit-text-stroke-color:rgba(107,66,38,.1)}
-.km-3{top:50%;right:-1vw;font-size:clamp(10rem,14vw,16rem);-webkit-text-stroke-color:rgba(27,107,88,.18);transform:translateY(-50%)}
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem var(--pad);display:flex;align-items:center;justify-content:space-between;font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(180deg,rgba(20,13,7,.82),transparent);color:var(--sand)}
+.nav-logo{color:var(--cream);display:flex;align-items:center;gap:.5rem}
+.nav-logo b{font-family:'Noto Serif JP',serif;color:var(--forest);font-size:.9rem}
+.nav-links{display:flex;gap:1.6rem;list-style:none}
+.nav-links a{color:var(--sand);transition:color .3s}.nav-links a:hover{color:var(--cream)}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:400;border-bottom:1px solid transparent;transition:background .4s,border-color .4s}
-nav.scrolled{background:rgba(250,248,244,.93);backdrop-filter:blur(20px);border-color:rgba(196,168,130,.15)}
-.nav-inner{display:flex;justify-content:space-between;align-items:center;padding:1.1rem var(--P)}
-.nav-logo{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:300;letter-spacing:.06em;display:flex;align-items:center;gap:.5rem;color:var(--ink)}
-.nav-k{font-family:'Noto Serif JP',serif;font-weight:700;font-size:.95rem;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.nav-back{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);display:flex;align-items:center;gap:.5rem;transition:color .3s,gap .4s var(--ease)}
-.nav-back:hover{color:var(--forest);gap:.9rem}
-
-/* ── HERO ── */
-#hero{min-height:100vh;background:var(--ink);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:5rem}
-.hero-bg{position:absolute;inset:0;z-index:0}
-.hero-orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none}
-.ho1{width:700px;height:700px;background:var(--terra);top:-200px;right:-150px;opacity:.12}
-.ho2{width:400px;height:400px;background:var(--sand);bottom:-100px;left:5%;opacity:.08}
-.ho3{width:300px;height:300px;background:var(--earth);top:40%;left:30%;opacity:.07}
-.grain{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px}
-
-.hero-inner{position:relative;z-index:1;width:90%;max-width:1080px;margin-inline:auto;padding-inline:var(--P);padding-top:140px;padding-bottom:4rem;box-sizing:border-box}
-.hero-eyebrow{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(196,168,130,.6);display:flex;align-items:center;gap:.9rem;margin-bottom:2rem;opacity:0;animation:fadeUp .8s var(--ease) .2s forwards}
-.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--g-terra)}
-.hero-title{font-family:'Outfit',sans-serif;font-size:clamp(3rem,6vw,6rem);font-weight:300;line-height:1.0;color:var(--cream);margin-bottom:1.5rem;opacity:0;animation:fadeUp .9s var(--ease) .35s forwards}
-.hero-title em{font-style:italic;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero-sub{font-size:1.05rem;font-weight:300;color:rgba(196,168,130,.7);max-width:580px;line-height:1.85;margin-bottom:3rem;opacity:0;animation:fadeUp .9s var(--ease) .5s forwards}
-
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(196,168,130,.12);opacity:0;animation:fadeUp .9s var(--ease) .65s forwards}
-.hstat{padding:1.6rem 1.8rem;border-right:1px solid rgba(196,168,130,.12);position:relative;overflow:hidden}
-.hstat:last-child{border-right:none}
-.hstat::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--g-terra);opacity:0;transition:opacity .4s}
-.hstat:hover::before{opacity:1}
-.hstat-n{font-family:'Outfit',sans-serif;font-size:2.6rem;font-weight:300;line-height:1;margin-bottom:.3rem;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hstat-l{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(196,168,130,.5)}
-
-.hero-scroll{position:absolute;bottom:2.5rem;left:var(--P);z-index:2;display:flex;align-items:center;gap:.7rem;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(196,168,130,.4);opacity:0;animation:fadeUp 1s ease 1.4s forwards}
-.hero-scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,rgba(196,168,130,.4),transparent);animation:sP 2.5s ease-in-out infinite}
-@keyframes sP{0%,100%{transform:scaleY(1);opacity:.4}50%{transform:scaleY(.4);opacity:1}}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── SECTIONS ── */
-.wrap{width:90%;max-width:1080px;margin-inline:auto;padding-inline:var(--P);box-sizing:border-box}
-.sp{padding:6rem 0}
-.sp-sm{padding:4rem 0}
-
-/* Section labels */
-.s-label{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;color:var(--clay);display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}
-.s-label::before{content:'';width:20px;height:1px;background:var(--g-warm)}
-.s-title{font-family:'Outfit',sans-serif;font-size:clamp(2.2rem,4vw,3.4rem);font-weight:300;line-height:1.1;margin-bottom:2rem}
-.s-title em{font-style:italic;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-
-/* ── OVERVIEW ── */
-#overview{background:var(--cream)}
-.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.overview-meta{display:flex;flex-direction:column;gap:.6rem;margin-bottom:2.5rem}
-.meta-row{display:flex;gap:1.2rem;padding:.7rem 0;border-bottom:1px solid var(--parchment);font-size:.88rem}
-.meta-key{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);min-width:100px;padding-top:.15rem}
-.meta-val{font-weight:300;color:var(--bark)}
-.overview-body{font-size:1rem;font-weight:300;color:#5A4A3C;line-height:2}
-.overview-body p{margin-bottom:1.2rem}
-.overview-body p:last-child{margin-bottom:0}
-.overview-body strong{color:var(--ink);font-weight:400}
-
-/* Context card */
-.context-card{background:var(--ink);padding:2.2rem;position:relative;overflow:hidden;margin-top:2rem}
-.context-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-terra)}
-.context-card-label{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--terra-lt);margin-bottom:.8rem}
-.context-card-text{font-size:.9rem;font-weight:300;color:rgba(237,227,213,.75);line-height:1.85}
-
-/* ── WHAT I BUILT ── */
-#built{background:var(--fog)}
-.built-intro{font-size:1rem;font-weight:300;color:#5A4A3C;line-height:1.95;max-width:660px;margin-bottom:4rem}
-
-.scope-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--parchment)}
-.scope-item{padding:1.8rem;border-right:1px solid var(--parchment);border-bottom:1px solid var(--parchment);position:relative;overflow:hidden;transition:background .3s}
-.scope-item:hover{background:var(--cream)}
-.scope-item::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--g-terra);opacity:0;transition:opacity .4s}
-.scope-item:hover::before{opacity:1}
-.scope-item:nth-child(3n){border-right:none}
-.scope-item:nth-last-child(-n+3){border-bottom:none}
-.scope-num{font-family:'Outfit',sans-serif;font-size:2rem;font-weight:300;color:var(--parchment);margin-bottom:.8rem;line-height:1}
-.scope-title{font-size:.95rem;font-weight:500;color:var(--ink);margin-bottom:.5rem}
-.scope-desc{font-size:.82rem;font-weight:300;color:#7A6355;line-height:1.7}
-
-/* ── PAGES SHOWCASE ── */
-#pages{background:var(--ink);overflow:hidden}
-.pages-intro{font-size:1rem;font-weight:300;color:rgba(196,168,130,.65);line-height:1.9;max-width:580px;margin-bottom:3.5rem}
-
-.pages-track{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
-.page-card{position:relative;overflow:hidden;background:rgba(255,255,255,.03);border:1px solid rgba(196,168,130,.1);cursor:pointer;transition:border-color .3s,transform .5s var(--ease)}
-.page-card:hover{border-color:rgba(61,107,71,.4);transform:translateY(-4px)}
-.page-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-terra);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease);z-index:2}
-.page-card:hover::before{transform:scaleX(1)}
-.page-thumb{height:280px;overflow:hidden;position:relative}
-.page-thumb img{width:100%;height:auto;object-fit:cover;object-position:center top;transition:transform 8s var(--ease)}
-.page-card:hover .page-thumb img{transform:translateY(-30%)}
-.page-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(28,17,8,.7) 100%);z-index:1}
-.page-info{padding:1.4rem 1.6rem}
-.page-tag{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--terra-lt);margin-bottom:.4rem}
-.page-name{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:300;color:var(--cream);margin-bottom:.3rem}
-.page-url{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.06em;color:rgba(196,168,130,.4)}
-.page-link{display:inline-flex;align-items:center;gap:.4rem;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--terra-lt);margin-top:.8rem;transition:gap .3s var(--ease)}
-.page-card:hover .page-link{gap:.7rem}
-
-/* ── RESULTS ── */
-#results{background:var(--cream)}
-.results-grid{display:grid;grid-template-columns:.72fr 1fr;gap:3rem;align-items:start}
-.results-left .s-title{margin-bottom:1rem}
-.results-note{font-size:.88rem;font-weight:300;color:#7A6355;line-height:1.8;margin-bottom:2.5rem;padding-left:1rem;border-left:2px solid var(--terra-lt)}
-
-.metric-list{display:flex;flex-direction:column;gap:0}
-.metric-row{display:grid;grid-template-columns:1fr auto;align-items:center;padding:1rem 0;border-bottom:1px solid var(--parchment);gap:1rem}
-.metric-row:first-child{border-top:1px solid var(--parchment)}
-.metric-label{font-size:.88rem;font-weight:300;color:#5A4A3C}
-.metric-val{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:300;color:var(--earth);white-space:nowrap;text-align:right}
-.metric-sub{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.08em;color:var(--clay);grid-column:1/-1;margin-top:-.5rem;padding-bottom:.3rem}
-
-/* Traffic chart - SVG line+area */
-.chart-wrap{background:#FAF8F4;border:1px solid var(--parchment);padding:1.2rem 1.4rem 1.4rem;position:relative;margin-top:0}
-.growth-chart{width:100%;height:auto;display:block;overflow:visible}
-.chart-line{stroke-dasharray:2400;stroke-dashoffset:2400;animation:drawLine 2.6s var(--ease) .4s forwards}
-.chart-area{opacity:0;animation:fadeIn 1s var(--ease) 1.8s forwards}
-.chart-dot{opacity:0;animation:fadeIn .35s ease forwards}
-.chart-dot:nth-child(odd){animation-delay:1.6s}
-.chart-dot:nth-child(even){animation-delay:1.9s}
-.chart-dot.peak{animation-delay:2.4s}
-@keyframes drawLine{to{stroke-dashoffset:0}}
-@keyframes fadeIn{to{opacity:1}}
-.chart-caption{font-size:.82rem;font-weight:300;color:#5A4A3C;line-height:1.7;margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--parchment)}
-.chart-caption strong{color:var(--ink);font-weight:500}
-
-/* ── DUAL-FUNNEL DIAGRAM ── */
-.funnel-diagram-wrap{margin-top:2.5rem;padding:1.5rem 0 0;border-top:1px solid var(--parchment)}
-.funnel-diagram-label{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--clay);margin-bottom:1.2rem}
-.funnel-diagram{width:100%;height:auto;display:block;margin-bottom:1.3rem}
-.diagram-node{opacity:0;animation:fadeIn .5s var(--ease) forwards}
-.diagram-node:nth-child(1){animation-delay:.2s}
-.diagram-node:nth-child(2){animation-delay:.35s}
-.diagram-node:nth-child(3){animation-delay:.5s}
-.diagram-node:nth-child(7){animation-delay:.8s}
-.diagram-node:nth-child(11){animation-delay:1.1s}
-.diagram-node:nth-child(12){animation-delay:1.2s}
-.diagram-node:nth-child(13){animation-delay:1.3s}
-.funnel-diagram line{opacity:0;animation:fadeIn .4s var(--ease) forwards}
-.funnel-diagram line:nth-of-type(-n+3){animation-delay:.65s}
-.funnel-diagram line:nth-of-type(n+4):nth-of-type(-n+6){animation-delay:.95s}
-.funnel-diagram-caption{font-size:.85rem;font-weight:300;color:#5A4A3C;line-height:1.75;padding-top:.8rem;border-top:1px solid var(--parchment)}
-
-/* ── TECHNICAL SCOPE ── */
-#technical{background:var(--cream);position:relative;overflow:hidden}
-.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:3rem}
-.tech-card{background:var(--fog);border:1px solid var(--parchment);padding:1.8rem;position:relative;overflow:hidden;transition:border-color .35s,transform .5s var(--ease)}
-.tech-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-terra);transform:scaleX(0);transform-origin:left;transition:transform .55s var(--ease)}
-.tech-card:hover{border-color:var(--terra-lt);transform:translateY(-3px)}
-.tech-card:hover::before{transform:scaleX(1)}
-.tech-card-head{display:flex;gap:1.2rem;align-items:flex-start;margin-bottom:1.4rem;padding-bottom:1rem;border-bottom:1px solid var(--parchment)}
-.tech-num{font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:400;color:var(--earth);line-height:1;letter-spacing:-.03em}
-.tech-title{font-family:'Outfit',sans-serif;font-size:1.2rem;font-weight:500;color:var(--ink);line-height:1.2;letter-spacing:-.015em}
-.tech-sub{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;color:var(--clay);margin-top:.3rem;text-transform:uppercase}
-.tech-list{list-style:none;display:flex;flex-direction:column;gap:.95rem}
-.tech-list li{font-size:.85rem;font-weight:300;color:#5A4A3C;line-height:1.65;display:block;padding-left:.95rem;position:relative;border-left:1px solid var(--parchment);transition:border-color .35s}
-.tech-list li:hover{border-left-color:var(--terra)}
-.tech-list li::before{content:'';position:absolute;left:-1px;top:0;width:1px;height:0;background:var(--terra);transition:height .35s var(--ease)}
-.tech-list li:hover::before{height:100%}
-.tech-list li strong{display:block;color:var(--ink);font-weight:500;font-size:.92rem;margin-bottom:.25rem;letter-spacing:-.005em}
-.tech-list li strong::after{content:'';display:inline-block;margin-left:.5rem;width:14px;height:1px;background:var(--terra);vertical-align:middle;opacity:.5}
-.tech-foot{font-size:.78rem;font-weight:300;color:#7A6355;line-height:1.7;padding-top:1rem;margin-top:1.2rem;border-top:1px solid var(--parchment);font-style:italic}
-
-/* CWV before/after bars */
-.cwv-grid{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
-.cwv-row{display:grid;grid-template-columns:38px 1fr 56px;gap:.7rem;align-items:center}
-.cwv-metric{font-family:'DM Mono',monospace;font-size:.6rem;font-weight:500;color:var(--clay);letter-spacing:.06em}
-.cwv-bar{height:14px;background:var(--parchment);position:relative;overflow:hidden}
-.cwv-before{height:100%;background:linear-gradient(90deg,#C76A4A,#B85C2E);transform:scaleX(0);transform-origin:left;animation:cwvFill 1s var(--ease) forwards}
-.cwv-after{height:100%;background:var(--g-terra);transform:scaleX(0);transform-origin:left;animation:cwvFill 1s var(--ease) .4s forwards}
-@keyframes cwvFill{to{transform:scaleX(1)}}
-.cwv-val{font-family:'DM Mono',monospace;font-size:.66rem;font-weight:500;text-align:right}
-.cwv-bad{color:#B85C2E}
-.cwv-good{color:var(--terra)}
-.cwv-legend{display:flex;gap:1.2rem;font-family:'DM Mono',monospace;font-size:.58rem;color:var(--clay);letter-spacing:.04em;padding-top:.6rem;border-top:1px dashed var(--parchment)}
-.cwv-legend span{display:flex;align-items:center;gap:.4rem}
-.cwv-dot{width:8px;height:8px;display:inline-block}
-.cwv-dot-bad{background:#B85C2E}
-.cwv-dot-good{background:var(--terra)}
-
-@media(max-width:768px){
-  .tech-grid{grid-template-columns:1fr}
-  .funnel-diagram{font-size:.85em}
-}
-
-/* ── STRATEGY ── */
-#strategy{background:var(--fog)}
-.strategy-body{font-size:1rem;font-weight:300;color:#5A4A3C;line-height:2;max-width:720px;margin-bottom:3.5rem}
-
-.funnel-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.funnel-card{padding:2.2rem;border:1px solid var(--parchment);background:var(--cream);position:relative;overflow:hidden}
-.funnel-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.funnel-card.layer1::before{background:var(--g-forest)}
-.funnel-card.layer2::before{background:var(--g-terra)}
-.funnel-badge{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;padding:.25rem .65rem;margin-bottom:1rem;display:inline-block}
-.funnel-card.layer1 .funnel-badge{background:var(--forest-pale);color:var(--forest)}
-.funnel-card.layer2 .funnel-badge{background:var(--terra-pale);color:var(--terra)}
-.funnel-title{font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:300;color:var(--ink);margin-bottom:.7rem}
-.funnel-desc{font-size:.88rem;font-weight:300;color:#7A6355;line-height:1.8}
-.funnel-arrow{display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--sand);padding:.5rem 0}
-
-/* ── PROCESS ── */
-#process{background:var(--ink)}
-.process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:3rem}
-.proc-item{padding:1.6rem 1.4rem;border-right:1px solid rgba(196,168,130,.08);position:relative}
-.proc-item:last-child{border-right:none}
-.proc-item::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--g-terra)}
-.proc-num{font-family:'Outfit',sans-serif;font-size:3rem;font-weight:300;color:rgba(196,168,130,.1);line-height:1;margin-bottom:1rem}
-.proc-title{font-size:.88rem;font-weight:500;color:var(--cream);margin-bottom:.5rem}
-.proc-desc{font-size:.78rem;font-weight:300;color:rgba(196,168,130,.5);line-height:1.7}
-
-/* ── AI SECTION ── */
-#ai-section{background:var(--cream)}
-.ai-cols{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.ai-body{font-size:1rem;font-weight:300;color:#5A4A3C;line-height:2;margin-bottom:2rem}
-.ai-callout{background:var(--ink);padding:2rem;position:relative;overflow:hidden}
-.ai-callout::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g-warm)}
-.ai-callout-text{font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:300;font-style:italic;color:var(--cream);line-height:1.5}
-.ai-callout-attr{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(196,168,130,.45);margin-top:.8rem}
-
-/* ── AI WORKFLOW DIAGRAM ── */
-.ai-flow-wrap{position:relative}
-.ai-flow-label{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(196,168,130,.55);margin-bottom:1.2rem}
-.ai-flow{width:100%;height:auto;display:block}
-.ai-flow-node{opacity:0;animation:fadeIn .55s var(--ease) forwards}
-.ai-flow-node:nth-child(1){animation-delay:.2s}
-.ai-flow-node:nth-child(3){animation-delay:.4s}
-.ai-flow-node:nth-child(5){animation-delay:.6s}
-.ai-flow-node:nth-child(7){animation-delay:.8s}
-.ai-flow-node:nth-child(9){animation-delay:1s}
-.ai-flow line{opacity:0;animation:fadeIn .35s ease forwards;animation-delay:1.15s}
-.ai-flow-result{font-size:.88rem;font-weight:300;color:#5A4A3C;line-height:1.75;padding:1.1rem 1.3rem;margin-top:1.3rem;background:var(--fog);border:1px solid var(--parchment);border-left:3px solid var(--earth)}
-.ai-flow-result strong{color:var(--ink);font-weight:500}
-
-.ai-pills{display:flex;flex-direction:column;gap:.6rem}
-.ai-pill{display:flex;align-items:center;gap:.9rem;padding:.9rem 1.1rem;border:1px solid var(--parchment);background:var(--fog);transition:border-color .3s,background .3s}
-.ai-pill:hover{border-color:rgba(27,107,88,.3);background:var(--terra-pale)}
-.ai-pill-icon{font-size:1.1rem;flex-shrink:0}
-.ai-pill-text{font-size:.88rem;font-weight:300;color:#5A4A3C}
-.ai-result{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.08em;color:var(--terra);margin-top:1rem;padding:.6rem .9rem;border:1px solid rgba(27,107,88,.2);background:var(--terra-pale);display:inline-block}
-
-/* ── REFLECTION ── */
-#reflection{background:var(--fog)}
-.reflection-body{font-size:1.05rem;font-weight:300;color:#5A4A3C;line-height:2.1;max-width:680px}
-.reflection-body p{margin-bottom:1.4rem}
-.reflection-body p:last-child{margin-bottom:0}
-.reflection-body strong{color:var(--ink);font-weight:400}
-.reflection-body em{font-style:italic;color:var(--earth)}
-
-/* ── CTA ── */
-#cta{background:var(--ink);text-align:center}
-.cta-inner{max-width:640px;margin-inline:auto}
-.cta-eyebrow{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(196,168,130,.45);margin-bottom:1.5rem}
-.cta-title{font-family:'Outfit',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:300;color:var(--cream);line-height:1.1;margin-bottom:2rem}
-.cta-title em{font-style:italic;background:var(--g-warm);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.btn-fill{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fog);text-decoration:none;padding:.95rem 2.4rem;background:var(--g-terra);position:relative;overflow:hidden;transition:transform .3s,opacity .3s}
-.btn-fill:hover{transform:translateY(-2px);opacity:.9}
-.btn-ghost{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(196,168,130,.7);text-decoration:none;padding:.95rem 2.4rem;border:1px solid rgba(196,168,130,.2);transition:border-color .3s,color .3s}
-.btn-ghost:hover{border-color:rgba(196,168,130,.5);color:var(--cream)}
-
-/* ═══ HEADING WEIGHT OVERRIDES (Outfit needs 400 at display size) ═══ */
-.hero-title,.s-title,.cta-title,.funnel-title,.hstat-n,.metric-val,.scope-num,.proc-num,.hero-title em,.s-title em,.cta-title em,.ai-callout-text{font-weight:400;letter-spacing:-.015em}
-.hero-title,.s-title,.cta-title{letter-spacing:-.025em}
-.ai-callout-text{font-weight:400;font-style:italic}
-.nav-k,.f-k{font-weight:700}
-
-/* ═══ DARK-BG GRADIENT OVERRIDES (lighter gradient for visibility) ═══ */
-.hero-title em,
-.hstat-n,
-#process .s-title em,
-.cta-title em{
-  background:var(--g-warm-on-dark);
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-  color:transparent;
-}
-
-/* line-height bump for italic clearance in titles */
-.hero-title{line-height:1.1}
-.s-title{line-height:1.18}
-.cta-title{line-height:1.15}
-
-/* em italic — extend box with padding so gradient bg covers italic slope (else letters get clipped at right) */
-.hero-title em,
-.s-title em,
-.cta-title em,
-.contact-big em,
-.about-big-title .em-italic{
-  display:inline-block;
-  padding:.05em .25em;
-  margin:-.05em -.25em;
-}
-
-/* ── FOOTER ── */
-footer{background:var(--bark);border-top:1px solid rgba(196,168,130,.08)}
-.footer-inner{display:flex;justify-content:space-between;align-items:center;padding:1.2rem var(--P)}
-.f-logo{font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:300;color:var(--cream);display:flex;align-items:center;gap:.45rem}
-.f-k{font-family:'Noto Serif JP',serif;font-weight:700;font-size:.85rem;background:var(--g-terra);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.f-copy{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.08em;color:#A8917E}
-
-/* ── SCROLL REVEAL ── */
+/* reveal */
 .fu{opacity:0;transform:translateY(28px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
-.fu.visible{opacity:1;transform:translateY(0)}
-.fu[data-d="1"]{transition-delay:.1s}
-.fu[data-d="2"]{transition-delay:.2s}
-.fu[data-d="3"]{transition-delay:.3s}
-.fu[data-d="4"]{transition-delay:.4s}
+.fu.vis{opacity:1;transform:none}
+[data-d="1"]{transition-delay:.1s}[data-d="2"]{transition-delay:.2s}[data-d="3"]{transition-delay:.3s}
 
-/* ── RESPONSIVE ── */
+/* status / clock */
+.status{position:absolute;top:4.4rem;left:var(--pad);z-index:6;font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sand);display:flex;align-items:center;gap:.5rem}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--forest);box-shadow:0 0 10px var(--forest);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.clock{position:absolute;top:4.4rem;right:var(--pad);z-index:6;font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sand)}
+
+/* ===== hero ===== */
+#hero{position:relative;z-index:4;min-height:100vh;display:grid;grid-template-columns:1.5fr 1fr;align-items:center;gap:2rem;padding:6rem var(--pad) 4rem;overflow:hidden}
+#flow{position:absolute;inset:0;z-index:0}
+.hero-main,.hero-portrait{position:relative;z-index:2}
+.hero-main{opacity:0;transform:translateY(30px);animation:rise 1s var(--ease) .15s forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.hname{font-weight:700;letter-spacing:-.035em;line-height:1.02;font-size:clamp(3.4rem,8vw,7.5rem);color:var(--cream);padding-bottom:.12em;margin-bottom:.6rem;text-shadow:0 2px 50px rgba(20,13,7,.6)}
+.hname .ac{background:var(--g-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.hjp{display:flex;align-items:center;gap:1rem;margin-bottom:1.8rem}
+.hjp .jp{font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.7rem;letter-spacing:.16em;color:var(--forest)}
+.hjp .rule{flex:0 0 60px;height:1px;background:var(--rule)}
+.hjp .rd{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sand)}
+.htag{font-size:clamp(1.15rem,1.6vw,1.4rem);font-weight:300;color:var(--tan);line-height:1.7;max-width:32ch;margin-bottom:2.3rem}
+.htag strong{color:var(--cream);font-weight:500}
+.telemetry{display:flex;max-width:580px}
+.tel{flex:1;padding:1rem 1.2rem 1rem 0;border-right:1px solid var(--rule)}
+.tel:last-child{border-right:none}
+.tel-n{font-size:2.5rem;font-weight:600;line-height:1;background:var(--g-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.tel-l{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sand);margin-top:.45rem}
+.hero-portrait{justify-self:center;width:min(34vw,400px);aspect-ratio:1;opacity:0;animation:rise 1.1s var(--ease) .4s forwards}
+.blobimg{position:absolute;inset:0;overflow:hidden;border-radius:16px;border:1px solid var(--panel-bd);box-shadow:0 22px 60px rgba(0,0,0,.4),0 0 55px rgba(237,160,85,.16)}
+@keyframes morphimg{0%,100%{border-radius:62% 38% 55% 45%/52% 48% 52% 48%}33%{border-radius:40% 60% 45% 55%/60% 40% 55% 45%}66%{border-radius:55% 45% 38% 62%/45% 58% 48% 52%}}
+.blobimg img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.03)}
+.ph{position:absolute;inset:0;z-index:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;background:repeating-linear-gradient(45deg,rgba(196,168,130,.06),rgba(196,168,130,.06) 12px,transparent 12px,transparent 24px),radial-gradient(circle,#3a2a18,#241608);border:1.5px dashed rgba(196,168,130,.4)}
+.ph svg{width:34px;height:34px;stroke:var(--sand);fill:none;stroke-width:1.4;opacity:.7}
+.ph-l{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);text-align:center;line-height:1.6}
+
+.port-k{position:absolute;bottom:.6rem;right:.9rem;z-index:2;font-family:'Noto Serif JP',serif;font-weight:900;font-size:3.2rem;color:var(--cream);text-shadow:0 2px 20px rgba(20,13,7,.6)}
+
+/* marquee */
+.marquee{position:relative;z-index:4;overflow:hidden;border-block:1px solid var(--rule);padding:1rem 0;white-space:nowrap;background:rgba(20,13,7,.4)}
+.marquee-t{display:inline-block;animation:scroll 30s linear infinite;font-family:'DM Mono',monospace;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sand)}
+.marquee-t span{margin:0 1.5rem}.marquee-t b{color:var(--amber);font-weight:500}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ===== sections ===== */
+.sec{position:relative;z-index:4;overflow:hidden}
+.sec-inner{padding:clamp(5rem,9vw,7.5rem) var(--pad);position:relative;z-index:2}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;border-bottom:1px solid var(--rule);padding-bottom:1.4rem;margin-bottom:2.8rem;flex-wrap:wrap}
+.sec-title{font-family:'Outfit',sans-serif;font-size:clamp(2.8rem,5.6vw,4.6rem);font-weight:800;letter-spacing:-.035em;line-height:1.02;color:var(--cream);position:relative;padding-left:1.2rem;text-shadow:0 0 45px rgba(237,160,85,.2)}
+.sec-title::before{content:'';position:absolute;left:0;top:.1em;bottom:.1em;width:6px;border-radius:3px;background:var(--g-accent)}
+.sec-title .ac{background:var(--g-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.sec-meta{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);text-align:right;line-height:1.8}
+.slead{font-size:clamp(1.15rem,1.6vw,1.35rem);font-weight:300;color:var(--tan);line-height:1.75;max-width:62ch}
+
+.panel{background:var(--panel);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--panel-bd);border-radius:18px;padding:1.8rem 1.9rem;position:relative;overflow:hidden}
+
+/* about */
+.about-row{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(1.8rem,4vw,3.2rem);align-items:start}
+.bio-p{font-size:1.18rem;font-weight:300;line-height:1.85;color:var(--tan);margin-bottom:1.4rem;max-width:54ch}
+.bio-p:last-of-type{margin-bottom:0}
+.bio-p strong{color:var(--cream);font-weight:500}.bio-p em{font-style:normal;color:var(--amber)}
+.bio-p a{color:var(--forest);border-bottom:1px solid rgba(121,180,136,.4)}
+.bio-marker{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--sand);margin-top:1.8rem;padding-top:1.3rem;border-top:1px solid var(--rule)}
+.spec-row{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-bottom:1px dashed var(--rule);font-family:'DM Mono',monospace;font-size:.82rem}
+.spec-row:last-of-type{border-bottom:none}
+.spec-k{color:var(--sand);text-transform:uppercase;letter-spacing:.1em;font-size:.64rem}
+.spec-v{color:var(--cream);display:flex;align-items:center;gap:.5rem}
+.spark{height:15px;width:56px}
+.stack-h{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin:1.6rem 0 .8rem}
+.stack-row{display:flex;gap:.8rem;padding:.75rem 0;border-bottom:1px dashed var(--rule)}
+.stack-row:last-child{border-bottom:none}
+.stack-n{font-family:'Noto Serif JP',serif;font-weight:700;font-size:.95rem;color:var(--forest)}
+.stack-name{font-size:1.05rem;color:var(--cream)}
+.stack-tools{font-family:'DM Mono',monospace;font-size:.64rem;color:var(--sand);margin-top:.2rem}
+
+/* feature */
+.feat-row{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(1.8rem,4vw,3.2rem);align-items:center}
+.feat-row.rev .feat-text{order:2}
+.mock{border:1px solid var(--panel-bd);border-radius:16px;overflow:hidden;background:#23170D;position:relative}
+.mock-bar{display:flex;align-items:center;gap:.4rem;padding:.7rem 1rem;background:rgba(0,0,0,.25);border-bottom:1px solid var(--rule)}
+.mock-d{width:9px;height:9px;border-radius:50%;background:var(--clay)}
+.mock-url{margin-left:.6rem;font-family:'DM Mono',monospace;font-size:.64rem;color:var(--sand)}
+.mock-body{aspect-ratio:16/10;overflow:hidden;position:relative}
+.mock-body img{width:100%;height:100%;object-fit:cover;display:block}
+.mock-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);background:repeating-linear-gradient(45deg,rgba(196,168,130,.05),rgba(196,168,130,.05) 12px,transparent 12px,transparent 24px),#2a1c10}
+.feat-h{font-size:1.8rem;font-weight:600;letter-spacing:-.01em;margin-bottom:.35rem;color:var(--cream)}
+.feat-h em{font-style:normal;color:var(--amber)}
+.feat-co{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;color:var(--sand);margin-bottom:1.2rem}
+.pills{display:flex;flex-wrap:wrap;gap:.45rem;margin:1.2rem 0}
+.pill{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sand);border:1px solid var(--rule);padding:.35rem .7rem;border-radius:20px}
+.gchart{width:100%;height:170px;margin-bottom:1rem}
+.gline{fill:none;stroke:var(--forest);stroke-width:3;stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 1.8s var(--ease)}
+.vis .gline{stroke-dashoffset:0}
+.garea{fill:url(#gareaG);opacity:0;transition:opacity 1s ease 1.4s}.vis .garea{opacity:1}
+.gdot{fill:var(--amber);opacity:0;transition:opacity .4s ease 1.8s}.vis .gdot{opacity:1}
+.gcap{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sand);text-align:center}
+.feat-tel{display:flex;border-block:1px solid var(--rule);margin-bottom:1.4rem}
+.feat-tel .tc{flex:1;padding:1rem .6rem;border-right:1px solid var(--rule)}
+.feat-tel .tc:first-child{padding-left:0}.feat-tel .tc:last-child{border-right:none}
+.feat-tel .tc-n{font-size:1.7rem;font-weight:600;color:var(--amber);line-height:1}
+.feat-tel .tc-l{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sand);margin-top:.35rem}
+.bullets{list-style:none;display:flex;flex-direction:column;gap:.9rem;margin-bottom:1.5rem}
+.bullets li{font-size:1.05rem;font-weight:300;line-height:1.65;color:var(--tan);padding-left:1.2rem;position:relative}
+.bullets li::before{content:'';position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--forest)}
+.bullets strong{color:var(--cream);font-weight:500}
+.pipe{width:100%;height:auto}
+.pipe-line{stroke:var(--rule);stroke-width:2;stroke-dasharray:320;stroke-dashoffset:320;transition:stroke-dashoffset 1.3s var(--ease) .2s}
+.vis .pipe-line{stroke-dashoffset:0}
+.pipe-node{fill:#23170D;stroke:var(--forest);stroke-width:2;opacity:0;transition:opacity .5s ease}
+.vis .pipe-node{opacity:1}
+.pipe-n{fill:var(--amber);font-family:'DM Mono',monospace;font-size:12px}
+.pipe-t{fill:var(--cream);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500}
+.pipe-m{fill:var(--sand);font-family:'DM Mono',monospace;font-size:10.5px}
+.ctas{display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap}
+.btn-fill{font-size:.92rem;color:var(--bg);background:var(--amber);padding:.85rem 1.5rem;border-radius:9px;display:inline-flex;align-items:center;gap:.5rem;font-weight:600;transition:gap .3s var(--ease),background .3s,transform .3s}
+.btn-fill:hover{gap:.85rem;background:var(--forest);transform:translateY(-2px)}
+.btn-line{font-size:.92rem;color:var(--tan);border-bottom:1px solid var(--forest);padding-bottom:2px;transition:color .3s}
+.btn-line:hover{color:var(--forest)}
+.chip{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.04em;color:var(--sand);border:1px solid var(--rule);padding:.35rem .7rem;border-radius:6px;transition:all .3s}
+.chip:hover{background:var(--forest);color:var(--bg);border-color:var(--forest)}
+
+/* work */
+.work-row{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(1.6rem,4vw,3.2rem);align-items:center;padding:2.6rem 0;border-bottom:1px solid var(--rule)}
+.work-row:last-child{border-bottom:none}
+.work-row.rev .work-vis{order:2}
+.work-vis{border:1px solid var(--panel-bd);border-radius:14px;overflow:hidden;aspect-ratio:16/10;background:#23170D;position:relative}
+.work-vis img{width:100%;height:100%;object-fit:cover}
+.work-t{font-size:1.8rem;font-weight:600;letter-spacing:-.02em;margin-bottom:.25rem;color:var(--cream)}
+.work-co{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sand);margin-bottom:1.1rem}
+
+/* video */
+.vgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem}
+.vcard{position:relative;border:1px solid var(--panel-bd);border-radius:14px;overflow:hidden;cursor:pointer;background:#23170D;aspect-ratio:16/10}
+.vcard.feat{grid-row:span 2;aspect-ratio:auto}
+.vthumb{position:absolute;inset:0}.vthumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.vcard:hover .vthumb img{transform:scale(1.06)}
+.vcard::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(10,6,3,.85))}
+.play{position:absolute;top:50%;left:50%;width:52px;height:52px;transform:translate(-50%,-50%);border:1.5px solid rgba(251,245,236,.85);border-radius:50%;z-index:2;display:flex;align-items:center;justify-content:center;color:var(--cream);font-size:.8rem}
+.play::after{content:'▶';margin-left:2px}
+.vbadge{position:absolute;top:.8rem;left:.8rem;z-index:2;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cream);background:rgba(10,6,3,.6);padding:.25rem .6rem;border-radius:5px}
+.vinfo{position:absolute;bottom:.9rem;left:1rem;right:1rem;z-index:2}
+.vtitle{font-size:1rem;font-weight:600;color:var(--cream);line-height:1.3}
+.vmeta{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--sand);margin-top:.3rem}
+.video-cta{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--rule);border-radius:14px;padding:1.5rem 1.7rem;margin-top:1rem;transition:background .3s,color .3s}
+.video-cta:hover{background:var(--forest);color:var(--bg)}
+.video-cta .vc-t{font-size:1.1rem;font-weight:600}
+.video-cta .vc-meta{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sand);margin-top:.35rem}
+.video-cta:hover .vc-meta{color:rgba(20,13,7,.7)}
+
+/* contact */
+.contact-row{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(1.8rem,5vw,4rem);align-items:start}
+.contact-big{font-size:clamp(2.6rem,4.8vw,4.2rem);font-weight:800;line-height:1.04;letter-spacing:-.035em;margin-bottom:1.3rem;color:var(--cream);text-shadow:0 0 45px rgba(237,160,85,.2)}
+.contact-big .ac{background:var(--g-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.contact-p{font-size:1.1rem;font-weight:300;line-height:1.8;color:var(--tan);margin-bottom:1.7rem;max-width:46ch}
+.soc{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.5rem}
+
+footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px solid var(--rule)}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sand)}
+.footer-inner b{font-family:'Noto Serif JP',serif;color:var(--forest)}.f-link:hover{color:var(--forest)}
+
+.lb{position:fixed;inset:0;z-index:200;background:rgba(10,6,3,.94);display:none;align-items:center;justify-content:center;padding:var(--pad)}
+.lb.on{display:flex}.lb-inner{width:min(960px,100%);position:relative}
+.lb-close{position:absolute;top:-2.4rem;right:0;color:var(--cream);font-family:'DM Mono',monospace;font-size:.75rem;letter-spacing:.1em;background:none;border:none;cursor:pointer}
+.lb iframe{width:100%;aspect-ratio:16/9;border:none;border-radius:10px}
+.float-cv{position:fixed;bottom:1.4rem;right:1.4rem;z-index:90;font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--amber);padding:.75rem 1.1rem;border-radius:30px;display:flex;align-items:center;gap:.4rem;font-weight:600;transition:background .3s,transform .3s}
+.float-cv:hover{background:var(--forest);transform:translateY(-2px)}
+
+@media(prefers-reduced-motion:reduce){.blobimg,.marquee-t,.dot,.lq{animation:none}.fu{transition:none;opacity:1;transform:none}}
 @media(max-width:900px){
-  .hero-stats{grid-template-columns:repeat(2,1fr)}
-  .hstat:nth-child(2){border-right:none}
-  .overview-grid,.results-grid,.ai-cols{grid-template-columns:1fr;gap:3rem}
-  .scope-grid{grid-template-columns:repeat(2,1fr)}
-  .scope-item:nth-child(2n){border-right:none}
-  .scope-item:nth-child(3n){border-right:1px solid var(--parchment)}
-  .pages-track{grid-template-columns:1fr}
-  .funnel-wrap{grid-template-columns:1fr}
-  .process-grid{grid-template-columns:repeat(2,1fr)}
-  .proc-item:nth-child(2n){border-right:none}
-  .proc-item{border-bottom:1px solid rgba(196,168,130,.08)}
+  #hero{grid-template-columns:1fr;gap:2.5rem}.hero-portrait{order:-1;width:min(70vw,320px)}
+  .hname{font-size:clamp(2.8rem,12vw,4.2rem)}.telemetry{max-width:100%}
+  .about-row,.feat-row,.contact-row,.work-row{grid-template-columns:1fr}
+  .feat-row.rev .feat-text,.work-row.rev .work-vis{order:0}
+  .vgrid{grid-template-columns:1fr 1fr}.vcard.feat{grid-row:auto;grid-column:span 2}
 }
-@media(max-width:600px){
-  :root{--P:1.25rem}
-  .hero-stats{grid-template-columns:1fr 1fr}
-  .scope-grid{grid-template-columns:1fr}
-  .scope-item{border-right:none}
-  .process-grid{grid-template-columns:1fr}
-  body{cursor:auto}
-  .cur-dot,.cur-ring{display:none}
-  .km-1,.km-2,.km-3{font-size:clamp(10rem,30vw,18rem)}
-}
+@media(max-width:560px){body{font-size:16px}.vgrid{grid-template-columns:1fr}.vcard.feat{grid-column:auto}.nav-links{display:none}}
+
+/* per-section designed backgrounds: directional wash + texture over the liquid */
+.lq{opacity:.4}
+.sbg::before{content:'';position:absolute;inset:0;z-index:1}
+.sbg::after{content:'';position:absolute;inset:0;z-index:1;opacity:.55}
+.s-about .sbg::before{background:linear-gradient(125deg,rgba(184,106,48,.3),transparent 56%)}
+.s-about .sbg::after{background-image:radial-gradient(rgba(205,178,140,.09) 1px,transparent 1.6px);background-size:27px 27px}
+.s-terra .sbg::before{background:linear-gradient(235deg,rgba(46,107,69,.32),transparent 56%)}
+.s-terra .sbg::after{background-image:repeating-linear-gradient(0deg,rgba(205,178,140,.06) 0 1px,transparent 1px 56px)}
+.s-bong .sbg::before{background:linear-gradient(140deg,rgba(176,67,42,.34),transparent 58%)}
+.s-bong .sbg::after{background-image:repeating-linear-gradient(45deg,rgba(205,178,140,.05) 0 1px,transparent 1px 22px)}
+.s-work .sbg::before{background:linear-gradient(200deg,rgba(155,102,69,.28),transparent 56%)}
+.s-work .sbg::after{background-image:linear-gradient(rgba(205,178,140,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(205,178,140,.05) 1px,transparent 1px);background-size:56px 56px}
+.s-video .sbg::before{background:linear-gradient(150deg,rgba(61,107,71,.32),transparent 56%)}
+.s-video .sbg::after{background-image:radial-gradient(rgba(205,178,140,.08) 1px,transparent 1.6px);background-size:31px 31px}
+.s-contact .sbg::before{background:linear-gradient(120deg,rgba(192,104,47,.32),transparent 56%)}
+.s-contact .sbg::after{background-image:repeating-linear-gradient(0deg,rgba(205,178,140,.06) 0 1px,transparent 1px 56px)}
+/* section dividers */
+.divider{position:relative;z-index:5;display:flex;align-items:center;justify-content:center;gap:1.2rem;padding:0 var(--pad)}
+.dv-line{height:1px;flex:1;max-width:42%;background:linear-gradient(90deg,transparent,var(--rule),transparent)}
+.dv-node{width:10px;height:10px;border:1px solid var(--amber);transform:rotate(45deg);box-shadow:0 0 14px rgba(237,160,85,.55);flex:0 0 auto;animation:dvp 3s ease-in-out infinite}
+@keyframes dvp{0%,100%{transform:rotate(45deg) scale(1);opacity:.65}50%{transform:rotate(45deg) scale(1.35);opacity:1}}
+
+/* per-section signature motion motifs (replace monotonous round blobs) */
+.m{position:absolute;z-index:1;pointer-events:none}
+.m-radar{top:9%;right:7%;width:min(28vw,340px);aspect-ratio:1;opacity:.6}
+.m-radar span{position:absolute;inset:0;border:1px solid var(--forest);border-radius:50%;opacity:0}
+.live .m-radar span{animation:radar 4.2s ease-out infinite}
+.m-radar span:nth-child(2){animation-delay:1.4s}.m-radar span:nth-child(3){animation-delay:2.8s}
+@keyframes radar{0%{transform:scale(.08);opacity:.7}100%{transform:scale(1);opacity:0}}
+.m-radar i{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 290deg,rgba(121,180,136,.22) 360deg)}
+.live .m-radar i{animation:spin 7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.m-bars{bottom:0;right:5%;width:min(30vw,360px);height:42%;display:flex;align-items:flex-end;gap:5%;opacity:.4}
+.m-bars span{flex:1;background:linear-gradient(var(--forest),transparent);border-radius:4px 4px 0 0;transform-origin:bottom;transform:scaleY(var(--h,.4))}
+.live .m-bars span{animation:bars 3.2s ease-in-out infinite}
+@keyframes bars{0%,100%{transform:scaleY(var(--h,.4))}50%{transform:scaleY(calc(var(--h,.4)*1.6))}}
+.m-aurora{top:-12%;left:-6%;width:62%;height:88%;background:conic-gradient(from 90deg,rgba(176,67,42,.4),rgba(237,160,85,.3),rgba(138,58,42,.4),rgba(176,67,42,.4));filter:blur(70px);border-radius:48% 52% 55% 45%}
+.live .m-aurora{animation:spin 26s linear infinite}
+.tw{position:absolute;z-index:1;width:5px;height:5px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber);opacity:.4;pointer-events:none}
+.live .tw{animation:twk 3s ease-in-out infinite}
+@keyframes twk{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:.9;transform:scale(1.3)}}
+.m-stripes{inset:0;background:repeating-linear-gradient(60deg,rgba(196,168,130,.07) 0 2px,transparent 2px 28px);opacity:.6}
+.live .m-stripes{animation:stripeMove 7s linear infinite}
+@keyframes stripeMove{to{background-position:130px 0}}
+.m-eq{bottom:0;left:0;right:0;height:32%;display:flex;align-items:flex-end;gap:.9%;padding:0 var(--pad);opacity:.32}
+.m-eq span{flex:1;background:linear-gradient(var(--amber),var(--forest));transform-origin:bottom;transform:scaleY(.15);border-radius:2px}
+.live .m-eq span{animation:eq 1.2s ease-in-out infinite}
+@keyframes eq{0%,100%{transform:scaleY(.12)}50%{transform:scaleY(1)}}
+.m-signal{bottom:8%;left:7%;width:min(26vw,300px);aspect-ratio:1;opacity:.6}
+.m-signal span{position:absolute;inset:0;border:1px solid var(--amber);border-radius:50%;opacity:0}
+.live .m-signal span{animation:radar 4.6s ease-out infinite}
+.m-signal span:nth-child(2){animation-delay:1.5s}.m-signal span:nth-child(3){animation-delay:3s}
+@media(prefers-reduced-motion:reduce){.m span,.m i,.m-aurora,.tw,.m-stripes{animation:none}}
+
+/* ===== redesigned lower sections ===== */
+.lead-xl{font-size:clamp(1.5rem,2.6vw,2.3rem);font-weight:400;line-height:1.4;color:var(--cream);letter-spacing:-.01em;margin-bottom:1.6rem;max-width:24ch}
+.lead-xl strong{background:var(--g-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:600}
+.about-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:start;margin-bottom:2.8rem}
+.fact{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.95rem 0;border-bottom:1px solid var(--rule)}
+.fact:first-child{border-top:1px solid var(--rule)}
+.fact-k{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sand)}
+.fact-v{display:flex;align-items:center;gap:.6rem;font-size:1.4rem;font-weight:600;color:var(--cream)}
+.fact-v b{background:var(--g-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
+.stack-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.8rem}
+.stack-card{background:var(--panel);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--panel-bd);border-radius:14px;padding:1.3rem 1.4rem;transition:transform .3s var(--ease),border-color .3s}
+.stack-card:hover{transform:translateY(-4px);border-color:var(--forest)}
+.stack-card .stack-n{font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.25rem;color:var(--forest);display:block;margin-bottom:.5rem}
+.stack-card .stack-name{font-size:1.05rem;font-weight:600;color:var(--cream);margin-bottom:.3rem}
+.feature-screen{padding:0;margin-bottom:1.8rem}
+.screen-body{padding:1.7rem 1.8rem}
+.terra-foot{display:flex;flex-direction:column;gap:1.5rem}
+.terra-cols{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(1.5rem,4vw,3rem);align-items:start}
+.hpipe{margin-bottom:2rem}
+.hpipe-svg{width:100%;height:auto}
+.hpipe-line{fill:none;stroke:var(--rule);stroke-width:2;stroke-dasharray:900;stroke-dashoffset:900;transition:stroke-dashoffset 1.6s var(--ease) .2s}
+.vis .hpipe-line{stroke-dashoffset:0}
+.bong-foot{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(1.5rem,4vw,3rem);align-items:center}
+.idx-row{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(1.2rem,3vw,2.5rem);align-items:center;padding:2.1rem 0;border-bottom:1px solid var(--rule)}
+.idx-row:first-child{border-top:1px solid var(--rule)}
+.idx-n{font-family:'Noto Serif JP',serif;font-weight:700;font-size:clamp(2rem,4vw,3rem);background:var(--g-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.idx-t{font-size:1.7rem;font-weight:600;color:var(--cream);margin-bottom:.2rem}
+.idx-tags{font-family:'DM Mono',monospace;font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sand);margin-bottom:.7rem}
+.idx-desc{font-size:1rem;font-weight:300;color:var(--tan);line-height:1.7;max-width:62ch}
+.idx-link{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);white-space:nowrap;border:1px solid var(--rule);padding:.6rem 1.1rem;border-radius:8px;transition:all .3s}
+.idx-link:hover{background:var(--amber);color:var(--bg);border-color:var(--amber)}
+.reel{display:grid;grid-template-columns:1.6fr 1fr;gap:1rem;margin-bottom:1rem}
+.reel-feat{aspect-ratio:16/10}
+.reel-strip{display:grid;grid-template-rows:repeat(3,1fr);gap:1rem}
+.reel-strip .vcard{aspect-ratio:auto}
+.contact-close{padding-block:clamp(5rem,12vw,9rem)}
+.contact-huge{font-size:clamp(2.6rem,6vw,5.2rem);font-weight:800;line-height:1.02;letter-spacing:-.035em;color:var(--cream);max-width:18ch;text-shadow:0 0 50px rgba(237,160,85,.2)}
+.contact-huge .ac{background:var(--g-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.contact-line{display:flex;flex-wrap:wrap;gap:1.6rem 3rem;margin:2rem 0;padding-top:1.7rem;border-top:1px solid var(--rule)}
+.ci{display:flex;flex-direction:column;gap:.3rem}
+.ci-k{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sand)}
+.ci a,.ci span{font-size:1.05rem;color:var(--cream)}.ci a:hover{color:var(--forest)}
+@media(max-width:900px){.about-grid,.terra-cols,.bong-foot{grid-template-columns:1fr}.stack-grid{grid-template-columns:1fr 1fr}.reel{grid-template-columns:1fr}.reel-strip{grid-template-rows:none;grid-template-columns:1fr 1fr 1fr}.idx-row{grid-template-columns:auto 1fr}.idx-link{grid-column:2;justify-self:start}}
+@media(max-width:560px){.stack-grid{grid-template-columns:1fr}.reel-strip{grid-template-columns:1fr}}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.2rem}
+.kpi{background:var(--panel);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--panel-bd);border-radius:14px;padding:1.4rem 1.5rem;transition:border-color .3s,transform .3s}
+.kpi:hover{border-color:var(--forest);transform:translateY(-3px)}
+.kpi-n{font-size:2.2rem;font-weight:700;background:var(--g-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.kpi-l{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sand);margin-top:.5rem}
+.kpi-sub{font-size:.85rem;color:var(--tan);margin-top:.3rem}
+.chart-x{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.05em;color:var(--sand);margin-top:.5rem;padding:0 .2rem}
+.readnote{background:rgba(0,0,0,.18);border:1px solid var(--panel-bd);border-left:3px solid var(--amber);border-radius:12px;padding:1.2rem 1.4rem;margin-top:1.4rem;font-size:.95rem;font-weight:300;line-height:1.65;color:var(--tan)}
+.readnote strong{color:var(--cream);font-weight:600}
+/* systems as alternating feature rows */
+.sysrow{display:grid;grid-template-columns:1.05fr 1fr;gap:2.2rem;align-items:center;padding:2.2rem 0;border-top:1px solid var(--rule)}
+.sysrow:first-of-type{border-top:none;padding-top:.6rem}
+.sysrow.rev .systxt{order:2}.sysrow.rev .sysfig{order:1}
+.sys-n{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--amber)}
+.sys-t{font-size:1.45rem;font-weight:600;color:var(--cream);margin:.35rem 0 .6rem}
+.sys-d{font-size:.98rem;font-weight:300;line-height:1.62;color:var(--tan);margin-bottom:.9rem}
+.sys-impact{font-size:.92rem;color:var(--cream);border-left:2px solid var(--forest);padding-left:.8rem;margin-bottom:1rem}
+.sys-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.sysfig{background:rgba(0,0,0,.16);border:1px solid var(--panel-bd);border-radius:16px;padding:1.3rem 1.4rem}
+.fig{width:100%;height:auto;display:block;overflow:visible}
+.fig-base{stroke:var(--rule);stroke-width:1.6;fill:none}
+.fig-flow{stroke:var(--forest);stroke-width:1.8;fill:none;stroke-dasharray:4 8;stroke-linecap:round;opacity:.85;animation:figdash 1s linear infinite;animation-play-state:paused}
+.fig-node{fill:#2a1c10;stroke:var(--amber);stroke-width:1.6}
+.fig-core{fill:var(--amber)}
+.fig-halo{fill:none;stroke:var(--amber);stroke-width:1.5;transform-box:fill-box;transform-origin:center;opacity:0;animation:fighalo 2.6s ease-out infinite;animation-play-state:paused}
+.fig-lab{fill:var(--tan);font-family:'DM Mono',monospace;font-size:11px}
+.fig-sm{fill:var(--sand);font-family:'DM Mono',monospace;font-size:9.5px}
+.fig-bar{fill:var(--forest);transform-box:fill-box;transform-origin:bottom;animation:figbar 1.6s ease-in-out infinite alternate;animation-play-state:paused}
+.sec.live .fig-flow,.sec.live .fig-halo,.sec.live .fig-bar{animation-play-state:running}
+@keyframes figdash{to{stroke-dashoffset:-12}}
+@keyframes fighalo{0%{transform:scale(.5);opacity:.8}70%{opacity:0}100%{transform:scale(2.2);opacity:0}}
+@keyframes figbar{from{transform:scaleY(.35)}to{transform:scaleY(1)}}
+@media(prefers-reduced-motion:reduce){.fig-flow,.fig-halo,.fig-bar{animation:none}.fig-halo{opacity:.35}}
+.foundation{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+/* hover-scroll */
+.shots-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.shot{border:1px solid var(--panel-bd);border-radius:14px;overflow:hidden;background:#23170D;transition:transform .35s var(--ease),border-color .35s}
+.shot:hover{border-color:var(--forest);transform:translateY(-4px)}
+.shot-bar{display:flex;align-items:center;gap:.4rem;padding:.6rem 1rem;background:rgba(0,0,0,.28);border-bottom:1px solid var(--rule)}
+.shot-win{position:relative;height:360px;overflow:hidden}
+.shot-win img{position:absolute;top:0;left:0;width:100%;display:block;transition:transform 5.5s ease}
+.shot:hover .shot-win img{transform:translateY(calc(360px - 100%))}
+.shot-ph{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sand);background:repeating-linear-gradient(45deg,rgba(196,168,130,.05),rgba(196,168,130,.05) 12px,transparent 12px,transparent 24px),#2a1c10}
+.shot-hint{position:absolute;top:.6rem;right:.7rem;z-index:2;font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cream);background:rgba(10,6,3,.55);padding:.22rem .55rem;border-radius:4px;opacity:.9}
+.shot-cap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.2rem;border-top:1px solid var(--rule)}
+.shot-cap .st{font-size:1.05rem;font-weight:600;color:var(--cream)}
+.shot-cap .sk{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sand);margin-top:.2rem}
+.shot-link{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);white-space:nowrap;border:1px solid var(--rule);padding:.5rem .9rem;border-radius:7px;transition:all .3s}
+.shot-link:hover{background:var(--amber);color:var(--bg);border-color:var(--amber)}
+.hero-shot{justify-self:center;width:min(40vw,460px)}
+.hero-shot .shot-win{height:300px}.hero-shot:hover .shot-win img{transform:translateY(calc(300px - 100%))}
+@keyframes shotscroll{from{transform:translateY(0)}to{transform:translateY(calc(360px - 100%))}}
+.shot.shot-scroll.scrolling .shot-win img{animation:shotscroll 6s ease-in-out 2 alternate}
+@media (hover:none){.shot-hint{display:none}}
+@media(max-width:900px){.kpi-grid{grid-template-columns:1fr 1fr}.hero-shot{width:min(80vw,420px)}}
+@media(max-width:820px){.sysrow{grid-template-columns:1fr;gap:1.2rem}.sysrow.rev .systxt{order:1}.sysrow.rev .sysfig{order:2}}
+@media(max-width:760px){.shots-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.kpi-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
-<div class="cur-dot" id="curDot"></div>
-<div class="cur-ring" id="curRing"></div>
-<div id="prog"></div>
-
-<!-- NAV -->
-<nav id="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">Tatsuki&nbsp;<span class="nav-k">達樹</span></a>
-    <a href="index.html#projects-web" class="nav-back">← Back to work</a>
-  </div>
+<nav>
+  <a href="index.html" class="nav-logo">← Tatsuki&nbsp;<b>達樹</b></a>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="https://terra-plat.vn" target="_blank">Live site ↗</a></li><li><a href="CV.pdf">↓ CV</a></li></ul>
 </nav>
-
-<!-- HERO -->
 <section id="hero">
-  <span class="kanji-mark km-1">達</span>
-  <div class="hero-bg">
-    <div class="hero-orb ho1"></div>
-    <div class="hero-orb ho2"></div>
-    <div class="hero-orb ho3"></div>
-    <div class="grain"></div>
-  </div>
-  <div class="hero-inner">
-    <div class="hero-eyebrow">Case Study 01 - terra-plat.vn</div>
-    <h1 class="hero-title"><em>12×</em><br>organic growth,<br>built from the foundation up</h1>
-    <p class="hero-sub">Full-stack digital marketing for a B2B payroll &amp; HR SaaS platform - from website architecture and technical SEO to analytics infrastructure, content strategy, and AI-driven workflows.</p>
-    <div class="hero-stats">
-      <div class="hstat">
-        <div class="hstat-n">12×</div>
-        <div class="hstat-l">Organic clicks growth</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-n">978</div>
-        <div class="hstat-l">Keywords Top 10</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-n">55→90</div>
-        <div class="hstat-l">Site health score</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-n">18mo</div>
-        <div class="hstat-l">Sep 2024 – Present</div>
-      </div>
+  <canvas id="flow"></canvas>
+  <div class="hero-main">
+    <h1 class="hname">terra<span class="ac">-plat.vn</span></h1>
+    <div class="hjp"><span class="jp">達樹</span><span class="rule"></span><span class="rd">Featured case study · Sep 2024 → Present</span></div>
+    <p class="htag"><strong>12× organic growth</strong> for a B2B payroll &amp; HR SaaS, and the custom tooling that made it scale.</p>
+    <div class="telemetry">
+      <div class="tel"><div class="tel-n"><span data-count="12">0</span>×</div><div class="tel-l">Organic growth</div></div>
+      <div class="tel"><div class="tel-n"><span data-count="978">0</span></div><div class="tel-l">Keywords top 10</div></div>
+      <div class="tel"><div class="tel-n"><span data-count="31.4" data-dec="1">0</span>M</div><div class="tel-l">Impressions</div></div>
+      <div class="tel"><div class="tel-n">55→90</div><div class="tel-l">Site health</div></div>
     </div>
   </div>
-  <div class="hero-scroll"><div class="hero-scroll-line"></div>Scroll</div>
+  <div class="shot hero-shot">
+    <div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn</span></div>
+    <div class="shot-win"><div class="shot-ph">terra-plat.vn screenshot</div><img src="images/terra1.webp" alt="terra-plat.vn homepage" onerror="this.style.display='none'"></div>
+  </div>
 </section>
-
-<!-- OVERVIEW -->
-<section id="overview">
-  <div class="wrap sp">
-    <div class="overview-grid">
+<div class="divider"><span class="dv-line"></span><span class="dv-node"></span><span class="dv-line"></span></div>
+<section id="ctx" class="sec s-terra">
+  <div class="sbg"><div class="m m-bars"><span style="--h:0.32;animation-delay:0s"></span><span style="--h:0.55;animation-delay:0.4s"></span><span style="--h:0.4;animation-delay:0.8s"></span><span style="--h:0.72;animation-delay:0.2s"></span><span style="--h:0.48;animation-delay:0.6s"></span><span style="--h:0.85;animation-delay:0.3s"></span><span style="--h:0.42;animation-delay:0.7s"></span></div></div>
+  <div class="sec-inner">
+    <div class="sec-head fu"><h2 class="sec-title">Context &amp; <span class="ac">role</span></h2><div class="sec-meta">Project 01<br>I-Glocal Co., Ltd.</div></div>
+    <div class="about-grid">
       <div class="fu">
-        <div class="s-label">01 - Project</div>
-        <h2 class="s-title">Context &amp; <em>Role</em></h2>
-        <div class="overview-meta">
-          <div class="meta-row"><span class="meta-key">Company</span><span class="meta-val">I-Glocal Co., Ltd. - Vina Payroll Outsourcing</span></div>
-          <div class="meta-row"><span class="meta-key">Product</span><span class="meta-val">terra-plat.vn - B2B HR &amp; Payroll SaaS platform</span></div>
-          <div class="meta-row"><span class="meta-key">My role</span><span class="meta-val">Digital Marketing Staff - technical &amp; creative lead</span></div>
-          <div class="meta-row"><span class="meta-key">Team</span><span class="meta-val">Marketing Manager + Content Strategist + me</span></div>
-          <div class="meta-row"><span class="meta-key">Duration</span><span class="meta-val">Sep 2024 – Present (18 months)</span></div>
-          <div class="meta-row"><span class="meta-key">Stack</span><span class="meta-val">WordPress · Elementor · GA4 · GSC · Clarity · Semrush · Adobe Suite</span></div>
-        </div>
-        <div class="context-card">
-          <div class="context-card-label">The mandate</div>
-          <div class="context-card-text">When I joined, terra-plat.vn was at an early stage of organic development — ~170 clicks/day, Semrush health 55, GA4 not yet configured. The remit was full-stack: build the SEO foundation, analytics infrastructure, and content engine in parallel, with bilingual support for FDI decision-makers from day one.</div>
-        </div>
+        <p class="lead-xl">Joined at <strong>~170 clicks/day</strong>, health 55, no GA4. Sole tech &amp; creative lead.</p>
+        <p class="bio-p">terra is a B2B payroll &amp; HR SaaS for <strong>FDI enterprises</strong> in Vietnam, selling to HR managers and CFOs through a long, research-heavy, bilingual buyer journey (VI + EN for Japanese and European decision-makers). The mandate was full-stack: build the SEO foundation, the analytics layer, and the content engine in parallel, then make all of it run without me.</p>
       </div>
-      <div class="fu" data-d="1">
-        <div class="s-label">Target audience</div>
-        <div class="overview-body">
-          <p><strong>terra</strong> serves FDI companies and mid-to-large enterprises operating in Vietnam - primarily <strong>HR managers, CFOs, and business owners</strong> who need compliant payroll outsourcing, HR consulting, and accounting services.</p>
-          <p>The B2B buyer journey is long, research-heavy, and multilingual (Vietnamese + English for Japanese/European decision-makers). Content needs to earn trust before it earns leads.</p>
-          <p>My scope covered everything technical and creative: the website, SEO, analytics, ads monitoring, social assets, video production, and branding materials - while collaborating with the manager on strategy direction and the content strategist on editorial calendar.</p>
-        </div>
+      <div class="panel fu" data-d="1">
+        <div class="spec-row"><span class="spec-k">Company</span><span class="spec-v">I-Glocal · Vina Payroll</span></div>
+        <div class="spec-row"><span class="spec-k">Role</span><span class="spec-v">Tech &amp; creative lead</span></div>
+        <div class="spec-row"><span class="spec-k">Team</span><span class="spec-v">Manager + Strategist + me</span></div>
+        <div class="spec-row"><span class="spec-k">Duration</span><span class="spec-v">Sep 2024 → Present</span></div>
+        <div class="spec-row"><span class="spec-k">Audience</span><span class="spec-v">FDI · JP / EU buyers</span></div>
+        <div class="spec-row"><span class="spec-k">Stack</span><span class="spec-v">WP · Elementor · GA4/GSC</span></div>
       </div>
     </div>
   </div>
 </section>
-
-<!-- WHAT I BUILT -->
-<section id="built">
-  <div class="wrap sp">
-    <div class="fu">
-      <div class="s-label">02 - Scope</div>
-      <h2 class="s-title">What I <em>owned</em></h2>
-      <p class="built-intro">This wasn't a single-channel role. Over 18 months I touched every layer of the digital stack - from crawl infrastructure to creative production. Here's what I built and owned.</p>
-    </div>
-    <div class="scope-grid fu" data-d="1">
-      <div class="scope-item">
-        <div class="scope-num">01</div>
-        <div class="scope-title">Website Architecture</div>
-        <div class="scope-desc">Full architecture build on WordPress + Elementor. Service page hierarchy, URL logic, internal linking. Bilingual structure (VI/EN) for local and FDI audiences.</div>
-      </div>
-      <div class="scope-item">
-        <div class="scope-num">02</div>
-        <div class="scope-title">Technical SEO</div>
-        <div class="scope-desc">Schema markup (JSON-LD), sitemap, robots.txt, Core Web Vitals, redirect chains, crawl error resolution. Health score: 55 → 90.</div>
-      </div>
-      <div class="scope-item">
-        <div class="scope-num">03</div>
-        <div class="scope-title">SEO Content Strategy</div>
-        <div class="scope-desc">Keyword research, content calendar, service pages, blog articles, utility tools. 978 keywords now ranking in Google Top 10.</div>
-      </div>
-      <div class="scope-item">
-        <div class="scope-num">04</div>
-        <div class="scope-title">Analytics Infrastructure</div>
-        <div class="scope-desc">GA4 setup from scratch - event tracking, conversion goals, source segmentation. GSC + Microsoft Clarity. Weekly BOD dashboard.</div>
-      </div>
-      <div class="scope-item">
-        <div class="scope-num">05</div>
-        <div class="scope-title">AI-Augmented Workflows</div>
-        <div class="scope-desc">Built prompt-based content pipelines with Claude + ChatGPT. Automated reporting. ~40% reduction in production turnaround. All output manually reviewed.</div>
-      </div>
-      <div class="scope-item">
-        <div class="scope-num">06</div>
-        <div class="scope-title">Creative Production</div>
-        <div class="scope-desc">Video production, graphic design, brochures, banners, ad creatives. Adobe Suite end-to-end. Supported social media content and paid ads monitoring.</div>
-      </div>
+<div class="divider"><span class="dv-line"></span><span class="dv-node"></span><span class="dv-line"></span></div>
+<section id="systems" class="sec s-about">
+  <div class="sbg"><div class="m m-radar"><span></span><span></span><span></span><i></i></div></div>
+  <div class="sec-inner">
+    <div class="sec-head fu"><h2 class="sec-title">Systems I <span class="ac">built</span></h2><div class="sec-meta">Engineering 02<br>Marketer who ships code</div></div>
+    <p class="slead fu" style="margin-bottom:1.6rem">The growth did not come from effort alone. I built the tooling that let a small, non-technical team publish, measure, and convert on its own. Each system solves a different bottleneck, so each one is shaped differently.</p>
+    <div class="sysrow fu" data-d="1"><div class="systxt"><div class="sys-n">// WordPress plugin</div><div class="sys-t">Page Publisher</div><div class="sys-d">Paste an HTML layout, get a live Elementor page. Every image is auto-converted to WebP and described with AI alt text, batched into a single API call per page.</div><div class="sys-impact">Removed the manual image-prep and rebuild step, so the team ships pages without touching code.</div><div class="sys-tags"><span class="pill">WordPress plugin</span><span class="pill">Gemini</span><span class="pill">WebP</span></div></div><div class="sysfig"><svg class="fig" viewBox="0 0 460 220" role="img" aria-label="process diagram"><line class="fig-base" x1="45" y1="110" x2="175" y2="62"/><line class="fig-flow" x1="45" y1="110" x2="175" y2="62"/><line class="fig-base" x1="45" y1="110" x2="175" y2="94"/><line class="fig-flow" x1="45" y1="110" x2="175" y2="94"/><line class="fig-base" x1="45" y1="110" x2="175" y2="126"/><line class="fig-flow" x1="45" y1="110" x2="175" y2="126"/><line class="fig-base" x1="45" y1="110" x2="175" y2="158"/><line class="fig-flow" x1="45" y1="110" x2="175" y2="158"/><line class="fig-base" x1="175" y1="62" x2="310" y2="110"/><line class="fig-flow" x1="175" y1="62" x2="310" y2="110"/><line class="fig-base" x1="175" y1="94" x2="310" y2="110"/><line class="fig-flow" x1="175" y1="94" x2="310" y2="110"/><line class="fig-base" x1="175" y1="126" x2="310" y2="110"/><line class="fig-flow" x1="175" y1="126" x2="310" y2="110"/><line class="fig-base" x1="175" y1="158" x2="310" y2="110"/><line class="fig-flow" x1="175" y1="158" x2="310" y2="110"/><line class="fig-base" x1="310" y1="110" x2="408" y2="110"/><line class="fig-flow" x1="310" y1="110" x2="408" y2="110"/><circle class="fig-halo" cx="45" cy="110" r="12" style="animation-delay:0s"/><circle class="fig-node" cx="45" cy="110" r="7"/><circle class="fig-core" cx="45" cy="110" r="3"/><circle class="fig-halo" cx="175" cy="62" r="10" style="animation-delay:0.3s"/><circle class="fig-node" cx="175" cy="62" r="5"/><circle class="fig-core" cx="175" cy="62" r="3"/><circle class="fig-halo" cx="175" cy="94" r="10" style="animation-delay:0.3s"/><circle class="fig-node" cx="175" cy="94" r="5"/><circle class="fig-core" cx="175" cy="94" r="3"/><circle class="fig-halo" cx="175" cy="126" r="10" style="animation-delay:0.3s"/><circle class="fig-node" cx="175" cy="126" r="5"/><circle class="fig-core" cx="175" cy="126" r="3"/><circle class="fig-halo" cx="175" cy="158" r="10" style="animation-delay:0.3s"/><circle class="fig-node" cx="175" cy="158" r="5"/><circle class="fig-core" cx="175" cy="158" r="3"/><circle class="fig-halo" cx="310" cy="110" r="12" style="animation-delay:0.8s"/><circle class="fig-node" cx="310" cy="110" r="7"/><circle class="fig-core" cx="310" cy="110" r="3"/><circle class="fig-halo" cx="408" cy="110" r="12" style="animation-delay:1.2s"/><circle class="fig-node" cx="408" cy="110" r="7"/><circle class="fig-core" cx="408" cy="110" r="3"/><text class="fig-lab" x="45" y="140" text-anchor="middle">HTML paste</text><text class="fig-lab" x="175" y="40" text-anchor="middle">images → WebP</text><text class="fig-lab" x="310" y="140" text-anchor="middle">AI alt</text><text class="fig-sm" x="310" y="156" text-anchor="middle">1 batched call</text><text class="fig-lab" x="408" y="140" text-anchor="middle">Live page</text></svg></div></div><div class="sysrow rev fu" data-d="1"><div class="systxt"><div class="sys-n">// WPCode + AI</div><div class="sys-t">HR Column Publisher</div><div class="sys-d">A Word doc goes in; one Gemini pass sprays out the five SEO fields (focus keyword, title, meta, slug, supporting keywords) and applies them on publish.</div><div class="sys-impact">~1 hour of manual formatting per article became one click. A non-technical producer now publishes Japanese Q&amp;A independently.</div><div class="sys-tags"><span class="pill">mammoth.js</span><span class="pill">Gemini 2.5</span><span class="pill">Polylang</span></div></div><div class="sysfig"><svg class="fig" viewBox="0 0 460 220" role="img" aria-label="process diagram"><line class="fig-base" x1="45" y1="112" x2="150" y2="112"/><line class="fig-flow" x1="45" y1="112" x2="150" y2="112"/><line class="fig-base" x1="150" y1="112" x2="296" y2="40"/><line class="fig-flow" x1="150" y1="112" x2="296" y2="40"/><line class="fig-base" x1="150" y1="112" x2="296" y2="76"/><line class="fig-flow" x1="150" y1="112" x2="296" y2="76"/><line class="fig-base" x1="150" y1="112" x2="296" y2="112"/><line class="fig-flow" x1="150" y1="112" x2="296" y2="112"/><line class="fig-base" x1="150" y1="112" x2="296" y2="148"/><line class="fig-flow" x1="150" y1="112" x2="296" y2="148"/><line class="fig-base" x1="150" y1="112" x2="296" y2="184"/><line class="fig-flow" x1="150" y1="112" x2="296" y2="184"/><circle class="fig-halo" cx="45" cy="112" r="12" style="animation-delay:0s"/><circle class="fig-node" cx="45" cy="112" r="7"/><circle class="fig-core" cx="45" cy="112" r="3"/><circle class="fig-halo" cx="150" cy="112" r="14" style="animation-delay:0.3s"/><circle class="fig-node" cx="150" cy="112" r="9"/><circle class="fig-core" cx="150" cy="112" r="3"/><circle class="fig-halo" cx="296" cy="40" r="10" style="animation-delay:0.5s"/><circle class="fig-node" cx="296" cy="40" r="5"/><circle class="fig-core" cx="296" cy="40" r="3"/><text class="fig-sm" x="308" y="44" text-anchor="start">focus keyword</text><circle class="fig-halo" cx="296" cy="76" r="10" style="animation-delay:0.72s"/><circle class="fig-node" cx="296" cy="76" r="5"/><circle class="fig-core" cx="296" cy="76" r="3"/><text class="fig-sm" x="308" y="80" text-anchor="start">title</text><circle class="fig-halo" cx="296" cy="112" r="10" style="animation-delay:0.94s"/><circle class="fig-node" cx="296" cy="112" r="5"/><circle class="fig-core" cx="296" cy="112" r="3"/><text class="fig-sm" x="308" y="116" text-anchor="start">meta description</text><circle class="fig-halo" cx="296" cy="148" r="10" style="animation-delay:1.1600000000000001s"/><circle class="fig-node" cx="296" cy="148" r="5"/><circle class="fig-core" cx="296" cy="148" r="3"/><text class="fig-sm" x="308" y="152" text-anchor="start">slug</text><circle class="fig-halo" cx="296" cy="184" r="10" style="animation-delay:1.38s"/><circle class="fig-node" cx="296" cy="184" r="5"/><circle class="fig-core" cx="296" cy="184" r="3"/><text class="fig-sm" x="308" y="188" text-anchor="start">supporting kw</text><text class="fig-lab" x="45" y="140" text-anchor="middle">Word doc</text><text class="fig-lab" x="150" y="140" text-anchor="middle">Gemini 2.5</text><text class="fig-sm" x="150" y="210" text-anchor="middle">→ Polylang JA · Rank Math · 1-click publish</text></svg></div></div><div class="sysrow fu" data-d="1"><div class="systxt"><div class="sys-n">// Data layer</div><div class="sys-t">Marketing data hub</div><div class="sys-d">Three sources (Search Console, GA4, PageSpeed) funnel through an Apps Script pipeline into Google Sheets, refreshed automatically into a weekly board-level dashboard.</div><div class="sys-impact">Reporting that used to be manual now runs itself, feeding decisions weekly.</div><div class="sys-tags"><span class="pill">Apps Script</span><span class="pill">GSC / GA4</span><span class="pill">~13 MCP servers</span></div></div><div class="sysfig"><svg class="fig" viewBox="0 0 460 220" role="img" aria-label="process diagram"><line class="fig-base" x1="70" y1="58" x2="196" y2="112"/><line class="fig-flow" x1="70" y1="58" x2="196" y2="112"/><line class="fig-base" x1="70" y1="112" x2="196" y2="112"/><line class="fig-flow" x1="70" y1="112" x2="196" y2="112"/><line class="fig-base" x1="70" y1="166" x2="196" y2="112"/><line class="fig-flow" x1="70" y1="166" x2="196" y2="112"/><line class="fig-base" x1="196" y1="112" x2="300" y2="112"/><line class="fig-flow" x1="196" y1="112" x2="300" y2="112"/><line class="fig-base" x1="300" y1="112" x2="404" y2="112"/><line class="fig-flow" x1="300" y1="112" x2="404" y2="112"/><circle class="fig-halo" cx="70" cy="58" r="12" style="animation-delay:0s"/><circle class="fig-node" cx="70" cy="58" r="7"/><circle class="fig-core" cx="70" cy="58" r="3"/><text class="fig-sm" x="56" y="62" text-anchor="end">GSC</text><circle class="fig-halo" cx="70" cy="112" r="12" style="animation-delay:0.2s"/><circle class="fig-node" cx="70" cy="112" r="7"/><circle class="fig-core" cx="70" cy="112" r="3"/><text class="fig-sm" x="56" y="116" text-anchor="end">GA4</text><circle class="fig-halo" cx="70" cy="166" r="12" style="animation-delay:0.4s"/><circle class="fig-node" cx="70" cy="166" r="7"/><circle class="fig-core" cx="70" cy="166" r="3"/><text class="fig-sm" x="56" y="170" text-anchor="end">PSI</text><circle class="fig-halo" cx="196" cy="112" r="12" style="animation-delay:0.7s"/><circle class="fig-node" cx="196" cy="112" r="7"/><circle class="fig-core" cx="196" cy="112" r="3"/><circle class="fig-halo" cx="300" cy="112" r="12" style="animation-delay:1.0s"/><circle class="fig-node" cx="300" cy="112" r="7"/><circle class="fig-core" cx="300" cy="112" r="3"/><circle class="fig-halo" cx="404" cy="112" r="12" style="animation-delay:1.3s"/><circle class="fig-node" cx="404" cy="112" r="7"/><circle class="fig-core" cx="404" cy="112" r="3"/><rect class="fig-bar" x="392" y="74" width="5" height="22" rx="1" style="animation-delay:0.0s"/><rect class="fig-bar" x="400" y="74" width="5" height="22" rx="1" style="animation-delay:0.2s"/><rect class="fig-bar" x="408" y="74" width="5" height="22" rx="1" style="animation-delay:0.4s"/><rect class="fig-bar" x="416" y="74" width="5" height="22" rx="1" style="animation-delay:0.6000000000000001s"/><text class="fig-lab" x="196" y="142" text-anchor="middle">Apps Script</text><text class="fig-lab" x="300" y="142" text-anchor="middle">Sheets</text><text class="fig-lab" x="404" y="142" text-anchor="middle">Dashboard</text></svg></div></div><div class="sysrow rev fu" data-d="1"><div class="systxt"><div class="sys-n">// Lead gen</div><div class="sys-t">Whitepaper + CRM hub</div><div class="sys-d">One form, two outcomes: the visitor gets the PDF, and a webhook pushes the lead straight into Bizfly CRM at the same moment.</div><div class="sys-impact">Turned static PDFs into a measurable lead-generation channel.</div><div class="sys-tags"><span class="pill">ACF</span><span class="pill">Contact Form 7</span><span class="pill">Bizfly webhook</span></div></div><div class="sysfig"><svg class="fig" viewBox="0 0 460 220" role="img" aria-label="process diagram"><line class="fig-base" x1="45" y1="112" x2="150" y2="112"/><line class="fig-flow" x1="45" y1="112" x2="150" y2="112"/><line class="fig-base" x1="150" y1="112" x2="278" y2="58"/><line class="fig-flow" x1="150" y1="112" x2="278" y2="58"/><line class="fig-base" x1="278" y1="58" x2="402" y2="58"/><line class="fig-flow" x1="278" y1="58" x2="402" y2="58"/><line class="fig-base" x1="150" y1="112" x2="278" y2="166"/><line class="fig-flow" x1="150" y1="112" x2="278" y2="166"/><line class="fig-base" x1="278" y1="166" x2="402" y2="166"/><line class="fig-flow" x1="278" y1="166" x2="402" y2="166"/><circle class="fig-halo" cx="45" cy="112" r="12" style="animation-delay:0s"/><circle class="fig-node" cx="45" cy="112" r="7"/><circle class="fig-core" cx="45" cy="112" r="3"/><circle class="fig-halo" cx="150" cy="112" r="14" style="animation-delay:0.3s"/><circle class="fig-node" cx="150" cy="112" r="9"/><circle class="fig-core" cx="150" cy="112" r="3"/><circle class="fig-halo" cx="278" cy="58" r="12" style="animation-delay:0.6s"/><circle class="fig-node" cx="278" cy="58" r="7"/><circle class="fig-core" cx="278" cy="58" r="3"/><circle class="fig-halo" cx="402" cy="58" r="12" style="animation-delay:0.9s"/><circle class="fig-node" cx="402" cy="58" r="7"/><circle class="fig-core" cx="402" cy="58" r="3"/><circle class="fig-halo" cx="278" cy="166" r="12" style="animation-delay:0.6s"/><circle class="fig-node" cx="278" cy="166" r="7"/><circle class="fig-core" cx="278" cy="166" r="3"/><circle class="fig-halo" cx="402" cy="166" r="12" style="animation-delay:0.9s"/><circle class="fig-node" cx="402" cy="166" r="7"/><circle class="fig-core" cx="402" cy="166" r="3"/><text class="fig-lab" x="45" y="140" text-anchor="middle">Visitor</text><text class="fig-lab" x="150" y="140" text-anchor="middle">CF7 form</text><text class="fig-lab" x="278" y="46" text-anchor="middle">PDF</text><text class="fig-sm" x="402" y="46" text-anchor="middle">User download</text><text class="fig-lab" x="278" y="188" text-anchor="middle">Webhook</text><text class="fig-sm" x="402" y="188" text-anchor="middle">Bizfly CRM lead</text></svg></div></div>
+    <div class="stack-h fu" style="margin-top:1.6rem">// Plus the foundation</div>
+    <div class="foundation fu"><span class="pill">Website architecture (VI/EN)</span><span class="pill">Technical SEO · schema · CWV</span><span class="pill">Content strategy · 978 Top-10 KW</span><span class="pill">GA4 from scratch</span><span class="pill">News &amp; whitepaper sections</span><span class="pill">Video &amp; creative production</span></div>
+  </div>
+</section>
+<div class="divider"><span class="dv-line"></span><span class="dv-node"></span><span class="dv-line"></span></div>
+<section id="pages" class="sec s-work">
+  <div class="sbg"><div class="m m-stripes"></div></div>
+  <div class="sec-inner">
+    <div class="sec-head fu"><h2 class="sec-title">Recent <span class="ac">page launches</span></h2><div class="sec-meta">Built 03<br>Live production</div></div>
+    <p class="slead fu" style="margin-bottom:1.8rem">Pages I shipped end-to-end: keyword strategy, copy, layout, on-page SEO, and technical implementation. Hover a screenshot to scroll the full page.</p>
+    <div class="shots-grid fu" data-d="1">
+      <div class="shot shot-scroll"><div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn/en/hr-outsourcing-services-in-vietnam</span></div><div class="shot-win"><div class="shot-ph">full-page screenshot</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-outsourcing-preview.webp" alt="HR Outsourcing Services" loading="lazy" onerror="this.style.display='none'"></div><div class="shot-cap"><div><div class="st">HR Outsourcing Services</div><div class="sk">Service page · EN</div></div><a class="shot-link" href="https://terra-plat.vn/en/hr-outsourcing-services-in-vietnam" target="_blank">Live ↗</a></div></div>
+      <div class="shot shot-scroll"><div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn/en/hr-compliance-consulting-vietnam</span></div><div class="shot-win"><div class="shot-ph">full-page screenshot</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-compliance-preview.webp" alt="HR Compliance Consulting" loading="lazy" onerror="this.style.display='none'"></div><div class="shot-cap"><div><div class="st">HR Compliance Consulting</div><div class="sk">Service page · EN</div></div><a class="shot-link" href="https://terra-plat.vn/en/hr-compliance-consulting-vietnam" target="_blank">Live ↗</a></div></div>
+      <div class="shot shot-scroll"><div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn/en/terra-hr-system</span></div><div class="shot-win"><div class="shot-ph">full-page screenshot</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-hrsystem-preview.webp" alt="terra HR System" loading="lazy" onerror="this.style.display='none'"></div><div class="shot-cap"><div><div class="st">terra HR System</div><div class="sk">Product page · EN</div></div><a class="shot-link" href="https://terra-plat.vn/en/terra-hr-system" target="_blank">Live ↗</a></div></div>
+      <div class="shot shot-scroll"><div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn/vi/cau-chuyen-khach-hang</span></div><div class="shot-win"><div class="shot-ph">full-page screenshot</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-customers-preview.webp" alt="Câu chuyện khách hàng" loading="lazy" onerror="this.style.display='none'"></div><div class="shot-cap"><div><div class="st">Câu chuyện khách hàng</div><div class="sk">Case study hub · VI</div></div><a class="shot-link" href="https://terra-plat.vn/vi/cau-chuyen-khach-hang" target="_blank">Live ↗</a></div></div>
     </div>
   </div>
 </section>
-
-<!-- PAGES SHOWCASE -->
-<section id="pages">
-  <div class="wrap sp">
-    <div class="fu">
-      <div class="s-label" style="color:rgba(196,168,130,.5)">03 - Pages Built</div>
-      <h2 class="s-title" style="color:var(--cream)">Recent <em>page launches</em></h2>
-      <p class="pages-intro">A small selection of the most recent pages I shipped end-to-end - keyword strategy, copy, Elementor layout, on-page SEO, and technical implementation. The site has dozens of pages I designed and built across services, blog clusters, landing pages, and bilingual variants - these four are simply the latest. All are live production pages, not mockups.</p>
+<div class="divider"><span class="dv-line"></span><span class="dv-node"></span><span class="dv-line"></span></div>
+<section id="results" class="sec s-video">
+  <div class="sbg"><div class="m m-eq"><span style="animation-delay:0s"></span><span style="animation-delay:0.3s"></span><span style="animation-delay:0.6s"></span><span style="animation-delay:0.2s"></span><span style="animation-delay:0.5s"></span><span style="animation-delay:0.85s"></span><span style="animation-delay:0.1s"></span><span style="animation-delay:0.45s"></span><span style="animation-delay:0.7s"></span><span style="animation-delay:0.25s"></span><span style="animation-delay:0.55s"></span><span style="animation-delay:0.9s"></span><span style="animation-delay:0.15s"></span><span style="animation-delay:0.4s"></span><span style="animation-delay:0.65s"></span><span style="animation-delay:0.35s"></span></div></div>
+  <div class="sec-inner">
+    <div class="sec-head fu"><h2 class="sec-title">The <span class="ac">numbers</span></h2><div class="sec-meta">Results 04<br>GSC + Semrush</div></div>
+    <div class="kpi-grid fu">
+      <div class="kpi"><div class="kpi-n">175 → 2,137</div><div class="kpi-l">Daily clicks</div><div class="kpi-sub">launch to peak</div></div>
+      <div class="kpi"><div class="kpi-n"><span data-count="12.2" data-dec="1">0</span>×</div><div class="kpi-l">Growth multiplier</div><div class="kpi-sub">predominantly organic</div></div>
+      <div class="kpi"><div class="kpi-n"><span data-count="449965">0</span></div><div class="kpi-l">Total clicks</div><div class="kpi-sub">17 months</div></div>
+      <div class="kpi"><div class="kpi-n"><span data-count="31.4" data-dec="1">0</span>M</div><div class="kpi-l">Impressions</div><div class="kpi-sub">Google Search</div></div>
+      <div class="kpi"><div class="kpi-n"><span data-count="978">0</span></div><div class="kpi-l">Keywords Top 10</div><div class="kpi-sub">Google ranking</div></div>
+      <div class="kpi"><div class="kpi-n">55 → 90</div><div class="kpi-l">Site health</div><div class="kpi-sub">Semrush</div></div>
     </div>
-    <div class="pages-track fu" data-d="1">
-      <a href="https://terra-plat.vn/en/hr-outsourcing-services-in-vietnam" target="_blank" class="page-card">
-        <div class="page-thumb">
-          <img src="images/terra-outsourcing-preview.webp" alt="HR Outsourcing Vietnam">
-        </div>
-        <div class="page-info">
-          <div class="page-tag">Service Page · EN</div>
-          <div class="page-name">HR Outsourcing Services in Vietnam</div>
-          <div class="page-url">terra-plat.vn/en/hr-outsourcing-services-in-vietnam</div>
-          <div class="page-link">View live page →</div>
-        </div>
-      </a>
-      <a href="https://terra-plat.vn/en/hr-compliance-consulting-vietnam" target="_blank" class="page-card">
-        <div class="page-thumb">
-          <img src="images/terra-compliance-preview.webp" alt="HR Compliance Consulting">
-        </div>
-        <div class="page-info">
-          <div class="page-tag">Service Page · EN</div>
-          <div class="page-name">HR Compliance Consulting in Vietnam</div>
-          <div class="page-url">terra-plat.vn/en/hr-compliance-consulting-vietnam</div>
-          <div class="page-link">View live page →</div>
-        </div>
-      </a>
-      <a href="https://terra-plat.vn/en/terra-hr-system" target="_blank" class="page-card">
-        <div class="page-thumb">
-          <img src="images/terra-hrsystem-preview.webp" alt="Terra HR System">
-        </div>
-        <div class="page-info">
-          <div class="page-tag">Product Page · EN</div>
-          <div class="page-name">terra HR System</div>
-          <div class="page-url">terra-plat.vn/en/terra-hr-system</div>
-          <div class="page-link">View live page →</div>
-        </div>
-      </a>
-      <a href="https://terra-plat.vn/vi/cau-chuyen-khach-hang" target="_blank" class="page-card">
-        <div class="page-thumb">
-          <img src="images/terra-customers-preview.webp" alt="Customer Stories">
-        </div>
-        <div class="page-info">
-          <div class="page-tag">Case Study Hub · VI</div>
-          <div class="page-name">Câu chuyện khách hàng</div>
-          <div class="page-url">terra-plat.vn/vi/cau-chuyen-khach-hang</div>
-          <div class="page-link">View live page →</div>
-        </div>
-      </a>
+    <div class="panel feature-screen fu" data-d="1">
+      <div class="mock-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">Google Search Console · monthly clicks</span></div>
+      <div class="screen-body">
+        <svg class="gchart" viewBox="0 0 600 180" preserveAspectRatio="none" style="height:200px">
+          <defs><linearGradient id="gareaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#79B488" stop-opacity=".32"/><stop offset="1" stop-color="#79B488" stop-opacity="0"/></linearGradient></defs>
+          <path class="garea" d="M0.0,162.2 L37.5,155.7 L75.0,148.4 L112.5,136.3 L150.0,131.7 L187.5,140.4 L225.0,144.5 L262.5,135.5 L300.0,63.5 L337.5,35.0 L375.0,108.7 L412.5,104.5 L450.0,57.5 L487.5,32.3 L525.0,100.1 L562.5,12.0 L600.0,128.2 L600,180 L0,180 Z"/><path class="gline" d="M0.0,162.2 L37.5,155.7 L75.0,148.4 L112.5,136.3 L150.0,131.7 L187.5,140.4 L225.0,144.5 L262.5,135.5 L300.0,63.5 L337.5,35.0 L375.0,108.7 L412.5,104.5 L450.0,57.5 L487.5,32.3 L525.0,100.1 L562.5,12.0 L600.0,128.2"/><circle class="gdot" cx="562.5" cy="12.0" r="5.5"/>
+        </svg>
+        <div class="chart-x"><span>Dec '24</span><span>Apr '25</span><span>Aug '25</span><span>Dec '25</span><span>Mar '26</span></div>
+        <div class="gcap" style="margin-top:.6rem">Monthly organic clicks · Dec 2024 → Apr 2026 · peak 66.3K in Mar 2026 (2,137/day)</div>
+      </div>
     </div>
+    <div class="readnote fu" data-d="1">A note on reading the curve: the 12× and 2,137 clicks/day figures are the <strong>peak reached over 17 months</strong> (March 2026), not a current-state claim. Organic compressed through Q2 2026 as impressions and rankings shifted across the category. I caught the drop early in the same GSC pipeline I built, which is exactly what that pipeline is for.</div>
+    <div class="ctas fu" style="margin-top:2rem"><a href="https://terra-plat.vn" target="_blank" class="btn-fill">Visit terra-plat.vn ↗</a><a href="index.html" class="btn-line">← Back to all work</a></div>
   </div>
 </section>
-
-<!-- RESULTS -->
-<section id="results">
-  <div class="wrap sp">
-    <div class="results-grid">
-      <div class="fu">
-        <div class="s-label">04 - Results</div>
-        <h2 class="s-title">The <em>numbers</em></h2>
-        <p class="results-note">All numbers from Google Search Console (Dec 2024 - Apr 2026) and Semrush. Predominantly organic — paid ads were monitored but not the primary growth driver.</p>
-        <div class="metric-list">
-          <div class="metric-row">
-            <span class="metric-label">Daily clicks growth</span>
-            <span class="metric-val">175 → 2,137</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Growth multiplier</span>
-            <span class="metric-val">12.2×</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Total clicks (17 months)</span>
-            <span class="metric-val">449,965</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Total impressions</span>
-            <span class="metric-val">31.4M</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Keywords ranking Top 10</span>
-            <span class="metric-val">978</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Site health (Semrush)</span>
-            <span class="metric-val">55 → 90</span>
-          </div>
-        </div>
-      </div>
-      <div class="fu" data-d="1">
-        <div class="chart-wrap">
-<svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" class="growth-chart" role="img" aria-label="Monthly organic clicks growth Dec 2024 to Apr 2026">
-<defs>
-<linearGradient id="areaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-  <stop offset="0%" stop-color="#1B6B58" stop-opacity="0.25"/>
-  <stop offset="100%" stop-color="#1B6B58" stop-opacity="0.02"/>
-</linearGradient>
-<linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-  <stop offset="0%" stop-color="#2A8C72"/>
-  <stop offset="100%" stop-color="#1B6B58"/>
-</linearGradient>
-</defs>
-<line x1="60" y1="310.0" x2="696" y2="310.0" stroke="rgba(196,168,130,0.18)" stroke-width="1" stroke-dasharray="2 4"/>
-<text x="50" y="314.0" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="rgba(155,102,69,0.6)" letter-spacing="0.05em">0</text>
-<line x1="60" y1="217.1" x2="696" y2="217.1" stroke="rgba(196,168,130,0.18)" stroke-width="1" stroke-dasharray="2 4"/>
-<text x="50" y="221.1" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="rgba(155,102,69,0.6)" letter-spacing="0.05em">25K</text>
-<line x1="60" y1="124.3" x2="696" y2="124.3" stroke="rgba(196,168,130,0.18)" stroke-width="1" stroke-dasharray="2 4"/>
-<text x="50" y="128.3" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="rgba(155,102,69,0.6)" letter-spacing="0.05em">50K</text>
-<line x1="60" y1="50.0" x2="696" y2="50.0" stroke="rgba(196,168,130,0.18)" stroke-width="1" stroke-dasharray="2 4"/>
-<text x="50" y="54.0" text-anchor="end" font-family="DM Mono,monospace" font-size="10" fill="rgba(155,102,69,0.6)" letter-spacing="0.05em">70K</text>
-<path d="M 60.0 300.9 C 68.0 298.8, 83.8 295.0, 99.8 290.6 C 115.7 286.2, 123.6 285.1, 139.5 279.0 C 155.4 272.9, 163.3 265.2, 179.2 259.9 C 195.2 254.7, 203.1 251.4, 219.0 252.7 C 234.9 254.0, 242.8 262.5, 258.8 266.5 C 274.6 270.6, 282.6 274.5, 298.5 273.0 C 314.4 271.4, 322.4 284.3, 338.2 258.8 C 354.1 233.2, 362.1 176.8, 378.0 145.1 C 393.9 113.4, 401.9 86.0, 417.8 100.3 C 433.6 114.5, 441.6 194.5, 457.5 216.4 C 473.4 238.3, 481.4 226.0, 497.2 209.9 C 513.1 193.7, 521.1 158.4, 537.0 135.7 C 552.9 112.9, 560.9 82.5, 576.8 96.0 C 592.6 109.4, 600.6 209.3, 616.5 202.9 C 632.4 196.5, 640.4 55.0, 656.2 63.9 C 672.1 72.8, 688.0 210.6, 696.0 247.3 L 696.0 310.0 L 60.0 310.0 Z" fill="url(#areaGrad)" class="chart-area"/>
-<path d="M 60.0 300.9 C 68.0 298.8, 83.8 295.0, 99.8 290.6 C 115.7 286.2, 123.6 285.1, 139.5 279.0 C 155.4 272.9, 163.3 265.2, 179.2 259.9 C 195.2 254.7, 203.1 251.4, 219.0 252.7 C 234.9 254.0, 242.8 262.5, 258.8 266.5 C 274.6 270.6, 282.6 274.5, 298.5 273.0 C 314.4 271.4, 322.4 284.3, 338.2 258.8 C 354.1 233.2, 362.1 176.8, 378.0 145.1 C 393.9 113.4, 401.9 86.0, 417.8 100.3 C 433.6 114.5, 441.6 194.5, 457.5 216.4 C 473.4 238.3, 481.4 226.0, 497.2 209.9 C 513.1 193.7, 521.1 158.4, 537.0 135.7 C 552.9 112.9, 560.9 82.5, 576.8 96.0 C 592.6 109.4, 600.6 209.3, 616.5 202.9 C 632.4 196.5, 640.4 55.0, 656.2 63.9 C 672.1 72.8, 688.0 210.6, 696.0 247.3" fill="none" stroke="url(#lineGrad)" stroke-width="2.5" class="chart-line"/>
-<circle cx="60.0" cy="300.9" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2024-12: 2,450 clicks</title></circle>
-<circle cx="99.8" cy="290.6" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-01: 5,225 clicks</title></circle>
-<circle cx="139.5" cy="279.0" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-02: 8,343 clicks</title></circle>
-<circle cx="179.2" cy="259.9" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-03: 13,479 clicks</title></circle>
-<circle cx="219.0" cy="252.7" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-04: 15,428 clicks</title></circle>
-<circle cx="258.8" cy="266.5" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-05: 11,706 clicks</title></circle>
-<circle cx="298.5" cy="273.0" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-06: 9,970 clicks</title></circle>
-<circle cx="338.2" cy="258.8" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-07: 13,796 clicks</title></circle>
-<circle cx="378.0" cy="145.1" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-08: 44,401 clicks</title></circle>
-<circle cx="417.8" cy="100.3" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-09: 56,468 clicks</title></circle>
-<circle cx="457.5" cy="216.4" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-10: 25,197 clicks</title></circle>
-<circle cx="497.2" cy="209.9" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-11: 26,963 clicks</title></circle>
-<circle cx="537.0" cy="135.7" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2025-12: 46,939 clicks</title></circle>
-<circle cx="576.8" cy="96.0" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2026-01: 57,619 clicks</title></circle>
-<circle cx="616.5" cy="202.9" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2026-02: 28,839 clicks</title></circle>
-<circle cx="656.2" cy="63.9" r="5" fill="#1B6B58" stroke="#1B6B58" stroke-width="1.5" class="chart-dot  peak"><title>2026-03: 66,256 clicks</title></circle>
-<circle cx="696.0" cy="247.3" r="3" fill="#FAF8F4" stroke="#1B6B58" stroke-width="1.5" class="chart-dot"><title>2026-04: 16,886 clicks</title></circle>
-<text x="60.0" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Dec '24</text>
-<text x="139.5" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Feb '25</text>
-<text x="219.0" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Apr '25</text>
-<text x="298.5" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Jun '25</text>
-<text x="378.0" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Aug '25</text>
-<text x="457.5" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Oct '25</text>
-<text x="537.0" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Dec '25</text>
-<text x="616.5" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Feb '26</text>
-<text x="696.0" y="328" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.05em">Apr '26</text>
-<line x1="60.0" y1="300.9" x2="60.0" y2="286.9" stroke="rgba(107,66,38,0.65)" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.5"/>
-<text x="60.0" y="280.9" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="rgba(107,66,38,0.65)" font-weight="400" font-style="italic">Onboard</text>
-<line x1="378.0" y1="145.1" x2="378.0" y2="131.1" stroke="rgba(107,66,38,0.65)" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.5"/>
-<text x="378.0" y="125.1" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="rgba(107,66,38,0.65)" font-weight="400" font-style="italic">Dual-funnel launch</text>
-<line x1="656.2" y1="63.9" x2="656.2" y2="41.9" stroke="#B85C2E" stroke-width="0.8" stroke-dasharray="2 3" opacity="0.5"/>
-<text x="656.2" y="35.9" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#B85C2E" font-weight="500" font-style="italic">Peak: 66.2K</text>
-<text x="60" y="22" font-family="Outfit,sans-serif" font-size="13" font-weight="500" fill="#1C1108">Monthly organic clicks</text>
-<text x="60" y="38" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(155,102,69,0.7)" letter-spacing="0.08em">GSC DATA - DEC 2024 → APR 2026</text>
-<line x1="60" y1="310" x2="696" y2="310" stroke="rgba(196,168,130,0.4)" stroke-width="1"/>
-</svg>
-          <div class="chart-caption">17-month trajectory: <strong>175 daily clicks → 2,137 daily clicks</strong> at peak. Mid-2025 inflection corresponds to dual-funnel content strategy launch and technical SEO consolidation.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TECHNICAL SCOPE -->
-<section id="technical">
-  <div class="wrap sp">
-    <div class="fu">
-      <div class="s-label">04.5 - Technical Scope</div>
-      <h2 class="s-title">Under the <em>hood</em></h2>
-      <p class="strategy-body">SEO results don't happen without infrastructure. Three foundations were built in parallel during the first 90 days, then maintained continuously: schema architecture, Core Web Vitals optimisation, and internal linking topology.</p>
-    </div>
-
-    <div class="tech-grid fu" data-d="1">
-      <!-- Schema -->
-      <div class="tech-card">
-        <div class="tech-card-head">
-          <span class="tech-num">01</span>
-          <div>
-            <div class="tech-title">Schema Markup</div>
-            <div class="tech-sub">7+ structured data types deployed</div>
-          </div>
-        </div>
-        <ul class="tech-list">
-          <li><strong>Organization + LocalBusiness</strong>Corporate entity surfacing in search and knowledge panel eligibility for branded queries.</li>
-          <li><strong>Service</strong>Across payroll, HR, accounting, tax service pages — rich result eligibility for commercial intent queries.</li>
-          <li><strong>Article + BlogPosting</strong>Applied across all guides, explainers, and content pieces for editorial structured data.</li>
-          <li><strong>FAQPage</strong>On key landing pages — captures featured snippets directly in SERPs above organic results.</li>
-          <li><strong>BreadcrumbList</strong>Sitewide breadcrumb structured data for clearer SERP path display.</li>
-          <li><strong>Product</strong>Schema for terra HR System SaaS pages with pricing and feature data.</li>
-          <li><strong>WebSite + Sitelinks Search Box</strong>For branded query SERPs with direct site search functionality.</li>
-        </ul>
-      </div>
-
-      <!-- Core Web Vitals -->
-      <div class="tech-card">
-        <div class="tech-card-head">
-          <span class="tech-num">02</span>
-          <div>
-            <div class="tech-title">Core Web Vitals</div>
-            <div class="tech-sub">Lab + field metrics, before / after</div>
-          </div>
-        </div>
-        <div class="cwv-grid">
-          <div class="cwv-row">
-            <span class="cwv-metric">LCP</span>
-            <div class="cwv-bar"><div class="cwv-before" style="width:78%"></div></div>
-            <span class="cwv-val cwv-bad">3.8s</span>
-          </div>
-          <div class="cwv-row">
-            <span class="cwv-metric"></span>
-            <div class="cwv-bar"><div class="cwv-after" style="width:38%"></div></div>
-            <span class="cwv-val cwv-good">1.9s</span>
-          </div>
-          <div class="cwv-row">
-            <span class="cwv-metric">CLS</span>
-            <div class="cwv-bar"><div class="cwv-before" style="width:62%"></div></div>
-            <span class="cwv-val cwv-bad">0.24</span>
-          </div>
-          <div class="cwv-row">
-            <span class="cwv-metric"></span>
-            <div class="cwv-bar"><div class="cwv-after" style="width:14%"></div></div>
-            <span class="cwv-val cwv-good">0.05</span>
-          </div>
-          <div class="cwv-row">
-            <span class="cwv-metric">INP</span>
-            <div class="cwv-bar"><div class="cwv-before" style="width:71%"></div></div>
-            <span class="cwv-val cwv-bad">340ms</span>
-          </div>
-          <div class="cwv-row">
-            <span class="cwv-metric"></span>
-            <div class="cwv-bar"><div class="cwv-after" style="width:30%"></div></div>
-            <span class="cwv-val cwv-good">145ms</span>
-          </div>
-        </div>
-        <div class="cwv-legend">
-          <span><span class="cwv-dot cwv-dot-bad"></span>Before</span>
-          <span><span class="cwv-dot cwv-dot-good"></span>After consolidation</span>
-        </div>
-        <div class="tech-foot">Image lazy-load + preload hints, render-blocking script audit, font-display: swap, layout reservation for hero CTAs, Cloudflare optimization tier.</div>
-      </div>
-
-      <!-- Internal Linking -->
-      <div class="tech-card">
-        <div class="tech-card-head">
-          <span class="tech-num">03</span>
-          <div>
-            <div class="tech-title">Internal Linking Topology</div>
-            <div class="tech-sub">Hub-and-spoke architecture across 4 clusters</div>
-          </div>
-        </div>
-        <ul class="tech-list">
-          <li><strong>Pillar pages</strong>One designated authority hub per service vertical — payroll, HR, accounting, tax. Each pillar consolidates topical signals upward.</li>
-          <li><strong>Topical clusters</strong>8 to 15 supporting articles per pillar, all linking up with descriptive anchor text — never with bare URL or "click here" generic anchors.</li>
-          <li><strong>Layer 1 → Layer 2 cross-links</strong>Utility content references commercial pages contextually where intent overlaps (e.g. tax lookup tool → tax services page).</li>
-          <li><strong>Crawl depth limit</strong>Every commercial page reachable in ≤ 3 clicks from homepage. Critical for crawl budget on a fast-growing content footprint.</li>
-          <li><strong>Anchor diversity</strong>Balance between exact-match, partial-match, and branded anchors across the site to avoid over-optimization signals.</li>
-          <li><strong>Bilingual EN / VI mirroring</strong>Hreflang implementation across all clusters so search engines serve the right language to the right audience.</li>
-        </ul>
-      </div>
-
-      <!-- Crawl & Indexation -->
-      <div class="tech-card">
-        <div class="tech-card-head">
-          <span class="tech-num">04</span>
-          <div>
-            <div class="tech-title">Crawl &amp; Indexation</div>
-            <div class="tech-sub">Continuous monitoring + GSC ops</div>
-          </div>
-        </div>
-        <ul class="tech-list">
-          <li><strong>Dynamic sitemap</strong>XML sitemap split by content type, submitted and monitored in Google Search Console.</li>
-          <li><strong>Redirect mapping</strong>301s for all legacy URLs after the rebuild — zero indexed-traffic loss during transition.</li>
-          <li><strong>robots.txt audit</strong>Staging blocks, parameter exclusions, crawl-budget allocation tuned to high-value sections.</li>
-          <li><strong>Canonical strategy</strong>Explicit canonicals for paginated and filtered content, preventing duplicate index signals.</li>
-          <li><strong>Weekly coverage review</strong>Coverage report monitored every week — discovered, indexed, excluded, valid-with-warnings.</li>
-          <li><strong>MCP-integrated GSC tooling</strong>Custom MCP server pulls query/page data into automated audits and quick-win detection.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STRATEGY -->
-<section id="strategy">
-  <div class="wrap sp">
-    <div class="fu">
-      <div class="s-label">05 - Strategy</div>
-      <h2 class="s-title">How the traffic<br><em>actually works</em></h2>
-      <p class="strategy-body">Worth being explicit - because the numbers tell two different stories depending on how you read them. The growth came from a deliberate dual-funnel architecture, not a single optimisation win.</p>
-    </div>
-    <div class="funnel-wrap fu" data-d="1">
-      <div class="funnel-card layer1">
-        <span class="funnel-badge">Layer 1 - Volume</span>
-        <div class="funnel-title">High-traffic informational content</div>
-        <div class="funnel-desc">Utility pages and HR compliance guides targeting high-volume informational queries - tax lookup tools, payroll calculators, labour law explainers. Top keyword "tra cứu mã số thuế" alone drove 51,000+ clicks. These users aren't buying payroll services today.<br><br><strong style="color:var(--forest);font-weight:400">Function:</strong> Build domain authority at scale, signal topical relevance across the HR/payroll/tax space, establish terra as a trusted resource in the category.</div>
-      </div>
-      <div class="funnel-card layer2">
-        <span class="funnel-badge">Layer 2 - Intent</span>
-        <div class="funnel-title">B2B service pages optimised for buyers</div>
-        <div class="funnel-desc">Service pages targeting payroll outsourcing, HR consulting, accounting, and the terra SaaS platform - separate keyword clusters, commercial copy structure, conversion-focused CTAs. These pages benefit directly from the authority built by Layer 1.<br><br><strong style="color:var(--terra);font-weight:400">Logic:</strong> A domain ranking for 978 keywords and generating 31M total impressions competes significantly better for commercial B2B queries than one with no organic footprint.</div>
-      </div>
-    </div>
-
-    <!-- Dual-funnel architecture diagram -->
-    <div class="fu funnel-diagram-wrap" data-d="2">
-      <div class="funnel-diagram-label">How I structured terra's content — content cluster map</div>
-      <svg viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" class="funnel-diagram" role="img" aria-label="Content cluster architecture I designed for terra">
-        <defs>
-          <linearGradient id="funnel-auth" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#9B6645"/>
-            <stop offset="100%" stop-color="#6B4226"/>
-          </linearGradient>
-          <marker id="arrow-earth" viewBox="0 0 10 10" markerWidth="9" markerHeight="9" refX="9" refY="5" orient="auto">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#9B6645"/>
-          </marker>
-          <marker id="arrow-terra" viewBox="0 0 10 10" markerWidth="9" markerHeight="9" refX="9" refY="5" orient="auto">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#1B6B58"/>
-          </marker>
-        </defs>
-
-        <!-- Top header (the only text frame needed) -->
-        <text x="400" y="22" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#9B6645" letter-spacing="0.18em" font-weight="500">CONTENT I PUBLISHED  →  AUTHORITY I BUILT  →  CONVERSION PAGES THAT BENEFIT</text>
-
-        <!-- Layer 1 boxes -->
-        <g class="diagram-node">
-          <rect x="20" y="50" width="240" height="86" rx="3" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
-          <rect x="20" y="50" width="240" height="3" fill="#3D6B47"/>
-          <text x="140" y="78" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Tax / payroll / labour</text>
-          <text x="140" y="98" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">High-volume guides &amp; explainers</text>
-          <text x="140" y="122" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.06em">cluster of 60+ articles</text>
-        </g>
-
-        <g class="diagram-node">
-          <rect x="280" y="50" width="240" height="86" rx="3" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
-          <rect x="280" y="50" width="240" height="3" fill="#3D6B47"/>
-          <text x="400" y="78" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Calculators &amp; lookup tools</text>
-          <text x="400" y="98" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">"Tra cứu mã số thuế" — 51K+ clicks</text>
-          <text x="400" y="122" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.06em">cluster of 12+ tools</text>
-        </g>
-
-        <g class="diagram-node">
-          <rect x="540" y="50" width="240" height="86" rx="3" fill="#E8F0EA" stroke="#3D6B47" stroke-width="1.2"/>
-          <rect x="540" y="50" width="240" height="3" fill="#3D6B47"/>
-          <text x="660" y="78" text-anchor="middle" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">HR compliance content</text>
-          <text x="660" y="98" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">Topical authority signals</text>
-          <text x="660" y="122" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#3D6B47" letter-spacing="0.06em">cluster of 40+ articles</text>
-        </g>
-
-        <!-- Arrows: Layer 1 to Authority compound -->
-        <line x1="140" y1="138" x2="280" y2="190" stroke="#9B6645" stroke-width="1.6" marker-end="url(#arrow-earth)" opacity="0.75"/>
-        <line x1="400" y1="138" x2="400" y2="190" stroke="#9B6645" stroke-width="1.6" marker-end="url(#arrow-earth)" opacity="0.75"/>
-        <line x1="660" y1="138" x2="520" y2="190" stroke="#9B6645" stroke-width="1.6" marker-end="url(#arrow-earth)" opacity="0.75"/>
-
-        <!-- Authority compound -->
-        <g class="diagram-node">
-          <rect x="120" y="200" width="560" height="84" rx="3" fill="url(#funnel-auth)"/>
-          <text x="400" y="226" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="rgba(255,255,255,.85)" letter-spacing="0.16em" font-weight="500">DOMAIN AUTHORITY (the compounded result)</text>
-          <text x="400" y="252" text-anchor="middle" font-family="Outfit,sans-serif" font-size="14.5" fill="#FAF8F4" font-weight="500">978 keywords Top 10  ·  31.4M impressions  ·  Site health 55 → 90</text>
-          <text x="400" y="272" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="rgba(255,255,255,.7)" font-style="italic">earned through Layer 1, leveraged by Layer 2</text>
-        </g>
-
-        <!-- Arrows: Authority to Layer 2 -->
-        <line x1="280" y1="284" x2="160" y2="336" stroke="#1B6B58" stroke-width="1.6" marker-end="url(#arrow-terra)" opacity="0.85"/>
-        <line x1="400" y1="284" x2="400" y2="336" stroke="#1B6B58" stroke-width="1.6" marker-end="url(#arrow-terra)" opacity="0.85"/>
-        <line x1="520" y1="284" x2="640" y2="336" stroke="#1B6B58" stroke-width="1.6" marker-end="url(#arrow-terra)" opacity="0.85"/>
-
-        <!-- Layer 2 boxes -->
-        <g class="diagram-node">
-          <rect x="20" y="346" width="240" height="74" rx="3" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
-          <rect x="20" y="346" width="240" height="3" fill="#1B6B58"/>
-          <text x="140" y="372" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12.5" fill="#1C1108" font-weight="500">Payroll outsourcing pages</text>
-          <text x="140" y="390" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#5A4A3C" font-style="italic">B2B service · EN + VI</text>
-          <text x="140" y="410" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1B6B58" letter-spacing="0.05em">cluster of 8 pages</text>
-        </g>
-
-        <g class="diagram-node">
-          <rect x="280" y="346" width="240" height="74" rx="3" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
-          <rect x="280" y="346" width="240" height="3" fill="#1B6B58"/>
-          <text x="400" y="372" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12.5" fill="#1C1108" font-weight="500">terra HR System (SaaS)</text>
-          <text x="400" y="390" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#5A4A3C" font-style="italic">Product pages · EN + VI</text>
-          <text x="400" y="410" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1B6B58" letter-spacing="0.05em">cluster of 6 pages</text>
-        </g>
-
-        <g class="diagram-node">
-          <rect x="540" y="346" width="240" height="74" rx="3" fill="#E0F0EC" stroke="#1B6B58" stroke-width="1.2"/>
-          <rect x="540" y="346" width="240" height="3" fill="#1B6B58"/>
-          <text x="660" y="372" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12.5" fill="#1C1108" font-weight="500">HR / accounting / tax</text>
-          <text x="660" y="390" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10.5" fill="#5A4A3C" font-style="italic">Consulting service pages</text>
-          <text x="660" y="410" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#1B6B58" letter-spacing="0.05em">cluster of 12 pages</text>
-        </g>
-
-        <!-- Bottom outcome -->
-        <text x="400" y="434" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" fill="#5A4A3C" font-style="italic">→ these pages now compete in commercial B2B SERPs without massive direct backlinks</text>
-      </svg>
-      <div class="funnel-diagram-caption">This is the content architecture I designed for terra — not a service catalog. Layer 1 publishes high-volume informational content that earns topical authority for the domain. That authority compounds into the asset shown in the middle band (978 keywords, 31.4M impressions, health 55→90). Layer 2 — terra's actual commercial pages — then ranks in competitive B2B searches because the domain itself is trusted. The whole point of the architecture is that <strong>traffic on Layer 1 isn't the goal</strong>; it's how Layer 2 wins.</div>
-    </div>
-
-    <div class="fu" data-d="3" style="margin-top:2rem;padding:1.5rem 2rem;border-left:3px solid var(--terra-lt);background:var(--cream)">
-      <p style="font-size:.95rem;font-weight:300;color:#5A4A3C;line-height:1.9">Utility traffic is not vanity traffic - it's infrastructure. This is a deliberate compounding strategy: Layer 1 builds the domain's authority ceiling, Layer 2 converts that authority into qualified reach for B2B decision-makers.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section id="process">
-  <div class="wrap sp">
-    <div class="fu">
-      <div class="s-label" style="color:rgba(196,168,130,.5)">06 - How It Was Done</div>
-      <h2 class="s-title" style="color:var(--cream)">The build <em>sequence</em></h2>
-    </div>
-    <div class="process-grid fu" data-d="1">
-      <div class="proc-item">
-        <div class="proc-num">01</div>
-        <div class="proc-title">Technical Foundation</div>
-        <div class="proc-desc">Crawl audit, redirect resolution, schema implementation, Core Web Vitals. Health 55 → 90 before content scale-up.</div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">02</div>
-        <div class="proc-title">Architecture &amp; Structure</div>
-        <div class="proc-desc">URL hierarchy, internal linking, bilingual page structure. Service pages, landing pages, blog framework.</div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">03</div>
-        <div class="proc-title">Analytics Setup</div>
-        <div class="proc-desc">GA4 + GSC + Clarity from scratch. Event tracking, conversion goals, weekly BOD dashboard. Decision-making grounded in data from day one.</div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">04</div>
-        <div class="proc-title">Content at Scale</div>
-        <div class="proc-desc">AI-assisted production pipelines. Keyword research → briefs → drafts → human QA. Consistent publishing cadence across informational and commercial intent.</div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">05</div>
-        <div class="proc-title">Weekly Data Loops</div>
-        <div class="proc-desc">GSC rank tracking, GA4 traffic analysis, Clarity session review. Identify, iterate, improve. No assumptions - every change evidence-backed.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- AI SECTION -->
-<section id="ai-section" style="position:relative;overflow:hidden">
-  <span class="kanji-mark km-2">樹</span>
-  <div class="wrap sp">
-    <div class="ai-cols">
-      <div class="fu">
-        <div class="s-label">07 - AI Integration</div>
-        <h2 class="s-title">AI as <em>force multiplier</em></h2>
-        <p class="ai-body">AI tools weren't a shortcut - they were a production layer that let me operate at a breadth that would otherwise require a larger team. The key principle: AI accelerates output volume; human judgment maintains quality.</p>
-        <div class="ai-callout">
-          <div class="ai-callout-text">"Every AI output was reviewed, fact-checked, and edited before publishing. Speed without quality is just faster failure."</div>
-          <div class="ai-callout-attr">- Operating principle</div>
-        </div>
-      </div>
-      <div class="fu" data-d="1">
-        <!-- AI Workflow Diagram -->
-        <div class="ai-flow-wrap">
-          <div class="ai-flow-label">Production pipeline · 5 stages</div>
-          <svg viewBox="0 0 580 540" xmlns="http://www.w3.org/2000/svg" class="ai-flow" role="img" aria-label="AI-augmented content production workflow">
-            <defs>
-              <linearGradient id="ai-stage" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#9B6645"/>
-                <stop offset="100%" stop-color="#6B4226"/>
-              </linearGradient>
-              <linearGradient id="ai-tool" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="rgba(196,168,130,0.18)"/>
-                <stop offset="100%" stop-color="rgba(196,168,130,0.05)"/>
-              </linearGradient>
-              <marker id="ai-arrow" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto">
-                <path d="M0,2 L6,5 L0,8 Z" fill="rgba(196,168,130,0.7)"/>
-              </marker>
-            </defs>
-
-            <!-- Stage 1: Input -->
-            <g class="ai-flow-node">
-              <rect x="40" y="20" width="500" height="62" rx="2" fill="#FAF8F4" stroke="rgba(196,168,130,0.4)" stroke-width="1"/>
-              <text x="60" y="42" font-family="DM Mono,monospace" font-size="9" fill="var(--clay,#9B6645)" letter-spacing="0.14em" font-weight="500">01 — INPUT</text>
-              <text x="60" y="62" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Keyword brief + topic + audience profile</text>
-              <text x="520" y="56" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="rgba(155,102,69,0.6)" letter-spacing="0.06em">human</text>
-            </g>
-            <line x1="290" y1="82" x2="290" y2="105" stroke="rgba(196,168,130,0.7)" stroke-width="1.2" marker-end="url(#ai-arrow)"/>
-
-            <!-- Stage 2: Research/Outline (AI) -->
-            <g class="ai-flow-node">
-              <rect x="40" y="110" width="500" height="80" rx="2" fill="#1C1108" stroke="rgba(196,168,130,0.3)" stroke-width="1"/>
-              <text x="60" y="132" font-family="DM Mono,monospace" font-size="9" fill="rgba(196,168,130,0.7)" letter-spacing="0.14em" font-weight="500">02 — RESEARCH &amp; OUTLINE</text>
-              <text x="60" y="152" font-family="Outfit,sans-serif" font-size="13" fill="#FAF8F4" font-weight="500">Competitor SERP scan · gap analysis · structure</text>
-              <text x="60" y="174" font-family="DM Mono,monospace" font-size="10" fill="rgba(196,168,130,0.55)" letter-spacing="0.04em">Claude · ChatGPT · MCP-GSC tools</text>
-              <text x="520" y="174" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="rgba(196,168,130,0.55)" letter-spacing="0.06em">AI · 80%</text>
-            </g>
-            <line x1="290" y1="190" x2="290" y2="213" stroke="rgba(196,168,130,0.7)" stroke-width="1.2" marker-end="url(#ai-arrow)"/>
-
-            <!-- Stage 3: Draft (AI) -->
-            <g class="ai-flow-node">
-              <rect x="40" y="218" width="500" height="80" rx="2" fill="#1C1108" stroke="rgba(196,168,130,0.3)" stroke-width="1"/>
-              <text x="60" y="240" font-family="DM Mono,monospace" font-size="9" fill="rgba(196,168,130,0.7)" letter-spacing="0.14em" font-weight="500">03 — DRAFT</text>
-              <text x="60" y="260" font-family="Outfit,sans-serif" font-size="13" fill="#FAF8F4" font-weight="500">Long-form content · variants · schema markup</text>
-              <text x="60" y="282" font-family="DM Mono,monospace" font-size="10" fill="rgba(196,168,130,0.55)" letter-spacing="0.04em">Claude (long-form) · ChatGPT (variants)</text>
-              <text x="520" y="282" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="rgba(196,168,130,0.55)" letter-spacing="0.06em">AI · 70%</text>
-            </g>
-            <line x1="290" y1="298" x2="290" y2="321" stroke="rgba(196,168,130,0.7)" stroke-width="1.2" marker-end="url(#ai-arrow)"/>
-
-            <!-- Stage 4: Human QA (CRITICAL) -->
-            <g class="ai-flow-node">
-              <rect x="40" y="326" width="500" height="80" rx="2" fill="url(#ai-stage)" stroke="rgba(196,168,130,0.5)" stroke-width="1.5"/>
-              <text x="60" y="348" font-family="DM Mono,monospace" font-size="9" fill="rgba(255,255,255,0.85)" letter-spacing="0.14em" font-weight="500">04 — HUMAN QA · GATE</text>
-              <text x="60" y="368" font-family="Outfit,sans-serif" font-size="13" fill="#FAF8F4" font-weight="500">Fact-check · brand voice · legal accuracy</text>
-              <text x="60" y="390" font-family="Outfit,sans-serif" font-size="11" fill="rgba(255,255,255,0.7)" font-style="italic">Every AI output reviewed, edited, often rewritten in parts</text>
-              <text x="520" y="390" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="rgba(255,255,255,0.85)" letter-spacing="0.06em">human · 100%</text>
-            </g>
-            <line x1="290" y1="406" x2="290" y2="429" stroke="rgba(196,168,130,0.7)" stroke-width="1.2" marker-end="url(#ai-arrow)"/>
-
-            <!-- Stage 5: Publish + Monitor -->
-            <g class="ai-flow-node">
-              <rect x="40" y="434" width="500" height="86" rx="2" fill="#FAF8F4" stroke="rgba(196,168,130,0.4)" stroke-width="1"/>
-              <text x="60" y="456" font-family="DM Mono,monospace" font-size="9" fill="var(--clay,#9B6645)" letter-spacing="0.14em" font-weight="500">05 — PUBLISH &amp; MONITOR</text>
-              <text x="60" y="476" font-family="Outfit,sans-serif" font-size="13" fill="#1C1108" font-weight="500">Elementor build · GSC monitoring · iterate</text>
-              <text x="60" y="498" font-family="DM Mono,monospace" font-size="10" fill="rgba(155,102,69,0.65)" letter-spacing="0.04em">MCP-GSC for ranking signals · CrUX for CWV</text>
-              <text x="520" y="498" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="rgba(155,102,69,0.6)" letter-spacing="0.06em">tooling-driven</text>
-            </g>
-          </svg>
-          <div class="ai-flow-result">Result: <strong>~40% reduction</strong> in content production turnaround. Human QA stage is non-negotiable — speed without quality is just faster failure.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- REFLECTION -->
-<section id="reflection">
-  <div class="wrap sp">
-    <div class="fu">
-      <div class="s-label">08 - Reflection</div>
-      <h2 class="s-title">What I <em>learned</em></h2>
-    </div>
-    <div class="reflection-body fu" data-d="1">
-      <p>The biggest lesson from terra: <strong>technical health is not a one-time fix - it's a continuous discipline.</strong> The 55→90 health score improvement happened over months of iterative auditing, not a single sprint. The sites that compound are the ones that get incrementally cleaner every week.</p>
-      <p>The dual-funnel strategy was also a lesson in <em>playing the long game</em>. Early months felt slow - utility pages drove traffic but no obvious commercial signal. Trusting the compounding logic required holding conviction against the instinct to chase short-term conversions. By month 8, the domain authority built by informational content was visibly lifting the service pages in rankings.</p>
-      <p>Working as the sole technical and creative operator in a small team taught me to ruthlessly prioritise. <strong>Not every page needs to be perfect on launch</strong> - a published, indexable page with good fundamentals outperforms a perfect page that ships three months late. Ship, measure, iterate.</p>
-      <p>Finally: <em>AI didn't make me faster at writing - it made me faster at thinking.</em> The real productivity gain wasn't in generating text. It was in using AI to rapidly test angles, surface gaps, and structure thinking before committing to production.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section id="cta">
-  <div class="wrap sp">
-    <div class="cta-inner fu">
-      <div class="cta-eyebrow">Next step</div>
-      <h2 class="cta-title">Let's build something <em>that grows</em></h2>
-      <div class="cta-btns">
-        <a href="mailto:pnthanh.work@gmail.com" class="btn-fill">Get in touch</a>
-        <a href="index.html" class="btn-ghost">← Back to portfolio</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <footer>
-  <div class="footer-inner">
-    <div class="f-logo">Tatsuki&nbsp;<span class="f-k">達樹</span></div>
-    <div class="f-copy">© 2025 Pham Ngoc Thanh</div>
-    <a href="https://linkedin.com/in/jkpham03/" target="_blank" style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.08em;color:#A8917E;text-decoration:none">linkedin.com/in/jkpham03</a>
-  </div>
+  <div class="footer-inner"><span>Tatsuki&nbsp;<b>達樹</b></span><span>© 2026 Pham Ngoc Thanh · terra-plat.vn case study</span><a href="index.html" class="f-link">← Back home</a></div>
 </footer>
-
 <script>
-// Cursor
-const dot=document.getElementById('curDot'),ring=document.getElementById('curRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';},{passive:true});
-(function tr(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tr);})();
-document.querySelectorAll('a,button,.page-card,.scope-item,.hstat,.ai-pill,.metric-row').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{dot.style.width='46px';dot.style.height='46px';dot.style.borderRadius='4px';dot.style.opacity='.12';ring.style.opacity='0';});
-  el.addEventListener('mouseleave',()=>{dot.style.width='10px';dot.style.height='10px';dot.style.borderRadius='50%';dot.style.opacity='1';ring.style.opacity='.45';});
-});
-
-// Progress bar
-let pTk=false;
-window.addEventListener('scroll',()=>{
-  document.getElementById('prog').style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';
-  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
-  if(!pTk){
-    requestAnimationFrame(()=>{
-      const sy=window.scrollY;
-      document.querySelectorAll('.kanji-mark').forEach((k,i)=>{
-        const speed=i===0?-.08:-.06;
-        k.style.transform=`translateY(${sy*speed}px)`;
-      });
-      pTk=false;
-    });
-    pTk=true;
-  }
-},{passive:true});
-
-// Scroll reveal
-const fuObs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:.06});
-document.querySelectorAll('.fu').forEach(el=>fuObs.observe(el));
-
-// Chart bars animate on scroll
-// Chart animation handled by CSS keyframes (drawLine + fadeIn)
+const hero=document.getElementById('hero'),cv=document.getElementById('flow'),ctx=cv.getContext('2d');
+let W,H,t=0,vis=true;
+function resize(){const r=window.devicePixelRatio||1;W=hero.clientWidth;H=hero.clientHeight;cv.width=W*r;cv.height=H*r;cv.style.width=W+'px';cv.style.height=H+'px';ctx.setTransform(r,0,0,r,0,0);}
+resize();addEventListener('resize',resize);
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function frame(){
+  ctx.clearRect(0,0,W,H);
+  for(let i=0;i<28;i++){const f=i/27,yBase=H*f;ctx.beginPath();
+    for(let x=0;x<=W;x+=10){const y=yBase+Math.sin(x*0.0042+t+i*0.55)*26*Math.sin(t*0.25+i*0.3)+Math.cos(x*0.0021-t*0.6+i)*15;x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+    ctx.strokeStyle='rgba('+Math.round(237-116*f)+','+Math.round(150+30*f)+','+Math.round(85+51*f)+',0.2)';ctx.lineWidth=1.1;ctx.stroke();}
+  t+=0.01;if(!reduce&&vis)requestAnimationFrame(frame);
+}
+frame();
+new IntersectionObserver(es=>es.forEach(e=>{const w=vis;vis=e.isIntersecting&&!document.hidden;if(vis&&!w&&!reduce)requestAnimationFrame(frame);}),{threshold:0}).observe(hero);
+document.addEventListener('visibilitychange',()=>{const w=vis;vis=!document.hidden;if(vis&&!w&&!reduce)requestAnimationFrame(frame);});
+const liveIO=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('live',e.isIntersecting)),{threshold:0});
+document.querySelectorAll('.sec').forEach(s=>liveIO.observe(s));
+const counted=new WeakSet();
+function runCount(s){s.querySelectorAll('[data-count]').forEach(el=>{if(counted.has(el))return;counted.add(el);
+  const to=parseFloat(el.dataset.count),dec=+(el.dataset.dec||0),dur=1300,t0=performance.now();
+  function step(t){let p=Math.min((t-t0)/dur,1);p=1-Math.pow(1-p,3);let v=to*p;el.textContent=dec?v.toFixed(dec):Math.round(v).toLocaleString('en-US');if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);});}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');runCount(e.target);io.unobserve(e.target);}}),{threshold:.15});
+document.querySelectorAll('.fu').forEach(el=>io.observe(el));
+requestAnimationFrame(()=>setTimeout(()=>runCount(hero),300));
+if(matchMedia('(hover: none)').matches){
+  const sio=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('scrolling',e.isIntersecting)),{threshold:.35});
+  document.querySelectorAll('.shot-scroll').forEach(s=>sio.observe(s));
+}
 </script>
 </body>
 </html>
