@@ -63,3 +63,30 @@ Every effect below was demoed live (not a static mock) and explicitly approved. 
 - terra.html, bong-vespera.html, video.html, pati-challenge/index.html - not touched in this iteration.
 - No copy/content rewrite beyond what's needed to fit new layout/motion (owner has flagged flexibility here but no rewrite was requested).
 - No new design system / library (site stays plain HTML/CSS/vanilla JS, no build step, consistent with current stack).
+
+---
+
+## Addendum (2026-07-03, v2): layout rework after first-pass feedback
+
+The first pass (Tasks 1-8, merged to `main`) added motion on top of the existing layout under "Preserve" mode. Owner feedback after seeing it live: not enough visible difference, and three concrete regressions/pre-existing issues that a real design pass should have caught:
+
+1. **Terra live-site frame reads as tiny.** Root cause found in code: `.shot-win{height:380px}` is a fixed pixel height, but the element now stretches to the full width of its container (previously it sat in a 2-up grid at ~48% width). A 380px-tall frame at full container width renders as a squat, letterboxed strip rather than a proportioned browser window.
+2. **Sticky-stack transition is illegible.** The outgoing card only drops to `opacity:.55/scale:.92` - not enough separation from the incoming card, so both compete visually mid-scroll. This was never actually eyeballed for legibility during Task 7, only checked programmatically (pin fires, scale value changes).
+3. **Bong Vespera ad mockup is disproportionate.** `.mock-body{aspect-ratio:2/3}` sitting in a `1fr 1.2fr` grid next to a short 4-line stat block, `align-items:center` - the portrait-oriented mockup ends up far taller than its sibling column. Pre-existing, not part of the first pass, but now in scope.
+4. **Root cause of "not different enough":** nearly every section on the page uses the same layout family - an asymmetric two-column split (hero 1.5:1, `about-grid` 1.5:1, `terra-cols` 1.4:1, `bong-foot` 1:1.2, `work-feat` 1:1 repeated identically for **three consecutive** projects). Motion was added on top of this repeated skeleton, which is why the page reads as unchanged. This directly violates the taste-skill's section-layout-repetition rule.
+
+**Mode change:** owner has now approved moving from Preserve to a bigger layout pass ("đổi layout toàn trang, mạnh tay hơn") - specifically for the Selected Work section's repetition. Other sections (hero, about, video, contact) are not being restructured in this addendum; only the four items below are in scope.
+
+### Fixes (validated via before/after browser mockups, user-approved with calibration notes)
+
+| # | Item | Before (current) | After (approved direction) | Calibration from feedback |
+|---|---|---|---|---|
+| 1 | Terra live-site frame | `.shot-win{height:380px}` fixed px, full container width -> squat/letterboxed | Cap the `.shot` component's width (don't stretch to full stack width) and size the screenshot window by `aspect-ratio` instead of a fixed px height, so it reads as a properly-proportioned browser window | "Vừa phải thôi, không cần full width" - moderate, centered, NOT edge-to-edge full-bleed |
+| 2 | Sticky-stack legibility | Outgoing card: `opacity:.55, scale:.92` - competes with incoming card | Outgoing (receding) card dims/scales further (moderate - not extreme fade-to-nothing) with a touch of blur; incoming (active) card stays fully opaque with a real lift shadow so it unambiguously reads as "in front" | "Layer sau visible một tí cũng hay" (the receded layer can still peek through a little - don't hide it completely) "nhưng cái chính đằng trước vẫn coi rõ được" (but the front one must stay clearly readable) - so dial back from the demo's `opacity:.22 + blur:3px` to something gentler, e.g. `opacity:.35-.4`, `blur:1.5-2px`, while keeping the incoming card's shadow/full-opacity treatment as-is |
+| 3 | Bong Vespera ad mockup | `.mock-body{aspect-ratio:2/3}` fills its full `1.2fr` grid column height | Cap the mockup to a moderate max-size (not stretched to fill the column, not shrunk tiny) | "Vừa phải là được, không bị bự mà cũng không quá nhỏ" - moderate, e.g. constrain by `max-height` relative to viewport rather than letting the grid column dictate its size |
+| 4 | Selected Work repetition | 3 consecutive `work-feat` rows (uphub.vn, Badminton, IELTS Studio), all identical image+text split | uphub.vn becomes a featured, full-width highlight; Badminton and IELTS Studio become compact side-by-side cards in a different layout family | Approved as-is, no calibration needed |
+
+### Explicitly out of scope for this addendum
+
+- No changes to hero, about, video, or contact section layouts (only their motion, from the first pass, stands).
+- No further visual-mockup rounds needed for these four items - directions are approved with the calibration notes above; implementation should apply the calibration values directly rather than re-brainstorming.
