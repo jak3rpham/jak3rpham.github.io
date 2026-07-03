@@ -366,7 +366,7 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
 <section id="hero">
   <canvas id="flow"></canvas>
   <div class="hero-main">
-    <h1 class="hname">Pham Ngoc <span class="ac">Thanh</span></h1>
+    <h1 class="hname" id="hname">Pham Ngoc <span class="ac">Thanh</span></h1>
     <div class="hjp"><span class="jp">達樹 / Tatsuki</span><span class="rule"></span><span class="rd">Digital × Creative</span></div>
     <p class="htag">Digital marketing strategist for B2B SaaS. I build <strong>full-funnel systems</strong> for compounding, measurable growth.</p>
     <div class="telemetry">
@@ -627,6 +627,50 @@ frame();
 const heroIO=new IntersectionObserver(es=>{es.forEach(e=>{const was=vis;vis=e.isIntersecting&&!document.hidden;if(vis&&!was&&!reduce)requestAnimationFrame(frame);});},{threshold:0});
 heroIO.observe(hero);
 document.addEventListener('visibilitychange',()=>{const was=vis;vis=!document.hidden;if(vis&&!was&&!reduce)requestAnimationFrame(frame);});
+
+// hero parallax depth (spring-lerp toward cursor, not raw mouse-lock)
+['.hero-main','.hero-portrait'].forEach(sel=>{
+  const el=document.querySelector(sel);
+  if(el)el.addEventListener('animationend',()=>{el.style.animation='none';},{once:true});
+});
+const pxTargets=[{el:document.querySelector('.hero-main'),depth:4},{el:document.querySelector('.hero-portrait'),depth:14}];
+let pxTX=0,pxTY=0,pxCX=0,pxCY=0;
+if(!reduce&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+  hero.addEventListener('mousemove',e=>{
+    const r=hero.getBoundingClientRect();
+    pxTX=((e.clientX-r.left)/r.width-0.5);
+    pxTY=((e.clientY-r.top)/r.height-0.5);
+  });
+  hero.addEventListener('mouseleave',()=>{pxTX=0;pxTY=0;});
+  (function pxLoop(){
+    pxCX+=(pxTX-pxCX)*0.08;pxCY+=(pxTY-pxCY)*0.08;
+    pxTargets.forEach(({el,depth})=>{if(el)el.style.transform='translate('+(pxCX*depth)+'px,'+(pxCY*depth)+'px)';});
+    requestAnimationFrame(pxLoop);
+  })();
+}
+
+// text scramble on hero name hover (one signature moment, hover-triggered only, never on load)
+const scrambleChars='!<>-_\\/[]{}=+*^?#';
+function scrambleText(el,finalHTML,plainTarget){
+  let frame=0;
+  const queue=[...plainTarget].map(ch=>({to:ch,start:Math.floor(Math.random()*8),end:Math.floor(Math.random()*8)+10,char:''}));
+  (function update(){
+    let out='',done=0;
+    queue.forEach(q=>{
+      if(frame>=q.end){done++;out+=q.to;}
+      else if(frame>=q.start){if(q.to===' ')q.char=' ';else if(!q.char||Math.random()<0.28)q.char=scrambleChars[Math.floor(Math.random()*scrambleChars.length)];out+=q.char;}
+      else out+=' ';
+    });
+    el.textContent=out;
+    if(done<queue.length){frame++;requestAnimationFrame(update);}else{el.innerHTML=finalHTML;}
+  })();
+}
+const hnameEl=document.getElementById('hname');
+if(hnameEl&&!reduce&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const finalHTML=hnameEl.innerHTML,plainTarget=hnameEl.textContent;
+  let scrambling=false;
+  hnameEl.addEventListener('mouseenter',()=>{if(scrambling)return;scrambling=true;scrambleText(hnameEl,finalHTML,plainTarget);setTimeout(()=>{scrambling=false;},900);});
+}
 
 // run each section's liquid only while in view
 const liveIO=new IntersectionObserver(es=>{es.forEach(e=>e.target.classList.toggle('live',e.isIntersecting));},{threshold:0});
