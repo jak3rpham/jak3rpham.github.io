@@ -355,7 +355,18 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
 .wf-img .shot{margin-bottom:0}
 .wf-shotwin{aspect-ratio:16/9;overflow:hidden;background:#1c2419}
 .wf-shotwin img{width:100%;height:100%;object-fit:cover;object-position:top}
-@media(max-width:820px){.terra-2col{grid-template-columns:1fr}.work-feat{grid-template-columns:1fr;gap:1.2rem}}
+
+/* featured hero card (replaces one of the three identical work-feat splits) */
+.work-feat-hero{margin-bottom:2.4rem}
+.wf-hero-shotwin{aspect-ratio:21/9;overflow:hidden;background:#1c2419;border-radius:14px 14px 0 0}
+.wf-hero-shotwin img{width:100%;height:100%;object-fit:cover;object-position:top}
+.wf-hero-meta{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;padding-top:1.5rem}
+.wf-hero-right{max-width:52ch}
+
+/* compact card grid (replaces the other two identical work-feat splits) */
+.work-compact-row{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-bottom:1rem}
+.work-compact-card .wf-shotwin{aspect-ratio:16/10;margin-bottom:1rem;border-radius:14px}
+@media(max-width:820px){.work-feat{grid-template-columns:1fr;gap:1.2rem}.wf-hero-meta{flex-direction:column}.work-compact-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -524,44 +535,36 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
   <div class="sec-inner">
     <div class="sec-head fu"><h2 class="sec-title">Selected <span class="ac">work</span></h2></div>
     <div class="fu">
-      <div class="work-feat fu" data-d="1"><div class="wf-txt"><span class="idx-n">01</span><div class="idx-t">uphub.vn</div><div class="idx-tags">SEO Consulting · Freelance 2024 · EN / VI</div><p class="idx-desc">Metadata audit and rebuild across 18 bilingual variants, keyword gap analysis, H1 and slug restructuring, 301 redirect mapping with zero indexed traffic loss.</p><a class="idx-link" href="https://uphub.vn" target="_blank">Visit ↗</a></div><div class="wf-img"><div class="shot"><div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">uphub.vn</span></div><div class="wf-shotwin"><img src="images/uphub.webp" alt="uphub.vn" loading="lazy" onerror="this.style.display='none'"></div></div></div></div>
-      <div class="work-feat fu" data-d="1">
-  <div class="wf-txt">
-    <span class="idx-n">02</span>
-    <div class="idx-t">Badminton Payment Splitter</div>
-    <div class="idx-tags">AI-directed build + Supabase · 2026</div>
-    <p class="idx-desc">Solved a recurring group-payment friction point — built a live PWA that auto-generates a VietQR code per member and tracks payment status in real time. Designed a bank-webhook auto-reconciliation flow to remove manual confirmation entirely.</p>
-    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
-      <a class="idx-link" href="https://badminton-app-weld.vercel.app/" target="_blank">Live ↗</a>
-      <a class="idx-link" href="https://github.com/jak3rpham/badminton-app" target="_blank">Code ↗</a>
-    </div>
-  </div>
-  <div class="wf-img">
-    <div class="shot">
-      <div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">badminton-app-weld.vercel.app</span></div>
-      <div class="wf-shotwin"><img src="images/badminton-preview.webp" alt="Badminton Payment Splitter" loading="lazy" onerror="this.style.display='none'"></div>
-    </div>
-  </div>
-</div>
-
-<div class="work-feat fu" data-d="1">
-  <div class="wf-txt">
-    <span class="idx-n">03</span>
-    <div class="idx-t">IELTS Studio</div>
-    <div class="idx-tags">AI-directed build + Claude API · 2026</div>
-    <p class="idx-desc">Built a full-stack IELTS practice platform with server-side AI grading for Writing tasks, multi-user auth, and a graceful-degradation design so the app runs safely with or without a configured database.</p>
-    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
-      <a class="idx-link" href="https://ielts-test-kohl.vercel.app/" target="_blank">Live ↗</a>
-      <a class="idx-link" href="https://github.com/jak3rpham/Ielts-Test" target="_blank">Code ↗</a>
-    </div>
-  </div>
-  <div class="wf-img">
-    <div class="shot">
-      <div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">ielts-test-kohl.vercel.app</span></div>
-      <div class="wf-shotwin"><img src="images/ielts-preview.webp" alt="IELTS Studio" loading="lazy" onerror="this.style.display='none'"></div>
-    </div>
-  </div>
-</div>
+      <div class="work-feat-hero shot fu" data-d="1">
+        <div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">uphub.vn</span></div>
+        <div class="wf-hero-shotwin"><img src="images/uphub.webp" alt="uphub.vn" loading="lazy" onerror="this.style.display='none'"></div>
+        <div class="wf-hero-meta">
+          <div class="wf-hero-left"><span class="idx-n">01</span><div class="idx-t">uphub.vn</div><div class="idx-tags">SEO Consulting · Freelance 2024 · EN / VI</div></div>
+          <div class="wf-hero-right"><p class="idx-desc">Metadata audit and rebuild across 18 bilingual variants, keyword gap analysis, H1 and slug restructuring, 301 redirect mapping with zero indexed traffic loss.</p><a class="idx-link" href="https://uphub.vn" target="_blank">Visit ↗</a></div>
+        </div>
+      </div>
+      <div class="work-compact-row fu" data-d="1">
+        <div class="work-compact-card shot">
+          <div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">badminton-app-weld.vercel.app</span></div>
+          <div class="wf-shotwin"><img src="images/badminton-preview.webp" alt="Badminton Payment Splitter" loading="lazy" onerror="this.style.display='none'"></div>
+          <span class="idx-n">02</span><div class="idx-t">Badminton Payment Splitter</div><div class="idx-tags">AI-directed build + Supabase · 2026</div>
+          <p class="idx-desc">Solved a recurring group-payment friction point - built a live PWA that auto-generates a VietQR code per member and tracks payment status in real time.</p>
+          <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+            <a class="idx-link" href="https://badminton-app-weld.vercel.app/" target="_blank">Live ↗</a>
+            <a class="idx-link" href="https://github.com/jak3rpham/badminton-app" target="_blank">Code ↗</a>
+          </div>
+        </div>
+        <div class="work-compact-card shot">
+          <div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">ielts-test-kohl.vercel.app</span></div>
+          <div class="wf-shotwin"><img src="images/ielts-preview.webp" alt="IELTS Studio" loading="lazy" onerror="this.style.display='none'"></div>
+          <span class="idx-n">03</span><div class="idx-t">IELTS Studio</div><div class="idx-tags">AI-directed build + Claude API · 2026</div>
+          <p class="idx-desc">Built a full-stack IELTS practice platform with server-side AI grading for Writing tasks, multi-user auth, and graceful degradation with or without a configured database.</p>
+          <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+            <a class="idx-link" href="https://ielts-test-kohl.vercel.app/" target="_blank">Live ↗</a>
+            <a class="idx-link" href="https://github.com/jak3rpham/Ielts-Test" target="_blank">Code ↗</a>
+          </div>
+        </div>
+      </div>
       <div class="idx-row"><span class="idx-n">04</span><div class="idx-main"><div class="idx-t">Open for freelance</div><div class="idx-tags">Web · SEO · Video Production · 2026</div><p class="idx-desc">End-to-end website builds from brief to live deployment. SEO audits, keyword strategy, brand video and photography. Selective availability, full ownership.</p></div><a class="idx-link" href="mailto:pnthanh.work@gmail.com">Email →</a></div>
     </div>
   </div>
