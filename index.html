@@ -83,11 +83,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem var(--pad);di
 
 .port-k{position:absolute;bottom:.6rem;right:.9rem;z-index:2;font-family:'Noto Serif JP',serif;font-weight:900;font-size:3.2rem;color:var(--cream);text-shadow:0 2px 20px rgba(20,13,7,.6)}
 
-/* marquee */
-.marquee{position:relative;z-index:4;overflow:hidden;border-block:1px solid var(--rule);padding:1rem 0;white-space:nowrap;background:rgba(20,13,7,.4)}
-.marquee-t{display:inline-block;animation:scroll 30s linear infinite;font-family:'DM Mono',monospace;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sand)}
-.marquee-t span{margin:0 1.5rem}.marquee-t b{color:var(--amber);font-weight:500}
-@keyframes scroll{to{transform:translateX(-50%)}}
+/* stat strip (replaces marquee - taste-skill rule: max one marquee per page, this one read as filler) */
+.stat-strip{position:relative;z-index:4;display:flex;flex-wrap:wrap;gap:.5rem 2.2rem;justify-content:center;padding:1.3rem var(--pad);border-block:1px solid var(--rule);background:rgba(20,13,7,.4)}
+.ss-item{font-family:'DM Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sand);opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.stat-strip.vis .ss-item{opacity:1;transform:none}
+.ss-item:nth-child(1){transition-delay:0ms}.ss-item:nth-child(2){transition-delay:60ms}.ss-item:nth-child(3){transition-delay:120ms}.ss-item:nth-child(4){transition-delay:180ms}
+.ss-item b{color:var(--amber);font-weight:500}
 
 /* ===== sections ===== */
 .sec{position:relative;z-index:4;overflow:hidden}
@@ -384,7 +385,12 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
   </div>
 </section>
 
-<div class="marquee"><div class="marquee-t" id="mq"><span><b>Technical SEO</b></span><span>12× Organic Growth</span><span><b>31.4M Impressions</b></span><span>978 Keywords Top 10</span><span><b>B2B SaaS Marketing</b></span><span>Video Production</span><span><b>Top 1 TVC × 2</b></span><span>AI-Augmented Workflows</span></div></div>
+<div class="stat-strip" id="statStrip" data-reveal-group>
+  <div class="ss-item"><b>Technical SEO</b></div>
+  <div class="ss-item"><b>12× Organic Growth</b></div>
+  <div class="ss-item"><b>31.4M Impressions</b></div>
+  <div class="ss-item"><b>978 Keywords Top 10</b></div>
+</div>
 
 <!-- ABOUT -->
 <section id="about" class="sec s-about">
@@ -701,16 +707,13 @@ if(matchMedia('(hover:hover) and (pointer:fine)').matches)pills.forEach(pill=>{
   pill.addEventListener('mouseleave',()=>{pill.style.transform='translate(0,0)';});
 });
 
-// marquee seamless
-const mq=document.getElementById('mq');mq.innerHTML+=mq.innerHTML;
-
 // reveal + count-up
 const counted=new WeakSet();
 function runCount(s){s.querySelectorAll('[data-count]').forEach(el=>{if(counted.has(el))return;counted.add(el);
   const to=parseFloat(el.dataset.count),dec=+(el.dataset.dec||0),dur=1200,t0=performance.now();
   function step(t){let p=Math.min((t-t0)/dur,1);p=1-Math.pow(1-p,3);el.textContent=(to*p).toFixed(dec);if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);});}
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');runCount(e.target);io.unobserve(e.target);}});},{threshold:.15});
-document.querySelectorAll('.fu').forEach(el=>io.observe(el));
+document.querySelectorAll('.fu,[data-reveal-group]').forEach(el=>io.observe(el));
 requestAnimationFrame(()=>setTimeout(()=>runCount(hero),300));
 
 // clock
