@@ -325,6 +325,12 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
 @media(max-width:560px){.stack-grid{grid-template-columns:1fr}.reel-strip{grid-template-columns:1fr}}
 
 .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2.2rem}
+.kpi-grid .kpi:nth-child(1){transition-delay:0ms}
+.kpi-grid .kpi:nth-child(2){transition-delay:60ms}
+.kpi-grid .kpi:nth-child(3){transition-delay:120ms}
+.kpi-grid .kpi:nth-child(4){transition-delay:180ms}
+.kpi-grid .kpi:nth-child(5){transition-delay:240ms}
+.kpi-grid .kpi:nth-child(6){transition-delay:300ms}
 .kpi{background:var(--panel);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--panel-bd);border-radius:14px;padding:1.4rem 1.5rem;transition:border-color .3s,transform .3s}
 .kpi:hover{border-color:var(--forest);transform:translateY(-3px)}
 .kpi-n{font-size:2.2rem;font-weight:700;background:var(--g-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
@@ -475,13 +481,13 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
   <div class="sbg"><div class="m m-eq"><span style="animation-delay:0s"></span><span style="animation-delay:0.3s"></span><span style="animation-delay:0.6s"></span><span style="animation-delay:0.2s"></span><span style="animation-delay:0.5s"></span><span style="animation-delay:0.85s"></span><span style="animation-delay:0.1s"></span><span style="animation-delay:0.45s"></span><span style="animation-delay:0.7s"></span><span style="animation-delay:0.25s"></span><span style="animation-delay:0.55s"></span><span style="animation-delay:0.9s"></span><span style="animation-delay:0.15s"></span><span style="animation-delay:0.4s"></span><span style="animation-delay:0.65s"></span><span style="animation-delay:0.35s"></span></div></div>
   <div class="sec-inner">
     <div class="sec-head fu"><h2 class="sec-title">The <span class="ac">numbers</span></h2><div class="sec-meta">Results 04<br>GSC + Semrush</div></div>
-    <div class="kpi-grid fu">
-      <div class="kpi"><div class="kpi-n">175 → 2,137</div><div class="kpi-l">Daily clicks</div><div class="kpi-sub">launch to peak</div></div>
-      <div class="kpi"><div class="kpi-n"><span data-count="12.2" data-dec="1">0</span>×</div><div class="kpi-l">Growth multiplier</div><div class="kpi-sub">predominantly organic</div></div>
-      <div class="kpi"><div class="kpi-n"><span data-count="449965">0</span></div><div class="kpi-l">Total clicks</div><div class="kpi-sub">17 months</div></div>
-      <div class="kpi"><div class="kpi-n"><span data-count="31.4" data-dec="1">0</span>M</div><div class="kpi-l">Impressions</div><div class="kpi-sub">Google Search</div></div>
-      <div class="kpi"><div class="kpi-n"><span data-count="978">0</span></div><div class="kpi-l">Keywords Top 10</div><div class="kpi-sub">Google ranking</div></div>
-      <div class="kpi"><div class="kpi-n">55 → 90</div><div class="kpi-l">Site health</div><div class="kpi-sub">Semrush</div></div>
+    <div class="kpi-grid">
+      <div class="kpi fu"><div class="kpi-n">175 → 2,137</div><div class="kpi-l">Daily clicks</div><div class="kpi-sub">launch to peak</div></div>
+      <div class="kpi fu"><div class="kpi-n"><span data-count="12.2" data-dec="1">0</span>×</div><div class="kpi-l">Growth multiplier</div><div class="kpi-sub">predominantly organic</div></div>
+      <div class="kpi fu"><div class="kpi-n"><span data-count="449965">0</span></div><div class="kpi-l">Total clicks</div><div class="kpi-sub">17 months</div></div>
+      <div class="kpi fu"><div class="kpi-n"><span data-count="31.4" data-dec="1">0</span>M</div><div class="kpi-l">Impressions</div><div class="kpi-sub">Google Search</div></div>
+      <div class="kpi fu"><div class="kpi-n"><span data-count="978">0</span></div><div class="kpi-l">Keywords Top 10</div><div class="kpi-sub">Google ranking</div></div>
+      <div class="kpi fu"><div class="kpi-n">55 → 90</div><div class="kpi-l">Site health</div><div class="kpi-sub">Semrush</div></div>
     </div>
     <div class="panel feature-screen fu" data-d="1">
       <div class="mock-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">Google Search Console · monthly clicks</span></div>
