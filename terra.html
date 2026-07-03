@@ -365,6 +365,12 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
 .magnetic{transition:transform .3s cubic-bezier(.23,1,.32,1)}
 /* hover-scroll */
 .shots-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.cf-wrap{position:relative;overflow:hidden;padding:1.5rem 0;perspective:1400px;cursor:grab}
+.cf-wrap.dragging{cursor:grabbing}
+.cf-track{display:flex;gap:2rem;will-change:transform;transform-style:preserve-3d;touch-action:pan-y}
+.cf-card{flex:0 0 min(70vw,520px);transition:transform .4s var(--ease),opacity .4s var(--ease)}
+.cf-card:not(.cf-active){pointer-events:none}
+@media(max-width:820px){.cf-wrap{overflow:visible;cursor:auto;perspective:none}.cf-track{display:block;gap:0}.cf-card{width:100%;flex:none;transform:none!important;opacity:1!important;margin-bottom:1.4rem;pointer-events:auto!important}}
 .shot{border:1px solid var(--panel-bd);border-radius:14px;overflow:hidden;background:#23170D;transition:transform .35s var(--ease),border-color .35s}
 .shot:hover{border-color:var(--forest);transform:translateY(-4px)}
 .shot-bar{display:flex;align-items:center;gap:.4rem;padding:.6rem 1rem;background:rgba(0,0,0,.28);border-bottom:1px solid var(--rule)}
@@ -456,12 +462,12 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
   <div class="sec-inner">
     <div class="sec-head fu"><h2 class="sec-title">Recent <span class="ac">page launches</span></h2><div class="sec-meta">Built 03<br>Live production</div></div>
     <p class="slead fu" style="margin-bottom:1.8rem">Pages I shipped end-to-end: keyword strategy, copy, layout, on-page SEO, and technical implementation. Hover a screenshot to scroll the full page.</p>
-    <div class="shots-grid fu" data-d="1">
-      <div class="shot shot-scroll"><div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn/en/hr-outsourcing-services-in-vietnam</span></div><div class="shot-win"><div class="shot-ph">full-page screenshot</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-outsourcing-preview.webp" alt="HR Outsourcing Services" loading="lazy" onerror="this.style.display='none'"></div><div class="shot-cap"><div><div class="st">HR Outsourcing Services</div><div class="sk">Service page · EN</div></div><a class="shot-link" href="https://terra-plat.vn/en/hr-outsourcing-services-in-vietnam" target="_blank">Live ↗</a></div></div>
-      <div class="shot shot-scroll"><div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn/en/hr-compliance-consulting-vietnam</span></div><div class="shot-win"><div class="shot-ph">full-page screenshot</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-compliance-preview.webp" alt="HR Compliance Consulting" loading="lazy" onerror="this.style.display='none'"></div><div class="shot-cap"><div><div class="st">HR Compliance Consulting</div><div class="sk">Service page · EN</div></div><a class="shot-link" href="https://terra-plat.vn/en/hr-compliance-consulting-vietnam" target="_blank">Live ↗</a></div></div>
-      <div class="shot shot-scroll"><div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn/en/terra-hr-system</span></div><div class="shot-win"><div class="shot-ph">full-page screenshot</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-hrsystem-preview.webp" alt="terra HR System" loading="lazy" onerror="this.style.display='none'"></div><div class="shot-cap"><div><div class="st">terra HR System</div><div class="sk">Product page · EN</div></div><a class="shot-link" href="https://terra-plat.vn/en/terra-hr-system" target="_blank">Live ↗</a></div></div>
-      <div class="shot shot-scroll"><div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn/vi/cau-chuyen-khach-hang</span></div><div class="shot-win"><div class="shot-ph">full-page screenshot</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-customers-preview.webp" alt="Câu chuyện khách hàng" loading="lazy" onerror="this.style.display='none'"></div><div class="shot-cap"><div><div class="st">Câu chuyện khách hàng</div><div class="sk">Case study hub · VI</div></div><a class="shot-link" href="https://terra-plat.vn/vi/cau-chuyen-khach-hang" target="_blank">Live ↗</a></div></div>
-    </div>
+    <div class="cf-wrap fu" data-d="1" id="cfWrap"><div class="cf-track" id="cfTrack">
+      <div class="cf-card"><div class="shot shot-scroll"><div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn/en/hr-outsourcing-services-in-vietnam</span></div><div class="shot-win"><div class="shot-ph">full-page screenshot</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-outsourcing-preview.webp" alt="HR Outsourcing Services" loading="lazy" onerror="this.style.display='none'"></div><div class="shot-cap"><div><div class="st">HR Outsourcing Services</div><div class="sk">Service page · EN</div></div><a class="shot-link" href="https://terra-plat.vn/en/hr-outsourcing-services-in-vietnam" target="_blank">Live ↗</a></div></div></div>
+      <div class="cf-card"><div class="shot shot-scroll"><div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn/en/hr-compliance-consulting-vietnam</span></div><div class="shot-win"><div class="shot-ph">full-page screenshot</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-compliance-preview.webp" alt="HR Compliance Consulting" loading="lazy" onerror="this.style.display='none'"></div><div class="shot-cap"><div><div class="st">HR Compliance Consulting</div><div class="sk">Service page · EN</div></div><a class="shot-link" href="https://terra-plat.vn/en/hr-compliance-consulting-vietnam" target="_blank">Live ↗</a></div></div></div>
+      <div class="cf-card"><div class="shot shot-scroll"><div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn/en/terra-hr-system</span></div><div class="shot-win"><div class="shot-ph">full-page screenshot</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-hrsystem-preview.webp" alt="terra HR System" loading="lazy" onerror="this.style.display='none'"></div><div class="shot-cap"><div><div class="st">terra HR System</div><div class="sk">Product page · EN</div></div><a class="shot-link" href="https://terra-plat.vn/en/terra-hr-system" target="_blank">Live ↗</a></div></div></div>
+      <div class="cf-card"><div class="shot shot-scroll"><div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn/vi/cau-chuyen-khach-hang</span></div><div class="shot-win"><div class="shot-ph">full-page screenshot</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-customers-preview.webp" alt="Câu chuyện khách hàng" loading="lazy" onerror="this.style.display='none'"></div><div class="shot-cap"><div><div class="st">Câu chuyện khách hàng</div><div class="sk">Case study hub · VI</div></div><a class="shot-link" href="https://terra-plat.vn/vi/cau-chuyen-khach-hang" target="_blank">Live ↗</a></div></div></div>
+    </div></div>
   </div>
 </section>
 <div class="divider"><span class="dv-line"></span><span class="dv-node"></span><span class="dv-line"></span></div>
@@ -580,6 +586,37 @@ if(matchMedia('(hover: none)').matches){
   const sio=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('scrolling',e.isIntersecting)),{threshold:.35});
   document.querySelectorAll('.shot-scroll').forEach(s=>sio.observe(s));
 }
+
+// recent page launches: drag/coverflow gallery (desktop/tablet only, >=820px)
+(function(){
+  const wrap=document.getElementById('cfWrap'),track=document.getElementById('cfTrack');
+  if(!wrap||!track||window.innerWidth<820)return;
+  const cards=[...track.querySelectorAll('.cf-card')];
+  let current=0,tx=0,targetTx=0,dragging=false,startX=0,startTx=0;
+  function cardOffset(i){const c=cards[i];return c.offsetLeft+c.offsetWidth/2-wrap.clientWidth/2;}
+  function render(){
+    cards.forEach((c,i)=>{
+      const delta=i-current;
+      c.classList.toggle('cf-active',delta===0);
+      c.style.transform='scale('+(delta===0?1:0.86)+') rotateY('+(delta*-18)+'deg)';
+      c.style.opacity=delta===0?'1':'0.55';
+    });
+  }
+  function goTo(i){current=Math.max(0,Math.min(cards.length-1,i));targetTx=-cardOffset(current);render();}
+  (function loop(){tx+=(targetTx-tx)*0.15;track.style.transform='translateX('+tx+'px)';requestAnimationFrame(loop);})();
+  wrap.addEventListener('pointerdown',e=>{dragging=true;startX=e.clientX;startTx=tx;wrap.classList.add('dragging');wrap.setPointerCapture(e.pointerId);});
+  wrap.addEventListener('pointermove',e=>{if(!dragging)return;tx=startTx+(e.clientX-startX);targetTx=tx;});
+  wrap.addEventListener('pointerup',e=>{
+    if(!dragging)return;dragging=false;wrap.classList.remove('dragging');
+    const moved=e.clientX-startX;
+    if(Math.abs(moved)>40)goTo(current+(moved<0?1:-1));else goTo(current);
+  });
+  wrap.addEventListener('wheel',e=>{
+    if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.preventDefault();if(e.deltaX>10)goTo(current+1);else if(e.deltaX<-10)goTo(current-1);}
+  },{passive:false});
+  goTo(0);
+  addEventListener('resize',()=>{if(window.innerWidth>=820)goTo(current);});
+})();
 
 // systems horizontal scroll-hijack (desktop) / per-panel visibility fallback (mobile, reduced-motion, no GSAP)
 (function(){
