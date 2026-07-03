@@ -36,8 +36,12 @@ a{color:inherit;text-decoration:none}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem var(--pad);display:flex;align-items:center;justify-content:space-between;font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(180deg,rgba(20,13,7,.82),transparent);color:var(--sand)}
 .nav-logo{color:var(--cream);display:flex;align-items:center;gap:.5rem}
 .nav-logo b{font-family:'Noto Serif JP',serif;color:var(--forest);font-size:.9rem}
-.nav-links{display:flex;gap:1.6rem;list-style:none}
-.nav-links a{color:var(--sand);transition:color .3s}.nav-links a:hover{color:var(--cream)}
+.pillbar{position:relative;display:flex;gap:2px;padding:4px;border-radius:999px;background:var(--panel);border:1px solid var(--panel-bd);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.pill{position:relative;z-index:2;padding:.5rem 1rem;border-radius:999px;color:var(--sand);font-size:.7rem;transition:color .3s,transform .18s cubic-bezier(.23,1,.32,1);white-space:nowrap;will-change:transform}
+.pill:hover{color:var(--cream)}
+.pill.pill-active{color:var(--bg)}
+.pill-indicator{position:absolute;z-index:1;top:4px;left:4px;height:calc(100% - 8px);width:0;border-radius:999px;background:var(--forest);transition:transform .45s cubic-bezier(.16,1,.3,1),width .45s cubic-bezier(.16,1,.3,1);opacity:0}
+.pill-indicator.on{opacity:1}
 
 /* reveal */
 .fu{opacity:0;transform:translateY(28px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
@@ -216,7 +220,7 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
   .feat-row.rev .feat-text,.work-row.rev .work-vis{order:0}
   .vgrid{grid-template-columns:1fr 1fr}.vcard.feat{grid-row:auto;grid-column:span 2}
 }
-@media(max-width:560px){body{font-size:16px}.vgrid{grid-template-columns:1fr}.vcard.feat{grid-column:auto}.nav-links{display:none}}
+@media(max-width:560px){body{font-size:16px}.vgrid{grid-template-columns:1fr}.vcard.feat{grid-column:auto}.pillbar{display:none}}
 
 /* per-section designed backgrounds: directional wash + texture over the liquid */
 .lq{opacity:.4}
@@ -345,7 +349,14 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
 
 <nav>
   <a href="#hero" class="nav-logo">Tatsuki&nbsp;<b>達樹</b></a>
-  <ul class="nav-links"><li><a href="#about">About</a></li><li><a href="#terra">Work</a></li><li><a href="video.html">Video</a></li><li><a href="#contact">Contact</a></li><li><a href="CV.pdf">↓ CV</a></li></ul>
+  <div class="pillbar" id="pillbar">
+    <span class="pill-indicator" id="pillInd"></span>
+    <a href="#about" class="pill" data-sec="about">About</a>
+    <a href="#terra" class="pill" data-sec="terra">Work</a>
+    <a href="video.html" class="pill">Video</a>
+    <a href="#contact" class="pill" data-sec="contact">Contact</a>
+    <a href="CV.pdf" class="pill pill-cv">↓ CV</a>
+  </div>
 </nav>
 
 <div class="status"><span class="dot"></span>Available 2026 · HCMC</div>
@@ -620,6 +631,31 @@ document.addEventListener('visibilitychange',()=>{const was=vis;vis=!document.hi
 // run each section's liquid only while in view
 const liveIO=new IntersectionObserver(es=>{es.forEach(e=>e.target.classList.toggle('live',e.isIntersecting));},{threshold:0});
 document.querySelectorAll('.sec').forEach(s=>liveIO.observe(s));
+
+// magnetic pill nav + scroll-spy indicator
+const pillbar=document.getElementById('pillbar'),pillInd=document.getElementById('pillInd');
+const pills=[...document.querySelectorAll('.pill[data-sec]')];
+function moveIndicator(pill){
+  if(!pill)return;
+  const barRect=pillbar.getBoundingClientRect(),pillRect=pill.getBoundingClientRect();
+  pillInd.style.width=pillRect.width+'px';
+  pillInd.style.transform='translateX('+(pillRect.left-barRect.left-4)+'px)';
+  pillInd.classList.add('on');
+  pills.forEach(p=>p.classList.toggle('pill-active',p===pill));
+}
+const navSecs=['about','terra','contact'].map(id=>document.getElementById(id)).filter(Boolean);
+const navIO=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){const p=pills.find(p=>p.dataset.sec===e.target.id);if(p)moveIndicator(p);}});
+},{rootMargin:'-40% 0px -55% 0px'});
+navSecs.forEach(s=>navIO.observe(s));
+if(matchMedia('(hover:hover) and (pointer:fine)').matches)pills.forEach(pill=>{
+  pill.addEventListener('mousemove',e=>{
+    const r=pill.getBoundingClientRect();
+    const mx=(e.clientX-(r.left+r.width/2))*0.3,my=(e.clientY-(r.top+r.height/2))*0.3;
+    pill.style.transform='translate('+mx+'px,'+my+'px)';
+  });
+  pill.addEventListener('mouseleave',()=>{pill.style.transform='translate(0,0)';});
+});
 
 // marquee seamless
 const mq=document.getElementById('mq');mq.innerHTML+=mq.innerHTML;
