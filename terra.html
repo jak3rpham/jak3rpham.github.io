@@ -36,8 +36,9 @@ a{color:inherit;text-decoration:none}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem var(--pad);display:flex;align-items:center;justify-content:space-between;font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(180deg,rgba(20,13,7,.82),transparent);color:var(--sand)}
 .nav-logo{color:var(--cream);display:flex;align-items:center;gap:.5rem}
 .nav-logo b{font-family:'Noto Serif JP',serif;color:var(--forest);font-size:.9rem}
-.nav-links{display:flex;gap:1.6rem;list-style:none}
-.nav-links a{color:var(--sand);transition:color .3s}.nav-links a:hover{color:var(--cream)}
+.pillbar{position:relative;display:flex;gap:2px;padding:4px;border-radius:999px;background:var(--panel);border:1px solid var(--panel-bd);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.pill{position:relative;padding:.5rem 1rem;border-radius:999px;color:var(--sand);font-size:.7rem;transition:color .3s,transform .18s cubic-bezier(.23,1,.32,1);white-space:nowrap;will-change:transform}
+.pill:hover{color:var(--cream)}
 
 /* reveal */
 .fu{opacity:0;transform:translateY(28px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
@@ -380,7 +381,11 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
 <body>
 <nav>
   <a href="index.html" class="nav-logo">← Tatsuki&nbsp;<b>達樹</b></a>
-  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="https://terra-plat.vn" target="_blank">Live site ↗</a></li><li><a href="CV.pdf">↓ CV</a></li></ul>
+  <div class="pillbar" id="pillbar">
+    <a href="index.html" class="pill">Home</a>
+    <a href="https://terra-plat.vn" target="_blank" class="pill">Live site ↗</a>
+    <a href="CV.pdf" class="pill pill-cv">↓ CV</a>
+  </div>
 </nav>
 <section id="hero">
   <canvas id="flow"></canvas>
@@ -497,6 +502,16 @@ new IntersectionObserver(es=>es.forEach(e=>{const w=vis;vis=e.isIntersecting&&!d
 document.addEventListener('visibilitychange',()=>{const w=vis;vis=!document.hidden;if(vis&&!w&&!reduce)requestAnimationFrame(frame);});
 const liveIO=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('live',e.isIntersecting)),{threshold:0});
 document.querySelectorAll('.sec').forEach(s=>liveIO.observe(s));
+
+// magnetic pill nav
+if(matchMedia('(hover:hover) and (pointer:fine)').matches)document.querySelectorAll('.pill').forEach(pill=>{
+  pill.addEventListener('mousemove',e=>{
+    const r=pill.getBoundingClientRect();
+    const mx=(e.clientX-(r.left+r.width/2))*0.3,my=(e.clientY-(r.top+r.height/2))*0.3;
+    pill.style.transform='translate('+mx+'px,'+my+'px)';
+  });
+  pill.addEventListener('mouseleave',()=>{pill.style.transform='translate(0,0)';});
+});
 const counted=new WeakSet();
 function runCount(s){s.querySelectorAll('[data-count]').forEach(el=>{if(counted.has(el))return;counted.add(el);
   const to=parseFloat(el.dataset.count),dec=+(el.dataset.dec||0),dur=1300,t0=performance.now();
