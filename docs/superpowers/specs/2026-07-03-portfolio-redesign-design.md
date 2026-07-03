@@ -90,3 +90,40 @@ The first pass (Tasks 1-8, merged to `main`) added motion on top of the existing
 
 - No changes to hero, about, video, or contact section layouts (only their motion, from the first pass, stands).
 - No further visual-mockup rounds needed for these four items - directions are approved with the calibration notes above; implementation should apply the calibration values directly rather than re-brainstorming.
+
+---
+
+## Addendum (2026-07-03, v3): terra.html - heavier motion pass
+
+`index.html` is considered finished for now (owner: "làm quài cũng thế không tốt hơn được" - further iteration on it has diminishing returns). Work now moves page-by-page to the rest of the site, starting with `terra.html`. `bong-vespera.html` and `video.html` follow later as their own addenda/specs. `pati-challenge/index.html` is explicitly **out of scope** - it uses a completely different design system (light mode, Fraunces/Manrope/JetBrains Mono, no shared classes with the rest of the site) because it was built for a specific external submission, not as a portfolio subpage, and stays as-is.
+
+### Design read
+
+`terra.html` shares `index.html`'s color-token structure and component classes (`.panel`, `.pill`, `.btn-fill`, `.shot`, `.sec-title`, the `.m-*` motif system) but with its own accent hue (warm brown/amber vs. index's forest green) - that per-page accent identity is preserved. Mode is still **Preserve** for color/type/IA, but the owner has explicitly asked for **more motion complexity** than `index.html` got, since they installed `design-taste-frontend` and `emil-design-eng` specifically to push further once the home page pattern was proven. Dial change from the first pass: `MOTION_INTENSITY: 8` (up from 7), `DESIGN_VARIANCE: 8`.
+
+### What carries over from index.html as-is (already validated, no re-brainstorming needed)
+
+- Nav: magnetic pill bar + scroll-spy indicator (same component, same fix for the offset bug).
+- Hero: parallax depth (spring-lerp) on name/portrait-equivalent (terra.html's hero has a `.hero-shot` browser-frame instead of a portrait photo - same depth-layer treatment applies to it), scramble-on-hover on the `terra-plat.vn` hero name.
+- Spotlight-border on `.panel` / `.shot` cards.
+- Magnetic CTA on the closing "Visit terra-plat.vn" button.
+- `prefers-reduced-motion` and mobile (`<768px`/`<820px`) fallback discipline, same pattern as the first pass.
+
+### New, heavier effects for this page (owner-approved)
+
+| Section | Current state | New treatment | Why |
+|---|---|---|---|
+| Systems I built | 4 `.sysrow` blocks, alternating image-left/right (`.rev`) split, identical layout family repeated 4x - each already has a hand-built SVG process diagram (`.sysfig`) with dash-draw/halo-pulse/bar-grow animations gated on `.sec.live` (whole-section visibility) | Horizontal scroll-hijack: vertical scroll drives horizontal pan through the 4 systems like a filmstrip (GSAP ScrollTrigger horizontal-pan, canonical skeleton per design-taste-frontend Section 5.B: pinned wrapper, `start:"top top"`, `end:"+=${distance}"`, `scrub`). Each system's existing SVG diagram animation is rewired to fire when that system becomes the *active* panel (not on whole-section visibility), so the diagrams draw in sequence as the user scrolls, matching the horizontal storytelling beat instead of all firing at once. | Directly fixes the repeated-layout-family problem (4x identical zigzag) and gives this page its own signature moment distinct from index.html's Terra sticky-stack, while reusing content (diagrams) that already exists |
+| Recent page launches | `.shots-grid`, static 2x2 grid of 4 screenshot cards with a hover-to-scroll reveal on each | Coverflow/drag gallery: cards arranged in a horizontal row, center card upright and largest, side cards rotated in 3D (`rotateY`) and scaled down, drag/swipe (pointer events) or scroll-snap to bring a card to center, existing hover-to-scroll-reveal behavior preserved on the active/center card only | Different layout family from the horizontal-pan Systems section (drag-driven, not scroll-driven) and from Terra's sticky-stack on index.html - keeps the page from feeling like one repeated trick |
+| The numbers (KPI + chart) | KPI grid (6 cells) + one chart panel, `.fu` reveal only | Stagger-reveal on the KPI grid cells (30-80ms cascade, matching the index.html pattern) + spotlight-border on the chart panel (reuse, not new) | Deliberately the "quiet" section after two heavy effects - per taste-skill motion-must-be-motivated rule, not every section needs a new trick |
+
+### Technical notes
+
+- `terra.html` is a standalone HTML file (no shared build/bundle with `index.html`), so it needs its own GSAP + ScrollTrigger CDN `<script>` tags added, same CDN URLs as `index.html` uses.
+- Horizontal-pan and coverflow are both **desktop/tablet only** (`≥820px`, matching this file's existing tablet breakpoint) - below that they collapse to normal vertical stacking (Systems: the 4 `.sysrow` blocks stack normally, diagrams animate on individual scroll-into-view same as before) and a normal 1-column scroll list (page launches), consistent with the mobile-collapse rule already applied on `index.html`.
+- Coverflow drag must support both pointer drag and scroll-wheel/trackpad horizontal scroll, and must not block page scroll when the gallery is not the target of the gesture.
+
+### Explicitly out of scope for this addendum
+
+- `bong-vespera.html`, `video.html`, `pati-challenge/index.html` - separate addenda later.
+- No content/copy rewrite on `terra.html` beyond what the new layouts require structurally (e.g. wrapping markup for the horizontal-pan track) - the existing copy for all 4 systems and 4 page launches stays as-is.
