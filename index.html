@@ -304,6 +304,7 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
 .terra-cols{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(1.5rem,4vw,3rem);align-items:start;margin-top:2rem}
 .terra-stack{position:relative}
 .stack-card-scroll{min-height:56vh;display:flex;align-items:center;justify-content:center;padding:1.4rem 0}
+.stack-card-scroll>*{box-shadow:0 26px 60px rgba(0,0,0,.45)}
 @media(max-width:900px){.stack-card-scroll{min-height:auto}}
 .hpipe{margin-bottom:2rem}
 .hpipe-svg{width:100%;height:auto}
@@ -738,7 +739,7 @@ if(window.gsap&&window.ScrollTrigger&&!reduce&&window.innerWidth>=768){
   stackCards.forEach((card,i)=>{
     if(i===stackCards.length-1)return;
     ScrollTrigger.create({trigger:card,start:'top top',endTrigger:stackCards[stackCards.length-1],end:'top top',pin:true,pinSpacing:false});
-    gsap.to(card,{scale:0.92,opacity:0.55,ease:'none',scrollTrigger:{trigger:stackCards[i+1],start:'top bottom',end:'top top',scrub:true}});
+    gsap.to(card,{scale:0.9,opacity:0.4,filter:'blur(2px)',ease:'none',scrollTrigger:{trigger:stackCards[i+1],start:'top bottom',end:'top top',scrub:true}});
   });
 }
 
