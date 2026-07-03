@@ -36,10 +36,10 @@ Always check `mcp__Claude_Preview__preview_console_logs` with `level: "error"` a
 ### Task 1: Preview server config + GSAP dependency
 
 **Files:**
-- Create: `.claude/launch.json` (already created — confirm it matches below)
+- Create: `C:\Users\jaker\.claude\launch.json` (global — the preview tool reads launch configs from the user's home `.claude/`, not the project directory; this is machine-local tooling config, not part of the site, so it's gitignored via `.claude/` in this repo's `.gitignore`)
 - Modify: `index.html:589-591` (insert CDN scripts before the main inline `<script>`)
 
-- [ ] **Step 1: Confirm `.claude/launch.json` exists with this content**
+- [ ] **Step 1: Confirm `C:\Users\jaker\.claude\launch.json` exists with this content**
 
 ```json
 {
@@ -48,14 +48,14 @@ Always check `mcp__Claude_Preview__preview_console_logs` with `level: "error"` a
     {
       "name": "portfolio-static",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8080"],
+      "runtimeArgs": ["-m", "http.server", "8080", "--directory", "D:\\code\\jak3rpham.github.io"],
       "port": 8080
     }
   ]
 }
 ```
 
-If missing, create it at `D:\code\jak3rpham.github.io\.claude\launch.json` with the exact content above.
+If missing, create it at that path with the exact content above. The `--directory` flag points the server at the project regardless of the tool's own working directory.
 
 - [ ] **Step 2: Add GSAP + ScrollTrigger CDN scripts to `index.html`**
 
