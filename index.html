@@ -20,7 +20,7 @@
 html{scroll-behavior:smooth}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--cream);overflow-x:hidden;line-height:1.7;font-size:17px}
 a{color:inherit;text-decoration:none}
-.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:160px}
 
 /* ===== per-section liquid background ===== */
 .sbg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
@@ -74,7 +74,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem var(--pad);di
 .tel-n{font-size:2.5rem;font-weight:600;line-height:1;background:var(--g-accent);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .tel-l{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sand);margin-top:.45rem}
 .hero-portrait{justify-self:center;width:min(34vw,400px);aspect-ratio:1;opacity:0;animation:rise 1.1s var(--ease) .4s forwards}
-.blobimg{position:absolute;inset:0;overflow:hidden;border-radius:16px;border:1px solid var(--panel-bd);box-shadow:0 22px 60px rgba(0,0,0,.4),0 0 55px rgba(120,200,140,.16)}
+.blobimg{position:absolute;inset:0;overflow:hidden;border-radius:14px;border:1px solid var(--panel-bd);box-shadow:0 22px 60px rgba(0,0,0,.4),0 0 55px rgba(120,200,140,.16)}
 @keyframes morphimg{0%,100%{border-radius:62% 38% 55% 45%/52% 48% 52% 48%}33%{border-radius:40% 60% 45% 55%/60% 40% 55% 45%}66%{border-radius:55% 45% 38% 62%/45% 58% 48% 52%}}
 .blobimg img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.03)}
 .ph{position:absolute;inset:0;z-index:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;background:repeating-linear-gradient(45deg,rgba(180,205,160,.06),rgba(180,205,160,.06) 12px,transparent 12px,transparent 24px),radial-gradient(circle,#22301c,#162016);border:1.5px dashed rgba(180,205,160,.4)}
@@ -100,7 +100,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem var(--pad);di
 .sec-meta{font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);text-align:right;line-height:1.8}
 .slead{font-size:clamp(1.15rem,1.6vw,1.35rem);font-weight:300;color:var(--tan);line-height:1.75;max-width:62ch}
 
-.panel{background:var(--panel);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--panel-bd);border-radius:18px;padding:1.8rem 1.9rem;position:relative;overflow:hidden}
+.panel{background:var(--panel);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--panel-bd);border-radius:14px;padding:1.8rem 1.9rem;position:relative;overflow:hidden}
 
 /* spotlight-border: hover-tracked light on case-study/project cards */
 .shot,.panel.feature-screen,.mock,.stack-card{position:relative;--sx:50%;--sy:50%}
@@ -647,7 +647,7 @@ document.addEventListener('visibilitychange',()=>{const was=vis;vis=!document.hi
 // hero parallax depth (spring-lerp toward cursor, not raw mouse-lock)
 ['.hero-main','.hero-portrait'].forEach(sel=>{
   const el=document.querySelector(sel);
-  if(el)el.addEventListener('animationend',()=>{el.style.animation='none';},{once:true});
+  if(el)el.addEventListener('animationend',()=>{el.style.opacity='1';el.style.animation='none';el.style.transform='none';},{once:true});
 });
 const pxTargets=[{el:document.querySelector('.hero-main'),depth:4},{el:document.querySelector('.hero-portrait'),depth:14}];
 let pxTX=0,pxTY=0,pxCX=0,pxCY=0;
