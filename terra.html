@@ -358,6 +358,7 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
 @keyframes figbar{from{transform:scaleY(.35)}to{transform:scaleY(1)}}
 @media(prefers-reduced-motion:reduce){.fig-flow,.fig-halo,.fig-bar{animation:none}.fig-halo{opacity:.35}}
 .foundation{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+.magnetic{transition:transform .3s cubic-bezier(.23,1,.32,1)}
 /* hover-scroll */
 .shots-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
 .shot{border:1px solid var(--panel-bd);border-radius:14px;overflow:hidden;background:#23170D;transition:transform .35s var(--ease),border-color .35s}
@@ -482,7 +483,7 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
       </div>
     </div>
     <div class="readnote fu" data-d="1">A note on reading the curve: the 12× and 2,137 clicks/day figures are the <strong>peak reached over 17 months</strong> (March 2026), not a current-state claim. Organic compressed through Q2 2026 as impressions and rankings shifted across the category. I caught the drop early in the same GSC pipeline I built, which is exactly what that pipeline is for.</div>
-    <div class="ctas fu" style="margin-top:2rem"><a href="https://terra-plat.vn" target="_blank" class="btn-fill">Visit terra-plat.vn ↗</a><a href="index.html" class="btn-line">← Back to all work</a></div>
+    <div class="ctas fu" style="margin-top:2rem"><a href="https://terra-plat.vn" target="_blank" class="btn-fill magnetic">Visit terra-plat.vn ↗</a><a href="index.html" class="btn-line">← Back to all work</a></div>
   </div>
 </section>
 <footer>
@@ -573,6 +574,20 @@ if(matchMedia('(hover: none)').matches){
   const sio=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('scrolling',e.isIntersecting)),{threshold:.35});
   document.querySelectorAll('.shot-scroll').forEach(s=>sio.observe(s));
 }
+
+// magnetic pull for primary CTA
+if(matchMedia('(hover:hover) and (pointer:fine)').matches)document.querySelectorAll('.magnetic').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const r=btn.getBoundingClientRect();
+    const mx=(e.clientX-(r.left+r.width/2))*0.3,my=(e.clientY-(r.top+r.height/2))*0.3;
+    btn.style.transition='none';
+    btn.style.transform='translate('+mx+'px,'+my+'px)';
+  });
+  btn.addEventListener('mouseleave',()=>{
+    btn.style.transition='transform .3s cubic-bezier(.23,1,.32,1)';
+    btn.style.transform='translate(0,0)';
+  });
+});
 
 // spotlight-border tracking for panel/shot cards
 if(!reduce)document.querySelectorAll('.panel,.shot').forEach(card=>{
