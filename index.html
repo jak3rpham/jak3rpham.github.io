@@ -301,7 +301,10 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
 .feature-screen{padding:0;margin-bottom:1.8rem}
 .screen-body{padding:1.7rem 1.8rem}
 .terra-foot{display:flex;flex-direction:column;gap:1.5rem}
-.terra-cols{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(1.5rem,4vw,3rem);align-items:start}
+.terra-cols{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(1.5rem,4vw,3rem);align-items:start;margin-top:2rem}
+.terra-stack{position:relative}
+.stack-card-scroll{min-height:56vh;display:flex;align-items:center;justify-content:center;padding:1.4rem 0}
+@media(max-width:900px){.stack-card-scroll{min-height:auto}}
 .hpipe{margin-bottom:2rem}
 .hpipe-svg{width:100%;height:auto}
 .hpipe-line{fill:none;stroke:var(--rule);stroke-width:2;stroke-dasharray:900;stroke-dashoffset:900;transition:stroke-dashoffset 1.6s var(--ease) .2s}
@@ -435,39 +438,39 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
   <div class="sec-inner">
     <div class="sec-head fu"><h2 class="sec-title">terra-plat.vn <span class="ac">growth</span></h2><div class="sec-meta">Featured case study · Live<br>Sole Tech &amp; Creative Lead</div></div>
     <p class="slead fu" style="margin-bottom:2.4rem">17 months of full-funnel work for a B2B payroll &amp; HR SaaS targeting FDI. From launch to a 2,137 clicks/day peak (12× the launch baseline) and 978 keywords in the Top 10.</p>
-    <div class="terra-2col fu" data-d="1"><div class="shot shot-scroll">
-      <div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn · live site</span></div>
-      <div class="shot-win"><div class="shot-ph">terra-plat.vn · full page</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-outsourcing-preview.webp" alt="terra-plat.vn" loading="lazy" onerror="this.style.display='none'"></div>
-    </div>
-    <div class="panel feature-screen">
-      <div class="mock-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn · Google Search Console</span></div>
-      <div class="screen-body">
-        <svg class="gchart" viewBox="0 0 600 170" preserveAspectRatio="none">
-          <defs><linearGradient id="gareaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#79B488" stop-opacity=".3"/><stop offset="1" stop-color="#79B488" stop-opacity="0"/></linearGradient></defs>
-          <path class="garea" d="M0.0,138.0 L46.2,129.9 L92.3,124.4 L138.5,133.8 L184.6,137.0 L230.8,129.2 L276.9,60.8 L323.1,29.7 L369.2,103.7 L415.4,97.7 L461.5,55.1 L507.7,31.3 L553.8,88.7 L600.0,12.0 L600,170 L0,170 Z"/>
-          <path class="gline" d="M0.0,138.0 L46.2,129.9 L92.3,124.4 L138.5,133.8 L184.6,137.0 L230.8,129.2 L276.9,60.8 L323.1,29.7 L369.2,103.7 L415.4,97.7 L461.5,55.1 L507.7,31.3 L553.8,88.7 L600.0,12.0"/>
-          <circle class="gdot" cx="600" cy="12" r="5"/>
-        </svg>
-        <div class="gcap">Organic clicks/day · Feb 2025 → Mar 2026 peak · 2,137/day (12× launch)</div>
-      </div>
-    </div></div>
-    <div class="terra-foot fu" data-d="1">
-      <div class="feat-tel">
+    <div class="terra-stack fu" data-d="1" id="terraStack">
+      <div class="stack-card-scroll"><div class="shot shot-scroll">
+        <div class="shot-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn · live site</span></div>
+        <div class="shot-win"><div class="shot-ph">terra-plat.vn · full page</div><span class="shot-hint">hover to scroll ↓</span><img src="images/terra-outsourcing-preview.webp" alt="terra-plat.vn" loading="lazy" onerror="this.style.display='none'"></div>
+      </div></div>
+      <div class="stack-card-scroll"><div class="panel feature-screen">
+        <div class="mock-bar"><span class="mock-d"></span><span class="mock-d"></span><span class="mock-d"></span><span class="mock-url">terra-plat.vn · Google Search Console</span></div>
+        <div class="screen-body">
+          <svg class="gchart" viewBox="0 0 600 170" preserveAspectRatio="none">
+            <defs><linearGradient id="gareaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#79B488" stop-opacity=".3"/><stop offset="1" stop-color="#79B488" stop-opacity="0"/></linearGradient></defs>
+            <path class="garea" d="M0.0,138.0 L46.2,129.9 L92.3,124.4 L138.5,133.8 L184.6,137.0 L230.8,129.2 L276.9,60.8 L323.1,29.7 L369.2,103.7 L415.4,97.7 L461.5,55.1 L507.7,31.3 L553.8,88.7 L600.0,12.0 L600,170 L0,170 Z"/>
+            <path class="gline" d="M0.0,138.0 L46.2,129.9 L92.3,124.4 L138.5,133.8 L184.6,137.0 L230.8,129.2 L276.9,60.8 L323.1,29.7 L369.2,103.7 L415.4,97.7 L461.5,55.1 L507.7,31.3 L553.8,88.7 L600.0,12.0"/>
+            <circle class="gdot" cx="600" cy="12" r="5"/>
+          </svg>
+          <div class="gcap">Organic clicks/day · Feb 2025 → Mar 2026 peak · 2,137/day (12× launch)</div>
+        </div>
+      </div></div>
+      <div class="stack-card-scroll"><div class="feat-tel">
         <div class="tc"><div class="tc-n"><span data-count="12">0</span>×</div><div class="tc-l">Organic growth</div></div>
         <div class="tc"><div class="tc-n"><span data-count="978">0</span></div><div class="tc-l">Keywords top 10</div></div>
         <div class="tc"><div class="tc-n"><span data-count="31.4" data-dec="1">0</span>M</div><div class="tc-l">Impressions</div></div>
         <div class="tc"><div class="tc-n">55→90</div><div class="tc-l">Site health</div></div>
-      </div>
-      <div class="terra-cols">
-        <ul class="bullets">
-          <li><strong>Built the publishing tooling:</strong> custom WordPress plugins that turn a one-hour manual workflow into a single click, so a non-technical team ships SEO-ready content on its own.</li>
-          <li><strong>Built the marketing data layer:</strong> automated pipelines feeding GSC, GA4, and PageSpeed into live dashboards and weekly reports.</li>
-          <li><strong>Owned full-funnel growth:</strong> technical SEO, content architecture, and paid coordination, in EN and VI, for FDI buyers.</li>
-        </ul>
-        <div>
-          <div class="pills"><span class="pill">B2B SaaS</span><span class="pill">FDI Targeting</span><span class="pill">EN / VI</span></div>
-          <div class="ctas"><a href="terra.html" class="btn-fill">Full case study →</a><a href="https://terra-plat.vn" target="_blank" class="btn-line">Live site ↗</a></div>
-        </div>
+      </div></div>
+    </div>
+    <div class="terra-cols fu" data-d="1">
+      <ul class="bullets">
+        <li><strong>Built the publishing tooling:</strong> custom WordPress plugins that turn a one-hour manual workflow into a single click, so a non-technical team ships SEO-ready content on its own.</li>
+        <li><strong>Built the marketing data layer:</strong> automated pipelines feeding GSC, GA4, and PageSpeed into live dashboards and weekly reports.</li>
+        <li><strong>Owned full-funnel growth:</strong> technical SEO, content architecture, and paid coordination, in EN and VI, for FDI buyers.</li>
+      </ul>
+      <div>
+        <div class="pills"><span class="pill">B2B SaaS</span><span class="pill">FDI Targeting</span><span class="pill">EN / VI</span></div>
+        <div class="ctas"><a href="terra.html" class="btn-fill">Full case study →</a><a href="https://terra-plat.vn" target="_blank" class="btn-line">Live site ↗</a></div>
       </div>
     </div>
   </div>
@@ -726,6 +729,17 @@ requestAnimationFrame(()=>setTimeout(()=>runCount(hero),300));
 // clock
 function tick(){const d=new Date(Date.now()+7*3600*1000),p=n=>String(n).padStart(2,'0');document.getElementById('clock').textContent='HCMC '+p(d.getUTCHours())+':'+p(d.getUTCMinutes())+':'+p(d.getUTCSeconds());}
 setInterval(tick,1000);tick();
+
+// terra case-study sticky-stack storytelling (GSAP ScrollTrigger)
+if(window.gsap&&window.ScrollTrigger&&!reduce&&window.innerWidth>=768){
+  gsap.registerPlugin(ScrollTrigger);
+  const stackCards=gsap.utils.toArray('#terraStack .stack-card-scroll');
+  stackCards.forEach((card,i)=>{
+    if(i===stackCards.length-1)return;
+    ScrollTrigger.create({trigger:card,start:'top top',endTrigger:stackCards[stackCards.length-1],end:'top top',pin:true,pinSpacing:false});
+    gsap.to(card,{scale:0.92,opacity:0.55,ease:'none',scrollTrigger:{trigger:stackCards[i+1],start:'top bottom',end:'top top',scrub:true}});
+  });
+}
 
 // magnetic pull for primary CTAs
 if(matchMedia('(hover:hover) and (pointer:fine)').matches)document.querySelectorAll('.magnetic').forEach(btn=>{
