@@ -98,6 +98,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem var(--pad);di
 
 .panel{background:var(--panel);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--panel-bd);border-radius:18px;padding:1.8rem 1.9rem;position:relative;overflow:hidden}
 
+/* spotlight-border: hover-tracked light on case-study/project cards (ported from index.html) */
+.panel,.shot{position:relative;--sx:50%;--sy:50%}
+.panel::before,.shot::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:5;background:radial-gradient(240px circle at var(--sx) var(--sy),rgba(237,160,85,.85),rgba(205,178,140,.08) 60%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s ease}
+.panel:hover::before,.shot:hover::before{opacity:1}
+@media(prefers-reduced-motion:reduce){.panel::before,.shot::before{display:none}}
+
 /* about */
 .about-row{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(1.8rem,4vw,3.2rem);align-items:start}
 .bio-p{font-size:1.18rem;font-weight:300;line-height:1.85;color:var(--tan);margin-bottom:1.4rem;max-width:54ch}
@@ -567,6 +573,15 @@ if(matchMedia('(hover: none)').matches){
   const sio=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('scrolling',e.isIntersecting)),{threshold:.35});
   document.querySelectorAll('.shot-scroll').forEach(s=>sio.observe(s));
 }
+
+// spotlight-border tracking for panel/shot cards
+if(!reduce)document.querySelectorAll('.panel,.shot').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--sx',(e.clientX-r.left)+'px');
+    card.style.setProperty('--sy',(e.clientY-r.top)+'px');
+  });
+});
 </script>
 </body>
 </html>
