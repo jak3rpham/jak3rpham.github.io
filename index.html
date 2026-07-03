@@ -218,6 +218,7 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
 .lb iframe{width:100%;aspect-ratio:16/9;border:none;border-radius:10px}
 .float-cv{position:fixed;bottom:1.4rem;right:1.4rem;z-index:90;font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--amber);padding:.75rem 1.1rem;border-radius:30px;display:flex;align-items:center;gap:.4rem;font-weight:600;transition:background .3s,transform .3s}
 .float-cv:hover{background:var(--forest);transform:translateY(-2px)}
+.magnetic{transition:transform .3s cubic-bezier(.23,1,.32,1)}
 
 @media(prefers-reduced-motion:reduce){.blobimg,.marquee-t,.dot,.lq{animation:none}.fu{transition:none;opacity:1;transform:none}}
 @media(max-width:900px){
@@ -587,7 +588,7 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
   <div class="sec-inner contact-close">
     <div class="fu">
       <h2 class="contact-huge">Let's build something <span class="ac">that compounds</span></h2>
-      <div class="ctas" style="margin-top:1.8rem"><a href="mailto:pnthanh.work@gmail.com" class="btn-fill">Send an email →</a><a href="CV.pdf" class="btn-line">Download CV ↓</a></div>
+      <div class="ctas" style="margin-top:1.8rem"><a href="mailto:pnthanh.work@gmail.com" class="btn-fill magnetic">Send an email →</a><a href="CV.pdf" class="btn-line">Download CV ↓</a></div>
       <div class="contact-line">
         <div class="ci"><span class="ci-k">Email</span><a href="mailto:pnthanh.work@gmail.com">pnthanh.work@gmail.com</a></div>
         <div class="ci"><span class="ci-k">Phone</span><a href="tel:+84398812349">+84 398 81 2349</a></div>
@@ -608,7 +609,7 @@ footer{position:relative;z-index:4;padding:2.6rem var(--pad);border-top:1px soli
   </div>
 </footer>
 
-<a href="CV.pdf" class="float-cv"><span>↓</span> CV</a>
+<a href="CV.pdf" class="float-cv magnetic"><span>↓</span> CV</a>
 <div class="lb" id="lb"><div class="lb-inner"><button class="lb-close" id="lbClose">✕ Close</button><iframe id="lbFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -725,6 +726,20 @@ requestAnimationFrame(()=>setTimeout(()=>runCount(hero),300));
 // clock
 function tick(){const d=new Date(Date.now()+7*3600*1000),p=n=>String(n).padStart(2,'0');document.getElementById('clock').textContent='HCMC '+p(d.getUTCHours())+':'+p(d.getUTCMinutes())+':'+p(d.getUTCSeconds());}
 setInterval(tick,1000);tick();
+
+// magnetic pull for primary CTAs
+if(matchMedia('(hover:hover) and (pointer:fine)').matches)document.querySelectorAll('.magnetic').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const r=btn.getBoundingClientRect();
+    const mx=(e.clientX-(r.left+r.width/2))*0.3,my=(e.clientY-(r.top+r.height/2))*0.3;
+    btn.style.transition='none';
+    btn.style.transform='translate('+mx+'px,'+my+'px)';
+  });
+  btn.addEventListener('mouseleave',()=>{
+    btn.style.transition='transform .3s cubic-bezier(.23,1,.32,1)';
+    btn.style.transform='translate(0,0)';
+  });
+});
 
 // spotlight-border tracking for case-study/project cards
 if(!reduce)document.querySelectorAll('.shot,.panel.feature-screen,.mock,.stack-card').forEach(card=>{
