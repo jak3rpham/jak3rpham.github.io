@@ -102,6 +102,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem var(--pad);di
 
 .panel{background:var(--panel);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--panel-bd);border-radius:18px;padding:1.8rem 1.9rem;position:relative;overflow:hidden}
 
+/* spotlight-border: hover-tracked light on case-study/project cards */
+.shot,.panel.feature-screen,.mock,.stack-card{position:relative;--sx:50%;--sy:50%}
+.shot::before,.panel.feature-screen::before,.mock::before,.stack-card::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:5;background:radial-gradient(240px circle at var(--sx) var(--sy),rgba(143,212,158,.85),rgba(180,205,160,.08) 60%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s ease}
+.shot:hover::before,.panel.feature-screen:hover::before,.mock:hover::before,.stack-card:hover::before{opacity:1}
+@media(prefers-reduced-motion:reduce){.shot::before,.panel.feature-screen::before,.mock::before,.stack-card::before{display:none}}
+
 /* about */
 .about-row{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(1.8rem,4vw,3.2rem);align-items:start}
 .bio-p{font-size:1.18rem;font-weight:300;line-height:1.85;color:var(--tan);margin-bottom:1.4rem;max-width:54ch}
@@ -719,6 +725,15 @@ requestAnimationFrame(()=>setTimeout(()=>runCount(hero),300));
 // clock
 function tick(){const d=new Date(Date.now()+7*3600*1000),p=n=>String(n).padStart(2,'0');document.getElementById('clock').textContent='HCMC '+p(d.getUTCHours())+':'+p(d.getUTCMinutes())+':'+p(d.getUTCSeconds());}
 setInterval(tick,1000);tick();
+
+// spotlight-border tracking for case-study/project cards
+if(!reduce)document.querySelectorAll('.shot,.panel.feature-screen,.mock,.stack-card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--sx',(e.clientX-r.left)+'px');
+    card.style.setProperty('--sy',(e.clientY-r.top)+'px');
+  });
+});
 
 // video lightbox
 const lb=document.getElementById('lb'),lbF=document.getElementById('lbFrame');
