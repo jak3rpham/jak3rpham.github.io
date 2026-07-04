@@ -37,4 +37,11 @@ describe("useMediaQuery", () => {
     act(() => trigger(true));
     expect(result.current).toBe(true);
   });
+
+  it("removes the listener on unmount", () => {
+    const { mql } = mockMatchMedia(true);
+    const { unmount } = renderHook(() => useMediaQuery("(min-width: 768px)"));
+    unmount();
+    expect(mql.removeEventListener).toHaveBeenCalledTimes(1);
+  });
 });
