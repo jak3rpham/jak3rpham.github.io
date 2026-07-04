@@ -1,14 +1,10 @@
 "use client";
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { useCountUp } from "@/lib/useCountUp";
 import { SpotlightCard } from "./SpotlightCard";
 import { SectionMotif } from "./SectionMotif";
 import { useLiveWhenVisible } from "@/lib/useLiveWhenVisible";
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] } },
-};
+import { fadeUp } from "@/lib/motion";
 
 function Fact({
   label,
@@ -31,7 +27,7 @@ function Fact({
       <span className="font-mono text-[0.66rem] uppercase tracking-[0.1em] text-sand">{label}</span>
       <span className="flex items-center gap-2.5 text-2xl font-semibold text-cream">
         {sparkPoints && (
-          <svg className="h-[15px] w-14" viewBox="0 0 56 15">
+          <svg className="h-[15px] w-14" viewBox="0 0 56 15" aria-hidden="true">
             <polyline points={sparkPoints} fill="none" stroke="#79B488" strokeWidth="1.4" />
           </svg>
         )}
