@@ -88,6 +88,7 @@ export function Hero() {
       >
         <h1
           className="mb-2.5 pb-[0.12em] text-[clamp(3.4rem,8vw,7.5rem)] font-bold leading-[1.02] tracking-[-0.035em] text-cream [text-shadow:0_2px_50px_rgba(20,13,7,0.6)]"
+          // Decorative mouse-only easter egg; intentionally has no keyboard/focus equivalent.
           onMouseEnter={hoverCapable && !reduceMotion ? trigger : undefined}
         >
           {isScrambling ? (
