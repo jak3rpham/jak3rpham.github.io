@@ -13,7 +13,7 @@ describe("useCountUp", () => {
     expect(rafSpy).toHaveBeenCalledTimes(1);
   });
 
-  it("counts up to the target value using eased progress", () => {
+  it("counts up using the cubic ease-out curve, not linear progress", () => {
     let now = 0;
     const callbacks: FrameRequestCallback[] = [];
     vi.spyOn(window, "requestAnimationFrame").mockImplementation((cb) => {
@@ -27,20 +27,31 @@ describe("useCountUp", () => {
       result.current.start();
     });
 
-    // advance halfway through the duration
-    now = 500;
+    now = 200; // p = 0.2 of a 1000ms duration
     act(() => {
-      const cb = callbacks.shift();
-      cb?.(now);
+      callbacks.shift()?.(now);
     });
-    expect(result.current.value).toBeGreaterThan(0);
-    expect(result.current.value).toBeLessThan(100);
+    // eased = 1 - (1-0.2)^3 = 0.488 -> value = 48.8 -> toFixed(0) = 49
+    expect(result.current.value).toBe(49);
+  });
 
-    // advance to completion
+  it("reaches the exact target value at completion", () => {
+    let now = 0;
+    const callbacks: FrameRequestCallback[] = [];
+    vi.spyOn(window, "requestAnimationFrame").mockImplementation((cb) => {
+      callbacks.push(cb);
+      return callbacks.length;
+    });
+    vi.spyOn(performance, "now").mockImplementation(() => now);
+
+    const { result } = renderHook(() => useCountUp(100, 0, 1000));
+    act(() => {
+      result.current.start();
+    });
+
     now = 1000;
     act(() => {
-      const cb = callbacks.shift();
-      cb?.(now);
+      callbacks.shift()?.(now);
     });
     expect(result.current.value).toBe(100);
   });
