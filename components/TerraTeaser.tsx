@@ -7,6 +7,8 @@ import { SectionMotif } from "./SectionMotif";
 import { useLiveWhenVisible } from "@/lib/useLiveWhenVisible";
 import { fadeUp } from "@/lib/motion";
 
+// Ported from index.html's static line-chart SVG (600×170 viewBox); these coordinates
+// trace the original hand-tuned GSC clicks/day curve, not real-time data.
 const CHART_PATH =
   "M0.0,138.0 L46.2,129.9 L92.3,124.4 L138.5,133.8 L184.6,137.0 L230.8,129.2 L276.9,60.8 L323.1,29.7 L369.2,103.7 L415.4,97.7 L461.5,55.1 L507.7,31.3 L553.8,88.7 L600.0,12.0";
 const AREA_PATH = `${CHART_PATH} L600,170 L0,170 Z`;
@@ -70,7 +72,7 @@ export function TerraTeaser() {
               <span className="h-2.5 w-2.5 rounded-full bg-clay" />
               <span className="ml-2 font-mono text-[0.64rem] text-sand">terra-plat.vn · Google Search Console</span>
             </div>
-            <svg className="mb-4 h-[170px] w-full" viewBox="0 0 600 170" preserveAspectRatio="none">
+            <svg className="mb-4 h-[170px] w-full" viewBox="0 0 600 170" preserveAspectRatio="none" aria-hidden="true">
               <defs>
                 <linearGradient id="gareaG" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stopColor="#79B488" stopOpacity=".3" />
