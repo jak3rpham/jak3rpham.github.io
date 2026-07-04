@@ -56,13 +56,17 @@ export function SectionMotif({ variant }: { variant: MotifVariant }) {
       </div>
     );
   }
-  return (
-    <div className="sbg">
-      <div className="motif motif-signal">
-        <span />
-        <span />
-        <span />
+  if (variant === "signal") {
+    return (
+      <div className="sbg">
+        <div className="motif motif-signal">
+          <span />
+          <span />
+          <span />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  const exhaustiveCheck: never = variant;
+  throw new Error(`Unhandled SectionMotif variant: ${exhaustiveCheck}`);
 }

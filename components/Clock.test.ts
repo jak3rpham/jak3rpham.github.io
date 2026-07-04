@@ -11,4 +11,9 @@ describe("formatHCMC", () => {
     const lateUtc = new Date(Date.UTC(2026, 0, 1, 23, 30, 0));
     expect(formatHCMC(lateUtc)).toBe("HCMC 06:30:00");
   });
+
+  it("lands exactly on midnight after the +7h shift", () => {
+    const utcExactWrap = new Date(Date.UTC(2026, 0, 1, 17, 0, 0));
+    expect(formatHCMC(utcExactWrap)).toBe("HCMC 00:00:00");
+  });
 });
