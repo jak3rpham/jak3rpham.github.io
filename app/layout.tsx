@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Noto_Serif_JP, DM_Mono } from "next/font/google";
 import { GrainOverlay } from "@/components/GrainOverlay";
+import { Nav } from "@/components/Nav";
 import "./globals.css";
 
 const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800"], variable: "--font-outfit" });
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${outfit.variable} ${notoSerifJP.variable} ${dmMono.variable}`}>
       <body>
         <GrainOverlay />
+        <Nav />
         {children}
       </body>
     </html>
