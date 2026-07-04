@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Noto_Serif_JP, DM_Mono } from "next/font/google";
+import { GrainOverlay } from "@/components/GrainOverlay";
 import "./globals.css";
 
 const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800"], variable: "--font-outfit" });
@@ -16,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${outfit.variable} ${notoSerifJP.variable} ${dmMono.variable}`}>
       <body>
-        <div aria-hidden className="grain-bg pointer-events-none fixed inset-0 z-[60] opacity-[0.022]" />
+        <GrainOverlay />
         {children}
       </body>
     </html>
