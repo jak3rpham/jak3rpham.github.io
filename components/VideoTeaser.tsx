@@ -13,10 +13,10 @@ const STRIP = [
   { yt: "3xfFHWMzung", badge: "Product", title: "Explainer trên iPad", meta: "Mona Media" },
 ];
 
-function VideoCard({ yt, badge, title, meta, onOpen, featured }: { yt: string; badge: string; title: string; meta: string; onOpen: (yt: string) => void; featured?: boolean }) {
+function VideoCard({ yt, badge, title, meta, onOpen, featured }: { yt: string; badge: string; title: string; meta: string; onOpen: (yt: string, title: string) => void; featured?: boolean }) {
   return (
     <button
-      onClick={() => onOpen(yt)}
+      onClick={() => onOpen(yt, title)}
       className={`group relative overflow-hidden rounded-[14px] border border-panel-border bg-[#18211A] text-left ${featured ? "" : "aspect-[16/10]"}`}
     >
       <img
@@ -41,7 +41,7 @@ function VideoCard({ yt, badge, title, meta, onOpen, featured }: { yt: string; b
 
 export function VideoTeaser() {
   const { ref, live } = useLiveWhenVisible<HTMLElement>();
-  const [openId, setOpenId] = useState<string | null>(null);
+  const [active, setActive] = useState<{ yt: string; title: string } | null>(null);
 
   return (
     <section ref={ref} id="video" className={`sec relative z-[4] overflow-hidden ${live ? "live" : ""}`}>
@@ -80,10 +80,10 @@ export function VideoTeaser() {
           viewport={{ once: true, amount: 0.3 }}
           className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-[1.6fr_1fr]"
         >
-          <VideoCard {...FEATURED} onOpen={setOpenId} featured />
+          <VideoCard {...FEATURED} onOpen={(yt, title) => setActive({ yt, title })} featured />
           <div className="grid grid-rows-3 gap-4">
             {STRIP.map((v) => (
-              <VideoCard key={v.yt} {...v} onOpen={setOpenId} />
+              <VideoCard key={v.yt} {...v} onOpen={(yt, title) => setActive({ yt, title })} />
             ))}
           </div>
         </motion.div>
@@ -106,7 +106,7 @@ export function VideoTeaser() {
           <span className="text-[1.4rem]">→</span>
         </motion.a>
       </div>
-      <VideoLightbox videoId={openId} onClose={() => setOpenId(null)} />
+      <VideoLightbox videoId={active?.yt ?? null} title={active?.title} onClose={() => setActive(null)} />
     </section>
   );
 }

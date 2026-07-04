@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-export function VideoLightbox({ videoId, onClose }: { videoId: string | null; onClose: () => void }) {
+export function VideoLightbox({ videoId, title, onClose }: { videoId: string | null; title?: string; onClose: () => void }) {
   useEffect(() => {
     if (!videoId) return;
     function onKeyDown(e: KeyboardEvent) {
@@ -40,6 +40,7 @@ export function VideoLightbox({ videoId, onClose }: { videoId: string | null; on
             <iframe
               className="aspect-video w-full rounded-[10px] border-none"
               src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+              title={title ?? "YouTube video player"}
               allow="autoplay; encrypted-media"
               allowFullScreen
             />
