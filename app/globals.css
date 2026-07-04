@@ -1,1 +1,288 @@
 @import "tailwindcss";
+
+@theme {
+  --color-ink: #0F140F;
+  --color-cream: #F2F4E9;
+  --color-tan: #D9E0C8;
+  --color-sand: #A9BC92;
+  --color-clay: #7FA773;
+  --color-forest: #8FD49E;
+  --color-amber: #6FBE7F;
+  --color-panel: rgba(22, 30, 22, 0.52);
+  --color-panel-border: rgba(180, 205, 160, 0.2);
+  --color-rule: rgba(180, 205, 160, 0.2);
+
+  --font-sans: "Outfit", sans-serif;
+  --font-serif-jp: "Noto Serif JP", serif;
+  --font-mono: "DM Mono", monospace;
+}
+
+:root {
+  --pad: clamp(1.6rem, 5vw, 5rem);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.font-serif-jp {
+  font-family: var(--font-serif-jp);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* grain overlay texture */
+.grain-bg {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px;
+}
+
+/* spotlight-border hover (About stack cards, Terra/Work shots, feature panels) */
+.spotlight {
+  position: relative;
+  --sx: 50%;
+  --sy: 50%;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  z-index: 5;
+  background: radial-gradient(240px circle at var(--sx) var(--sy), rgba(143, 212, 158, 0.85), rgba(180, 205, 160, 0.08) 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* per-section decorative background layer */
+.sbg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.motif {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+.motif-radar {
+  top: 9%;
+  right: 7%;
+  width: min(28vw, 340px);
+  aspect-ratio: 1;
+  opacity: 0.6;
+}
+.motif-radar span {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--color-forest);
+  border-radius: 50%;
+  opacity: 0;
+}
+.live .motif-radar span {
+  animation: radar 4.2s ease-out infinite;
+}
+.motif-radar span:nth-child(2) {
+  animation-delay: 1.4s;
+}
+.motif-radar span:nth-child(3) {
+  animation-delay: 2.8s;
+}
+@keyframes radar {
+  0% {
+    transform: scale(0.08);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+.motif-radar i {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0 290deg, rgba(121, 180, 136, 0.22) 360deg);
+}
+.live .motif-radar i {
+  animation: spin 7s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.motif-bars {
+  bottom: 0;
+  right: 5%;
+  width: min(30vw, 360px);
+  height: 42%;
+  display: flex;
+  align-items: flex-end;
+  gap: 5%;
+  opacity: 0.4;
+}
+.motif-bars span {
+  flex: 1;
+  background: linear-gradient(var(--color-forest), transparent);
+  border-radius: 4px 4px 0 0;
+  transform-origin: bottom;
+  transform: scaleY(var(--h, 0.4));
+}
+.live .motif-bars span {
+  animation: bars 3.2s ease-in-out infinite;
+}
+@keyframes bars {
+  0%,
+  100% {
+    transform: scaleY(var(--h, 0.4));
+  }
+  50% {
+    transform: scaleY(calc(var(--h, 0.4) * 1.6));
+  }
+}
+.motif-aurora {
+  top: -12%;
+  left: -6%;
+  width: 62%;
+  height: 88%;
+  background: conic-gradient(from 90deg, rgba(60, 130, 90, 0.42), rgba(143, 212, 158, 0.3), rgba(40, 95, 65, 0.42), rgba(60, 130, 90, 0.42));
+  filter: blur(70px);
+  border-radius: 48% 52% 55% 45%;
+}
+.live .motif-aurora {
+  animation: spin 26s linear infinite;
+}
+.tw {
+  position: absolute;
+  z-index: 1;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-amber);
+  box-shadow: 0 0 12px var(--color-amber);
+  opacity: 0.4;
+  pointer-events: none;
+}
+.live .tw {
+  animation: twk 3s ease-in-out infinite;
+}
+@keyframes twk {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.3);
+  }
+}
+.motif-stripes {
+  inset: 0;
+  background: repeating-linear-gradient(60deg, rgba(180, 205, 160, 0.07) 0 2px, transparent 2px 28px);
+  opacity: 0.6;
+}
+.live .motif-stripes {
+  animation: stripeMove 7s linear infinite;
+}
+@keyframes stripeMove {
+  to {
+    background-position: 130px 0;
+  }
+}
+.motif-eq {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 32%;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.9%;
+  padding: 0 var(--pad);
+  opacity: 0.32;
+}
+.motif-eq span {
+  flex: 1;
+  background: linear-gradient(var(--color-amber), var(--color-forest));
+  transform-origin: bottom;
+  transform: scaleY(0.15);
+  border-radius: 2px;
+}
+.live .motif-eq span {
+  animation: eq 1.2s ease-in-out infinite;
+}
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.12);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+.motif-signal {
+  bottom: 8%;
+  left: 7%;
+  width: min(26vw, 300px);
+  aspect-ratio: 1;
+  opacity: 0.6;
+}
+.motif-signal span {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--color-amber);
+  border-radius: 50%;
+  opacity: 0;
+}
+.live .motif-signal span {
+  animation: radar 4.6s ease-out infinite;
+}
+.motif-signal span:nth-child(2) {
+  animation-delay: 1.5s;
+}
+.motif-signal span:nth-child(3) {
+  animation-delay: 3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight::before {
+    display: none;
+  }
+  .motif span,
+  .motif i,
+  .motif-aurora,
+  .tw,
+  .motif-stripes {
+    animation: none;
+  }
+}
