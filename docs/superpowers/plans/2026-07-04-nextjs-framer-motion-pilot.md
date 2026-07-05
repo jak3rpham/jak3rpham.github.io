@@ -2594,6 +2594,8 @@ git commit -m "Move static assets and untouched pages into public/, remove old i
 
 ### Task 14: Static export config and GitHub Actions deployment
 
+**Note carried over from Task 13:** `npm run dev` returns 308→404 for `/pati-challenge/` (trailing slash) because `next dev`'s dev server doesn't do directory-index resolution for nested folders under `public/` — only `next dev` is affected; `/pati-challenge/index.html` (exact path) already returns 200. This is expected to resolve correctly once statically exported and served by GitHub Pages (a plain static host that does directory-index resolution natively, with no Next.js server in the loop at request time). **Verify this empirically in Step 3 below** rather than assuming — e.g. after `next build`, run `npx serve out` (or equivalent static server) and confirm `/pati-challenge/` resolves, since that's a closer approximation of GitHub Pages' actual serving behavior than `next dev`.
+
 **Files:**
 - Modify: `next.config.ts`
 - Create: `.github/workflows/deploy.yml`
