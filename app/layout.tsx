@@ -13,6 +13,14 @@ export const metadata: Metadata = {
   title: "Tatsuki · Pham Ngoc Thanh / Digital Marketing & Creative",
   description:
     "Pham Ngoc Thanh (Tatsuki), Digital Marketing Strategist building full-funnel campaigns for B2B SaaS. SEO, performance, video. Ho Chi Minh City.",
+  icons: {
+    icon: [
+      { url: "/favicon-32.png", sizes: "32x32" },
+      { url: "/favicon-16.png", sizes: "16x16" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
