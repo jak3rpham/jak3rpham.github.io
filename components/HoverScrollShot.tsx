@@ -2,9 +2,9 @@ export function HoverScrollShot({ src, alt, urlLabel }: { src: string; alt: stri
   return (
     <div className="group">
       <div className="flex items-center gap-2 border-b border-rule bg-black/30 px-4 py-2.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-clay" />
-        <span className="h-2.5 w-2.5 rounded-full bg-clay" />
-        <span className="h-2.5 w-2.5 rounded-full bg-clay" />
+        <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-clay" />
+        <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-clay" />
+        <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-clay" />
         <span className="ml-2 font-mono text-[0.64rem] text-sand">{urlLabel}</span>
       </div>
       <div className="relative h-[460px] overflow-hidden">

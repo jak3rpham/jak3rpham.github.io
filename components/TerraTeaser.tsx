@@ -67,9 +67,9 @@ export function TerraTeaser() {
 
           <SpotlightCard className="rounded-[14px] border border-panel-border bg-panel p-7 backdrop-blur-md">
             <div className="mb-4 flex items-center gap-2 border-b border-rule pb-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-clay" />
-              <span className="h-2.5 w-2.5 rounded-full bg-clay" />
-              <span className="h-2.5 w-2.5 rounded-full bg-clay" />
+              <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-clay" />
+              <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-clay" />
+              <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-clay" />
               <span className="ml-2 font-mono text-[0.64rem] text-sand">terra-plat.vn · Google Search Console</span>
             </div>
             <svg className="mb-4 h-[170px] w-full" viewBox="0 0 600 170" preserveAspectRatio="none" aria-hidden="true">

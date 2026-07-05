@@ -50,9 +50,9 @@ export function WorkSection() {
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} className="mb-6">
           <SpotlightCard className="overflow-hidden rounded-[14px] border border-panel-border bg-[#18211A]">
             <div className="flex items-center gap-2 border-b border-rule bg-black/25 px-4 py-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-clay" />
-              <span className="h-2.5 w-2.5 rounded-full bg-clay" />
-              <span className="h-2.5 w-2.5 rounded-full bg-clay" />
+              <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-clay" />
+              <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-clay" />
+              <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-clay" />
               <span className="ml-2 font-mono text-[0.64rem] text-sand">uphub.vn</span>
             </div>
             <div className="aspect-[21/9] overflow-hidden">
