@@ -2,8 +2,7 @@
 import { motion } from "framer-motion";
 import { useMagnetic } from "@/lib/useMagnetic";
 import { useMediaQuery } from "@/lib/useMediaQuery";
-import { SectionMotif } from "./SectionMotif";
-import { useLiveWhenVisible } from "@/lib/useLiveWhenVisible";
+import { Reveal } from "./Reveal";
 import { fadeUp } from "@/lib/motion";
 
 const CONTACT_LINES = [
@@ -15,49 +14,47 @@ const CONTACT_LINES = [
 ];
 
 export function Contact() {
-  const { ref, live } = useLiveWhenVisible<HTMLElement>();
   const hoverCapable = useMediaQuery("(hover: hover) and (pointer: fine)");
   const magnetic = useMagnetic<HTMLAnchorElement>(0.3);
 
   return (
-    <section ref={ref} id="contact" className={`sec relative z-[4] overflow-hidden ${live ? "live" : ""}`}>
-      <SectionMotif variant="signal" />
-      <div className="relative z-[2] px-[var(--pad)] py-[clamp(5rem,12vw,9rem)]">
+    <section id="contact" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(4rem,8vw,7.5rem)]">
+      <div className="mx-auto max-w-[1400px]">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-          <h2 className="max-w-[18ch] text-[clamp(2.6rem,6vw,5.2rem)] font-extrabold leading-[1.02] tracking-[-0.035em] text-cream">
-            Let&apos;s build something{" "}
-            <span className="bg-gradient-to-r from-[#D2E8B4] to-[#6FBE7F] bg-clip-text text-transparent">that compounds</span>
-          </h2>
-          <div className="mt-7 flex flex-wrap items-center gap-6">
+          <Reveal>
+            <h2 className="max-w-[16ch] font-display text-[clamp(2.6rem,7vw,5.4rem)] font-bold leading-[1.04] tracking-[-0.04em] text-cream">
+              Let&apos;s build something <span className="text-forest">that compounds</span>
+            </h2>
+          </Reveal>
+          <div className="mt-9">
             <motion.a
               href="mailto:pnthanh.work@gmail.com"
               ref={magnetic.ref}
               onMouseMove={hoverCapable ? magnetic.onMouseMove : undefined}
               onMouseLeave={hoverCapable ? magnetic.onMouseLeave : undefined}
               style={hoverCapable ? magnetic.style : undefined}
-              className="inline-flex items-center gap-2 rounded-[9px] bg-amber px-6 py-3.5 text-[0.92rem] font-semibold text-ink transition-colors hover:bg-forest"
+              className="inline-flex items-center gap-2 rounded-full bg-forest px-7 py-4 text-[0.95rem] font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5"
             >
               Send an email →
             </motion.a>
-            <a href="/CV.pdf" className="border-b border-forest pb-0.5 text-[0.92rem] text-tan transition-colors hover:text-forest">
-              Download CV ↓
-            </a>
           </div>
-          <div className="my-8 flex flex-wrap gap-x-12 gap-y-6 border-t border-rule pt-7">
+
+          <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-7 border-t border-rule pt-9 sm:grid-cols-3 lg:grid-cols-5">
             {CONTACT_LINES.map(({ k, v, href }) => (
-              <div key={k} className="flex flex-col gap-1">
+              <div key={k} className="flex flex-col gap-1.5">
                 <span className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-sand">{k}</span>
                 {href ? (
-                  <a href={href} className="text-[1.05rem] text-cream hover:text-forest">
+                  <a href={href} className="text-[1.02rem] text-cream transition-colors hover:text-forest">
                     {v}
                   </a>
                 ) : (
-                  <span className="text-[1.05rem] text-cream">{v}</span>
+                  <span className="text-[1.02rem] text-cream">{v}</span>
                 )}
               </div>
             ))}
           </div>
-          <div className="flex flex-wrap gap-2">
+
+          <div className="mt-9 flex flex-wrap gap-2">
             {[
               ["LinkedIn", "https://linkedin.com/in/jkpham03/"],
               ["Facebook", "https://facebook.com/phamth.jaker/"],
@@ -68,7 +65,7 @@ export function Contact() {
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-md border border-rule px-3 py-1.5 font-mono text-[0.62rem] text-sand transition-colors hover:border-forest hover:bg-forest hover:text-ink"
+                className="rounded-full border border-rule px-4 py-2 font-mono text-[0.62rem] uppercase tracking-[0.06em] text-sand transition-colors hover:border-forest hover:bg-forest hover:text-ink"
               >
                 {label}
               </a>

@@ -1,23 +1,28 @@
 "use client";
-import { motion } from "framer-motion";
-import { staggerContainer, staggerItem } from "@/lib/motion";
+import { VelocityMarquee } from "./VelocityMarquee";
 
-const ITEMS = ["Technical SEO", "12× Organic Growth", "31.4M Impressions", "978 Keywords Top 10"];
+const STATS: { value: string; label: string }[] = [
+  { value: "12×", label: "Organic growth" },
+  { value: "978", label: "Keywords top 10" },
+  { value: "31.4M", label: "Impressions" },
+  { value: "55→90", label: "Site health" },
+  { value: "2", label: "Top 1 TVCs" },
+];
 
 export function StatStrip() {
   return (
-    <motion.div
-      variants={staggerContainer}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.5 }}
-      className="relative z-[4] flex flex-wrap justify-center gap-x-9 gap-y-2 border-y border-rule bg-black/30 px-[var(--pad)] py-5"
-    >
-      {ITEMS.map((label) => (
-        <motion.div key={label} variants={staggerItem} className="font-mono text-[0.78rem] uppercase tracking-[0.1em] text-sand">
-          <b className="font-medium text-amber">{label}</b>
-        </motion.div>
-      ))}
-    </motion.div>
+    <div className="relative z-[4] border-y border-rule bg-black/20 py-6">
+      <VelocityMarquee baseVelocity={3}>
+        {STATS.map((s) => (
+          <span key={s.label} className="flex items-center gap-4 pr-8">
+            <span className="font-display text-[clamp(1.6rem,3vw,2.4rem)] font-bold leading-none tracking-[-0.03em] text-cream">
+              {s.value}
+            </span>
+            <span className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-sand">{s.label}</span>
+            <span className="ml-4 h-2 w-2 rotate-45 bg-forest" aria-hidden />
+          </span>
+        ))}
+      </VelocityMarquee>
+    </div>
   );
 }

@@ -13,7 +13,10 @@ export function FloatingCV() {
       onMouseMove={hoverCapable ? magnetic.onMouseMove : undefined}
       onMouseLeave={hoverCapable ? magnetic.onMouseLeave : undefined}
       style={hoverCapable ? magnetic.style : undefined}
-      className="fixed bottom-[1.4rem] right-[1.4rem] z-[90] flex items-center gap-1.5 rounded-full bg-amber px-4 py-3 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.1em] text-ink transition-colors hover:bg-forest"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1.2, duration: 0.5 }}
+      className="fixed bottom-[1.4rem] right-[1.4rem] z-[90] flex items-center gap-1.5 rounded-full border border-forest/50 bg-ink/80 px-4 py-3 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.1em] text-forest backdrop-blur-md transition-colors hover:bg-forest hover:text-ink"
     >
       <span>↓</span> CV
     </motion.a>

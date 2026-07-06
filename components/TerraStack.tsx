@@ -1,7 +1,7 @@
 "use client";
 import { useRef } from "react";
 import type { ReactNode } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 
 function StackCard({ index, total, children }: { index: number; total: number; children: ReactNode }) {
@@ -24,7 +24,7 @@ function StackCard({ index, total, children }: { index: number; total: number; c
 
 export function TerraStack({ children }: { children: ReactNode[] }) {
   const disableStack = useMediaQuery("(max-width: 767px)");
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   if (disableStack || reduceMotion) {
     return <div className="flex flex-col gap-6">{children}</div>;

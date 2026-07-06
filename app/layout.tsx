@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
-import { Outfit, Noto_Serif_JP, DM_Mono } from "next/font/google";
+import { Outfit, Bricolage_Grotesque, Noto_Serif_JP, DM_Mono } from "next/font/google";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { Nav } from "@/components/Nav";
 import { FloatingCV } from "@/components/FloatingCV";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { Preloader } from "@/components/Preloader";
+import { ScrollProgress } from "@/components/ScrollProgress";
+import { CursorFollower } from "@/components/CursorFollower";
 import "./globals.css";
 
-const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700", "800"], variable: "--font-outfit" });
-const notoSerifJP = Noto_Serif_JP({ subsets: ["latin"], weight: ["700", "900"], variable: "--font-noto-serif-jp" });
+const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-outfit" });
+const bricolage = Bricolage_Grotesque({ subsets: ["latin"], weight: ["500", "600", "700", "800"], variable: "--font-bricolage" });
+const notoSerifJP = Noto_Serif_JP({ subsets: ["latin"], weight: ["600", "700", "900"], variable: "--font-noto-serif-jp" });
 const dmMono = DM_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-dm-mono" });
 
 export const metadata: Metadata = {
@@ -25,12 +30,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${outfit.variable} ${notoSerifJP.variable} ${dmMono.variable}`}>
+    <html lang="en" className={`${outfit.variable} ${bricolage.variable} ${notoSerifJP.variable} ${dmMono.variable}`}>
       <body>
+        <Preloader />
+        <ScrollProgress />
+        <CursorFollower />
         <GrainOverlay />
         <Nav />
-        {children}
         <FloatingCV />
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );
