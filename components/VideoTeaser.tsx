@@ -5,48 +5,50 @@ import { VideoLightbox } from "./VideoLightbox";
 import { Reveal } from "./Reveal";
 import { useScrollTilt } from "@/lib/useScrollTilt";
 import { fadeUp } from "@/lib/motion";
-
-type Vid = { yt: string; badge: string; title: string; meta: string };
-
-const VIDEOS: Vid[] = [
-  { yt: "Nr8vCC5JWCQ", badge: "Top 1 TVC · 2024", title: "Business Challenge 2024 · TVC ARISAQUA", meta: "ISB Academic Team" },
-  { yt: "1cJGz4wwduA", badge: "Social · Top 20", title: "Let's On Air 2023", meta: "S Communications" },
-  { yt: "BWeBzuIDSRk", badge: "Explainer", title: "Shadow Funnel", meta: "Mona Media" },
-  { yt: "3xfFHWMzung", badge: "Product", title: "Explainer trên iPad", meta: "Mona Media" },
-];
+import { HOME_PRIORITY, thumb, type Film } from "@/lib/videoData";
 
 function VideoCard({
   v,
   onOpen,
   className = "",
+  big = false,
 }: {
-  v: Vid;
+  v: Film;
   onOpen: (yt: string, title: string) => void;
   className?: string;
+  big?: boolean;
 }) {
-  const tilt = useScrollTilt<HTMLButtonElement>(4);
+  const tilt = useScrollTilt<HTMLButtonElement>(big ? 3 : 5);
   return (
     <motion.button
       ref={tilt.ref}
       style={tilt.style}
       onClick={() => onOpen(v.yt, v.title)}
-      className={`group relative overflow-hidden rounded-[14px] border border-panel-border bg-ink-raised text-left ${className}`}
+      className={`group relative h-full overflow-hidden rounded-[14px] border border-panel-border bg-ink-raised text-left ${className}`}
     >
       <img
-        src={`https://img.youtube.com/vi/${v.yt}/maxresdefault.jpg`}
+        src={thumb(v.yt)}
         alt={v.title}
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent from-40% to-black/85" />
-      <span className="absolute left-3 top-3 z-[2] rounded-md bg-black/60 px-2.5 py-1 font-mono text-[0.58rem] uppercase tracking-[0.08em] text-cream backdrop-blur-sm">
-        {v.badge}
-      </span>
-      <span className="absolute left-1/2 top-1/2 z-[2] flex h-[56px] w-[56px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[1.5px] border-cream/85 pl-1 text-cream transition-colors group-hover:border-forest group-hover:text-forest">
+      {v.badge && (
+        <span className="absolute left-3 top-3 z-[2] rounded-md bg-black/60 px-2.5 py-1 font-mono text-[0.58rem] uppercase tracking-[0.08em] text-cream backdrop-blur-sm">
+          {v.badge}
+        </span>
+      )}
+      <span
+        className={`absolute left-1/2 top-1/2 z-[2] flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[1.5px] border-cream/85 pl-1 text-cream transition-colors group-hover:border-forest group-hover:text-forest ${
+          big ? "h-[68px] w-[68px] text-[1.1rem]" : "h-[50px] w-[50px]"
+        }`}
+      >
         ▶
       </span>
-      <div className="absolute bottom-4 left-4 right-4 z-[2]">
-        <div className="text-[1.05rem] font-semibold leading-[1.3] text-cream">{v.title}</div>
-        <div className="mt-1 font-mono text-[0.58rem] text-sand">{v.meta}</div>
+      <div className="absolute inset-x-4 bottom-4 z-[2]">
+        <div className={`font-semibold leading-[1.15] text-cream ${big ? "font-display text-[clamp(1.4rem,2.6vw,2.2rem)] tracking-[-0.02em]" : "text-[1.02rem]"}`}>
+          {v.title}
+        </div>
+        <div className="mt-1 font-mono text-[0.56rem] uppercase tracking-[0.05em] text-sand">{v.meta}</div>
       </div>
     </motion.button>
   );
@@ -55,6 +57,7 @@ function VideoCard({
 export function VideoTeaser() {
   const [active, setActive] = useState<{ yt: string; title: string } | null>(null);
   const open = (yt: string, title: string) => setActive({ yt, title });
+  const v = HOME_PRIORITY;
 
   return (
     <section id="video" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(3.5rem,7vw,6rem)]">
@@ -76,18 +79,20 @@ export function VideoTeaser() {
           </motion.p>
         </div>
 
-        {/* asymmetric, staggered mosaic with 3D tilt */}
+        {/* asymmetric bento — a big hero + a right stack, then a three-up row */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
-          className="grid grid-cols-1 gap-5 [perspective:1800px] md:grid-cols-12"
+          className="grid grid-cols-1 gap-4 [perspective:1800px] md:grid-cols-12 md:auto-rows-[132px]"
         >
-          <VideoCard v={VIDEOS[0]} onOpen={open} className="aspect-[16/9] md:col-span-7" />
-          <VideoCard v={VIDEOS[1]} onOpen={open} className="aspect-[16/11] md:col-span-5" />
-          <VideoCard v={VIDEOS[2]} onOpen={open} className="aspect-[16/11] md:col-span-5" />
-          <VideoCard v={VIDEOS[3]} onOpen={open} className="aspect-[16/9] md:col-span-7" />
+          <VideoCard v={v[0]} onOpen={open} big className="aspect-video md:aspect-auto md:col-span-7 md:row-span-3" />
+          <VideoCard v={v[1]} onOpen={open} className="aspect-video md:aspect-auto md:col-span-5 md:row-span-2" />
+          <VideoCard v={v[2]} onOpen={open} className="aspect-video md:aspect-auto md:col-span-5 md:row-span-1" />
+          <VideoCard v={v[3]} onOpen={open} className="aspect-video md:aspect-auto md:col-span-4 md:row-span-2" />
+          <VideoCard v={v[4]} onOpen={open} className="aspect-video md:aspect-auto md:col-span-4 md:row-span-2" />
+          <VideoCard v={v[5]} onOpen={open} className="aspect-video md:aspect-auto md:col-span-4 md:row-span-2" />
         </motion.div>
 
         <motion.a

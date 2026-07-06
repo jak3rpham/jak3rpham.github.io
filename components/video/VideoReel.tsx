@@ -204,50 +204,63 @@ function CatalogueCard({ item, onOpen }: { item: Item; onOpen: (yt: string, titl
   );
 }
 
-export function VideoReel() {
+// The three formats that now have bespoke themed sections above — hide them
+// from the legacy grid so they aren't shown twice while the rest catch up.
+const REDESIGNED = new Set(["TVC & competition", "Communication campaigns", "Short reels"]);
+
+export function VideoReel({ remainderOnly = false }: { remainderOnly?: boolean }) {
   const [active, setActive] = useState<{ yt: string; title: string } | null>(null);
   const open = (yt: string, title: string) => setActive({ yt, title });
+  const cats = remainderOnly ? CATEGORIES.filter((c) => !REDESIGNED.has(c.name)) : CATEGORIES;
 
   return (
     <section id="work" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(3.5rem,7vw,6rem)]">
-      <div className="mx-auto max-w-[1500px]">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-6 border-b border-rule pb-6">
-          <Reveal>
-            <h2 className="font-display text-[clamp(2.4rem,5.6vw,4.6rem)] font-bold leading-[1.04] tracking-[-0.035em] text-cream">
-              Selected <span className="text-forest">films</span>
-            </h2>
-          </Reveal>
-          <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
-            Showreel
-            <br />
-            Drag · click to play
+      {!remainderOnly && (
+        <>
+          <div className="mx-auto max-w-[1500px]">
+            <div className="mb-10 flex flex-wrap items-end justify-between gap-6 border-b border-rule pb-6">
+              <Reveal>
+                <h2 className="font-display text-[clamp(2.4rem,5.6vw,4.6rem)] font-bold leading-[1.04] tracking-[-0.035em] text-cream">
+                  Selected <span className="text-forest">films</span>
+                </h2>
+              </Reveal>
+              <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
+                Showreel
+                <br />
+                Drag · click to play
+              </div>
+            </div>
+            <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-8 max-w-[60ch] text-[1.05rem] font-light leading-[1.7] text-tan">
+              The playable pieces — drag to browse, click the framed film to watch. The rest of the catalogue is organised by format below.
+            </motion.p>
           </div>
-        </div>
-        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-8 max-w-[60ch] text-[1.05rem] font-light leading-[1.7] text-tan">
-          The playable pieces — drag to browse, click the framed film to watch. The rest of the catalogue is organised by format below.
-        </motion.p>
-      </div>
 
-      <div className="mx-auto max-w-[1500px]">
-        <Coverflow items={PLAYABLE.map((v) => <FeatureCard key={v.yt} v={v} onOpen={open} />)} />
-      </div>
+          <div className="mx-auto max-w-[1500px]">
+            <Coverflow items={PLAYABLE.map((v) => <FeatureCard key={v.yt} v={v} onOpen={open} />)} />
+          </div>
+        </>
+      )}
 
       <div className="mx-auto mt-[clamp(3.5rem,7vw,6rem)] max-w-[1400px]">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-6 border-b border-rule pb-6">
           <Reveal>
             <h3 className="font-display text-[clamp(2rem,4.4vw,3.4rem)] font-bold leading-[1.06] tracking-[-0.03em] text-cream">
-              The full catalogue, <span className="text-forest">by format</span>
+              {remainderOnly ? (
+                <>More <span className="text-forest">formats</span></>
+              ) : (
+                <>The full catalogue, <span className="text-forest">by format</span></>
+              )}
             </h3>
           </Reveal>
           <div className="text-right font-mono text-[0.62rem] uppercase leading-[1.7] tracking-[0.12em] text-sand">
-            7 formats
+            {remainderOnly ? "Redesigning next" : "7 formats"}
             <br />
-            31 films · click to play
+            {remainderOnly ? "old layout · temporary" : "31 films · click to play"}
           </div>
         </div>
 
         <div className="flex flex-col gap-12">
-          {CATEGORIES.map((c) => (
+          {cats.map((c) => (
             <div key={c.name}>
               <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} className="mb-5 flex flex-wrap items-center gap-4">
                 <span className="text-[1.2rem] font-semibold text-cream">{c.name}</span>

@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
 import { VideoHero } from "@/components/video/VideoHero";
-import { VideoReel } from "@/components/video/VideoReel";
+import { TvcStage } from "@/components/video/sections/TvcStage";
+import { ProjectTvcIndex } from "@/components/video/sections/ProjectTvcIndex";
+import { CommercialFrames } from "@/components/video/sections/CommercialFrames";
+import { CampaignFan } from "@/components/video/sections/CampaignFan";
+import { MusicWall } from "@/components/video/sections/MusicWall";
+import { EventsTimeline } from "@/components/video/sections/EventsTimeline";
+import { ReelsStrip } from "@/components/video/sections/ReelsStrip";
+import { VideoNavRail } from "@/components/video/VideoNavRail";
 import { VideoContact } from "@/components/video/VideoContact";
 import { VelocityMarquee } from "@/components/VelocityMarquee";
 import { Footer } from "@/components/Footer";
+import { SECTIONS } from "@/lib/videoData";
 
 export const metadata: Metadata = {
   title: "Video Reel · TVCs, brand films, explainers · Pham Ngoc Thanh (Tatsuki)",
@@ -13,9 +21,14 @@ export const metadata: Metadata = {
 
 const MARQUEE = ["TVC", "Brand films", "Explainers", "Music videos", "Events", "Campaigns", "Podcasts", "Short reels"];
 
+const RAIL = (
+  ["tvc", "commercial", "music", "project-tvc", "campaigns", "events", "reels"] as const
+).map((k) => ({ id: SECTIONS[k].id, label: SECTIONS[k].label, accent: SECTIONS[k].accent }));
+
 export default function VideoPage() {
   return (
     <>
+      <VideoNavRail items={RAIL} />
       <VideoHero />
       <div className="relative z-[4] border-y border-rule bg-ink-raised/40 py-4">
         <VelocityMarquee baseVelocity={3}>
@@ -29,7 +42,13 @@ export default function VideoPage() {
           </span>
         </VelocityMarquee>
       </div>
-      <VideoReel />
+      <TvcStage />
+      <CommercialFrames />
+      <MusicWall />
+      <ProjectTvcIndex />
+      <CampaignFan />
+      <EventsTimeline />
+      <ReelsStrip />
       <VideoContact />
       <Footer />
     </>
