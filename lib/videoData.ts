@@ -80,6 +80,7 @@ export const CAMPAIGNS: Film[] = [
   { yt: "-W4JPxeYuNE", badge: "Insight", title: "1011MHz · Insight", meta: "Yearly Music Show 2025 · L.O.M" },
   { yt: "MRz5gYAfx0A", badge: "Podcast", title: "Tìm Kiếm Cộng Tác Viên", meta: "Recruitment podcast · SRadio" },
   { yt: "IKPXjum0T54", badge: "Podcast", title: "Social Post · Podcast", meta: "SRadio" },
+  { yt: "DTece7Bf3y8", badge: "Tết", title: "Tết Tròn Tết Vuông", meta: "Sản phẩm Tết 2023 · SRadio" },
 ];
 
 export const MUSIC: Film[] = [
