@@ -106,10 +106,6 @@ export function Hero() {
           >
             See the work
           </a>
-          <a href="/CV.pdf" className="group inline-flex items-center gap-2 text-[0.95rem] text-tan transition-colors hover:text-cream">
-            Download CV
-            <span className="text-forest transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
-          </a>
         </motion.div>
       </motion.div>
 

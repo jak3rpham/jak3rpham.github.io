@@ -9,11 +9,13 @@ import { fadeUp } from "@/lib/motion";
 
 type Play = { yt: string; badge?: string; cat: string; title: string; meta: string };
 
+// Featured showreel (drag-to-browse coverflow), ordered by priority.
 const PLAYABLE: Play[] = [
-  { yt: "Nr8vCC5JWCQ", badge: "Top 1 · 2024", cat: "TVC", title: "TVC ARISAQUA", meta: "Business Challenge 2024 · ISB Academic Team" },
-  { yt: "BWeBzuIDSRk", cat: "Commercial", title: "Shadow Funnel · Bán hàng tự động", meta: "Commercial explainer · Mona Media" },
-  { yt: "3xfFHWMzung", cat: "Explainer", title: "Explainer trên iPad", meta: "Product demo · Mona Media · EdTech" },
-  { yt: "1cJGz4wwduA", badge: "Top 20", cat: "Social", title: "Let's On Air · Sống Thay Xô Bồ", meta: "Social campaign · S Communications · 2023" },
+  { yt: "0HXLuL7nbKc", badge: "Top 1 · 2023", cat: "TVC", title: "Business Challenge 2023 · MR. BROWN", meta: "National TVC · ISB Academic Team" },
+  { yt: "Nr8vCC5JWCQ", badge: "Top 1 · 2024", cat: "TVC", title: "Business Challenge 2024 · ARISAQUA", meta: "National TVC · ISB Academic Team" },
+  { yt: "jg-vycQAOIE", cat: "Theme", title: "Theme Song 2023 · ISBe Yourself", meta: "Official theme · ISB · 800+ participants" },
+  { yt: "OEbzDYj6SGk", cat: "Recap", title: "Hoa Niên Liên Khấu · Recap", meta: "Brand project 2023 · SRadio" },
+  { yt: "X0R0k4jnAkw", cat: "Visualizer", title: "Miền Đất Hứa · stillsi. remix", meta: "Hoàng Thùy Linh × Đen · lyrics visualizer" },
 ];
 
 type Item = { yt?: string; badge?: string; cat: string; title: string; meta: string; soon?: boolean; add?: boolean };
@@ -24,8 +26,20 @@ const CATEGORIES: Category[] = [
     name: "TVC & competition",
     tag: "2× Top 1 · national",
     items: [
-      { yt: "Nr8vCC5JWCQ", badge: "Top 1 · 2024", cat: "TVC", title: "TVC ARISAQUA", meta: "Business Challenge 2024 · ISB Academic Team" },
-      { soon: true, badge: "Top 1 · 2023", cat: "TVC", title: "Business Challenge 2023 · TVC", meta: "ISB Academic Team · back-to-back champion" },
+      { yt: "Nr8vCC5JWCQ", badge: "Top 1 · 2024", cat: "TVC", title: "Business Challenge 2024 · ARISAQUA", meta: "National TVC · ISB Academic Team" },
+      { yt: "0HXLuL7nbKc", badge: "Top 1 · 2023", cat: "TVC", title: "Business Challenge 2023 · MR. BROWN", meta: "National TVC · ISB · back-to-back champion" },
+      { yt: "JTaEF48J9gY", cat: "TVC", title: "Young Lions · TVC 2022", meta: "Competition entry · Young Lions Vietnam" },
+      { yt: "jzCHLv6p8v0", cat: "TVC", title: "Young Lions · TVC 2023", meta: "Competition entry · Young Lions Vietnam" },
+    ],
+  },
+  {
+    name: "Project TVCs",
+    tag: "ISB",
+    items: [
+      { yt: "H-hRNQuvgKs", cat: "TVC", title: "Project TVC I", meta: "Brand TVC · ISB" },
+      { yt: "tA-kRl8vCwo", cat: "TVC", title: "Project TVC II", meta: "Brand TVC · ISB" },
+      { yt: "dtBw9qzY02s", cat: "TVC", title: "Project TVC III", meta: "Brand TVC · ISB" },
+      { yt: "XCxPeS1HceY", cat: "TVC", title: "Project TVC IV", meta: "Brand TVC · ISB" },
     ],
   },
   {
@@ -38,32 +52,47 @@ const CATEGORIES: Category[] = [
   },
   {
     name: "Communication campaigns",
+    tag: "SRadio · L.O.M",
     items: [
-      { yt: "1cJGz4wwduA", badge: "Top 20", cat: "Social", title: "Let's On Air · Sống Thay Xô Bồ", meta: "Social campaign · S Communications · 2023" },
-      { add: true, cat: "Campaign", title: "Campaign film", meta: "To be added" },
+      { yt: "QX1FstV1GPY", cat: "Teaser", title: "Hoa Niên Liên Khấu · Teaser", meta: "Brand project 2023 · SRadio" },
+      { yt: "OEbzDYj6SGk", cat: "Recap", title: "Hoa Niên Liên Khấu · Recap", meta: "Brand project 2023 · SRadio" },
+      { yt: "-W4JPxeYuNE", cat: "Insight", title: "1011MHz · Insight", meta: "Yearly Music Show 2025 · L.O.M Music Club" },
+      { yt: "MRz5gYAfx0A", cat: "Podcast", title: "Tìm Kiếm Cộng Tác Viên · Podcast", meta: "Recruitment podcast · SRadio" },
+      { yt: "IKPXjum0T54", cat: "Podcast", title: "Social Post · Podcast", meta: "SRadio" },
+      { soon: true, cat: "Event film", title: "Tết Tròn Tết Vuông 2023", meta: "Tết event film · S Communications" },
     ],
   },
   {
     name: "Music videos",
     tag: "L.O.M Music Club",
     items: [
-      { soon: true, cat: "Theme", title: "ISB Be Yourself · Theme Song 2023", meta: "Official theme · L.O.M Music Club · 800+ participants" },
-      { soon: true, cat: "MV", title: "Remake · Chìm Sâu", meta: "Music video · L.O.M Music Club · 2023" },
+      { yt: "jg-vycQAOIE", cat: "Theme", title: "Theme Song 2023 · ISBe Yourself", meta: "Official theme · ISB · 800+ participants" },
+      { yt: "X3MfrXeryVk", cat: "Theme", title: "Theme Song 2022 · We Are The Future", meta: "Official theme · ISB" },
+      { yt: "X0R0k4jnAkw", cat: "Visualizer", title: "Miền Đất Hứa · stillsi. remix", meta: "Hoàng Thùy Linh × Đen · lyrics visualizer" },
+      { yt: "U9bid1AHQaU", cat: "MV", title: "Chìm Show · remake", meta: "Music video · L.O.M Music Club" },
+      { yt: "aS0Z0w9XWyg", cat: "MV", title: "Until I Found You · remake", meta: "Music video · L.O.M Music Club" },
     ],
   },
   {
     name: "Events",
-    tag: "S Communications",
+    tag: "L.O.M · SRadio",
     items: [
-      { soon: true, cat: "Event film", title: "Tết Tròn Tết Vuông 2023", meta: "Tết event film · S Communications" },
-      { soon: true, cat: "Teaser", title: "DATH2023 · Nét Đẹp Từ Nghệ Thuật", meta: "Event teaser · arts festival · S Communications" },
+      { yt: "6fZb1WFmKSs", cat: "Intro", title: "SRadio Birthday 2022 · Intro", meta: "Event intro · SRadio" },
+      { yt: "JYKFtF7afi0", cat: "Recap", title: "ISB Orientation Day 2022 · Recap", meta: "Event recap · L.O.M Music Club" },
+      { yt: "TiNSxvp-dA8", cat: "Teaser", title: "Recruitment 2023 · Teamwork Trigger", meta: "Recruitment round · L.O.M Music Club" },
+      { yt: "xp9RsUUwFbs", cat: "Recap", title: "Rhythm Workshop · Recap", meta: "Workshop recap · L.O.M Music Club" },
     ],
   },
   {
-    name: "Short reels & podcast",
+    name: "Short reels",
+    tag: "Short-form",
     items: [
-      { add: true, cat: "Short-form", title: "Short-form reel", meta: "To be added" },
-      { add: true, cat: "Podcast", title: "Podcast episode", meta: "To be added" },
+      { yt: "YQxly3RNvck", cat: "Reel", title: "SRadio · Reel 1", meta: "Short-form · SRadio" },
+      { yt: "KibknqjTRSg", cat: "Reel", title: "SRadio · Reel 2", meta: "Short-form · SRadio" },
+      { yt: "81osIRiu5yA", cat: "Reel", title: "SRadio · Reel 3", meta: "Short-form · SRadio" },
+      { yt: "e02CAQ3S2r4", cat: "Reel", title: "SRadio · Reel 4", meta: "Short-form · SRadio" },
+      { yt: "c4Liw5CrcJo", cat: "Reel", title: "SRadio · Reel 5", meta: "Short-form · SRadio" },
+      { yt: "4CKrgy6ArwE", cat: "Reel", title: "Duet Challenge", meta: "Short-form · L.O.M Music Club" },
     ],
   },
 ];
@@ -213,7 +242,7 @@ export function VideoReel() {
           <div className="text-right font-mono text-[0.62rem] uppercase leading-[1.7] tracking-[0.12em] text-sand">
             7 formats
             <br />
-            More linking soon
+            31 films · click to play
           </div>
         </div>
 

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Outfit, Bricolage_Grotesque, Noto_Serif_JP, DM_Mono } from "next/font/google";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { Nav } from "@/components/Nav";
-import { FloatingCV } from "@/components/FloatingCV";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Preloader } from "@/components/Preloader";
 import { ScrollProgress } from "@/components/ScrollProgress";
@@ -37,7 +36,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <CursorFollower />
         <GrainOverlay />
         <Nav />
-        <FloatingCV />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

@@ -77,23 +77,11 @@ export function Nav() {
             Video
           </a>
           <PillLink id="contact" label="Contact" active={active === "contact"} />
-          <a
-            href="/CV.pdf"
-            className="relative z-[2] ml-1 rounded-full border border-forest/40 px-4 py-1.5 text-forest transition-colors hover:bg-forest hover:text-ink"
-          >
-            CV
-          </a>
         </div>
       ) : (
         <div className="hidden items-center gap-1 rounded-full border border-panel-border bg-panel p-1 backdrop-blur-md sm:flex">
           <a href="/" className="relative z-[2] rounded-full px-4 py-1.5 text-tan transition-colors hover:text-cream">
             Home
-          </a>
-          <a
-            href="/CV.pdf"
-            className="relative z-[2] ml-1 rounded-full border border-forest/40 px-4 py-1.5 text-forest transition-colors hover:bg-forest hover:text-ink"
-          >
-            CV
           </a>
         </div>
       )}
