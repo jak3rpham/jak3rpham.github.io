@@ -3,7 +3,6 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, type Variants } from "framer-motion";
 import { useScramble } from "@/lib/useScramble";
 import { useMediaQuery } from "@/lib/useMediaQuery";
-import { HeroShader } from "./HeroShader";
 
 const container: Variants = {
   hidden: {},
@@ -47,9 +46,8 @@ export function Hero() {
       id="hero"
       className="relative grid min-h-[100dvh] grid-cols-1 items-center gap-14 overflow-hidden px-[var(--pad)] pb-20 pt-28 md:grid-cols-[1.45fr_1fr] md:gap-10"
     >
-      <HeroShader />
-      {/* legibility scrim over the shader, left-weighted where the copy sits */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-ink/85 via-ink/50 to-transparent" />
+      {/* legibility scrim over the shared 3D backdrop, left-weighted where the copy sits */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-ink/80 via-ink/35 to-transparent" />
 
       <motion.div style={{ y: textY, opacity: textOpacity }} className="relative z-[3] max-w-[46rem]">
         <motion.h1

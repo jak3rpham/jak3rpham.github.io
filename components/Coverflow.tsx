@@ -2,7 +2,15 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 
-export function Coverflow({ items }: { items: ReactNode[] }) {
+export function Coverflow({
+  items,
+  itemClassName = "w-[min(70vw,700px)]",
+  gapClass = "gap-8",
+}: {
+  items: ReactNode[];
+  itemClassName?: string;
+  gapClass?: string;
+}) {
   const compact = useMediaQuery("(max-width: 819px)");
   const [current, setCurrent] = useState(0);
   const [offset, setOffset] = useState(0);
@@ -59,7 +67,7 @@ export function Coverflow({ items }: { items: ReactNode[] }) {
         }}
       >
         <div
-          className="flex items-center gap-8 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d]"
+          className={`flex items-center ${gapClass} transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d]`}
           style={{ transform: `translateX(${offset}px)` }}
         >
           {items.map((item, i) => {
@@ -72,7 +80,7 @@ export function Coverflow({ items }: { items: ReactNode[] }) {
                   cardRefs.current[i] = el;
                 }}
                 onClick={() => delta !== 0 && go(i)}
-                className="w-[min(70vw,700px)] shrink-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                className={`${itemClassName} shrink-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]`}
                 style={{
                   transform: `rotateY(${delta * -22}deg) scale(${delta === 0 ? 1 : 0.82})`,
                   opacity: a === 0 ? 1 : a === 1 ? 0.4 : 0.15,

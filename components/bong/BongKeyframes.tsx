@@ -86,7 +86,7 @@ export function BongKeyframes() {
       </div>
       <div className="px-[var(--pad)]">
         <div className="mx-auto max-w-[1500px]">
-          <Coverflow items={KEYFRAMES.map((k) => <KFCard key={k.no} k={k} />)} />
+          <Coverflow items={KEYFRAMES.map((k) => <KFCard key={k.no} k={k} />)} itemClassName="w-[min(80vw,410px)]" gapClass="gap-3" />
         </div>
       </div>
     </section>

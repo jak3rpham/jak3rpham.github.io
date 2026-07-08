@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { TerraStack } from "./TerraStack";
 import { SpotlightCard } from "./SpotlightCard";
 import { HoverScrollShot } from "./HoverScrollShot";
+import { WebGLLogo3D } from "./WebGLLogo3D";
 import { Reveal } from "./Reveal";
 import { fadeUp } from "@/lib/motion";
 
@@ -44,9 +45,20 @@ export function TerraTeaser() {
 
         <div className="mt-14">
           <TerraStack>
-            <SpotlightCard className="mx-auto w-full max-w-[820px] overflow-hidden rounded-[12px] border border-panel-border bg-ink-raised">
-              <HoverScrollShot src="/images/terra-outsourcing-preview.webp" alt="terra-plat.vn" urlLabel="terra-plat.vn · live site" />
-            </SpotlightCard>
+            <div className="mx-auto grid w-full max-w-[1120px] grid-cols-1 items-center gap-6 shadow-none! md:grid-cols-[minmax(0,0.44fr)_minmax(0,1fr)] md:gap-9">
+              <div className="relative hidden md:block">
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 -z-10 blur-[90px]"
+                  style={{ background: "radial-gradient(circle, rgba(143,212,158,0.16), transparent 65%)" }}
+                />
+                <WebGLLogo3D className="h-[300px] w-full lg:h-[360px]" />
+                <div className="mt-1 text-center font-mono text-[0.6rem] uppercase tracking-[0.14em] text-sand">terra · brand mark</div>
+              </div>
+              <SpotlightCard className="overflow-hidden rounded-[12px] border border-panel-border bg-ink-raised shadow-[0_26px_60px_rgba(0,0,0,0.45)]">
+                <HoverScrollShot src="/images/terra-outsourcing-preview.webp" alt="terra-plat.vn" urlLabel="terra-plat.vn · live site" />
+              </SpotlightCard>
+            </div>
 
             <SpotlightCard className="rounded-[12px] border border-panel-border bg-panel p-7 backdrop-blur-md">
               <div className="mb-5 border-b border-rule pb-3 font-mono text-[0.64rem] uppercase tracking-[0.1em] text-sand">

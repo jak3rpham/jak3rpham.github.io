@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { WebGLShard } from "../WebGLShard";
+import { WebGLGate } from "../WebGLGate";
 import { LetterReveal } from "../LetterReveal";
 import { useCountUp } from "@/lib/useCountUp";
 
@@ -29,6 +29,9 @@ export function BongHero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const textOpacity = useTransform(scrollYProgress, [0, 0.7], [1, reduce ? 1 : 0]);
   const objY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "16%"]);
+  // ken-burns drift on the backdrop still as you scroll into the page
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1.06, reduce ? 1.06 : 1.16]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "8%"]);
 
   return (
     <section
@@ -36,11 +39,41 @@ export function BongHero() {
       id="hero"
       className="relative grid min-h-[100dvh] grid-cols-1 items-center gap-10 overflow-hidden px-[var(--pad)] pb-20 pt-28 md:grid-cols-[1.1fr_1fr]"
     >
-      <div
+      {/* project keyframe as a duotone backdrop, merged into the dark + green theme */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <motion.img
+          src="/images/vng-demo/stills/kf5-after-the-recognition.webp"
+          alt=""
+          style={{ scale: bgScale, y: bgY }}
+          className="absolute inset-0 h-full w-full object-cover object-[center_72%] opacity-[0.9] [filter:saturate(0.85)_contrast(1.05)]"
+        />
+        {/* push the still toward the site's single green accent (kept light so detail shows) */}
+        <div className="absolute inset-0 bg-forest opacity-20 mix-blend-color" />
+        {/* readability scrim: solid ink behind the copy on the left, image fully open on the right */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, var(--color-ink) 0%, var(--color-ink) 12%, rgba(13,15,13,0.55) 46%, rgba(13,15,13,0.12) 74%, transparent 100%)",
+          }}
+        />
+        {/* soft top/bottom vignette so it blends into the next section */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(13,15,13,0.6) 0%, transparent 26%, transparent 68%, var(--color-ink) 100%)",
+          }}
+        />
+      </div>
+
+      <motion.div
         aria-hidden
-        className="pointer-events-none absolute right-[8%] top-1/2 z-0 h-[76vh] w-[76vh] max-w-[90vw] -translate-y-1/2 rounded-full opacity-55 blur-[130px]"
-        style={{ background: "radial-gradient(circle, rgba(143,212,158,0.18), transparent 62%)" }}
-      />
+        style={{ y: objY }}
+        className="pointer-events-none absolute right-[8%] top-1/2 z-[1] h-[70vh] w-[70vh] max-w-[90vw] -translate-y-1/2 rounded-full opacity-50 blur-[130px]"
+      >
+        <div className="h-full w-full rounded-full" style={{ background: "radial-gradient(circle, rgba(143,212,158,0.22), transparent 62%)" }} />
+      </motion.div>
 
       <motion.div style={{ opacity: textOpacity }} className="relative z-[3] max-w-[44rem]">
         <h1 className="font-display text-[clamp(2.8rem,7.6vw,6rem)] font-extrabold leading-[0.95] tracking-[-0.04em] text-cream">
@@ -86,7 +119,7 @@ export function BongHero() {
         style={{ y: objY }}
         className="relative z-[2] h-[48vh] w-full md:h-[74vh]"
       >
-        <WebGLShard className="absolute inset-0" />
+        <WebGLGate className="absolute inset-0" />
       </motion.div>
     </section>
   );
