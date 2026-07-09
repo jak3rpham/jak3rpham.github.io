@@ -26,17 +26,26 @@ precision highp float;
 varying vec3 vNormal;
 varying vec3 vView;
 uniform float uTime;
+uniform vec3 uRim;
 void main() {
   float fres = pow(1.0 - max(dot(normalize(vNormal), normalize(vView)), 0.0), 2.4);
-  vec3 base = vec3(0.055, 0.09, 0.065);
-  vec3 rim = vec3(0.56, 0.83, 0.62);
+  vec3 base = uRim * 0.11;
+  vec3 rim = uRim;
   vec3 col = mix(base, rim, fres);
   col += rim * 0.05 * sin(uTime * 2.0 + vNormal.y * 9.0);
   gl_FragColor = vec4(col, 0.92);
 }
 `;
 
-export function WebGLObject({ className = "" }: { className?: string }) {
+export function WebGLObject({
+  className = "",
+  rim = [0.56, 0.83, 0.62],
+  dist = 6,
+}: {
+  className?: string;
+  rim?: [number, number, number];
+  dist?: number;
+}) {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -58,13 +67,13 @@ export function WebGLObject({ className = "" }: { className?: string }) {
     gl.canvas.style.display = "block";
 
     const camera = new Camera(gl, { fov: 32 });
-    camera.position.set(0, 0, 6);
+    camera.position.set(0, 0, dist);
     const scene = new Transform();
     const geometry = new Torus(gl, { radius: 1.25, tube: 0.46, radialSegments: 48, tubularSegments: 160 });
     const program = new Program(gl, {
       vertex: VERT,
       fragment: FRAG,
-      uniforms: { uTime: { value: 0 } },
+      uniforms: { uTime: { value: 0 }, uRim: { value: rim } },
       transparent: true,
       cullFace: false,
     });

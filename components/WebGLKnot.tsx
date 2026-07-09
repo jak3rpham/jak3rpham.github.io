@@ -109,17 +109,26 @@ precision highp float;
 varying vec3 vNormal;
 varying vec3 vView;
 uniform float uTime;
+uniform vec3 uRim;
 void main() {
   float fres = pow(1.0 - max(dot(normalize(vNormal), normalize(vView)), 0.0), 2.3);
-  vec3 base = vec3(0.05, 0.085, 0.062);
-  vec3 rim = vec3(0.56, 0.83, 0.62);
+  vec3 base = uRim * 0.09;
+  vec3 rim = uRim;
   vec3 col = mix(base, rim, fres);
   col += rim * 0.06 * sin(uTime * 2.0 + vNormal.y * 8.0);
   gl_FragColor = vec4(col, 0.92);
 }
 `;
 
-export function WebGLKnot({ className = "" }: { className?: string }) {
+export function WebGLKnot({
+  className = "",
+  rim = [0.56, 0.83, 0.62],
+  dist = 7,
+}: {
+  className?: string;
+  rim?: [number, number, number];
+  dist?: number;
+}) {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -141,13 +150,13 @@ export function WebGLKnot({ className = "" }: { className?: string }) {
     gl.canvas.style.display = "block";
 
     const camera = new Camera(gl, { fov: 32 });
-    camera.position.set(0, 0, 7);
+    camera.position.set(0, 0, dist);
     const scene = new Transform();
     const geometry = torusKnotGeometry(gl);
     const program = new Program(gl, {
       vertex: VERT,
       fragment: FRAG,
-      uniforms: { uTime: { value: 0 } },
+      uniforms: { uTime: { value: 0 }, uRim: { value: rim } },
       transparent: true,
       cullFace: false,
     });

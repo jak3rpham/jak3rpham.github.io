@@ -98,11 +98,13 @@ varying vec3 vNormal;
 varying vec3 vView;
 varying float vDisp;
 uniform float uTime;
+uniform vec3 uRim;
+uniform vec3 uDeep;
 void main() {
   float fres = pow(1.0 - max(dot(normalize(vNormal), normalize(vView)), 0.0), 2.2);
-  vec3 base = vec3(0.03, 0.055, 0.04);
-  vec3 rim  = vec3(0.56, 0.83, 0.62);
-  vec3 deep = vec3(0.10, 0.20, 0.13);
+  vec3 base = uDeep * 0.35;
+  vec3 rim  = uRim;
+  vec3 deep = uDeep;
   // ridges glow where the surface bulges outward
   vec3 col = mix(base, deep, smoothstep(-0.6, 0.8, vDisp));
   col = mix(col, rim, fres);
@@ -112,7 +114,21 @@ void main() {
 }
 `;
 
-export function WebGLOrb({ className = "" }: { className?: string }) {
+export function WebGLOrb({
+  className = "",
+  rim = [0.56, 0.83, 0.62],
+  deep = [0.1, 0.2, 0.13],
+  dist = 4.7,
+  radius = 1.32,
+  amp = 0.42,
+}: {
+  className?: string;
+  rim?: [number, number, number];
+  deep?: [number, number, number];
+  dist?: number;
+  radius?: number;
+  amp?: number;
+}) {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -134,7 +150,7 @@ export function WebGLOrb({ className = "" }: { className?: string }) {
     gl.canvas.style.display = "block";
 
     const camera = new Camera(gl, { fov: 34 });
-    camera.position.set(0, 0, 4.7);
+    camera.position.set(0, 0, dist);
     const scene = new Transform();
     const geometry = new Sphere(gl, { radius: 1, widthSegments: 128, heightSegments: 96 });
     const program = new Program(gl, {
@@ -142,9 +158,11 @@ export function WebGLOrb({ className = "" }: { className?: string }) {
       fragment: FRAG,
       uniforms: {
         uTime: { value: 0 },
-        uRadius: { value: 1.32 },
-        uAmp: { value: 0.42 },
+        uRadius: { value: radius },
+        uAmp: { value: amp },
         uFreq: { value: 1.6 },
+        uRim: { value: rim },
+        uDeep: { value: deep },
       },
       transparent: true,
       cullFace: false,

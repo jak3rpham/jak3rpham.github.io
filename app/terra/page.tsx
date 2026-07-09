@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SceneBackdrop } from "@/components/SceneBackdrop";
 import { TerraHero } from "@/components/terra/TerraHero";
 import { TerraContext } from "@/components/terra/TerraContext";
 import { TerraSystems } from "@/components/terra/TerraSystems";
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 export default function TerraPage() {
   return (
     <>
+      <SceneBackdrop variant="terra" className="pointer-events-none fixed inset-0 z-0" />
       <TerraHero />
       <TerraContext />
       <TerraSystems />

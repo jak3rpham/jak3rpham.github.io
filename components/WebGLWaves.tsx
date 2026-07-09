@@ -46,11 +46,12 @@ varying vec3 vView;
 varying float vElev;
 varying float vDist;
 uniform float uTime;
+uniform vec3 uRim;
 void main() {
   vec3 ink = vec3(0.051, 0.059, 0.051);
   float fres = pow(1.0 - max(dot(normalize(vNormal), normalize(vView)), 0.0), 3.0);
-  vec3 base = vec3(0.02, 0.035, 0.028);
-  vec3 rim = vec3(0.56, 0.83, 0.62);
+  vec3 base = uRim * 0.045;
+  vec3 rim = uRim;
   vec3 col = mix(base, rim, fres * 0.92);
   // crest glow on the wave tops
   col += rim * 0.14 * smoothstep(0.15, 0.95, vElev * 0.5 + 0.5);
@@ -63,7 +64,13 @@ void main() {
 }
 `;
 
-export function WebGLWaves({ className = "" }: { className?: string }) {
+export function WebGLWaves({
+  className = "",
+  rim = [0.56, 0.83, 0.62],
+}: {
+  className?: string;
+  rim?: [number, number, number];
+}) {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -93,7 +100,7 @@ export function WebGLWaves({ className = "" }: { className?: string }) {
     const program = new Program(gl, {
       vertex: VERT,
       fragment: FRAG,
-      uniforms: { uTime: { value: 0 } },
+      uniforms: { uTime: { value: 0 }, uRim: { value: rim } },
       transparent: true,
       cullFace: false,
       depthTest: false,

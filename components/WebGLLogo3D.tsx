@@ -94,6 +94,10 @@ export function WebGLLogo3D({ className = "" }: { className?: string }) {
     camera.position.set(0, 0, 9.6);
     const root = new Transform();
     root.position.y = -1.0;
+    // mirror the mark side-to-side so the Terra logo reads the correct way round.
+    // normalMatrix (inverse-transpose) keeps the fresnel lighting consistent under
+    // the negative scale, so no winding/normal artefacts.
+    root.scale.x = -1;
 
     const makeProgram = (tint: [number, number, number]) =>
       new Program(gl, { vertex: VERT, fragment: FRAG, uniforms: { uTint: { value: tint } } });

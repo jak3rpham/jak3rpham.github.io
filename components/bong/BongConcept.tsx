@@ -64,7 +64,7 @@ export function BongConcept() {
               key={c.dir}
               variants={fadeUp}
               className={`relative rounded-[16px] border bg-panel p-6 backdrop-blur-md transition-transform duration-300 hover:-translate-y-1 ${
-                c.pick ? "border-forest shadow-[0_0_28px_rgba(143,212,158,0.16)]" : "border-panel-border"
+                c.pick ? "border-forest shadow-[0_0_28px_rgba(232,162,76,0.16)]" : "border-panel-border"
               }`}
             >
               {c.pick && (

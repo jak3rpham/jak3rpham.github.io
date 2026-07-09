@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SceneBackdrop } from "@/components/SceneBackdrop";
 import { VideoHero } from "@/components/video/VideoHero";
 import { TvcStage } from "@/components/video/sections/TvcStage";
 import { ProjectTvcIndex } from "@/components/video/sections/ProjectTvcIndex";
@@ -28,6 +29,7 @@ const RAIL = (
 export default function VideoPage() {
   return (
     <>
+      <SceneBackdrop variant="video" className="pointer-events-none fixed inset-0 z-0" />
       <VideoNavRail items={RAIL} />
       <VideoHero />
       <div className="relative z-[4] border-y border-rule bg-ink-raised/40 py-4">

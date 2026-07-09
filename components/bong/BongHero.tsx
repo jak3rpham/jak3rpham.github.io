@@ -72,7 +72,7 @@ export function BongHero() {
         style={{ y: objY }}
         className="pointer-events-none absolute right-[8%] top-1/2 z-[1] h-[70vh] w-[70vh] max-w-[90vw] -translate-y-1/2 rounded-full opacity-50 blur-[130px]"
       >
-        <div className="h-full w-full rounded-full" style={{ background: "radial-gradient(circle, rgba(143,212,158,0.22), transparent 62%)" }} />
+        <div className="h-full w-full rounded-full" style={{ background: "radial-gradient(circle, rgba(232,162,76,0.24), transparent 62%)" }} />
       </motion.div>
 
       <motion.div style={{ opacity: textOpacity }} className="relative z-[3] max-w-[44rem]">
@@ -119,7 +119,7 @@ export function BongHero() {
         style={{ y: objY }}
         className="relative z-[2] h-[48vh] w-full md:h-[74vh]"
       >
-        <WebGLGate className="absolute inset-0" />
+        <WebGLGate className="absolute inset-0" rim={[0.9, 0.6, 0.32]} />
       </motion.div>
     </section>
   );
