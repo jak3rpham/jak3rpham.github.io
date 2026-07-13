@@ -112,14 +112,13 @@ export function About() {
         <div className="mt-14 grid grid-cols-1 gap-12 md:grid-cols-[1.5fr_1fr] md:items-start">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
             <p className="mb-6 max-w-[54ch] text-[1.18rem] font-light leading-[1.85] text-tan">
-              Digital marketing professional at{" "}
-              <strong className="font-medium text-cream">I-Glocal Co., Ltd. (Vina Payroll Outsourcing)</strong>, leading the marketing
-              build for{" "}
+              Digital marketing lead at{" "}
+              <strong className="font-medium text-cream">I-Glocal Co., Ltd. (Vina Payroll Outsourcing)</strong> from Sep 2024 to Jun
+              2026, where I led the marketing build for{" "}
               <a href="https://terra-plat.vn" target="_blank" rel="noreferrer" className="border-b border-forest/40 text-forest">
                 terra-plat.vn
               </a>
-              . In 17 months I&apos;ve owned the full stack: technical SEO, content architecture, analytics, paid, AI-assisted
-              production, and creative.
+              . Over 22 months I owned the full stack: technical SEO, analytics, paid execution, AI-assisted production, and creative.
             </p>
             <p className="mb-8 max-w-[54ch] text-[1.18rem] font-light leading-[1.85] text-tan">
               International Business at UEH ISB. VP of <strong className="font-medium text-cream">L.O.M Music Club</strong>, Head of

@@ -63,7 +63,7 @@ export function VideoHero() {
           transition={{ delay: 1.05, duration: 0.7 }}
           className="mt-7 max-w-[42ch] text-[clamp(1.1rem,1.7vw,1.4rem)] font-light leading-[1.6] text-tan"
         >
-          End-to-end production across formats — TVCs, brand films, commercial explainers, music videos, events.{" "}
+          End-to-end production across formats: TVCs, brand films, commercial explainers, music videos, events.{" "}
           <strong className="font-medium text-cream">Two-time Top 1 TVC</strong> at Business Challenge.
         </motion.p>
         <motion.div

@@ -4,7 +4,9 @@ import { TerraHero } from "@/components/terra/TerraHero";
 import { TerraContext } from "@/components/terra/TerraContext";
 import { TerraSystems } from "@/components/terra/TerraSystems";
 import { TerraPages } from "@/components/terra/TerraPages";
+import { TerraScope } from "@/components/terra/TerraScope";
 import { TerraNumbers } from "@/components/terra/TerraNumbers";
+import { TerraBroke } from "@/components/terra/TerraBroke";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -21,7 +23,9 @@ export default function TerraPage() {
       <TerraContext />
       <TerraSystems />
       <TerraPages />
+      <TerraScope />
       <TerraNumbers />
+      <TerraBroke />
       <Footer />
     </>
   );

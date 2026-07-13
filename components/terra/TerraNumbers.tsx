@@ -1,11 +1,8 @@
 "use client";
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Reveal } from "../Reveal";
 import { ScrubChart } from "../ScrubChart";
 import { useCountUp } from "@/lib/useCountUp";
-import { useMagnetic } from "@/lib/useMagnetic";
-import { useMediaQuery } from "@/lib/useMediaQuery";
 import { fadeUp } from "@/lib/motion";
 
 type Kpi = { to?: number; decimals?: number; suffix?: string; staticValue?: string; label: string; sub: string };
@@ -13,7 +10,7 @@ type Kpi = { to?: number; decimals?: number; suffix?: string; staticValue?: stri
 const KPIS: Kpi[] = [
   { staticValue: "175 → 2,137", label: "Daily clicks", sub: "launch to peak" },
   { to: 12.2, decimals: 1, suffix: "×", label: "Growth multiplier", sub: "predominantly organic" },
-  { to: 449965, label: "Total clicks", sub: "17 months" },
+  { to: 449965, label: "Total clicks", sub: "17-month GSC window" },
   { to: 31.4, decimals: 1, suffix: "M", label: "Impressions", sub: "Google Search" },
   { to: 978, label: "Keywords Top 10", sub: "Google ranking" },
   { staticValue: "55 → 90", label: "Site health", sub: "Semrush" },
@@ -43,9 +40,6 @@ function KpiCard({ k }: { k: Kpi }) {
 }
 
 export function TerraNumbers() {
-  const hoverCapable = useMediaQuery("(hover: hover) and (pointer: fine)");
-  const magnetic = useMagnetic<HTMLAnchorElement>(0.3);
-
   return (
     <section id="results" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(4rem,8vw,7.5rem)]">
       <div className="mx-auto max-w-[1400px]">
@@ -56,7 +50,7 @@ export function TerraNumbers() {
             </h2>
           </Reveal>
           <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
-            Results 04
+            Results 05
             <br />
             GSC + Semrush
           </div>
@@ -80,30 +74,8 @@ export function TerraNumbers() {
           dot={{ cx: 562.5, cy: 12.0 }}
           xLabels={["Dec '24", "Apr '25", "Aug '25", "Dec '25", "Mar '26"]}
           barLabel="Google Search Console · monthly clicks"
-          caption="Monthly organic clicks · Dec 2024 → Apr 2026 · peak 66.3K in Mar 2026 (2,137/day)"
+          caption="Monthly organic clicks · Dec 2024 → Apr 2026 · 17-month GSC window · peak 66.3K in Mar 2026 (2,137/day)"
         />
-
-        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mt-8 max-w-[70ch] rounded-[12px] border border-rule bg-black/20 p-6 text-[1rem] font-light leading-[1.7] text-tan">
-          A note on reading the curve: the 12× and 2,137 clicks/day figures are the <strong className="font-medium text-cream">peak reached over 17 months</strong> (March 2026), not a current-state claim. Organic compressed through Q2 2026 as impressions and rankings shifted across the category. I caught the drop early in the same GSC pipeline I built, which is exactly what that pipeline is for.
-        </motion.p>
-
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mt-10 flex flex-wrap items-center gap-6">
-          <motion.a
-            href="https://terra-plat.vn"
-            target="_blank"
-            rel="noreferrer"
-            ref={magnetic.ref}
-            onMouseMove={hoverCapable ? magnetic.onMouseMove : undefined}
-            onMouseLeave={hoverCapable ? magnetic.onMouseLeave : undefined}
-            style={hoverCapable ? magnetic.style : undefined}
-            className="inline-flex rounded-full bg-forest px-7 py-3.5 text-[0.95rem] font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5"
-          >
-            Visit terra-plat.vn ↗
-          </motion.a>
-          <a href="/" className="border-b border-forest/50 pb-0.5 text-[0.95rem] text-tan transition-colors hover:text-forest">
-            ← Back to all work
-          </a>
-        </motion.div>
       </div>
     </section>
   );

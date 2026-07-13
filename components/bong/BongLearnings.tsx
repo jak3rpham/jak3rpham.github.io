@@ -17,7 +17,7 @@ const LEARNINGS: { k: string; title: string; body: string }[] = [
   {
     k: "三",
     title: "Process over output",
-    body: "Not a finished campaign: no media plan, no audience testing. What it proves is that I can decompose a brief across the right models, route around their limits, and ship a coherent deliverable in a single workday — including flagging what did not work.",
+    body: "Not a finished campaign: no media plan, no audience testing. What it proves is that I can decompose a brief across the right models, route around their limits, and ship a coherent deliverable in a single workday, including flagging what did not work.",
   },
 ];
 

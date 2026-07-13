@@ -23,7 +23,7 @@ export function BongFinal() {
         <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[1fr_0.85fr]">
           <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="max-w-[52ch] text-[clamp(1.15rem,1.7vw,1.4rem)] font-light leading-[1.7] text-tan">
             KF5 regenerated as background, GPT Image 1 logotype on a transparent background, composited in Figma Weave. The ornamental
-            flourish below the logo was <span className="text-forest">unprompted</span> — a model bonus.
+            flourish below the logo was <span className="text-forest">unprompted</span>, a model bonus.
           </motion.p>
 
           <motion.figure

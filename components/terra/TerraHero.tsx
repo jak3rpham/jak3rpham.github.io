@@ -54,7 +54,7 @@ export function TerraHero() {
         >
           <b className="font-serif-jp text-[1.1rem] font-bold text-forest">達樹</b>
           <span className="h-px w-8 bg-rule" />
-          <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em]">Featured case study · Sep 2024 → Present</span>
+          <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em]">Featured case study · Sep 2024 → Jun 2026</span>
         </motion.div>
         <motion.p
           initial={{ opacity: 0, y: 16 }}

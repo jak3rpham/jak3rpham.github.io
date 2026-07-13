@@ -48,7 +48,7 @@ export function BongPremise() {
               <span className="text-forest">orchestration</span>.
             </p>
             <p className="max-w-[54ch] text-[1.12rem] font-light leading-[1.85] text-tan">
-              Every stage — concept, atmospheric stills, typography, motion — goes to a different model based on what it is genuinely
+              Every stage (concept, atmospheric stills, typography, motion) goes to a different model based on what it is genuinely
               best at: Claude, Flux Pro 1.1 Ultra, GPT Image 1, Seedance 2.0. No model does everything; the work is in matching them.
               The campaign is fictional on purpose, so what it shows is the orchestration logic underneath, and what shippable output
               looks like under credit constraint.

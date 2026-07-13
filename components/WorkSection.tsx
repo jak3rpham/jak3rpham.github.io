@@ -90,7 +90,7 @@ function ProjectPanel({ p }: { p: Project }) {
 function Heading() {
   return (
     <div className="flex shrink-0 flex-col justify-center">
-      <span className="mb-4 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-forest">Selected work · 01—04</span>
+      <span className="mb-4 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-forest">Selected work · 01–04</span>
       <h2 className="font-display text-[clamp(2.8rem,6vw,5rem)] font-bold leading-[1.04] tracking-[-0.04em] text-cream">
         Things I&apos;ve
         <br />

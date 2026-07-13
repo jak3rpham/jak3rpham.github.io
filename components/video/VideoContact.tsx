@@ -34,7 +34,7 @@ export function VideoContact() {
         </div>
 
         <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="max-w-[62ch] text-[clamp(1.15rem,1.6vw,1.35rem)] font-light leading-[1.75] text-tan">
-          From concept to final delivery — TVCs, brand films, commercial explainers, event recaps. Selectively available for
+          From concept to final delivery: TVCs, brand films, commercial explainers, event recaps. Selectively available for
           freelance.
         </motion.p>
 

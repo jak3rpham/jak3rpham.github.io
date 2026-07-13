@@ -84,7 +84,7 @@ const SYSTEMS: System[] = [
 const FOUNDATION = [
   "Website architecture (VI/EN)",
   "Technical SEO · schema · CWV",
-  "Content strategy · 978 Top-10 KW",
+  "Keyword strategy · on-page & AEO optimization · 978 Top-10 KW",
   "GA4 from scratch",
   "News & whitepaper sections",
   "Video & creative production",
@@ -127,7 +127,7 @@ export function TerraSystems() {
           <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
             Engineering 02
             <br />
-            Marketer who ships code
+            Marketer who ships with AI
           </div>
         </div>
 

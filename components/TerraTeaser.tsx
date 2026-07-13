@@ -38,7 +38,7 @@ export function TerraTeaser() {
             </h2>
           </Reveal>
           <p className="mt-6 max-w-[62ch] text-[clamp(1.15rem,1.6vw,1.35rem)] font-light leading-[1.75] text-tan">
-            17 months of full-funnel work for a B2B payroll and HR SaaS targeting FDI, as sole tech and creative lead. From launch to
+            22 months of full-funnel work for a B2B payroll and HR SaaS targeting FDI, as sole tech and creative lead. From launch to
             a 2,137 clicks/day peak, 12× the launch baseline, and 978 keywords in the Top 10.
           </p>
         </motion.div>

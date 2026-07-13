@@ -10,7 +10,7 @@ const CONTACT_LINES = [
   { k: "Phone", v: "+84 398 81 2349", href: "tel:+84398812349" },
   { k: "Location", v: "Ho Chi Minh City, VN" },
   { k: "Languages", v: "VI · EN IELTS 7.0" },
-  { k: "Status", v: "Available 2026 · hybrid / remote" },
+  { k: "Status", v: "Open to full-time & freelance · hybrid / remote" },
 ];
 
 export function Contact() {

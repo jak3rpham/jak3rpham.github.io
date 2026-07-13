@@ -95,7 +95,7 @@ export function BongHero() {
           transition={{ delay: 1.05, duration: 0.7 }}
           className="mt-7 max-w-[44ch] text-[clamp(1.1rem,1.7vw,1.4rem)] font-light leading-[1.6] text-tan"
         >
-          A self-directed experiment in matching AI tools to creative stages. One fictional RPG ad campaign —{" "}
+          A self-directed experiment in matching AI tools to creative stages. One fictional RPG ad campaign:{" "}
           <strong className="font-medium text-cream">four models, six hours, $0</strong>. The test: what does it look like when AI is
           treated as orchestration, not tool?
         </motion.p>

@@ -7,7 +7,7 @@ const SPECS: [string, string][] = [
   ["Company", "I-Glocal · Vina Payroll"],
   ["Role", "Tech & creative lead"],
   ["Team", "Manager + Strategist + me"],
-  ["Duration", "Sep 2024 → Present"],
+  ["Duration", "Sep 2024 → Jun 2026 · 22 months"],
   ["Audience", "FDI · JP / EU buyers"],
   ["Stack", "WP · Elementor · GA4/GSC"],
 ];
