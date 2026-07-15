@@ -22,6 +22,11 @@ const CARDS: ScopeCard[] = [
     body: "Facebook Ads and Google Ads at execution level: campaign setup and A/B testing, not strategy ownership. The strength sat underneath, in reporting and insight extraction on MCP and API pipelines that turned ad and search data into the next cycle's decision.",
   },
   {
+    tag: "// Social",
+    title: "Social execution & measurement",
+    body: "Produced terra's social output on brief from the Content Strategist: social posts, Facebook ad creative, video, shorts and reels, and on-site banners. Channel planning and page management sat with the Strategist; production and the measurement layer were mine. Social metrics fed the same MCP and API reporting pipeline as search, web, and paid, so every channel reported through one system.",
+  },
+  {
     tag: "// Email automation",
     title: "Marketing automation",
     body: "Built email flows in Bizfly: automation sequences with conditional logic and triggers, wired to the whitepaper and CRM lead capture. Flow and automation setup was mine; email content was owned by the Content / Email Strategist.",
@@ -66,8 +71,8 @@ export function TerraScope() {
           className="mb-12 max-w-[64ch] text-[1.1rem] font-light leading-[1.75] text-tan"
         >
           Growth was the headline, not the whole job. Around it ran a full operating scope: compliance verification,
-          board-level reporting, a documented change process, paid execution, marketing automation, and in-house creative,
-          all owned by one person.
+          board-level reporting, a documented change process, paid and social execution, marketing automation, and in-house
+          creative, all run by one person.
         </motion.p>
 
         {/* B1: regulatory & cross-functional verification: highest-value, its own block */}

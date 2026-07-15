@@ -58,7 +58,7 @@ export function Contact() {
             {[
               ["LinkedIn", "https://linkedin.com/in/jkpham03/"],
               ["Facebook", "https://facebook.com/phamth.jaker/"],
-              ["Instagram", "https://instagram.com/jak3rpham/"],
+              ["Instagram", "https://instagram.com/tatsuki.ddd/"],
             ].map(([label, href]) => (
               <a
                 key={label}
