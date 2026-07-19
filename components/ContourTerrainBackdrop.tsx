@@ -3,26 +3,23 @@ import { useEffect, useRef } from "react";
 import { Renderer, Camera, Transform, Plane, Program, Mesh } from "ogl";
 
 /**
- * Full-width flowing wave surface behind a page — a big ground plane that recedes
- * to a horizon, its vertices rolling in layered waves. The whole field TRAVELS
- * with the scroll (scroll offsets the wave coordinate), so the background clearly
- * moves up/down WITH the user — a continuous scroll transition, not a static
- * object. Fresnel rim + fog to the horizon. Idle animation + scroll flow + a
- * gentle cursor parallax. Each route passes a `variant` (colour + wave feel).
+ * The terra backdrop: a living topographic terrain read by glowing contour lines.
+ *
+ * terra = earth. A displaced heightfield (FBM hills) stands in for the land, and
+ * bright isolines drawn from its world height are the "measured" layer — the same
+ * up-and-to-the-right story the case study tells (12× organic growth), made literal:
+ * scroll down and the land RISES (amplitude compounds), so more contour bands surface
+ * as you read. A slow scan line sweeps the terrain like an analytics read.
+ *
+ * A displaced plane, NOT a raymarch, on purpose. The city backdrop (HalftoneCity) is
+ * fragment-bound and fill-rate heavy; a heightfield pushes the cost into the vertex
+ * stage (25k verts) and keeps mobile FPS healthy — the real budget lever here. It
+ * reuses WaveFieldBackdrop's exact ogl plumbing (camera, DPR cap, scroll travel,
+ * cursor parallax, pause-when-offscreen loop, reduced-motion bail).
  */
 
-type RGB = [number, number, number];
-type Variant = { rim: RGB; base: RGB; scale: number; flow: number; amp: number };
-
-const VARIANTS: Record<string, Variant> = {
-  // broad neutral bone swells (matches the homepage's neutral accent), flowing toward you
-  home: { rim: [0.78, 0.725, 0.631], base: [0.032, 0.031, 0.028], scale: 1.0, flow: 3.4, amp: 1.0 },
-  // NOTE: terra is no longer a wave — it has its own ContourTerrainBackdrop (see SceneBackdrop).
-  // wide, calm, NEUTRAL cream swells (won't fight the video accents)
-  video: { rim: [0.8, 0.82, 0.77], base: [0.03, 0.032, 0.03], scale: 0.85, flow: 2.6, amp: 0.9 },
-  // slow, molten EMBER waves, warm dusk
-  bong: { rim: [0.96, 0.6, 0.28], base: [0.06, 0.03, 0.02], scale: 1.1, flow: 2.2, amp: 1.15 },
-};
+const RIM: [number, number, number] = [0.56, 0.83, 0.62]; // forest #8FD49E
+const BASE: [number, number, number] = [0.02, 0.045, 0.03];
 
 const VERT = /* glsl */ `
 attribute vec3 position;
@@ -30,70 +27,97 @@ uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
 uniform mat3 normalMatrix;
 uniform float uTime;
-uniform float uScroll;   // flows the field with scroll
-uniform float uScale;
-uniform float uFlow;
-uniform float uAmp;
+uniform float uScroll;  // travels the terrain toward the viewer
+uniform float uRise;    // 0..1 down the page — the land compounds upward
 varying vec3 vNormal;
 varying vec3 vView;
 varying float vElev;
+varying float vDepth;   // world depth along the travel axis, for the scan line
 varying float vDist;
+
+// value noise + fbm — cheap, smooth hills. gradient is taken numerically below.
+float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float vnoise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  float a = hash(i), b = hash(i + vec2(1.0, 0.0));
+  float c = hash(i + vec2(0.0, 1.0)), d = hash(i + vec2(1.0, 1.0));
+  return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+}
+float fbm(vec2 p){
+  float s = 0.0, a = 0.5;
+  for (int i = 0; i < 5; i++){ s += a * vnoise(p); p = p * 2.02 + 3.1; a *= 0.5; }
+  return s;
+}
+
 void main(){
-  vec2 p = position.xy * uScale + vec2(0.0, uScroll * uFlow); // scroll travels the surface
-  float t = uTime;
-  float e = 0.0;
-  vec2 g = vec2(0.0);
-  { vec2 k = vec2(0.35, 0.05); float a = 0.55; float ph = dot(k, p) + t * 0.60; e += a * sin(ph); g += a * cos(ph) * k; }
-  { vec2 k = vec2(0.03, 0.34); float a = 0.45; float ph = dot(k, p) + t * 0.50; e += a * sin(ph); g += a * cos(ph) * k; }
-  { vec2 k = vec2(0.22, 0.26); float a = 0.40; float ph = dot(k, p) - t * 0.40; e += a * sin(ph); g += a * cos(ph) * k; }
-  { vec2 k = vec2(0.50, -0.30);float a = 0.20; float ph = dot(k, p) + t * 0.90; e += a * sin(ph); g += a * cos(ph) * k; }
-  e *= uAmp; g *= uAmp * uScale;
+  vec2 p = position.xy * 0.14 + vec2(0.0, uScroll);   // slower, broader than the wave
+  float amp = 1.35 * (1.0 + 0.75 * uRise);            // land rises as you scroll
+  float e = (fbm(p) - 0.5) * amp;
+
+  // numerical gradient for the normal (2 extra fbm taps)
+  float ex = ((fbm(p + vec2(0.06, 0.0)) - 0.5) * amp - e);
+  float ey = ((fbm(p + vec2(0.0, 0.06)) - 0.5) * amp - e);
+  vec3 localN = normalize(vec3(-ex, -ey, 0.06));
+
   vec3 dpos = vec3(position.xy, e);
-  vec3 localN = normalize(vec3(-g, 1.0));
   vec4 mv = modelViewMatrix * vec4(dpos, 1.0);
   vNormal = normalize(normalMatrix * localN);
   vView = normalize(-mv.xyz);
   vElev = e;
+  vDepth = position.y;
   vDist = -mv.z;
   gl_Position = projectionMatrix * mv;
 }
 `;
+
 const FRAG = /* glsl */ `
 precision highp float;
 varying vec3 vNormal;
 varying vec3 vView;
 varying float vElev;
+varying float vDepth;
 varying float vDist;
 uniform float uTime;
 uniform vec3 uRim;
 uniform vec3 uBase;
+
 void main(){
-  vec3 ink = vec3(0.051, 0.059, 0.051);
-  float fres = pow(1.0 - max(dot(normalize(vNormal), normalize(vView)), 0.0), 2.6);
-  vec3 col = mix(uBase, uRim, fres);
-  col += uRim * 0.16 * smoothstep(0.1, 0.95, vElev * 0.5 + 0.5);   // crest glow
-  col += uRim * 0.05 * sin(uTime * 1.4 + vElev * 3.0);
-  float fog = smoothstep(7.0, 30.0, vDist);
+  vec3 ink = vec3(0.045, 0.058, 0.048);
+  vec3 n = normalize(vNormal);
+  vec3 v = normalize(vView);
+
+  float fres = pow(1.0 - max(dot(n, v), 0.0), 2.4);
+  float slope = 1.0 - n.z;                       // steeper faces read brighter
+  vec3 col = mix(uBase, uRim, fres * 0.7 + slope * 0.25);
+  col += uRim * 0.10 * smoothstep(0.0, 0.9, vElev + 0.5);   // sunlit crests
+
+  // contour isolines — the measured layer, drawn straight from world height.
+  // no derivatives: lines naturally bunch on steep slopes, like a real topo map.
+  float bands = vElev * 6.0;
+  float d = abs(fract(bands - 0.5) - 0.5);
+  float line = smoothstep(0.06, 0.0, d);
+  col += uRim * line * 0.9;
+
+  // scan line: a soft bright sweep travelling along the depth axis
+  float scanPos = fract(uTime * 0.03);
+  float sd = abs(fract(vDepth * 0.0125 - scanPos) - 0.5);
+  float scan = smoothstep(0.5, 0.46, sd);
+  col += uRim * scan * 0.18;
+
+  float fog = smoothstep(6.0, 30.0, vDist);
   col = mix(col, ink, fog);
-  gl_FragColor = vec4(col, (1.0 - fog) * 0.95);
+  gl_FragColor = vec4(col, (1.0 - fog) * 0.96);
 }
 `;
 
-export function WaveFieldBackdrop({
-  className = "",
-  variant = "home",
-}: {
-  className?: string;
-  variant?: keyof typeof VARIANTS;
-}) {
+export function ContourTerrainBackdrop({ className = "" }: { className?: string }) {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const mount = mountRef.current;
     if (!mount) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const cfg = VARIANTS[variant] ?? VARIANTS.home;
 
     let renderer: Renderer;
     try {
@@ -120,11 +144,9 @@ export function WaveFieldBackdrop({
       uniforms: {
         uTime: { value: 0 },
         uScroll: { value: 0 },
-        uScale: { value: cfg.scale },
-        uFlow: { value: cfg.flow },
-        uAmp: { value: cfg.amp },
-        uRim: { value: cfg.rim },
-        uBase: { value: cfg.base },
+        uRise: { value: 0 },
+        uRim: { value: RIM },
+        uBase: { value: BASE },
       },
       transparent: true,
       cullFace: false,
@@ -149,7 +171,13 @@ export function WaveFieldBackdrop({
     window.addEventListener("mousemove", onMove);
 
     let scroll = 0, scrollTarget = 0;
-    function onScroll() { scrollTarget = (window.scrollY || 0) * 0.01; }
+    let rise = 0, riseTarget = 0;
+    function onScroll() {
+      const y = window.scrollY || 0;
+      scrollTarget = y * 0.006;
+      const max = Math.max(1, document.body.scrollHeight - window.innerHeight);
+      riseTarget = Math.min(1, y / max);
+    }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -159,10 +187,12 @@ export function WaveFieldBackdrop({
     function frame(now: number) {
       const t = (now - startT) / 1000;
       scroll += (scrollTarget - scroll) * 0.08;
+      rise += (riseTarget - rise) * 0.06;
       mx += (mxTarget - mx) * 0.04;
       program.uniforms.uTime.value = t;
       program.uniforms.uScroll.value = scroll;
-      scene.rotation.y = mx * 0.14;      // gentle cursor parallax
+      program.uniforms.uRise.value = rise;
+      scene.rotation.y = mx * 0.12;   // gentle cursor parallax
       renderer.render({ scene, camera });
       if (visible) raf = requestAnimationFrame(frame);
     }
@@ -195,7 +225,7 @@ export function WaveFieldBackdrop({
       if (ext) ext.loseContext();
       if (gl.canvas.parentNode) gl.canvas.parentNode.removeChild(gl.canvas);
     };
-  }, [variant]);
+  }, []);
 
   return <div ref={mountRef} aria-hidden className={className} />;
 }
