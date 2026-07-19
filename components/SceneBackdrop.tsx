@@ -2,7 +2,7 @@
 import { WaveFieldBackdrop } from "@/components/WaveFieldBackdrop";
 import { HalftoneCityBackdrop } from "@/components/HalftoneCityBackdrop";
 import { GridWaveBackdrop } from "@/components/GridWaveBackdrop";
-import { LightStreaksBackdrop } from "@/components/LightStreaksBackdrop";
+import { FilmStripBackdrop } from "@/components/FilmStripBackdrop";
 import { EmberDuskBackdrop } from "@/components/EmberDuskBackdrop";
 
 /**
@@ -10,7 +10,7 @@ import { EmberDuskBackdrop } from "@/components/EmberDuskBackdrop";
  * bespoke scene, routed here:
  *   home  → WaveFieldBackdrop  · broad neutral bone swells that travel with scroll
  *   terra → GridWaveBackdrop   · a clean rippling wireframe grid
- *   video → LightStreaksBackdrop · drifting cinematic cream light streaks
+ *   video → FilmStripBackdrop · film strips (sprocket holes + frame lines) scrolling sideways
  *   bong  → EmberDuskBackdrop  · warm embers rising through a dusk glow
  *   aru   → HalftoneCityBackdrop · a raymarched city screened into ben-day dots
  *
@@ -29,7 +29,7 @@ export function SceneBackdrop({
 }) {
   if (variant === "aru") return <HalftoneCityBackdrop className={className} />;
   if (variant === "terra") return <GridWaveBackdrop className={className} />;
-  if (variant === "video") return <LightStreaksBackdrop className={className} />;
+  if (variant === "video") return <FilmStripBackdrop className={className} />;
   if (variant === "bong") return <EmberDuskBackdrop className={className} />;
   return <WaveFieldBackdrop className={className} variant={variant} />;
 }

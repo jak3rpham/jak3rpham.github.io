@@ -3,11 +3,12 @@ import { useEffect, useRef } from "react";
 import { Renderer, Program, Mesh, Triangle } from "ogl";
 
 /**
- * The video backdrop: soft horizontal light streaks drifting across a dark frame.
+ * The video backdrop: film strips scrolling sideways.
  *
- * Long-exposure light trails / a projector's throw — the cinematic language of the reel,
- * kept minimal: a few glowing cream bands that drift and pulse, framed by soft letterbox
- * falloff. Neutral cream so it never fights the section accents.
+ * Line-art film stock — sprocket holes and frame dividers drawn as thin cream outlines
+ * on dark, a few strips stacked and drifting in alternating directions for a gentle
+ * parallax. Unmistakably a reel, kept minimal. Neutral cream so it never fights the
+ * section accents; page scroll nudges the drift.
  *
  * A single fullscreen-triangle fragment shader (no geometry, no marching) — trivially
  * cheap, so mobile FPS is a non-issue. Reuses the light ogl plumbing: DPR cap, scroll
@@ -28,29 +29,47 @@ precision highp float;
 varying vec2 vUv;
 uniform float uTime;
 uniform float uScroll;
+uniform float uAspect;
 uniform vec3 uTint;
 
-float band(float y, float cy, float w){ float d = (y - cy) / w; return exp(-d * d); }
+// signed distance to a rounded box, for the sprocket-hole outlines
+float rbox(vec2 p, vec2 b, float r){
+  vec2 d = abs(p) - b + r;
+  return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0) - r;
+}
 
 void main(){
+  const float ROWS = 3.0;
   vec2 uv = vUv;
-  float y = fract(uv.y + uScroll * 0.08);   // scroll drifts the streaks vertically
-  float streak = 0.0;
-  for (int i = 0; i < 6; i++){
-    float fi = float(i);
-    float cy = fract(0.11 + fi * 0.167);
-    float w  = 0.004 + 0.006 * fract(fi * 0.37);
-    float xmod = 0.55 + 0.45 * sin(uv.x * 3.0 - uTime * (0.35 + fi * 0.12) + fi);
-    streak += band(y, cy, w) * xmod * (0.45 + 0.55 * fract(fi * 0.61));
-  }
-  float edge = smoothstep(0.0, 0.16, uv.x) * smoothstep(1.0, 0.84, uv.x);
-  streak *= mix(0.45, 1.0, edge);
-  float letterbox = smoothstep(0.0, 0.05, uv.y) * smoothstep(1.0, 0.95, uv.y);
-  gl_FragColor = vec4(uTint * streak, streak * 0.55 * letterbox);
+  float row = floor(uv.y * ROWS);
+  float ry = fract(uv.y * ROWS);                     // 0..1 within a strip
+  float dir = mod(row, 2.0) * 2.0 - 1.0;             // alternate scroll direction
+  float sx = uv.x * uAspect * 1.6 + dir * (uTime * 0.04 + uScroll * 0.25);
+
+  // frame band inner edges (two horizontal lines per strip)
+  float h1 = smoothstep(0.012, 0.0, abs(ry - 0.28));
+  float h2 = smoothstep(0.012, 0.0, abs(ry - 0.72));
+
+  // vertical frame dividers, only between the inner edges
+  float mid = step(0.28, ry) * step(ry, 0.72);
+  float fx = abs(fract(sx * 3.0) - 0.5);
+  float vlin = smoothstep(0.006, 0.0, fx) * mid;
+
+  // sprocket-hole outlines, offset half a frame from the dividers
+  float hxc = fract(sx * 3.0 + 0.5) - 0.5;
+  float top = rbox(vec2(hxc * 0.9, ry - 0.14), vec2(0.11, 0.045), 0.02);
+  float bot = rbox(vec2(hxc * 0.9, ry - 0.86), vec2(0.11, 0.045), 0.02);
+  float holes = smoothstep(0.012, 0.0, abs(top)) + smoothstep(0.012, 0.0, abs(bot));
+
+  float ink = clamp(h1 + h2 + vlin + holes, 0.0, 1.0);
+  float edge = smoothstep(0.0, 0.12, uv.x) * smoothstep(1.0, 0.88, uv.x);  // soften L/R
+  ink *= mix(0.6, 1.0, edge);
+
+  gl_FragColor = vec4(uTint * ink, ink * 0.5);
 }
 `;
 
-export function LightStreaksBackdrop({ className = "" }: { className?: string }) {
+export function FilmStripBackdrop({ className = "" }: { className?: string }) {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -78,6 +97,7 @@ export function LightStreaksBackdrop({ className = "" }: { className?: string })
       uniforms: {
         uTime: { value: 0 },
         uScroll: { value: 0 },
+        uAspect: { value: 1 },
         uTint: { value: TINT },
       },
       transparent: true,
@@ -86,7 +106,10 @@ export function LightStreaksBackdrop({ className = "" }: { className?: string })
     const mesh = new Mesh(gl, { geometry, program });
 
     function resize() {
-      renderer.setSize(mount!.clientWidth, mount!.clientHeight);
+      const w = mount!.clientWidth;
+      const h = mount!.clientHeight;
+      renderer.setSize(w, h);
+      program.uniforms.uAspect.value = h > 0 ? w / h : 1;
     }
     resize();
     window.addEventListener("resize", resize);
