@@ -1,7 +1,7 @@
 "use client";
 import { WaveFieldBackdrop } from "@/components/WaveFieldBackdrop";
 import { HalftoneCityBackdrop } from "@/components/HalftoneCityBackdrop";
-import { ContourTerrainBackdrop } from "@/components/ContourTerrainBackdrop";
+import { GridWaveBackdrop } from "@/components/GridWaveBackdrop";
 
 /**
  * One fixed, full-viewport, full-width backdrop behind a page.
@@ -14,8 +14,8 @@ import { ContourTerrainBackdrop } from "@/components/ContourTerrainBackdrop";
  *   bong  → slow molten EMBER waves
  *
  * `aru` and `terra` are NOT wave variants — each is its own scene, so it routes to its
- * own component: `aru` a raymarched city screened into ben-day dots, `terra` a
- * contour-lined topographic terrain that rises as you scroll. Note that WaveFieldBackdrop
+ * own component: `aru` a raymarched city screened into ben-day dots, `terra` a clean
+ * rippling wireframe grid. Note that WaveFieldBackdrop
  * does `VARIANTS[variant] ?? VARIANTS.home`: an unknown variant does not throw, it
  * silently renders home's neutral waves — so a route dropped from the branches below
  * quietly falls back to the homepage backdrop with no type error and no console warning.
@@ -30,6 +30,6 @@ export function SceneBackdrop({
   variant?: BackdropVariant;
 }) {
   if (variant === "aru") return <HalftoneCityBackdrop className={className} />;
-  if (variant === "terra") return <ContourTerrainBackdrop className={className} />;
+  if (variant === "terra") return <GridWaveBackdrop className={className} />;
   return <WaveFieldBackdrop className={className} variant={variant} />;
 }
