@@ -2,23 +2,21 @@
 import { WaveFieldBackdrop } from "@/components/WaveFieldBackdrop";
 import { HalftoneCityBackdrop } from "@/components/HalftoneCityBackdrop";
 import { GridWaveBackdrop } from "@/components/GridWaveBackdrop";
+import { LightStreaksBackdrop } from "@/components/LightStreaksBackdrop";
+import { EmberDuskBackdrop } from "@/components/EmberDuskBackdrop";
 
 /**
- * One fixed, full-viewport, full-width backdrop behind a page.
+ * One fixed, full-viewport, full-width backdrop behind a page. Each route now has its own
+ * bespoke scene, routed here:
+ *   home  → WaveFieldBackdrop  · broad neutral bone swells that travel with scroll
+ *   terra → GridWaveBackdrop   · a clean rippling wireframe grid
+ *   video → LightStreaksBackdrop · drifting cinematic cream light streaks
+ *   bong  → EmberDuskBackdrop  · warm embers rising through a dusk glow
+ *   aru   → HalftoneCityBackdrop · a raymarched city screened into ben-day dots
  *
- * Some routes share a flowing WAVE surface that travels with scroll (background moves
- * up/down WITH the user), giving a continuous scroll transition — not a centred
- * object. Each is an altered variant (colour + wave rhythm):
- *   home  → broad neutral bone swells
- *   video → wide calm NEUTRAL cream swells
- *   bong  → slow molten EMBER waves
- *
- * `aru` and `terra` are NOT wave variants — each is its own scene, so it routes to its
- * own component: `aru` a raymarched city screened into ben-day dots, `terra` a clean
- * rippling wireframe grid. Note that WaveFieldBackdrop
- * does `VARIANTS[variant] ?? VARIANTS.home`: an unknown variant does not throw, it
- * silently renders home's neutral waves — so a route dropped from the branches below
- * quietly falls back to the homepage backdrop with no type error and no console warning.
+ * Only `home` still uses the shared wave. WaveFieldBackdrop does
+ * `VARIANTS[variant] ?? VARIANTS.home`, so an unknown variant does not throw — it
+ * silently renders home's neutral waves.
  */
 export type BackdropVariant = "home" | "terra" | "video" | "bong" | "aru";
 
@@ -31,5 +29,7 @@ export function SceneBackdrop({
 }) {
   if (variant === "aru") return <HalftoneCityBackdrop className={className} />;
   if (variant === "terra") return <GridWaveBackdrop className={className} />;
+  if (variant === "video") return <LightStreaksBackdrop className={className} />;
+  if (variant === "bong") return <EmberDuskBackdrop className={className} />;
   return <WaveFieldBackdrop className={className} variant={variant} />;
 }

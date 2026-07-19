@@ -14,14 +14,11 @@ import { Renderer, Camera, Transform, Plane, Program, Mesh } from "ogl";
 type RGB = [number, number, number];
 type Variant = { rim: RGB; base: RGB; scale: number; flow: number; amp: number };
 
+// Only `home` still uses the wave — terra/video/bong/aru each have their own scene now
+// (see SceneBackdrop). An unknown variant falls back to `home` via the `?? VARIANTS.home`.
 const VARIANTS: Record<string, Variant> = {
   // broad neutral bone swells (matches the homepage's neutral accent), flowing toward you
   home: { rim: [0.78, 0.725, 0.631], base: [0.032, 0.031, 0.028], scale: 1.0, flow: 3.4, amp: 1.0 },
-  // NOTE: terra is no longer a wave — it has its own ContourTerrainBackdrop (see SceneBackdrop).
-  // wide, calm, NEUTRAL cream swells (won't fight the video accents)
-  video: { rim: [0.8, 0.82, 0.77], base: [0.03, 0.032, 0.03], scale: 0.85, flow: 2.6, amp: 0.9 },
-  // slow, molten EMBER waves, warm dusk
-  bong: { rim: [0.96, 0.6, 0.28], base: [0.06, 0.03, 0.02], scale: 1.1, flow: 2.2, amp: 1.15 },
 };
 
 const VERT = /* glsl */ `
