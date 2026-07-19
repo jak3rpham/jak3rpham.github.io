@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Bricolage_Grotesque, Noto_Serif_JP, DM_Mono } from "next/font/google";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { Nav } from "@/components/Nav";
+import { ThemeScope } from "@/components/ThemeScope";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Preloader } from "@/components/Preloader";
 import { ScrollProgress } from "@/components/ScrollProgress";
@@ -31,12 +32,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${outfit.variable} ${bricolage.variable} ${notoSerifJP.variable} ${dmMono.variable}`}>
       <body>
-        <Preloader />
-        <ScrollProgress />
-        <CursorFollower />
-        <GrainOverlay />
-        <Nav />
-        <SmoothScroll>{children}</SmoothScroll>
+        <ThemeScope>
+          <Preloader />
+          <ScrollProgress />
+          <CursorFollower />
+          <GrainOverlay />
+          <Nav />
+          <SmoothScroll>{children}</SmoothScroll>
+        </ThemeScope>
       </body>
     </html>
   );

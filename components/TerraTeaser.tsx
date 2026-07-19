@@ -43,16 +43,16 @@ export function TerraTeaser() {
           </p>
         </motion.div>
 
-        <div className="mt-14">
+        <div className="mt-12">
           <TerraStack>
-            <div className="mx-auto grid w-full max-w-[1120px] grid-cols-1 items-center gap-6 shadow-none! md:grid-cols-[minmax(0,0.44fr)_minmax(0,1fr)] md:gap-9">
+            <div className="grid w-full grid-cols-1 items-center gap-6 shadow-none! md:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] md:gap-10">
               <div className="relative hidden md:block">
                 <div
                   aria-hidden
                   className="pointer-events-none absolute inset-0 -z-10 blur-[90px]"
                   style={{ background: "radial-gradient(circle, rgba(143,212,158,0.16), transparent 65%)" }}
                 />
-                <WebGLLogo3D className="h-[300px] w-full lg:h-[360px]" />
+                <WebGLLogo3D className="h-[240px] w-full lg:h-[280px]" />
                 <div className="mt-1 text-center font-mono text-[0.6rem] uppercase tracking-[0.14em] text-sand">terra · brand mark</div>
               </div>
               <SpotlightCard className="overflow-hidden rounded-[12px] border border-panel-border bg-ink-raised shadow-[0_26px_60px_rgba(0,0,0,0.45)]">
@@ -67,8 +67,8 @@ export function TerraTeaser() {
               <svg className="mb-4 h-[170px] w-full" viewBox="0 0 600 170" preserveAspectRatio="none" aria-hidden="true">
                 <defs>
                   <linearGradient id="gareaG" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stopColor="#8FD49E" stopOpacity=".28" />
-                    <stop offset="1" stopColor="#8FD49E" stopOpacity="0" />
+                    <stop offset="0" stopColor="#C7B9A1" stopOpacity=".28" />
+                    <stop offset="1" stopColor="#C7B9A1" stopOpacity="0" />
                   </linearGradient>
                 </defs>
                 <motion.path
@@ -103,21 +103,20 @@ export function TerraTeaser() {
               <div className="text-center font-mono text-[0.64rem] uppercase tracking-[0.1em] text-sand">
                 Organic clicks/day · Feb 2025 to Mar 2026 peak · 2,137/day, 12× launch
               </div>
+              <div className="mt-6 grid grid-cols-2 border-t border-rule md:grid-cols-4">
+                {TELEMETRY.map(([n, l], i) => (
+                  <div
+                    key={l}
+                    className={`px-4 py-4 text-center ${i % 2 === 0 ? "border-r border-rule" : ""} ${
+                      i < 2 ? "border-b border-rule md:border-b-0" : ""
+                    } md:border-r md:last:border-r-0`}
+                  >
+                    <div className="font-display text-[1.7rem] font-bold leading-none tracking-[-0.02em] text-cream">{n}</div>
+                    <div className="mt-1.5 font-mono text-[0.54rem] uppercase tracking-[0.06em] text-sand">{l}</div>
+                  </div>
+                ))}
+              </div>
             </SpotlightCard>
-
-            <div className="grid grid-cols-2 border-y border-rule md:grid-cols-4">
-              {TELEMETRY.map(([n, l], i) => (
-                <div
-                  key={l}
-                  className={`px-4 py-5 text-center ${i % 2 === 0 ? "border-r border-rule" : ""} ${
-                    i < 2 ? "border-b border-rule md:border-b-0" : ""
-                  } md:border-r md:last:border-r-0`}
-                >
-                  <div className="font-display text-[1.7rem] font-bold leading-none tracking-[-0.02em] text-cream">{n}</div>
-                  <div className="mt-1.5 font-mono text-[0.54rem] uppercase tracking-[0.06em] text-sand">{l}</div>
-                </div>
-              ))}
-            </div>
           </TerraStack>
         </div>
 
@@ -126,7 +125,7 @@ export function TerraTeaser() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-[1.4fr_1fr]"
+          className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[1.4fr_1fr]"
         >
           <ul className="flex flex-col gap-4">
             {BULLETS.map((text, i) => (

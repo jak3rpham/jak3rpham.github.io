@@ -1,6 +1,8 @@
 "use client";
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { beginVideoPlayback, endVideoPlayback } from "@/lib/videoPlayback";
 
 export function VideoLightbox({
   videoId,
@@ -19,17 +21,30 @@ export function VideoLightbox({
       if (e.key === "Escape") onClose();
     }
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    // lock background scroll so the page cannot slide behind the open player
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    // pause the backdrop while the player is open (it is hidden behind the overlay anyway)
+    beginVideoPlayback();
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prev;
+      endVideoPlayback();
+    };
   }, [videoId, onClose]);
 
-  return (
+  if (typeof document === "undefined") return null;
+
+  // Portal to <body> so the overlay escapes any transformed ancestor (framer-motion sets
+  // transforms that trap `position: fixed`, which let later sections paint over the player).
+  return createPortal(
     <AnimatePresence>
       {videoId && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 px-[var(--pad)]"
+          className="native-cursor fixed inset-0 z-[2000] flex items-center justify-center bg-black/95 px-[var(--pad)]"
           onClick={(e) => {
             if (e.target === e.currentTarget) onClose();
           }}
@@ -57,6 +72,7 @@ export function VideoLightbox({
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }

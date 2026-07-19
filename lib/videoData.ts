@@ -11,12 +11,19 @@ export type FormatKey =
   | "reels";
 
 export type Film = {
+  /** YouTube id. Empty string means the cut is not uploaded yet — such a film must
+   *  carry `poster` (there is no YouTube thumbnail to fall back on) and `caseStudy`
+   *  (there is nothing to play, so the cover has to lead somewhere). */
   yt: string;
   title: string;
   meta: string;
   badge?: string;
   date?: string;
   vertical?: boolean;
+  /** local cover image, used instead of the YouTube thumbnail */
+  poster?: string;
+  /** route to a case study; the cover links here instead of opening the player */
+  caseStudy?: string;
 };
 
 export type SectionMeta = {
@@ -85,6 +92,18 @@ export const CAMPAIGNS: Film[] = [
 
 export const MUSIC: Film[] = [
   { yt: "jg-vycQAOIE", badge: "Theme", title: "ISBe Yourself", meta: "Theme Song 2023 · ISB · 800+ participants" },
+  // Not the featured slot: this is an AI prototype, and putting it above a theme song
+  // with 800+ participants would reorder what this portfolio leads with. Left as a
+  // decision for Tatsuki. Add the id when the cut is uploaded — the cover then plays
+  // instead of only linking through.
+  {
+    yt: "",
+    badge: "AI · prototype",
+    title: "ある男",
+    meta: "AI music video · beat-synced by hand · case study",
+    poster: "/images/aru-otoko/poster/poster-horizontal.webp",
+    caseStudy: "/aru-otoko",
+  },
   { yt: "X0R0k4jnAkw", badge: "Visualizer", title: "Miền Đất Hứa · stillsi. remix", meta: "Hoàng Thùy Linh × Đen · lyrics visualizer" },
   { yt: "X3MfrXeryVk", badge: "Theme", title: "We Are The Future", meta: "Theme Song 2022 · ISB" },
   { yt: "U9bid1AHQaU", badge: "MV", title: "Chìm Show · remake", meta: "Music video · L.O.M Music Club" },

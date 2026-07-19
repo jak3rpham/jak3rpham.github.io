@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Reveal } from "../../Reveal";
 import { VideoLightbox } from "../../VideoLightbox";
@@ -8,10 +9,21 @@ import { MUSIC, SECTIONS, thumb, type Film } from "@/lib/videoData";
 
 const AC = SECTIONS.music.accent;
 
+// hoisted: building this inside Cover would mint a new component type on every render
+// and blow away the element's state each time.
+const MotionLink = motion(Link);
+
 function Cover({ film, big, onOpen }: { film: Film; big?: boolean; onOpen: (f: Film) => void }) {
+  // Nothing to play yet: link to the case study instead of opening an empty player.
+  const linkOnly = !film.yt && !!film.caseStudy;
+  const Wrapper = (linkOnly ? MotionLink : motion.button) as typeof motion.button;
+  const wrapperProps = linkOnly
+    ? { href: film.caseStudy! }
+    : { onClick: () => onOpen(film) };
+
   return (
-    <motion.button
-      onClick={() => onOpen(film)}
+    <Wrapper
+      {...(wrapperProps as object)}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
@@ -20,7 +32,7 @@ function Cover({ film, big, onOpen }: { film: Film; big?: boolean; onOpen: (f: F
     >
       <div className={`overflow-hidden ${big ? "aspect-[21/9]" : "aspect-video"}`}>
         <img
-          src={thumb(film.yt)}
+          src={film.poster ?? thumb(film.yt)}
           alt={film.title}
           draggable={false}
           className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
@@ -32,12 +44,18 @@ function Cover({ film, big, onOpen }: { film: Film; big?: boolean; onOpen: (f: F
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{ boxShadow: `inset 0 0 80px -20px ${AC}` }}
       />
-      <span
-        className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[1.5px] pl-1 text-cream transition-colors group-hover:text-[color:var(--ac)]"
-        style={{ borderColor: "rgba(245,242,232,0.8)", width: big ? 76 : 56, height: big ? 76 : 56 }}
-      >
-        ▶
-      </span>
+      {linkOnly ? (
+        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border-[1.5px] px-5 py-2 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-cream transition-colors group-hover:text-[color:var(--ac)]" style={{ borderColor: "rgba(245,242,232,0.8)" }}>
+          Case study →
+        </span>
+      ) : (
+        <span
+          className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[1.5px] pl-1 text-cream transition-colors group-hover:text-[color:var(--ac)]"
+          style={{ borderColor: "rgba(245,242,232,0.8)", width: big ? 76 : 56, height: big ? 76 : 56 }}
+        >
+          ▶
+        </span>
+      )}
       {film.badge && (
         <span className="absolute right-4 top-4 rounded-md px-2.5 py-1 font-mono text-[0.54rem] font-semibold uppercase tracking-[0.08em] text-ink" style={{ background: AC }}>
           {film.badge}
@@ -49,7 +67,7 @@ function Cover({ film, big, onOpen }: { film: Film; big?: boolean; onOpen: (f: F
         </div>
         <div className="mt-2 font-mono text-[0.6rem] uppercase tracking-[0.06em] text-sand">{film.meta}</div>
       </div>
-    </motion.button>
+    </Wrapper>
   );
 }
 
@@ -89,7 +107,7 @@ export function MusicWall() {
         <VelocityMarquee baseVelocity={2}>
           <span className="flex items-center font-display text-[clamp(1.2rem,2.6vw,2rem)] font-bold" style={{ color: `${AC}cc` }}>
             {MUSIC.map((m) => (
-              <span key={m.yt} className="flex items-center">
+              <span key={m.title} className="flex items-center">
                 <span className="px-6">{m.title}</span>
                 <span style={{ color: AC }}>♪</span>
               </span>
@@ -101,7 +119,7 @@ export function MusicWall() {
       <div className="mx-auto max-w-[1360px] px-[var(--pad)]">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {rest.map((f) => (
-            <Cover key={f.yt} film={f} onOpen={setActive} />
+            <Cover key={f.title} film={f} onOpen={setActive} />
           ))}
         </div>
       </div>

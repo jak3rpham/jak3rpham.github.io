@@ -50,7 +50,11 @@ body {
   background: var(--color-ink);
   color: var(--color-cream);
   font-family: var(--font-sans);
-  overflow-x: hidden;
+  /* Clip, not hidden: `overflow-x: hidden` coerces overflow-y to `auto`, which makes body a
+     scroll container and breaks the `position: sticky` the aru-otoko walk set piece relies on
+     (frames scroll away instead of pinning). `clip` clips horizontal overflow without that side
+     effect, so sticky keeps resolving against the viewport. */
+  overflow-x: clip;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
@@ -83,6 +87,63 @@ a {
   html.cursor-hidden,
   html.cursor-hidden * {
     cursor: none !important;
+  }
+  /* but restore the native cursor over embedded players: the custom cursor is a DOM element
+     that cannot paint over a cross-origin iframe, so `cursor: none` there leaves no pointer
+     at all. iframes and anything marked .native-cursor opt back in. */
+  html.cursor-hidden iframe,
+  html.cursor-hidden .native-cursor,
+  html.cursor-hidden .native-cursor * {
+    cursor: auto !important;
+  }
+}
+
+/* minimal custom cursor: a single ring, positioned by transform on the wrapper. The inner
+   span carries the look + hover scale, so scaling never fights the wrapper's translate. */
+.cursor-ring {
+  will-change: transform;
+}
+/* neutral, no accent colour: a soft white ring + a small centre dot, so it reads like a
+   normal precise cursor. All the character is in the behaviour (hover grow, click shrink). */
+.cursor-ring > span {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border: 1.5px solid rgba(245, 240, 232, 0.8);
+  border-radius: 9999px;
+  transition: transform 0.18s ease, background-color 0.18s ease;
+}
+.cursor-ring > span::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  margin: -1.5px 0 0 -1.5px;
+  border-radius: 9999px;
+  background: rgba(245, 240, 232, 0.9);
+  transition: opacity 0.18s ease;
+}
+.cursor-ring.is-hover > span {
+  transform: scale(1.7);
+  background-color: rgba(245, 240, 232, 0.12);
+}
+.cursor-ring.is-hover > span::after {
+  opacity: 0;
+}
+.cursor-ring.is-down > span {
+  transform: scale(0.7);
+}
+.cursor-ring.is-hover.is-down > span {
+  transform: scale(1.4);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-ring > span,
+  .cursor-ring > span::after {
+    transition: none;
   }
 }
 

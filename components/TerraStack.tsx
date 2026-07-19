@@ -14,7 +14,7 @@ function StackCard({ index, total, children }: { index: number; total: number; c
   const filter = useTransform(blurPx, (b) => `blur(${b}px)`);
 
   return (
-    <div ref={cardRef} className="sticky top-0 flex min-h-[56vh] items-center justify-center py-6">
+    <div ref={cardRef} className="sticky top-0 flex min-h-[40vh] items-center justify-center py-4">
       <motion.div style={{ scale, opacity, filter }} className="w-full [&>*]:shadow-[0_26px_60px_rgba(0,0,0,0.45)]">
         {children}
       </motion.div>
