@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SpotlightCard } from "./SpotlightCard";
+import { Cta } from "./Cta";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { fadeUp } from "@/lib/motion";
 
@@ -188,12 +189,7 @@ function FreelanceRow() {
         End-to-end website builds from brief to live deployment. SEO audits, keyword strategy, brand video and photography.
         Selective availability, full ownership.
       </p>
-      <a
-        href="mailto:pnthanh.work@gmail.com"
-        className="inline-flex rounded-full bg-forest px-6 py-3.5 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.08em] text-ink transition-transform duration-200 hover:-translate-y-0.5"
-      >
-        Email →
-      </a>
+      <Cta href="mailto:pnthanh.work@gmail.com">Email</Cta>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Reveal } from "./Reveal";
+import { Cta } from "./Cta";
 import { fadeUp } from "@/lib/motion";
 
 const PIPELINE = [
@@ -102,12 +103,7 @@ export function BongTeaser() {
                 </span>
               ))}
             </div>
-            <a
-              href="/bong-vespera"
-              className="inline-flex items-center gap-2 rounded-full bg-forest px-6 py-3.5 text-[0.92rem] font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5"
-            >
-              Full case study →
-            </a>
+            <Cta href="/bong-vespera">Full case study</Cta>
           </div>
           <div className="mx-auto w-full max-w-[300px] overflow-hidden rounded-[12px] border border-panel-border bg-ink-raised md:ml-auto md:mr-0">
             <div className="aspect-[2/3]">

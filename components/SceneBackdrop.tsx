@@ -8,7 +8,7 @@ import { HalftoneCityBackdrop } from "@/components/HalftoneCityBackdrop";
  * Most routes are a flowing WAVE surface that travels with scroll (background moves
  * up/down WITH the user), giving a continuous scroll transition — not a centred
  * object. Each is an altered variant (colour + wave rhythm):
- *   home  → broad green swells
+ *   home  → broad neutral bone swells
  *   terra → tighter, faster green ridges
  *   video → wide calm NEUTRAL cream swells
  *   bong  → slow molten EMBER waves

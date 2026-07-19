@@ -4,6 +4,7 @@ import { TerraStack } from "./TerraStack";
 import { SpotlightCard } from "./SpotlightCard";
 import { HoverScrollShot } from "./HoverScrollShot";
 import { WebGLLogo3D } from "./WebGLLogo3D";
+import { Cta } from "./Cta";
 import { Reveal } from "./Reveal";
 import { fadeUp } from "@/lib/motion";
 
@@ -50,7 +51,7 @@ export function TerraTeaser() {
                 <div
                   aria-hidden
                   className="pointer-events-none absolute inset-0 -z-10 blur-[90px]"
-                  style={{ background: "radial-gradient(circle, rgba(143,212,158,0.16), transparent 65%)" }}
+                  style={{ background: "radial-gradient(circle, rgba(199,185,161,0.16), transparent 65%)" }}
                 />
                 <WebGLLogo3D className="h-[240px] w-full lg:h-[280px]" />
                 <div className="mt-1 text-center font-mono text-[0.6rem] uppercase tracking-[0.14em] text-sand">terra · brand mark</div>
@@ -145,16 +146,9 @@ export function TerraTeaser() {
                 </span>
               ))}
             </div>
-            <div className="flex flex-wrap items-center gap-6">
-              <a
-                href="/terra"
-                className="inline-flex items-center gap-2 rounded-full bg-forest px-6 py-3.5 text-[0.92rem] font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5"
-              >
-                Full case study →
-              </a>
-              <a href="https://terra-plat.vn" target="_blank" rel="noreferrer" className="border-b border-forest/50 pb-0.5 text-[0.92rem] text-tan transition-colors hover:text-forest">
-                Live site ↗
-              </a>
+            <div className="flex flex-wrap items-center gap-4">
+              <Cta href="/terra">Full case study</Cta>
+              <Cta href="https://terra-plat.vn" variant="secondary" arrow="up-right">Live site</Cta>
             </div>
           </div>
         </motion.div>

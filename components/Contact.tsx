@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useMagnetic } from "@/lib/useMagnetic";
 import { useMediaQuery } from "@/lib/useMediaQuery";
+import { ctaClass, CtaArrow } from "./Cta";
 import { Reveal } from "./Reveal";
 import { fadeUp } from "@/lib/motion";
 
@@ -33,9 +34,10 @@ export function Contact() {
               onMouseMove={hoverCapable ? magnetic.onMouseMove : undefined}
               onMouseLeave={hoverCapable ? magnetic.onMouseLeave : undefined}
               style={hoverCapable ? magnetic.style : undefined}
-              className="inline-flex items-center gap-2 rounded-full bg-forest px-7 py-4 text-[0.95rem] font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5"
+              className={ctaClass("primary", "lg")}
             >
-              Send an email →
+              <span>Send an email</span>
+              <CtaArrow />
             </motion.a>
           </div>
 

@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Reveal } from "../Reveal";
+import { Cta } from "../Cta";
 import { fadeUp } from "@/lib/motion";
 
 const LEARNINGS: { k: string; title: string; body: string }[] = [
@@ -54,13 +55,9 @@ export function BongLearnings() {
           ))}
         </motion.div>
 
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mt-12 flex flex-wrap items-center gap-6">
-          <a href="/" className="inline-flex rounded-full bg-forest px-7 py-3.5 text-[0.95rem] font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5">
-            ← Back to portfolio
-          </a>
-          <a href="/terra" className="border-b border-forest/50 pb-0.5 text-[0.95rem] text-tan transition-colors hover:text-forest">
-            See the terra case →
-          </a>
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mt-12 flex flex-wrap items-center gap-4">
+          <Cta href="/" arrow="none">← Back to portfolio</Cta>
+          <Cta href="/terra" variant="secondary">See the terra case</Cta>
         </motion.div>
       </div>
     </section>

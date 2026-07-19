@@ -32,7 +32,7 @@ export function BongReflection() {
           There is no best AI. There is only the right model for each stage of the work.
         </motion.p>
 
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} className="overflow-hidden rounded-[14px] border border-panel-border bg-panel/60 backdrop-blur-md">
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} className="overflow-x-auto rounded-[14px] border border-panel-border bg-panel/60 backdrop-blur-md">
           <table className="w-full border-collapse text-left">
             <thead>
               <tr className="border-b border-rule">

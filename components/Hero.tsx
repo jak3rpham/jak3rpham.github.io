@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion, type Variants } from "framer-motion";
 import { useScramble } from "@/lib/useScramble";
 import { useMediaQuery } from "@/lib/useMediaQuery";
+import { Cta } from "./Cta";
 
 const container: Variants = {
   hidden: {},
@@ -98,12 +99,7 @@ export function Hero() {
           transition={{ delay: 1.2, duration: 0.8 }}
           className="mt-10 flex flex-wrap items-center gap-6"
         >
-          <a
-            href="#work"
-            className="rounded-full bg-forest px-7 py-3.5 text-[0.95rem] font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5"
-          >
-            See the work
-          </a>
+          <Cta href="#work" size="lg">See the work</Cta>
         </motion.div>
       </motion.div>
 

@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Reveal } from "../Reveal";
+import { Cta, ctaClass, CtaArrow } from "../Cta";
 import { useMagnetic } from "@/lib/useMagnetic";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { fadeUp } from "@/lib/motion";
@@ -61,7 +62,7 @@ export function TerraBroke() {
           </motion.div>
         </div>
 
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mt-14 flex flex-wrap items-center gap-6">
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mt-14 flex flex-wrap items-center gap-4">
           <motion.a
             href="https://terra-plat.vn"
             target="_blank"
@@ -70,13 +71,12 @@ export function TerraBroke() {
             onMouseMove={hoverCapable ? magnetic.onMouseMove : undefined}
             onMouseLeave={hoverCapable ? magnetic.onMouseLeave : undefined}
             style={hoverCapable ? magnetic.style : undefined}
-            className="inline-flex rounded-full bg-forest px-7 py-3.5 text-[0.95rem] font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5"
+            className={ctaClass("primary", "md")}
           >
-            Visit terra-plat.vn ↗
+            <span>Visit terra-plat.vn</span>
+            <CtaArrow arrow="up-right" />
           </motion.a>
-          <a href="/" className="border-b border-forest/50 pb-0.5 text-[0.95rem] text-tan transition-colors hover:text-forest">
-            ← Back to all work
-          </a>
+          <Cta href="/" variant="secondary" arrow="none">← Back to all work</Cta>
         </motion.div>
       </div>
     </section>

@@ -15,8 +15,8 @@ type RGB = [number, number, number];
 type Variant = { rim: RGB; base: RGB; scale: number; flow: number; amp: number };
 
 const VARIANTS: Record<string, Variant> = {
-  // broad green swells, flowing down toward you as you scroll
-  home: { rim: [0.56, 0.83, 0.62], base: [0.02, 0.04, 0.03], scale: 1.0, flow: 3.4, amp: 1.0 },
+  // broad neutral bone swells (matches the homepage's neutral accent), flowing toward you
+  home: { rim: [0.78, 0.725, 0.631], base: [0.032, 0.031, 0.028], scale: 1.0, flow: 3.4, amp: 1.0 },
   // tighter, faster green ridges — a different rhythm
   terra: { rim: [0.5, 0.86, 0.6], base: [0.02, 0.045, 0.03], scale: 1.5, flow: 4.2, amp: 0.85 },
   // wide, calm, NEUTRAL cream swells (won't fight the video accents)

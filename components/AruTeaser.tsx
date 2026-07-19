@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { Reveal } from "./Reveal";
+import { Cta } from "./Cta";
 import { fadeUp } from "@/lib/motion";
 import { SOURCES, TRACK, YT, totalGenerated } from "@/lib/aruData";
 import { beginVideoPlayback, endVideoPlayback } from "@/lib/videoPlayback";
@@ -146,12 +146,7 @@ export function AruTeaser() {
               ))}
             </div>
 
-            <Link
-              href="/aru-otoko"
-              className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-forest px-6 py-3.5 text-[0.92rem] font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5"
-            >
-              Full case study →
-            </Link>
+            <Cta href="/aru-otoko" className="mt-auto">Full case study</Cta>
           </motion.div>
         </div>
       </div>
