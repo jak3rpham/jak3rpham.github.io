@@ -24,13 +24,15 @@ export function DrawDiagram({
         const na = map[a];
         const nb = map[b];
         if (!na || !nb) return null;
+        // A two-point <path>, not a <line>: framer drives `pathLength` by setting the
+        // pathLength attribute to 1 and animating stroke-dasharray on that 0..1 scale, and
+        // WebKit only honours pathLength on <path>. On a <line> Safari read the dasharray as
+        // raw user units, so the edges drew as specks instead of self-drawing.
         return (
-          <motion.line
+          <motion.path
             key={`${a}-${b}-${i}`}
-            x1={na.x}
-            y1={na.y}
-            x2={nb.x}
-            y2={nb.y}
+            d={`M${na.x} ${na.y}L${nb.x} ${nb.y}`}
+            fill="none"
             stroke="var(--color-forest)"
             strokeWidth={1.6}
             strokeLinecap="round"
@@ -50,7 +52,11 @@ export function DrawDiagram({
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ delay: 0.25 + i * 0.06, type: "spring", stiffness: 220, damping: 16 }}
-            style={{ transformOrigin: `${n.x}px ${n.y}px` }}
+            // transformBox must be explicit: the spec's initial value for SVG is `view-box`,
+            // which is what the px origin below is expressed in, but WebKit resolves an
+            // unset transform-box against the element's bounding box instead — so the node
+            // pop-in scaled from the wrong point in Safari.
+            style={{ transformBox: "view-box", transformOrigin: `${n.x}px ${n.y}px` }}
           >
             <circle cx={n.x} cy={n.y} r={r + 5} fill="none" stroke="var(--color-forest)" strokeOpacity={0.22} />
             <circle cx={n.x} cy={n.y} r={r} fill="#141813" stroke="var(--color-forest)" strokeWidth={1.6} />

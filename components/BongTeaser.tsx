@@ -45,11 +45,11 @@ export function BongTeaser() {
           viewBox="0 0 1000 130"
           aria-hidden="true"
         >
-          <motion.line
-            x1="100"
-            y1="40"
-            x2="900"
-            y2="40"
+          {/* <path>, not <line>: WebKit only honours the pathLength attribute framer uses to
+              normalise the draw-on to a 0..1 stroke-dasharray on <path>. */}
+          <motion.path
+            d="M100 40L900 40"
+            fill="none"
             stroke="var(--color-rule)"
             strokeWidth="2"
             initial={{ pathLength: 0 }}
