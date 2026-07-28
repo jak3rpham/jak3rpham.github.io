@@ -5,7 +5,7 @@ export function Footer() {
         <span className="flex items-baseline gap-2">
           <b className="font-serif-jp text-forest">達樹</b> Tatsuki
         </span>
-        <span>© 2026 Pham Ngoc Thanh · Digital Marketing &amp; Creative</span>
+        <span>© 2026 Pham Ngoc Thanh · Growth, product &amp; video</span>
         <a href="https://linkedin.com/in/jkpham03/" target="_blank" rel="noreferrer" className="transition-colors hover:text-forest">
           linkedin.com/in/jkpham03
         </a>

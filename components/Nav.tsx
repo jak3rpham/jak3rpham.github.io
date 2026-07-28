@@ -14,7 +14,7 @@ const WORK_ITEMS: { href: string; label: string; sub: string }[] = [
   { href: "#terra", label: "terra-plat.vn", sub: "B2B SaaS growth · 22 mo" },
   { href: "#aru", label: "ある男", sub: "AI music video" },
   { href: "#bong", label: "Bóng Vespera", sub: "AI creative pipeline" },
-  { href: "#work", label: "Other builds", sub: "uphub, tools, apps" },
+  { href: "#work", label: "Selected builds", sub: "IELTS Studio · Badminton · uphub" },
 ];
 
 // Full flat list for the mobile sheet.
@@ -23,7 +23,7 @@ const MOBILE_LINKS: { href: string; label: string }[] = [
   { href: "#terra", label: "terra-plat.vn growth" },
   { href: "#aru", label: "ある男 · AI video" },
   { href: "#bong", label: "Bóng Vespera" },
-  { href: "#work", label: "Other builds" },
+  { href: "#work", label: "Selected builds" },
   { href: "/video", label: "Films" },
   { href: "#contact", label: "Contact" },
 ];

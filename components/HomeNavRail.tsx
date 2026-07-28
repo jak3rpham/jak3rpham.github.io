@@ -14,7 +14,7 @@ const ITEMS: { id: string; label: string }[] = [
   { id: "terra", label: "Terra" },
   { id: "aru", label: "AI Video" },
   { id: "bong", label: "Bóng Vespera" },
-  { id: "work", label: "Other builds" },
+  { id: "work", label: "Selected builds" },
   { id: "video", label: "Films" },
   { id: "contact", label: "Contact" },
 ];

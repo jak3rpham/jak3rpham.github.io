@@ -15,9 +15,9 @@ const notoSerifJP = Noto_Serif_JP({ subsets: ["latin"], weight: ["600", "700", "
 const dmMono = DM_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-dm-mono" });
 
 export const metadata: Metadata = {
-  title: "Tatsuki · Pham Ngoc Thanh / Digital Marketing & Creative",
+  title: "Pham Ngoc Thanh (Tatsuki) · Growth, product & video",
   description:
-    "Pham Ngoc Thanh (Tatsuki), Digital Marketing Strategist building full-funnel campaigns for B2B SaaS. SEO, performance, video. Ho Chi Minh City.",
+    "Pham Ngoc Thanh (Tatsuki): technical enough to build it, creative enough to film it. Technical SEO and growth, product builds, AI orchestration, and video. Ho Chi Minh City.",
   icons: {
     icon: [
       { url: "/favicon-32.png", sizes: "32x32" },

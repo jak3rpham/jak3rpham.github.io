@@ -28,6 +28,9 @@ function Letters({ text, className }: { text: string; className?: string }) {
   );
 }
 
+// The four disciplines, previewed here and expanded with proof in the About lanes below.
+const RANGE = ["SEO & data", "Product builds", "AI orchestration", "Video"];
+
 export function Hero() {
   const reduceMotion = useReducedMotion();
   const hoverCapable = useMediaQuery("(hover: hover) and (pointer: fine)");
@@ -37,45 +40,27 @@ export function Hero() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", reduceMotion ? "0%" : "-38%"]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.7], [1, reduceMotion ? 1 : 0]);
-  const portraitY = useTransform(scrollYProgress, [0, 1], ["0%", reduceMotion ? "0%" : "22%"]);
-  const portraitScale = useTransform(scrollYProgress, [0, 1], [1, reduceMotion ? 1 : 1.08]);
-  const portraitRotate = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -16]);
+  const portraitY = useTransform(scrollYProgress, [0, 1], ["0%", reduceMotion ? "0%" : "20%"]);
+  const portraitScale = useTransform(scrollYProgress, [0, 1], [1, reduceMotion ? 1 : 1.07]);
+  const portraitRotate = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -12]);
 
   return (
     <section
       ref={heroRef}
       id="hero"
-      className="relative grid min-h-[100dvh] grid-cols-1 items-center gap-14 overflow-hidden px-[var(--pad)] pb-20 pt-28 md:grid-cols-[1.45fr_1fr] md:gap-10"
+      className="relative grid min-h-[100dvh] grid-cols-1 items-center gap-14 overflow-hidden px-[var(--pad)] pb-20 pt-24 md:grid-cols-[1.5fr_1fr] md:gap-12"
     >
       {/* legibility scrim over the shared 3D backdrop, left-weighted where the copy sits */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-ink/80 via-ink/35 to-transparent" />
 
-      <motion.div style={{ y: textY, opacity: textOpacity }} className="relative z-[3] max-w-[46rem]">
-        <motion.h1
-          variants={container}
-          initial="hidden"
-          animate="visible"
-          className="relative font-display text-[clamp(3.1rem,8vw,6.6rem)] font-extrabold leading-[0.95] tracking-[-0.04em] text-cream"
-          onMouseEnter={hoverCapable && !reduceMotion ? trigger : undefined}
-        >
-          {isScrambling ? (
-            <span aria-hidden>{display}</span>
-          ) : (
-            <>
-              <Letters text="Pham Ngoc" className="block" />
-              <Letters text="Thanh" className="block text-forest" />
-            </>
-          )}
-          <span className="sr-only">Pham Ngoc Thanh</span>
-        </motion.h1>
-
+      <motion.div style={{ y: textY, opacity: textOpacity }} className="relative z-[3] max-w-[48rem]">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9, duration: 0.8 }}
-          className="mt-6 flex items-center gap-4 text-sand"
+          className="mb-7 flex items-center gap-4 text-sand"
         >
-          <span className="font-mono text-[0.72rem] uppercase tracking-[0.18em]">Digital marketing &amp; creative</span>
+          <span className="font-mono text-[0.72rem] uppercase tracking-[0.18em]">Growth, product &amp; video</span>
           <span className="h-px w-10 flex-none bg-rule" />
           <span className="flex items-baseline gap-1.5">
             <b className="font-serif-jp text-[1.15rem] font-bold text-forest">達樹</b>
@@ -83,23 +68,56 @@ export function Hero() {
           </span>
         </motion.div>
 
+        <motion.h1
+          variants={container}
+          initial="hidden"
+          animate="visible"
+          className="relative whitespace-nowrap font-display text-[clamp(2.1rem,6vw,4.7rem)] font-extrabold leading-[0.95] tracking-[-0.04em] text-cream"
+          onMouseEnter={hoverCapable && !reduceMotion ? trigger : undefined}
+        >
+          {isScrambling ? (
+            <span aria-hidden>{display}</span>
+          ) : (
+            <>
+              <Letters text="Pham Ngoc" />
+              {" "}
+              <Letters text="Thanh" className="text-forest" />
+            </>
+          )}
+          <span className="sr-only">Pham Ngoc Thanh</span>
+        </motion.h1>
+
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.05, duration: 0.8 }}
-          className="mt-8 max-w-[34ch] text-[clamp(1.2rem,1.8vw,1.5rem)] font-light leading-[1.6] text-tan"
+          className="mt-7 max-w-[30ch] text-[clamp(1.2rem,1.8vw,1.55rem)] font-light leading-[1.5] text-tan"
         >
-          I build <strong className="font-medium text-cream">full-funnel growth systems</strong> for B2B SaaS. Compounding, measurable,
-          owned end to end.
+          <strong className="font-medium text-cream">Technical</strong> enough to <span className="text-forest">build it</span>,{" "}
+          <strong className="font-medium text-cream">creative</strong> enough to <span className="text-forest">film it</span>.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.8 }}
-          className="mt-10 flex flex-wrap items-center gap-6"
+          className="mt-9 flex flex-wrap items-center gap-4"
         >
           <Cta href="#work" size="lg">See the work</Cta>
+          <Cta href="#contact" variant="secondary" size="lg">Get in touch</Cta>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4, duration: 0.8 }}
+          className="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-rule pt-5"
+        >
+          {RANGE.map((r) => (
+            <span key={r} className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-sand">
+              {r}
+            </span>
+          ))}
         </motion.div>
       </motion.div>
 
@@ -108,37 +126,21 @@ export function Hero() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-[3] mx-auto aspect-[4/5] w-[min(72vw,340px)]"
+        className="relative z-[3] mx-auto aspect-[4/5] w-[min(64vw,312px)]"
       >
         <span
           aria-hidden
-          className="pointer-events-none absolute -right-6 -top-10 select-none font-serif-jp text-[9rem] font-black leading-none text-cream/[0.06]"
+          className="pointer-events-none absolute -right-6 -top-10 select-none font-serif-jp text-[8rem] font-black leading-none text-cream/[0.06]"
         >
           達樹
         </span>
         <div className="absolute inset-0 overflow-hidden rounded-[16px] border border-panel-border shadow-[0_30px_70px_rgba(0,0,0,0.5)]">
           <img
-            src="/images/photo2.webp"
+            src="/images/photo1.webp"
             alt="Pham Ngoc Thanh"
-            className="h-full w-full object-cover [filter:saturate(0.9)_contrast(1.02)]"
+            className="h-full w-full object-cover object-top [filter:saturate(0.92)_contrast(1.03)]"
           />
         </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 1 }}
-        className="absolute bottom-8 left-1/2 z-[3] flex -translate-x-1/2 flex-col items-center gap-2 text-sand md:left-[var(--pad)] md:translate-x-0 md:items-start"
-      >
-        <span className="font-mono text-[0.6rem] uppercase tracking-[0.2em]">Scroll</span>
-        <motion.span
-          animate={reduceMotion ? {} : { y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-          className="text-forest"
-        >
-          ↓
-        </motion.span>
       </motion.div>
     </section>
   );
