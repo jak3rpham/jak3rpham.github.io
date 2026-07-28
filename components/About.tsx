@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { Reveal } from "./Reveal";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
@@ -13,7 +12,7 @@ const LANES: Lane[] = [
     t: "Growth & technical",
     d: "Technical SEO, data pipelines, GA4 and GSC dashboards, and full-funnel execution in EN and VI.",
     go: "terra-plat.vn",
-    href: "/terra",
+    href: "#terra",
   },
   {
     n: "02",
@@ -27,14 +26,14 @@ const LANES: Lane[] = [
     t: "AI orchestration",
     d: "Directing several AI models into one pipeline: from eleven raw generations to a finished music video.",
     go: "ある男",
-    href: "/aru-otoko",
+    href: "#aru",
   },
   {
     n: "04",
     t: "Creative & film",
     d: "TVCs, music videos, and AI-directed video from brief to final cut. Two-time Top 1 TVC at Business Challenge.",
     go: "Video reel",
-    href: "/video",
+    href: "#video",
   },
 ];
 
@@ -54,13 +53,6 @@ function LaneRow({ lane }: { lane: Lane }) {
     </>
   );
 
-  if (lane.href.startsWith("/")) {
-    return (
-      <Link href={lane.href} className={cls}>
-        {inner}
-      </Link>
-    );
-  }
   return (
     <a href={lane.href} className={cls}>
       {inner}

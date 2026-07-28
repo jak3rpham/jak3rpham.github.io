@@ -48,7 +48,7 @@ export function Hero() {
     <section
       ref={heroRef}
       id="hero"
-      className="relative grid min-h-[100dvh] grid-cols-1 items-center gap-14 overflow-hidden px-[var(--pad)] pb-20 pt-24 md:grid-cols-[1.5fr_1fr] md:gap-12"
+      className="relative grid min-h-[100dvh] grid-cols-1 items-center gap-14 overflow-hidden px-[var(--pad)] pb-20 pt-24 md:grid-cols-[1.5fr_1fr] md:gap-12 md:pl-[clamp(2.5rem,8vw,8rem)]"
     >
       {/* legibility scrim over the shared 3D backdrop, left-weighted where the copy sits */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-ink/80 via-ink/35 to-transparent" />
@@ -91,7 +91,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.05, duration: 0.8 }}
-          className="mt-7 max-w-[30ch] text-[clamp(1.2rem,1.8vw,1.55rem)] font-light leading-[1.5] text-tan"
+          className="mt-7 max-w-[46rem] text-[clamp(1.2rem,1.8vw,1.55rem)] font-light leading-[1.5] text-tan"
         >
           <strong className="font-medium text-cream">Technical</strong> enough to <span className="text-forest">build it</span>,{" "}
           <strong className="font-medium text-cream">creative</strong> enough to <span className="text-forest">film it</span>.
@@ -136,9 +136,9 @@ export function Hero() {
         </span>
         <div className="absolute inset-0 overflow-hidden rounded-[16px] border border-panel-border shadow-[0_30px_70px_rgba(0,0,0,0.5)]">
           <img
-            src="/images/photo1.webp"
+            src="/images/photo3.webp"
             alt="Pham Ngoc Thanh"
-            className="h-full w-full object-cover object-top [filter:saturate(0.92)_contrast(1.03)]"
+            className="h-full w-full object-cover object-[50%_14%] [filter:saturate(0.92)_contrast(1.03)]"
           />
         </div>
       </motion.div>
