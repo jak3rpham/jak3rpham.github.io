@@ -25,10 +25,11 @@ varying vec3 vView;
 uniform vec3 uTint;
 void main() {
   float fres = pow(1.0 - max(dot(normalize(vN), normalize(vView)), 0.0), 2.1);
-  vec3 base = vec3(0.06, 0.12, 0.085);
-  vec3 col = mix(base, uTint, fres);
-  col += uTint * 0.12 * pow(fres, 3.0);
-  gl_FragColor = vec4(col, 1.0);
+  // Each element glows in its own tint: a bright fill (no dark shared base) so the
+  // mark reads clearly on the black background, with edges brightening toward full tint.
+  vec3 col = uTint * (0.45 + 0.55 * fres);
+  col += uTint * 0.15 * pow(fres, 3.0);
+  gl_FragColor = vec4(min(col, 1.0), 1.0);
 }
 `;
 
