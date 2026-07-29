@@ -136,9 +136,9 @@ export function Hero() {
         </span>
         <div className="absolute inset-0 overflow-hidden rounded-[16px] border border-panel-border shadow-[0_30px_70px_rgba(0,0,0,0.5)]">
           <img
-            src="/images/photo3.webp"
+            src="/images/photo1.webp"
             alt="Pham Ngoc Thanh"
-            className="h-full w-full object-cover object-[50%_14%] [filter:saturate(0.92)_contrast(1.03)]"
+            className="h-full w-full object-cover object-top [filter:saturate(0.92)_contrast(1.03)]"
           />
         </div>
       </motion.div>
