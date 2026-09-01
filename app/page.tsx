@@ -3,6 +3,7 @@ import { HomeNavRail } from "@/components/HomeNavRail";
 import { Hero } from "@/components/Hero";
 import { StatStrip } from "@/components/StatStrip";
 import { About } from "@/components/About";
+import { NhaMinhTeaser } from "@/components/NhaMinhTeaser";
 import { TerraTeaser } from "@/components/TerraTeaser";
 import { BongTeaser } from "@/components/BongTeaser";
 import { AruTeaser } from "@/components/AruTeaser";
@@ -20,6 +21,7 @@ export default function Home() {
       <Hero />
       <StatStrip />
       <About />
+      <NhaMinhTeaser />
       <TerraTeaser />
       <AruTeaser />
       <BongTeaser />

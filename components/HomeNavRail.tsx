@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 const ITEMS: { id: string; label: string }[] = [
   { id: "hero", label: "Top" },
   { id: "about", label: "About" },
+  { id: "nhaminh", label: "Nhà Mình (AI)" },
   { id: "terra", label: "Terra" },
   { id: "aru", label: "AI Video" },
   { id: "bong", label: "Bóng Vespera" },

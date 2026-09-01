@@ -4,22 +4,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 
-// Sections tracked for the active-pill state. terra/aru/bong/work all light the "Work" pill.
-const TRACKED = ["about", "terra", "aru", "bong", "work", "video", "contact"] as const;
+const TRACKED = ["about", "nhaminh", "terra", "aru", "bong", "work", "video", "contact"] as const;
 type Tracked = (typeof TRACKED)[number];
-const WORK_SECTIONS: Tracked[] = ["terra", "aru", "bong", "work"];
+const WORK_SECTIONS: Tracked[] = ["nhaminh", "terra", "aru", "bong", "work"];
 
-// The case studies + other builds, grouped under the Work menu.
 const WORK_ITEMS: { href: string; label: string; sub: string }[] = [
+  { href: "/nha-minh", label: "Nhà Mình", sub: "AI Riser 2026 · Healthcare AI" },
   { href: "#terra", label: "terra-plat.vn", sub: "B2B SaaS growth · 22 mo" },
   { href: "#aru", label: "ある男", sub: "AI music video" },
   { href: "#bong", label: "Bóng Vespera", sub: "AI creative pipeline" },
   { href: "#work", label: "Selected builds", sub: "IELTS Studio · Badminton · uphub" },
 ];
 
-// Full flat list for the mobile sheet.
 const MOBILE_LINKS: { href: string; label: string }[] = [
   { href: "#about", label: "About" },
+  { href: "/nha-minh", label: "Nhà Mình · AI Healthcare" },
   { href: "#terra", label: "terra-plat.vn growth" },
   { href: "#aru", label: "ある男 · AI video" },
   { href: "#bong", label: "Bóng Vespera" },
@@ -33,7 +32,7 @@ function PillLink({ id, label, active }: { id: string; label: string; active: bo
     <a
       href={`#${id}`}
       className={`relative z-[2] whitespace-nowrap rounded-full px-4 py-1.5 transition-colors ${
-        active ? "text-ink" : "text-tan hover:text-cream"
+        active ? "text-ink font-bold" : "text-tan hover:text-cream"
       }`}
     >
       {active && (
@@ -74,7 +73,7 @@ function WorkMenu({ active }: { active: boolean }) {
         aria-expanded={open}
         aria-haspopup="true"
         className={`relative z-[2] flex items-center gap-1 whitespace-nowrap rounded-full px-4 py-1.5 uppercase transition-colors ${
-          active ? "text-ink" : "text-tan hover:text-cream"
+          active ? "text-ink font-bold" : "text-tan hover:text-cream"
         }`}
       >
         {active && (
@@ -95,7 +94,7 @@ function WorkMenu({ active }: { active: boolean }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 6, scale: 0.98 }}
             transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute right-0 top-[calc(100%+8px)] w-[248px] overflow-hidden rounded-[14px] border border-panel-border bg-ink/90 p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-md"
+            className="absolute right-0 top-[calc(100%+8px)] w-[260px] overflow-hidden rounded-[14px] border border-panel-border bg-ink/90 p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-md"
           >
             {WORK_ITEMS.map((it) => (
               <a
@@ -117,7 +116,7 @@ function WorkMenu({ active }: { active: boolean }) {
   );
 }
 
-function MobileMenu() {
+function MobileMenu({ isLight }: { isLight: boolean }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -142,7 +141,11 @@ function MobileMenu() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label="Sections"
-        className="flex items-center gap-1.5 rounded-full border border-panel-border bg-panel px-3.5 py-1.5 uppercase text-tan"
+        className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 uppercase transition-all ${
+          isLight
+            ? "border border-orange-200/90 bg-white/90 text-slate-800 shadow-sm"
+            : "border border-panel-border bg-panel text-tan"
+        }`}
       >
         Menu
         <span className={`text-[0.6rem] transition-transform duration-200 ${open ? "rotate-180" : ""}`}>▾</span>
@@ -155,14 +158,22 @@ function MobileMenu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
             transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute right-0 top-[calc(100%+8px)] w-[220px] overflow-hidden rounded-[14px] border border-panel-border bg-ink/92 p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.55)] backdrop-blur-md"
+            className={`absolute right-0 top-[calc(100%+8px)] w-[240px] overflow-hidden rounded-[14px] p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.35)] backdrop-blur-md ${
+              isLight
+                ? "border border-orange-200 bg-white/95 text-slate-800"
+                : "border border-panel-border bg-ink/92 text-cream"
+            }`}
           >
             {MOBILE_LINKS.map((it) => (
               <a
                 key={it.href}
                 href={it.href}
                 onClick={() => setOpen(false)}
-                className="block rounded-[9px] px-3 py-2.5 font-sans text-[0.9rem] normal-case tracking-normal text-cream transition-colors hover:bg-forest/12 hover:text-forest"
+                className={`block rounded-[9px] px-3 py-2.5 font-sans text-[0.9rem] normal-case tracking-normal transition-colors ${
+                  isLight
+                    ? "text-slate-700 hover:bg-orange-50 hover:text-[#FF6B4B]"
+                    : "text-cream hover:bg-forest/12 hover:text-forest"
+                }`}
               >
                 {it.label}
               </a>
@@ -177,15 +188,16 @@ function MobileMenu() {
 export function Nav() {
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const isNhaMinh = pathname === "/nha-minh";
   const [active, setActive] = useState<Tracked | null>(null);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const hero = document.getElementById("hero");
-    const heroObserver = new IntersectionObserver(([e]) => setScrolled(!e.isIntersecting), {
-      rootMargin: "-80px 0px 0px 0px",
-    });
-    if (hero) heroObserver.observe(hero);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     let sectionObserver: IntersectionObserver | undefined;
     if (isHome) {
@@ -202,7 +214,7 @@ export function Nav() {
     }
 
     return () => {
-      heroObserver.disconnect();
+      window.removeEventListener("scroll", handleScroll);
       sectionObserver?.disconnect();
     };
   }, [isHome, pathname]);
@@ -211,16 +223,24 @@ export function Nav() {
 
   return (
     <nav
-      className={`fixed inset-x-0 top-0 z-[100] flex h-[68px] items-center justify-between px-[var(--pad)] font-mono text-[0.72rem] uppercase tracking-[0.12em] transition-colors duration-500 ${
-        scrolled ? "bg-ink/70 backdrop-blur-md" : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-[100] flex h-[68px] items-center justify-between px-[var(--pad)] font-mono text-[0.72rem] uppercase tracking-[0.12em] transition-all duration-300 ${
+        scrolled
+          ? isNhaMinh
+            ? "bg-[#FBF9F5]/85 border-b border-orange-200/80 shadow-[0_4px_20px_rgba(255,107,75,0.06)] backdrop-blur-md"
+            : "bg-ink/75 border-b border-panel-border shadow-md backdrop-blur-md"
+          : "bg-transparent"
       }`}
     >
-      <a href={isHome ? "#hero" : "/"} className="flex items-baseline gap-2 text-cream">
-        {!isHome && <span className="text-forest">←</span>}
-        <b className="font-serif-jp text-[1.05rem] font-bold leading-none text-forest">達樹</b>
-        <span className="text-tan">Tatsuki</span>
+      {/* Brand Logo & Author Name */}
+      <a href={isHome ? "#hero" : "/"} className="flex items-baseline gap-2 transition-opacity hover:opacity-85">
+        {!isHome && <span className={isNhaMinh ? "text-[#FF6B4B]" : "text-forest"}>←</span>}
+        <b className={`font-serif-jp text-[1.05rem] font-bold leading-none ${isNhaMinh ? "text-[#FF6B4B]" : "text-forest"}`}>
+          達樹
+        </b>
+        <span className={isNhaMinh ? "text-slate-700 font-semibold" : "text-tan"}>Tatsuki</span>
       </a>
 
+      {/* Desktop Menu Navigation */}
       {isHome ? (
         <>
           <div className="hidden items-center gap-1 rounded-full border border-panel-border bg-panel p-1 backdrop-blur-md sm:flex">
@@ -231,14 +251,53 @@ export function Nav() {
             </Link>
             <PillLink id="contact" label="Contact" active={active === "contact"} />
           </div>
-          <MobileMenu />
+          <MobileMenu isLight={false} />
+        </>
+      ) : isNhaMinh ? (
+        <>
+          <div className="hidden items-center gap-2 rounded-full border border-orange-200/90 bg-white/90 p-1 shadow-sm backdrop-blur-md sm:flex">
+            <Link
+              href="/"
+              className="relative z-[2] rounded-full px-3.5 py-1.5 font-bold text-slate-700 transition-colors hover:text-[#FF6B4B]"
+            >
+              ← Portfolio
+            </Link>
+            <a
+              href="https://ai-riser-namdosan-fa737.web.app"
+              target="_blank"
+              rel="noreferrer"
+              className="relative z-[2] rounded-full bg-gradient-to-r from-[#FF6B4B] to-[#FF8E53] px-4 py-1.5 font-bold text-white shadow-sm transition-all hover:shadow-[0_2px_12px_rgba(255,107,75,0.35)]"
+            >
+              Live App ↗
+            </a>
+            <a
+              href="https://youtube.com/watch?v=5CNx1tlCGSM"
+              target="_blank"
+              rel="noreferrer"
+              className="relative z-[2] rounded-full px-3.5 py-1.5 font-bold text-slate-700 transition-colors hover:text-[#FF6B4B]"
+            >
+              1080p Demo ↗
+            </a>
+            <a
+              href="https://github.com/jak3rpham/ai-riser-namdosan"
+              target="_blank"
+              rel="noreferrer"
+              className="relative z-[2] rounded-full px-3.5 py-1.5 font-bold text-slate-700 transition-colors hover:text-[#FF6B4B]"
+            >
+              GitHub ↗
+            </a>
+          </div>
+          <MobileMenu isLight={true} />
         </>
       ) : (
-        <div className="hidden items-center gap-1 rounded-full border border-panel-border bg-panel p-1 backdrop-blur-md sm:flex">
-          <Link href="/" className="relative z-[2] rounded-full px-4 py-1.5 text-tan transition-colors hover:text-cream">
-            Home
-          </Link>
-        </div>
+        <>
+          <div className="hidden items-center gap-1 rounded-full border border-panel-border bg-panel p-1 backdrop-blur-md sm:flex">
+            <Link href="/" className="relative z-[2] rounded-full px-4 py-1.5 text-tan transition-colors hover:text-cream">
+              Home
+            </Link>
+          </div>
+          <MobileMenu isLight={false} />
+        </>
       )}
     </nav>
   );

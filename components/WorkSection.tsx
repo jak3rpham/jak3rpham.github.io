@@ -21,6 +21,18 @@ type Project = {
 const PROJECTS: Project[] = [
   {
     n: "01",
+    title: "Nhà Mình : Healthcare AI",
+    tags: "AI Riser Vietnam 2026 · Gemini 2.5 Flash · React + Cloud Run",
+    desc: "An AI-powered family healthcare companion with radical dual-UX (60+ senior mode & adult caregiver dashboard), Gemini Vision prescription OCR, voice assistant 'Cháu Bi', and medical guardrails.",
+    img: "/images/nha-minh-preview.webp",
+    urlLabel: "Case Study & Demo",
+    links: [
+      { label: "Case Study →", href: "/nha-minh" },
+      { label: "Code ↗", href: "https://github.com/jak3rpham/ai-riser-namdosan" },
+    ],
+  },
+  {
+    n: "02",
     title: "uphub.vn",
     tags: "SEO Consulting · Freelance 2024 · EN / VI",
     desc: "Metadata audit and rebuild across 18 bilingual variants, keyword gap analysis, H1 and slug restructuring, 301 redirect mapping with zero indexed traffic loss.",
@@ -29,7 +41,7 @@ const PROJECTS: Project[] = [
     links: [{ label: "Visit ↗", href: "https://uphub.vn" }],
   },
   {
-    n: "02",
+    n: "03",
     title: "Badminton Payment Splitter",
     tags: "AI-directed build + Supabase · 2026",
     desc: "Solved a recurring group-payment friction point: a live PWA that auto-generates a VietQR code per member and tracks payment status in real time.",
@@ -41,7 +53,7 @@ const PROJECTS: Project[] = [
     ],
   },
   {
-    n: "03",
+    n: "04",
     title: "IELTS Studio",
     tags: "AI-directed build + Claude API · 2026",
     desc: "A full-stack IELTS practice platform with server-side AI grading for Writing tasks, multi-user auth, and graceful degradation with or without a configured database.",
@@ -57,9 +69,9 @@ const PROJECTS: Project[] = [
 function ProjectPanel({ p }: { p: Project }) {
   return (
     <SpotlightCard className="group flex h-[66vh] w-[min(86vw,860px)] shrink-0 flex-col overflow-hidden rounded-[16px] border border-panel-border bg-ink-raised transition-colors duration-300 hover:border-forest/50">
-      <div className="relative flex-1 overflow-hidden">
-        <img src={p.img} alt={p.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover object-top" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent" />
+      <div className="relative flex-1 overflow-hidden bg-ink/50">
+        <img src={p.img} alt={p.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent" />
         <span className="pointer-events-none absolute left-6 top-4 font-serif-jp text-[4rem] font-black leading-none text-forest/90 mix-blend-screen">
           {p.n}
         </span>
@@ -75,8 +87,8 @@ function ProjectPanel({ p }: { p: Project }) {
             <a
               key={l.label}
               href={l.href}
-              target="_blank"
-              rel="noreferrer"
+              target={l.href.startsWith("http") ? "_blank" : undefined}
+              rel={l.href.startsWith("http") ? "noreferrer" : undefined}
               className="rounded-full border border-rule px-4 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-forest transition-colors hover:border-forest hover:bg-forest hover:text-ink"
             >
               {l.label}
@@ -98,7 +110,7 @@ function Heading() {
         <span className="inline-block pb-[0.12em] text-forest">shipped</span>
       </h2>
       <p className="mt-6 max-w-[32ch] text-[1.05rem] font-light leading-[1.6] text-tan">
-        Freelance SEO, AI-directed builds, and full-funnel product work.
+        AI-directed healthcare apps, freelance SEO, and full-funnel product builds.
       </p>
     </div>
   );
@@ -156,7 +168,6 @@ export function WorkSection() {
   return (
     <section id="work" className="relative z-[4]">
       <div ref={wrapRef} className="relative h-[100dvh] overflow-hidden">
-        {/* giant faint backdrop word, stays put behind the moving track */}
         <span
           aria-hidden
           className="pointer-events-none absolute -bottom-6 right-[var(--pad)] select-none font-display text-[22vw] font-extrabold leading-none tracking-[-0.05em] text-cream/[0.03]"
@@ -182,12 +193,11 @@ export function WorkSection() {
 function FreelanceRow() {
   return (
     <div className="w-full rounded-[16px] border border-rule bg-ink-raised p-9">
-      <span className="font-serif-jp text-3xl font-bold text-forest">04</span>
+      <span className="font-serif-jp text-3xl font-bold text-forest">05</span>
       <div className="mb-1 mt-3 text-[1.9rem] font-semibold text-cream">Open for freelance</div>
-      <div className="mb-3 font-mono text-[0.64rem] uppercase tracking-[0.06em] text-sand">Web · SEO · Video Production · 2026</div>
+      <div className="mb-3 font-mono text-[0.64rem] uppercase tracking-[0.06em] text-sand">Web · AI Integration · Product · 2026</div>
       <p className="mb-6 max-w-[52ch] text-[1rem] font-light leading-[1.7] text-tan">
-        End-to-end website builds from brief to live deployment. SEO audits, keyword strategy, brand video and photography.
-        Selective availability, full ownership.
+        End-to-end website builds from brief to live deployment. Fullstack AI integrations, SEO architecture, brand video and design systems.
       </p>
       <Cta href="mailto:pnthanh.work@gmail.com">Email</Cta>
     </div>

@@ -108,16 +108,15 @@ body {
    span carries the look + hover scale, so scaling never fights the wrapper's translate. */
 .cursor-ring {
   will-change: transform;
+  mix-blend-mode: difference;
 }
-/* neutral, no accent colour: a soft white ring + a small centre dot, so it reads like a
-   normal precise cursor. All the character is in the behaviour (hover grow, click shrink). */
 .cursor-ring > span {
   position: relative;
   display: block;
   width: 22px;
   height: 22px;
   margin: -11px 0 0 -11px;
-  border: 1.5px solid rgba(245, 240, 232, 0.8);
+  border: 1.5px solid #FFFFFF;
   border-radius: 9999px;
   transition: transform 0.18s ease, background-color 0.18s ease;
 }
@@ -126,16 +125,16 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 3px;
-  height: 3px;
-  margin: -1.5px 0 0 -1.5px;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
   border-radius: 9999px;
-  background: rgba(245, 240, 232, 0.9);
+  background: #FFFFFF;
   transition: opacity 0.18s ease;
 }
 .cursor-ring.is-hover > span {
   transform: scale(1.7);
-  background-color: rgba(245, 240, 232, 0.12);
+  background-color: rgba(255, 255, 255, 0.3);
 }
 .cursor-ring.is-hover > span::after {
   opacity: 0;
