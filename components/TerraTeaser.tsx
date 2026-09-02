@@ -21,6 +21,12 @@ const TELEMETRY: [string, string][] = [
   ["55→90", "Site health"],
 ];
 
+const SPEC: [string, string][] = [
+  ["Client", "B2B payroll & HR SaaS"],
+  ["Market", "FDI · JP / EU buyers"],
+  ["Window", "Sep 2024 → Jun 2026 · 22 mo · EN / VI"],
+];
+
 const BULLETS = [
   "Built the publishing tooling: custom WordPress plugins that turn a one-hour manual workflow into a single click, so a non-technical team ships SEO-ready content on its own.",
   "Built the marketing data layer: automated pipelines feeding GSC, GA4, and PageSpeed into live dashboards and weekly reports.",
@@ -65,13 +71,19 @@ export function TerraTeaser() {
               <div className="mb-5 border-b border-rule pb-3 font-mono text-[0.64rem] uppercase tracking-[0.1em] text-sand">
                 terra-plat.vn · Google Search Console
               </div>
-              <svg className="mb-4 h-[170px] w-full" viewBox="0 0 600 170" preserveAspectRatio="none" aria-hidden="true">
+              {/* Annotations live in HTML on top, not in <text> inside the SVG: this chart is
+                  preserveAspectRatio="none", so anything drawn inside it stretches with the
+                  container and the type would smear. */}
+              <div className="relative">
+              <svg className="h-[170px] w-full" viewBox="0 0 600 170" preserveAspectRatio="none" aria-hidden="true">
                 <defs>
                   <linearGradient id="gareaG" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0" stopColor="#C7B9A1" stopOpacity=".28" />
                     <stop offset="1" stopColor="#C7B9A1" stopOpacity="0" />
                   </linearGradient>
                 </defs>
+                {/* launch baseline, so the climb is read against something */}
+                <path d="M0 138L600 138" fill="none" stroke="var(--color-rule)" strokeWidth="1" strokeDasharray="4 6" />
                 <motion.path
                   d={AREA_PATH}
                   fill="url(#gareaG)"
@@ -101,8 +113,27 @@ export function TerraTeaser() {
                   transition={{ duration: 0.4, delay: 1.8 }}
                 />
               </svg>
-              <div className="text-center font-mono text-[0.64rem] uppercase tracking-[0.1em] text-sand">
-                Organic clicks/day · Feb 2025 to Mar 2026 peak · 2,137/day, 12× launch
+
+                <span className="pointer-events-none absolute left-0 top-[70%] font-mono text-[0.56rem] uppercase tracking-[0.08em] text-sand">
+                  ~170/day · baseline
+                </span>
+                <span className="pointer-events-none absolute right-3 top-0 font-mono text-[0.62rem] tracking-[0.04em] text-forest">
+                  2,137/day
+                </span>
+              </div>
+
+              <div className="mt-2 flex items-center justify-between font-mono text-[0.54rem] uppercase tracking-[0.1em] text-sand/80">
+                <span>Feb 2025</span>
+                <span className="h-px flex-1 bg-rule/60" />
+                <span>Mar 2026</span>
+              </div>
+              <div className="mt-3 text-center font-mono text-[0.62rem] uppercase tracking-[0.1em] text-sand">
+                Organic clicks/day · 12× launch
+              </div>
+              {/* provenance, stated plainly: this is the shape of the real report, hand-traced,
+                  not a live data feed. Saying so is worth more than pretending otherwise. */}
+              <div className="mt-1.5 text-center font-mono text-[0.54rem] tracking-[0.06em] text-sand/70">
+                Curve redrawn from the Search Console clicks/day report
               </div>
               <div className="mt-6 grid grid-cols-2 border-t border-rule md:grid-cols-4">
                 {TELEMETRY.map(([n, l], i) => (
@@ -139,13 +170,16 @@ export function TerraTeaser() {
             ))}
           </ul>
           <div>
-            <div className="mb-6 flex flex-wrap gap-2">
-              {["B2B SaaS", "FDI Targeting", "EN / VI"].map((p) => (
-                <span key={p} className="rounded-full border border-rule px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.08em] text-sand">
-                  {p}
-                </span>
+            {/* a spec line, not pills: the pill row was the third identical one on this page,
+                and this teaser's register is the instrument readout above it. */}
+            <dl className="mb-6 border-t border-rule">
+              {SPEC.map(([k, v]) => (
+                <div key={k} className="flex items-baseline justify-between gap-4 border-b border-rule py-2">
+                  <dt className="font-mono text-[0.56rem] uppercase tracking-[0.14em] text-sand">{k}</dt>
+                  <dd className="text-right font-mono text-[0.72rem] text-cream">{v}</dd>
+                </div>
               ))}
-            </div>
+            </dl>
             <div className="flex flex-wrap items-center gap-4">
               <Cta href="/terra">Full case study</Cta>
               <Cta href="https://terra-plat.vn" variant="secondary" arrow="up-right">Live site</Cta>

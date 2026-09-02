@@ -12,11 +12,23 @@ const PIPELINE = [
   { x: 900, n: "05", t: "Failures", m: "documented" },
 ];
 
-const STATS: [string, string][] = [
-  ["6h", "End-to-end"],
-  ["5+1", "KFs + ad"],
-  ["4", "Models"],
-  ["$0", "Free tier"],
+/**
+ * A run log, not the bordered 4-cell stat grid. This case study's subject is a pipeline
+ * where the failures are the evidence, so the teaser reports outcomes per step the way a
+ * job log would — which the pipeline diagram above cannot show, and which no longer looks
+ * like the terra or aru teaser.
+ */
+type Run = { step: string; detail: string; out: string; ok: boolean };
+const RUN: Run[] = [
+  { step: "keyframes", detail: "flux pro 1.1", out: "5 + 1 ad mockup", ok: true },
+  { step: "motion · chained", detail: "all 5 frames", out: "coherence gap", ok: false },
+  { step: "motion · kf3→kf5", detail: "seedance 2.0", out: "1080p, kept", ok: true },
+  { step: "typography", detail: "gpt image 1", out: "ok", ok: true },
+];
+const TOTALS: [string, string][] = [
+  ["models", "4"],
+  ["elapsed", "6h"],
+  ["cost", "$0 · free tier"],
 ];
 
 export function BongTeaser() {
@@ -88,20 +100,30 @@ export function BongTeaser() {
           className="grid grid-cols-1 items-center gap-10 md:grid-cols-[1fr_1.2fr]"
         >
           <div>
-            <div className="mb-6 grid grid-cols-4 border-y border-rule">
-              {STATS.map(([n, l], i) => (
-                <div key={l} className={`px-2 py-5 text-center ${i < STATS.length - 1 ? "border-r border-rule" : ""}`}>
-                  <div className="font-display text-[1.7rem] font-bold leading-none tracking-[-0.02em] text-cream">{n}</div>
-                  <div className="mt-1.5 font-mono text-[0.54rem] uppercase tracking-[0.06em] text-sand">{l}</div>
-                </div>
-              ))}
-            </div>
-            <div className="mb-6 flex flex-wrap gap-2">
-              {["AI Orchestration", "Creative Pipeline", "Solo Build"].map((p) => (
-                <span key={p} className="rounded-full border border-rule px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.08em] text-sand">
-                  {p}
-                </span>
-              ))}
+            <div className="mb-6 overflow-hidden rounded-[10px] border border-rule bg-ink-raised/50">
+              <div className="flex items-center justify-between border-b border-rule px-4 py-2.5 font-mono text-[0.56rem] uppercase tracking-[0.14em] text-sand">
+                <span>{"// run log"}</span>
+                <span>solo · may 2026</span>
+              </div>
+              <ul className="px-4 py-2">
+                {RUN.map((r) => (
+                  <li key={r.step} className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 py-2 font-mono text-[0.7rem]">
+                    <span aria-hidden className={r.ok ? "text-forest" : "text-tan"}>
+                      {r.ok ? "✓" : "✕"}
+                    </span>
+                    <span className="text-cream">{r.step}</span>
+                    <span className="text-sand/80">{r.detail}</span>
+                    <span className={`ml-auto ${r.ok ? "text-tan" : "text-tan line-through decoration-tan/40"}`}>{r.out}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-x-6 gap-y-1 border-t border-rule px-4 py-3 font-mono text-[0.62rem] text-sand">
+                {TOTALS.map(([k, v]) => (
+                  <span key={k}>
+                    {k} <span className="text-cream">{v}</span>
+                  </span>
+                ))}
+              </div>
             </div>
             <Cta href="/bong-vespera">Full case study</Cta>
           </div>

@@ -4,6 +4,7 @@ import { Hero } from "@/components/Hero";
 import { StatStrip } from "@/components/StatStrip";
 import { About } from "@/components/About";
 import { NhaMinhTeaser } from "@/components/NhaMinhTeaser";
+import { SystemsStrip } from "@/components/SystemsStrip";
 import { TerraTeaser } from "@/components/TerraTeaser";
 import { BongTeaser } from "@/components/BongTeaser";
 import { AruTeaser } from "@/components/AruTeaser";
@@ -22,6 +23,9 @@ export default function Home() {
       <StatStrip />
       <About />
       <NhaMinhTeaser />
+      {/* sits directly before the terra teaser on purpose: it opens on "the growth numbers
+          came from software", which only lands next to the numbers themselves */}
+      <SystemsStrip />
       <TerraTeaser />
       <AruTeaser />
       <BongTeaser />
