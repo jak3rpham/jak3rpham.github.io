@@ -88,6 +88,112 @@ body {
   color: var(--color-ink);
 }
 
+/* Theme flow. See components/ThemeFlow.tsx.
+
+   The palette tokens are registered with @property, which makes them animatable. Flipping
+   data-theme on the flow wrapper therefore interpolates every token over the same easing, and
+   because the tokens inherit, every element that reads one moves with it. The page changes
+   state; it does not cut between two blocks. This is why there are no seams to hide and why
+   none of the ~500 token based utilities in the components had to be touched.
+
+   Two states only, black and white, plus one page colour. Both states define every token, so
+   an element is never left reading a value from the other side.
+
+   KEEP COMMENTS IN THIS FILE PLAIN ASCII AND UNDECORATED. A dressed up comment made the build
+   silently drop the whole rule below it from the compiled CSS while the rules after it
+   survived. No box drawing, no repeated dash runs, no em dashes, no ellipsis. */
+
+@property --color-ink { syntax: "<color>"; inherits: true; initial-value: #0D0F0D; }
+@property --color-ink-raised { syntax: "<color>"; inherits: true; initial-value: #141813; }
+@property --color-cream { syntax: "<color>"; inherits: true; initial-value: #F1F3EA; }
+@property --color-tan { syntax: "<color>"; inherits: true; initial-value: #C6D0B7; }
+@property --color-sand { syntax: "<color>"; inherits: true; initial-value: #8B9880; }
+@property --color-clay { syntax: "<color>"; inherits: true; initial-value: #6E7A64; }
+@property --color-forest { syntax: "<color>"; inherits: true; initial-value: #8FD49E; }
+@property --color-amber { syntax: "<color>"; inherits: true; initial-value: #8FD49E; }
+@property --color-panel { syntax: "<color>"; inherits: true; initial-value: rgba(24, 30, 22, 0.5); }
+@property --color-panel-border { syntax: "<color>"; inherits: true; initial-value: rgba(210, 226, 190, 0.14); }
+@property --color-rule { syntax: "<color>"; inherits: true; initial-value: rgba(210, 226, 190, 0.12); }
+
+.theme-flow {
+  --flow-ease: cubic-bezier(0.33, 0, 0.2, 1);
+  --flow-time: 650ms;
+  transition:
+    --color-ink var(--flow-time) var(--flow-ease),
+    --color-ink-raised var(--flow-time) var(--flow-ease),
+    --color-cream var(--flow-time) var(--flow-ease),
+    --color-tan var(--flow-time) var(--flow-ease),
+    --color-sand var(--flow-time) var(--flow-ease),
+    --color-clay var(--flow-time) var(--flow-ease),
+    --color-forest var(--flow-time) var(--flow-ease),
+    --color-amber var(--flow-time) var(--flow-ease),
+    --color-panel var(--flow-time) var(--flow-ease),
+    --color-panel-border var(--flow-time) var(--flow-ease),
+    --color-rule var(--flow-time) var(--flow-ease);
+}
+
+.theme-flow[data-theme="dark"] {
+  --color-ink: #0D0F0D;
+  --color-ink-raised: #141813;
+  --color-cream: #F1F3EA;
+  --color-tan: #C6D0B7;
+  --color-sand: #8B9880;
+  --color-clay: #6E7A64;
+  --color-forest: #8FD49E;
+  --color-amber: #8FD49E;
+  --color-panel: rgba(24, 30, 22, 0.5);
+  --color-panel-border: rgba(210, 226, 190, 0.14);
+  --color-rule: rgba(210, 226, 190, 0.12);
+}
+
+.theme-flow[data-theme="light"] {
+  --color-ink: #F4F2EA;
+  --color-ink-raised: #FFFFFF;
+  --color-cream: #14170F;
+  --color-tan: #3F4636;
+  --color-sand: #5A6150;
+  --color-clay: #767D69;
+  --color-forest: #2C6B42;
+  --color-amber: #2C6B42;
+  --color-panel: rgba(255, 255, 255, 0.7);
+  --color-panel-border: rgba(20, 23, 15, 0.14);
+  --color-rule: rgba(20, 23, 15, 0.13);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-flow { transition: none; }
+}
+
+/* The ground the flow paints on. Fixed, so it is the page's colour rather than a section's,
+   and it reads the same animated tokens, so it crossfades with everything else. The second
+   layer is the pointer glow: one accent tinted radial that follows the cursor, at a low
+   enough alpha to read on both states. */
+.flow-ground {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(420px circle at var(--mx, 50%) var(--my, 30%),
+      color-mix(in srgb, var(--color-forest) 13%, transparent),
+      transparent 70%),
+    radial-gradient(120% 130% at 50% -25%,
+      color-mix(in srgb, var(--color-forest) 7%, var(--color-ink)) 0%,
+      var(--color-ink) 62%);
+}
+
+/* Scroll driven shrink. See components/ShrinkSection.tsx. The section narrows into a rounded
+   card as it leaves, uncovering the ground and the next state behind it. */
+.shrink-stage {
+  position: relative;
+  z-index: 4;
+  transform: scale(var(--shrink, 1));
+  border-radius: var(--shrink-radius, 0px);
+  overflow: hidden;
+  transform-origin: center top;
+  will-change: transform;
+}
+
 /* grain overlay texture */
 .grain-bg {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -108,7 +214,10 @@ body {
   padding: 1px;
   pointer-events: none;
   z-index: 5;
-  background: radial-gradient(240px circle at var(--sx) var(--sy), rgba(143, 212, 158, 0.85), rgba(210, 226, 190, 0.06) 60%);
+  /* follows the accent token, so the hover border crosses states with everything else */
+  background: radial-gradient(240px circle at var(--sx) var(--sy),
+    color-mix(in srgb, var(--color-forest) 85%, transparent),
+    color-mix(in srgb, var(--color-forest) 6%, transparent) 60%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;

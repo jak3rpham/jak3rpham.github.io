@@ -73,7 +73,7 @@ function ProjectPanel({ p }: { p: Project }) {
       <div className="relative flex-1 overflow-hidden bg-ink/50">
         <img src={p.img} alt={p.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-transparent" />
-        <span className="pointer-events-none absolute left-6 top-4 font-serif-jp text-[4rem] font-black leading-none text-forest/90 mix-blend-screen">
+        <span className="pointer-events-none absolute left-6 top-4 font-serif-jp text-[4rem] font-black leading-none text-forest/90">
           {p.n}
         </span>
       </div>
