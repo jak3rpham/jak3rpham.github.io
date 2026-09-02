@@ -13,11 +13,6 @@ export function BongFinal() {
               The <span className="text-forest">final mockup</span>
             </h2>
           </Reveal>
-          <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
-            05
-            <br />
-            Assembled
-          </div>
         </div>
 
         <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[1fr_0.85fr]">

@@ -56,11 +56,6 @@ export function TerraScope() {
               Full <span className="text-forest">scope</span>
             </h2>
           </Reveal>
-          <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
-            Scope 04
-            <br />
-            Beyond the growth
-          </div>
         </div>
 
         <motion.p

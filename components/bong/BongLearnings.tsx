@@ -32,11 +32,6 @@ export function BongLearnings() {
               What I <span className="text-forest">learned</span>
             </h2>
           </Reveal>
-          <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
-            08
-            <br />
-            Learnings
-          </div>
         </div>
 
         <motion.div

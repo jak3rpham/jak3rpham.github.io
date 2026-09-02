@@ -74,11 +74,6 @@ export function BongKeyframes() {
               Direction C, <span className="text-forest">frame by frame</span>
             </h2>
           </Reveal>
-          <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
-            04
-            <br />
-            Flux Pro 1.1 Ultra
-          </div>
         </div>
         <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-4 max-w-[62ch] text-[1.05rem] font-light leading-[1.7] text-tan">
           Five atmospheric stills, each with its credit cost and the prompting lesson it taught. Drag to browse, or use the arrows.

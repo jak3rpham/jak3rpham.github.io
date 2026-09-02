@@ -33,11 +33,6 @@ export function BongPipeline() {
               The <span className="text-forest">orchestration</span>
             </h2>
           </Reveal>
-          <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
-            03
-            <br />
-            Pipeline
-          </div>
         </div>
 
         <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-8 max-w-[64ch] text-[1.1rem] font-light leading-[1.75] text-tan">

@@ -24,27 +24,41 @@ function Tel({ to, decimals = 0, prefix = "", suffix = "", label, staticValue }:
   );
 }
 
+/**
+ * Hero archetype is deliberately NOT the shared split-with-side-object used on /terra. This is
+ * a full-bleed "title card": the WebGL object fills the whole frame as the ambient asset, the
+ * copy sits low over a bottom-weighted scrim, and the format stats run as a full-width bar along
+ * the base. Distinct from /terra (split) and /bong-vespera (framed film still).
+ */
 export function VideoHero() {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const textOpacity = useTransform(scrollYProgress, [0, 0.7], [1, reduce ? 1 : 0]);
-  const objY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "16%"]);
+  const objScale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 1.08]);
 
   return (
     <section
       ref={ref}
       id="hero"
-      className="relative grid min-h-[100dvh] grid-cols-1 items-center gap-10 overflow-hidden px-[var(--pad)] pb-20 pt-28 md:grid-cols-[1.05fr_1fr]"
+      className="relative flex min-h-[100dvh] flex-col justify-end overflow-hidden px-[var(--pad)] pb-14 pt-24"
     >
+      {/* full-bleed ambient asset */}
+      <motion.div style={{ scale: objScale }} className="absolute inset-0 z-0">
+        <WebGLObject className="absolute inset-0" />
+      </motion.div>
+      {/* bottom-weighted scrim: guarantees the copy reads over whatever the object renders */}
       <div
         aria-hidden
-        className="pointer-events-none absolute right-[6%] top-1/2 z-0 h-[80vh] w-[80vh] max-w-[90vw] -translate-y-1/2 rounded-full opacity-60 blur-[120px]"
-        style={{ background: "radial-gradient(circle, rgba(143,212,158,0.18), transparent 62%)" }}
+        className="pointer-events-none absolute inset-0 z-[1]"
+        style={{
+          background:
+            "linear-gradient(to top, var(--color-ink) 0%, var(--color-ink) 16%, rgba(13,15,13,0.82) 40%, rgba(13,15,13,0.34) 68%, rgba(13,15,13,0.08) 100%)",
+        }}
       />
 
-      <motion.div style={{ opacity: textOpacity }} className="relative z-[3] max-w-[42rem]">
-        <h1 className="font-display text-[clamp(2.8rem,7vw,5.6rem)] font-extrabold leading-[0.95] tracking-[-0.04em] text-cream">
+      <motion.div style={{ opacity: textOpacity }} className="relative z-[3] w-full">
+        <h1 className="max-w-[16ch] font-display text-[clamp(2.8rem,8vw,6.4rem)] font-extrabold leading-[0.92] tracking-[-0.04em] text-cream">
           <LetterReveal text="Video reel" accentStart={6} />
         </h1>
         <motion.div
@@ -61,7 +75,7 @@ export function VideoHero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.05, duration: 0.7 }}
-          className="mt-7 max-w-[42ch] text-[clamp(1.1rem,1.7vw,1.4rem)] font-light leading-[1.6] text-tan"
+          className="mt-6 max-w-[52ch] text-[clamp(1.1rem,1.7vw,1.4rem)] font-light leading-[1.6] text-tan"
         >
           End-to-end production across formats: TVCs, brand films, commercial explainers, music videos, events.{" "}
           <strong className="font-medium text-cream">Two-time Top 1 TVC</strong> at Business Challenge.
@@ -70,23 +84,13 @@ export function VideoHero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.7 }}
-          className="mt-8 flex max-w-[600px] flex-wrap"
+          className="mt-9 flex w-full max-w-[760px] flex-wrap border-t border-rule pt-2"
         >
           <Tel to={15} suffix="+" label="Productions led" />
           <Tel staticValue="2×" label="Top 1 TVC awards" />
           <Tel to={800} suffix="+" label="Largest audience" />
           <Tel to={7} label="Formats covered" />
         </motion.div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.4, delay: 0.4 }}
-        style={{ y: objY }}
-        className="relative z-[2] h-[48vh] w-full md:h-[74vh]"
-      >
-        <WebGLObject className="absolute inset-0" />
       </motion.div>
     </section>
   );

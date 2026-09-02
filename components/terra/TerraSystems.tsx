@@ -90,15 +90,26 @@ const FOUNDATION = [
   "Video & creative production",
 ];
 
-function SystemPanel({ s, index }: { s: System; index: number }) {
-  const flip = index % 2 === 1;
+// Stacked cards in a 2-col grid, not alternating left/right rows: four consecutive
+// image+text splits read as a monotonous zigzag, so the diagrams sit on top of their copy
+// inside a card gallery instead.
+function SystemPanel({ s }: { s: System }) {
   return (
-    <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12">
-      <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className={flip ? "md:order-2" : ""}>
-        <div className="mb-3 font-mono text-[0.66rem] uppercase tracking-[0.12em] text-forest">{s.tag}</div>
-        <div className="mb-3 font-display text-[clamp(1.7rem,3vw,2.4rem)] font-bold leading-tight tracking-[-0.02em] text-cream">{s.title}</div>
-        <p className="mb-4 max-w-[52ch] text-[1.02rem] font-light leading-[1.7] text-tan">{s.desc}</p>
-        <p className="mb-5 max-w-[52ch] border-l-2 border-forest/50 pl-4 text-[0.98rem] font-light leading-[1.6] text-sand">{s.impact}</p>
+    <motion.div
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      className="flex flex-col rounded-[16px] border border-panel-border bg-panel/60 p-6 backdrop-blur-md md:p-7"
+    >
+      <div className="rounded-[10px] border border-rule/60 bg-ink/40 p-3">
+        <DrawDiagram nodes={s.nodes} edges={s.edges} className="h-auto w-full" />
+      </div>
+      <div className="mt-6">
+        <div className="mb-2 font-mono text-[0.66rem] uppercase tracking-[0.12em] text-forest">{s.tag}</div>
+        <div className="mb-2.5 font-display text-[clamp(1.4rem,2.4vw,1.9rem)] font-bold leading-tight tracking-[-0.02em] text-cream">{s.title}</div>
+        <p className="mb-3.5 text-[1rem] font-light leading-[1.65] text-tan">{s.desc}</p>
+        <p className="mb-4 border-l-2 border-forest/50 pl-4 text-[0.95rem] font-light leading-[1.55] text-sand">{s.impact}</p>
         <div className="flex flex-wrap gap-2">
           {s.pills.map((p) => (
             <span key={p} className="rounded-full border border-rule px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.08em] text-sand">
@@ -106,11 +117,8 @@ function SystemPanel({ s, index }: { s: System; index: number }) {
             </span>
           ))}
         </div>
-      </motion.div>
-      <div className={`rounded-[12px] border border-panel-border bg-panel/60 p-4 backdrop-blur-md ${flip ? "md:order-1" : ""}`}>
-        <DrawDiagram nodes={s.nodes} edges={s.edges} className="h-auto w-full" />
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -124,11 +132,6 @@ export function TerraSystems() {
               Systems I <span className="text-forest">built</span>
             </h2>
           </Reveal>
-          <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
-            Engineering 02
-            <br />
-            Marketer who ships with AI
-          </div>
         </div>
 
         <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-14 max-w-[64ch] text-[1.1rem] font-light leading-[1.75] text-tan">
@@ -136,9 +139,9 @@ export function TerraSystems() {
           convert on its own. Each system solves a different bottleneck, so each one is shaped differently.
         </motion.p>
 
-        <div className="flex flex-col gap-16 md:gap-24">
-          {SYSTEMS.map((s, i) => (
-            <SystemPanel key={s.title} s={s} index={i} />
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          {SYSTEMS.map((s) => (
+            <SystemPanel key={s.title} s={s} />
           ))}
         </div>
 

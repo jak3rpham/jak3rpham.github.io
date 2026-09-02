@@ -6,6 +6,10 @@ type RailItem = { id: string; label: string; accent: string };
 export function VideoNavRail({ items }: { items: RailItem[] }) {
   const [active, setActive] = useState<string | null>(null);
 
+  // NOTE: intentionally a scroll listener + getBoundingClientRect, NOT an
+  // IntersectionObserver. Lenis (see SmoothScroll) drives scrolling in a way that
+  // IntersectionObserver does not observe, so IO never fires here; getBoundingClientRect
+  // reflects the real position and works under Lenis. Same pattern as HomeNavRail.
   useEffect(() => {
     const ids = items.map((it) => it.id);
     const line = () => window.innerHeight * 0.4; // active = section whose top has crossed 40% down

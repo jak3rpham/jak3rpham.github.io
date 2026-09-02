@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { WebGLGate } from "../WebGLGate";
 import { LetterReveal } from "../LetterReveal";
 import { useCountUp } from "@/lib/useCountUp";
 
@@ -23,58 +22,27 @@ function Tel({ to, decimals = 0, suffix = "", label, staticValue }: { to?: numbe
   );
 }
 
+/**
+ * Hero archetype is deliberately NOT the shared split-with-abstract-WebGL-object used on
+ * /terra and /video. This is a "film still" hero: the payoff keyframe (KF5) is a framed
+ * cinematic still, the dominant visual and the actual subject of the case study. A contained,
+ * bordered frame (not an edge-bleed blend) so there is no scrim to leave the image half-covered.
+ */
 export function BongHero() {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const textOpacity = useTransform(scrollYProgress, [0, 0.7], [1, reduce ? 1 : 0]);
-  const objY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "16%"]);
-  // ken-burns drift on the backdrop still as you scroll into the page
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1.06, reduce ? 1.06 : 1.16]);
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "8%"]);
+  // slow ken-burns push inside the frame as you scroll into the page
+  const kfScale = useTransform(scrollYProgress, [0, 1], [1.03, reduce ? 1.03 : 1.12]);
+  const frameY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "10%"]);
 
   return (
     <section
       ref={ref}
       id="hero"
-      className="relative grid min-h-[100dvh] grid-cols-1 items-center gap-10 overflow-hidden px-[var(--pad)] pb-20 pt-28 md:grid-cols-[1.1fr_1fr]"
+      className="relative grid min-h-[100dvh] grid-cols-1 items-center gap-10 overflow-hidden px-[var(--pad)] pb-20 pt-24 md:grid-cols-[1fr_1.02fr]"
     >
-      {/* project keyframe as a duotone backdrop, merged into the dark + green theme */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <motion.img
-          src="/images/vng-demo/stills/kf5-after-the-recognition.webp"
-          alt=""
-          style={{ scale: bgScale, y: bgY }}
-          className="absolute inset-0 h-full w-full object-cover object-[center_72%] opacity-[0.9] [filter:saturate(0.85)_contrast(1.05)]"
-        />
-        {/* push the still toward the site's single green accent (kept light so detail shows) */}
-        <div className="absolute inset-0 bg-forest opacity-20 mix-blend-color" />
-        {/* readability scrim: solid ink behind the copy on the left, image fully open on the right */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, var(--color-ink) 0%, var(--color-ink) 12%, rgba(13,15,13,0.55) 46%, rgba(13,15,13,0.12) 74%, transparent 100%)",
-          }}
-        />
-        {/* soft top/bottom vignette so it blends into the next section */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(13,15,13,0.6) 0%, transparent 26%, transparent 68%, var(--color-ink) 100%)",
-          }}
-        />
-      </div>
-
-      <motion.div
-        aria-hidden
-        style={{ y: objY }}
-        className="pointer-events-none absolute right-[8%] top-1/2 z-[1] h-[70vh] w-[70vh] max-w-[90vw] -translate-y-1/2 rounded-full opacity-50 blur-[130px]"
-      >
-        <div className="h-full w-full rounded-full" style={{ background: "radial-gradient(circle, rgba(232,162,76,0.24), transparent 62%)" }} />
-      </motion.div>
-
       <motion.div style={{ opacity: textOpacity }} className="relative z-[3] max-w-[44rem]">
         <h1 className="font-display text-[clamp(2.8rem,7.6vw,6rem)] font-extrabold leading-[0.95] tracking-[-0.04em] text-cream">
           <LetterReveal text="BÓNG VESPERA" accentStart={5} />
@@ -112,14 +80,35 @@ export function BongHero() {
         </motion.div>
       </motion.div>
 
+      {/* framed film still: the payoff keyframe, the case study's actual subject */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.4, delay: 0.4 }}
-        style={{ y: objY }}
-        className="relative z-[2] h-[48vh] w-full md:h-[74vh]"
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        style={{ y: frameY }}
+        className="relative z-[2] mx-auto w-full max-w-[440px] md:mx-0 md:ml-auto"
       >
-        <WebGLGate className="absolute inset-0" rim={[0.9, 0.6, 0.32]} />
+        {/* soft ember glow behind the frame */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -inset-6 -z-10 rounded-[28px] opacity-70 blur-[60px]"
+          style={{ background: "radial-gradient(circle at 50% 40%, rgba(232,162,76,0.28), transparent 70%)" }}
+        />
+        <figure className="overflow-hidden rounded-[16px] border border-panel-border bg-ink-raised shadow-[0_40px_80px_-40px_rgba(0,0,0,0.85)]">
+          <div className="relative h-[clamp(360px,54vh,560px)] overflow-hidden">
+            <motion.img
+              src="/images/vng-demo/stills/kf5-after-the-recognition.webp"
+              alt="Keyframe KF5, After the Recognition, generated with Flux Pro 1.1 Ultra"
+              style={{ scale: kfScale }}
+              className="absolute inset-0 h-full w-full object-cover object-[center_58%]"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+          </div>
+          <figcaption className="flex items-center justify-between gap-3 border-t border-panel-border px-4 py-3">
+            <span className="text-[0.9rem] font-semibold text-cream">After the Recognition</span>
+            <span className="font-mono text-[0.56rem] uppercase tracking-[0.1em] text-sand">KF5 · Flux Pro 1.1</span>
+          </figcaption>
+        </figure>
       </motion.div>
     </section>
   );

@@ -67,11 +67,6 @@ export function TerraPages() {
               Recent <span className="text-forest">page launches</span>
             </h2>
           </Reveal>
-          <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
-            Built 03
-            <br />
-            Live production
-          </div>
         </div>
         <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-10 max-w-[62ch] text-[1.1rem] font-light leading-[1.75] text-tan">
           Pages I shipped end-to-end: keyword strategy, copy, layout, on-page SEO, and technical implementation. Drag to browse; hover

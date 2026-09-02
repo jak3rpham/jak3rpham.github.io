@@ -1,6 +1,6 @@
 "use client";
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { Reveal } from "../../Reveal";
 import { VideoLightbox } from "../../VideoLightbox";
 import { useCountUp } from "@/lib/useCountUp";
@@ -118,13 +118,9 @@ function AlsoCard({ film, onOpen }: { film: Film; onOpen: (f: Film) => void }) {
 
 export function TvcStage() {
   const [active, setActive] = useState<Film | null>(null);
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const wordY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
 
   return (
     <section
-      ref={ref}
       id={SECTIONS.tvc.id}
       data-vsection
       style={{ ["--ac" as string]: AC }}
@@ -134,15 +130,6 @@ export function TvcStage() {
         className="pointer-events-none absolute inset-0 opacity-[0.14]"
         style={{ background: `radial-gradient(90% 50% at 80% 10%, ${AC}, transparent 60%)` }}
       />
-      {/* giant vertical wordmark */}
-      <motion.span
-        aria-hidden
-        style={{ y: wordY, color: AC }}
-        className="pointer-events-none absolute -left-2 top-1/2 hidden -translate-y-1/2 [writing-mode:vertical-rl] font-display text-[13vw] font-bold leading-none opacity-[0.06] lg:block"
-      >
-        COMPETITION
-      </motion.span>
-
       <div className="mx-auto max-w-[1360px]">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-5 border-b border-rule pb-6">
           <Reveal>

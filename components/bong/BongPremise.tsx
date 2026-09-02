@@ -21,12 +21,6 @@ const row: Variants = {
 export function BongPremise() {
   return (
     <section id="premise" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(4rem,8vw,7rem)]">
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -top-10 right-[var(--pad)] select-none font-display text-[16vw] font-extrabold leading-none text-cream/[0.03]"
-      >
-        01
-      </span>
       <div className="relative mx-auto max-w-[1400px]">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6 border-b border-rule pb-6">
           <Reveal>
@@ -34,11 +28,6 @@ export function BongPremise() {
               The <span className="text-forest">premise</span>
             </h2>
           </Reveal>
-          <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
-            01
-            <br />
-            Self-directed
-          </div>
         </div>
 
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.5fr_1fr] md:items-start">

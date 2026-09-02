@@ -19,48 +19,19 @@ export function TerraBroke() {
               What <span className="text-forest">broke</span>
             </h2>
           </Reveal>
-          <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
-            Postmortem 06
-            <br />
-            Read honestly
-          </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.1fr_1fr] md:items-start">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-            <p className="mb-6 max-w-[22ch] font-display text-[clamp(1.6rem,2.8vw,2.4rem)] font-medium leading-[1.3] tracking-[-0.01em] text-cream">
-              The 12× and 2,137 clicks/day are a <span className="text-forest">peak</span>, not a promise.
-            </p>
-            <p className="max-w-[54ch] text-[1.12rem] font-light leading-[1.85] text-tan">
-              Those figures mark March 2026, the high point of a 17-month climb. Through Q2 2026 organic compressed as
-              impressions and rankings shifted across the category. I caught the drop early in the same GSC pipeline I built,
-              which is exactly what that pipeline is for: the number that matters is not the peak, it is how fast you see the
-              turn.
-            </p>
-          </motion.div>
-
-          {/*
-            TODO(thanh): the diagnosis paragraph goes here. WHY did organic compress in Q2 2026?
-            Candidate causes to pick from (do not ship more than you can defend): algorithm update,
-            AI Overviews absorbing clicks, competitor movement, content decay, cannibalization.
-            Then: what you would do differently. Do not invent a cause; fill this from what you know.
-            When ready, replace the placeholder block below with a <p> in the same style as the one on the left.
-          */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ delay: 0.1 }}
-            className="rounded-[12px] border border-panel-border bg-panel p-7 backdrop-blur-md"
-          >
-            <div className="mb-3 font-mono text-[0.66rem] uppercase tracking-[0.12em] text-forest">// The diagnosis</div>
-            <p className="max-w-[52ch] text-[1.02rem] font-light leading-[1.75] text-sand">
-              The pipeline flagged the turn early. The read on the cause, and what I would change, is the part I am writing
-              from the data rather than guessing at.
-            </p>
-          </motion.div>
-        </div>
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} className="max-w-[68ch]">
+          <p className="mb-6 max-w-[26ch] font-display text-[clamp(1.6rem,2.8vw,2.4rem)] font-medium leading-[1.3] tracking-[-0.01em] text-cream">
+            The 12× and 2,137 clicks/day are a <span className="text-forest">peak</span>, not a promise.
+          </p>
+          <p className="text-[1.12rem] font-light leading-[1.85] text-tan">
+            Those figures mark March 2026, the high point of a 17-month climb. Through Q2 2026 organic compressed as
+            impressions and rankings shifted across the category. I caught the drop early in the same GSC pipeline I built,
+            which is exactly what that pipeline is for: the number that matters is not the peak, it is how fast you see the
+            turn.
+          </p>
+        </motion.div>
 
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mt-14 flex flex-wrap items-center gap-4">
           <motion.a
