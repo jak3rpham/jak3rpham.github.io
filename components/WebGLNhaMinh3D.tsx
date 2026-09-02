@@ -97,7 +97,7 @@ function createHeartGeometry(gl: WebGLRenderingContext, segU = 48, segV = 32) {
   const pos: number[] = [];
   const nor: number[] = [];
   const idx: number[] = [];
-  const scale = 0.088;
+  const scale = 0.054;
 
   function evalHeart(u: number, v: number): [number, number, number] {
     const sinU = Math.sin(u);
@@ -105,9 +105,9 @@ function createHeartGeometry(gl: WebGLRenderingContext, segU = 48, segV = 32) {
     const sinV = Math.sin(v);
     const cosV = Math.cos(v);
 
-    const x = sinU * (15 * sinV - 4 * Math.sin(3 * v)) * scale;
-    const y = (15 * cosU - 5 * Math.cos(2 * u) - 2 * Math.cos(3 * u) - Math.cos(4 * u) + 6.0) * scale;
-    const z = sinU * (15 * cosV - 4 * Math.cos(3 * v)) * scale * 0.52;
+    const x = sinU * (15 * sinV - 3.5 * Math.sin(3 * v)) * scale;
+    const y = (13 * cosU - 5 * Math.cos(2 * u) - 2 * Math.cos(3 * u) - Math.cos(4 * u) + 4.5) * scale;
+    const z = sinU * (14 * cosV - 3.5 * Math.cos(3 * v)) * scale * 0.48;
 
     return [x, y, z];
   }
@@ -167,7 +167,7 @@ export function WebGLNhaMinh3D({
   color = [1.0, 0.42, 0.29], // #FF6B4B Coral
   rim = [1.0, 0.72, 0.55],   // Warm peach glow
   haloColor = [1.0, 0.62, 0.45],
-  dist = 5.8,
+  dist = 6.6,
 }: {
   className?: string;
   color?: [number, number, number];
@@ -185,7 +185,7 @@ export function WebGLNhaMinh3D({
     let renderer: Renderer;
     try {
       renderer = new Renderer({
-        dpr: Math.min(window.devicePixelRatio || 1, 2),
+        dpr: Math.min(window.devicePixelRatio || 1, 1.5),
         alpha: true,
         antialias: true,
       });
@@ -200,7 +200,7 @@ export function WebGLNhaMinh3D({
     gl.canvas.style.height = "100%";
     gl.canvas.style.display = "block";
 
-    const camera = new Camera(gl, { fov: 32 });
+    const camera = new Camera(gl, { fov: 30 });
     camera.position.set(0, 0, dist);
 
     const scene = new Transform();
@@ -222,11 +222,12 @@ export function WebGLNhaMinh3D({
       transparent: true,
     });
     const heartMesh = new Mesh(gl, { geometry: heartGeo, program: heartProgram });
-    heartMesh.position.set(0, 0.1, 0);
+    heartMesh.position.set(0, 0, 0);
     heartMesh.setParent(heartRoot);
 
     // 2. Orbiting Telemetry Halo Ring
-    const ringGeo = new Torus(gl, { radius: 1.72, tube: 0.028, radialSegments: 20, tubularSegments: 72 });
+    const orbitR = 1.35;
+    const ringGeo = new Torus(gl, { radius: orbitR, tube: 0.022, radialSegments: 20, tubularSegments: 72 });
     const ringProgram = new Program(gl, {
       vertex: RING_VERT,
       fragment: RING_FRAG,
@@ -240,7 +241,7 @@ export function WebGLNhaMinh3D({
 
     // 3. Orbiting Multi-Modal Satellite Nodes
     // Satellite 1: Parent Mode (Emerald Green)
-    const satGeo = new Sphere(gl, { radius: 0.11, widthSegments: 20, heightSegments: 14 });
+    const satGeo = new Sphere(gl, { radius: 0.085, widthSegments: 20, heightSegments: 14 });
     const sat1Prog = new Program(gl, {
       vertex: RING_VERT,
       fragment: RING_FRAG,
@@ -282,8 +283,8 @@ export function WebGLNhaMinh3D({
       const t = (now - startT) / 1000;
 
       // Diastolic / Systolic organic heartbeat rhythm
-      const beat1 = Math.pow(Math.max(0, Math.sin(t * 3.4)), 18.0) * 0.08;
-      const beat2 = Math.pow(Math.max(0, Math.sin(t * 3.4 - 0.38)), 20.0) * 0.05;
+      const beat1 = Math.pow(Math.max(0, Math.sin(t * 3.4)), 18.0) * 0.06;
+      const beat2 = Math.pow(Math.max(0, Math.sin(t * 3.4 - 0.38)), 20.0) * 0.04;
       const pulse = beat1 + beat2;
 
       heartProgram.uniforms.uTime.value = t;
@@ -295,16 +296,15 @@ export function WebGLNhaMinh3D({
       const scroll = window.scrollY || 0;
 
       // Gentle continuous sway + interactive mouse tilt & scroll parallax
-      heartRoot.rotation.y = Math.sin(t * 0.45) * 0.42 + mouse.x * 0.65 + scroll * 0.0014;
-      heartRoot.rotation.x = Math.sin(t * 0.35) * 0.12 + mouse.y * 0.38;
+      heartRoot.rotation.y = Math.sin(t * 0.45) * 0.35 + mouse.x * 0.5 + scroll * 0.0012;
+      heartRoot.rotation.x = Math.sin(t * 0.35) * 0.08 + mouse.y * 0.28;
 
       // Halo ring rotation
       ringMesh.rotation.z = t * 0.3;
-      ringMesh.rotation.x = Math.PI * 0.38 + mouse.y * 0.2;
-      ringMesh.rotation.y = Math.PI * 0.12 + mouse.x * 0.25;
+      ringMesh.rotation.x = Math.PI * 0.38 + mouse.y * 0.15;
+      ringMesh.rotation.y = Math.PI * 0.12 + mouse.x * 0.18;
 
       // Satellites orbital positioning along halo
-      const orbitR = 1.72;
       const angle1 = t * 0.8;
       const angle2 = t * 0.8 + Math.PI;
 
