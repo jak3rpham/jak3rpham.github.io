@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SpotlightCard } from "./SpotlightCard";
+import { WebGLNhaMinh3D } from "./WebGLNhaMinh3D";
 import { Cta } from "./Cta";
 import { Reveal } from "./Reveal";
 import { fadeUp } from "@/lib/motion";
@@ -55,25 +56,35 @@ export function NhaMinhTeaser() {
   return (
     <section id="nhaminh" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(4rem,8vw,7.5rem)]">
       {/* Harmonious Ambient Glows */}
-      <div className="pointer-events-none absolute -left-20 top-1/4 h-[420px] w-[420px] rounded-full bg-forest/8 blur-[130px]" />
-      <div className="pointer-events-none absolute -right-20 bottom-1/4 h-[420px] w-[420px] rounded-full bg-forest/8 blur-[140px]" />
+      <div className="pointer-events-none absolute -left-20 top-1/4 h-[420px] w-[420px] rounded-full bg-[#FF6B4B]/8 blur-[130px]" />
+      <div className="pointer-events-none absolute -right-20 bottom-1/4 h-[420px] w-[420px] rounded-full bg-[#FF6B4B]/8 blur-[140px]" />
 
       <div className="mx-auto max-w-[1400px]">
-        {/* Section Header */}
+        {/* Section Header with Integrated 3D Emblem */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
           <div className="flex flex-wrap items-center gap-3">
-            <span className="font-mono text-[0.72rem] uppercase tracking-[0.2em] text-forest">
+            <span className="font-mono text-[0.72rem] uppercase tracking-[0.2em] text-[#FF6B4B]">
               AI Riser Vietnam 2026 Submission
             </span>
-            <span className="rounded-full border border-forest/30 bg-forest/10 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-forest backdrop-blur-md">
+            <span className="rounded-full border border-[#FF6B4B]/30 bg-[#FF6B4B]/10 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-[#FF6B4B] backdrop-blur-md">
               Full-Stack & Multimodal AI Lead
             </span>
           </div>
 
           <Reveal className="mt-4">
-            <h2 className="font-display text-[clamp(2.8rem,6.4vw,5rem)] font-bold leading-[1.04] tracking-[-0.04em] text-cream">
-              Nhà Mình · <span className="text-forest drop-shadow-[0_0_24px_rgba(143,212,158,0.4)]">Healthcare AI</span>
-            </h2>
+            <div className="flex items-center gap-4 sm:gap-6">
+              <div className="relative flex h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 shrink-0 items-center justify-center">
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 rounded-full bg-[#FF6B4B]/35 blur-xl animate-pulse"
+                />
+                <WebGLNhaMinh3D className="relative h-full w-full" />
+              </div>
+
+              <h2 className="font-display text-[clamp(2.4rem,5.6vw,4.8rem)] font-bold leading-[1.04] tracking-[-0.04em] text-cream">
+                Nhà Mình · <span className="text-[#FF6B4B] drop-shadow-[0_0_24px_rgba(255,107,75,0.4)]">Healthcare AI</span>
+              </h2>
+            </div>
           </Reveal>
 
           <p className="mt-6 max-w-[68ch] text-[clamp(1.15rem,1.65vw,1.38rem)] font-light leading-[1.75] text-tan">

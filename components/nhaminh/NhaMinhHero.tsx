@@ -2,14 +2,7 @@
 import { motion } from "framer-motion";
 import { Reveal } from "@/components/Reveal";
 import { fadeUp } from "@/lib/motion";
-
-function HeartIcon({ className = "h-8 w-8" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-    </svg>
-  );
-}
+import { WebGLNhaMinh3D } from "@/components/WebGLNhaMinh3D";
 
 function ArrowLeftIcon() {
   return (
@@ -63,11 +56,9 @@ export function NhaMinhHero() {
             <div className="lg:col-span-7">
               {/* 3D App Heart Logo & Brand Title */}
               <div className="flex items-center gap-4">
-                <div className="relative flex items-center justify-center">
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-[#FF6B4B] to-[#FFA07A] opacity-40 blur-xl animate-pulse" />
-                  <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FF7A59] via-[#FF6B4B] to-[#E05334] p-3 text-white shadow-[0_10px_25px_rgba(255,107,75,0.35),inset_0_2px_4px_rgba(255,255,255,0.6),inset_0_-2px_4px_rgba(0,0,0,0.15)]">
-                    <HeartIcon className="h-8 w-8 text-white drop-shadow-md" />
-                  </div>
+                <div className="relative flex h-16 w-16 shrink-0 items-center justify-center">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-[#FF6B4B] to-[#FFA07A] opacity-35 blur-lg" />
+                  <WebGLNhaMinh3D className="relative h-16 w-16" />
                 </div>
 
                 <div>
