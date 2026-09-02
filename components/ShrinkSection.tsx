@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, type ReactNode } from "react";
+import { onScrollFrame } from "@/lib/scrollTicker";
 
 /**
  * The hand off between two states, done as a move rather than a boundary.
@@ -32,9 +33,9 @@ export function ShrinkSection({
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    // Offsets are measured once and on resize, never inside the scroll handler: reading
-    // getBoundingClientRect per frame forces a synchronous layout, which is what made the
-    // transition stutter.
+    // Offsets are measured on mount and on resize, never inside the scroll path: reading
+    // getBoundingClientRect per frame forces a synchronous layout. Rides the shared ticker so
+    // the page has one scroll listener rather than one per effect.
     let top = 0;
     let height = 0;
     const measure = () => {
@@ -43,35 +44,12 @@ export function ShrinkSection({
       height = r.height;
     };
 
-    const write = () => {
-      const bottom = top + height - window.scrollY;
-      const p = Math.max(0, Math.min(1, 1 - bottom / window.innerHeight));
+    return onScrollFrame((y, vh) => {
+      const bottom = top + height - y;
+      const p = Math.max(0, Math.min(1, 1 - bottom / vh));
       el.style.setProperty("--shrink", (1 - (1 - minScale) * p).toFixed(4));
       el.style.setProperty("--shrink-radius", `${(radius * p).toFixed(1)}px`);
-    };
-
-    let raf = 0;
-    const onScroll = () => {
-      if (!raf)
-        raf = requestAnimationFrame(() => {
-          raf = 0;
-          write();
-        });
-    };
-    const onResize = () => {
-      measure();
-      write();
-    };
-
-    measure();
-    write();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
-    };
+    }, measure);
   }, [minScale, radius]);
 
   return (

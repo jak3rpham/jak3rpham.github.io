@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Reveal } from "./Reveal";
 import { Cta } from "./Cta";
+import { Parallax } from "./Parallax";
 import { fadeUp } from "@/lib/motion";
 
 const PIPELINE = [
@@ -127,11 +128,13 @@ export function BongTeaser() {
             </div>
             <Cta href="/bong-vespera">Full case study</Cta>
           </div>
-          <div className="mx-auto w-full max-w-[300px] overflow-hidden rounded-[12px] border border-panel-border bg-ink-raised md:ml-auto md:mr-0">
+          <Parallax speed={-46} className="mx-auto w-full max-w-[300px] md:ml-auto md:mr-0">
+          <div className="overflow-hidden rounded-[12px] border border-panel-border bg-ink-raised">
             <div className="aspect-[2/3]">
               <img src="/images/vng-demo/final/ad-mockup-final.webp" alt="BÓNG VESPERA ad mockup" className="h-full w-full object-cover" />
             </div>
           </div>
+          </Parallax>
         </motion.div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, type ReactNode } from "react";
+import { onScrollFrame } from "@/lib/scrollTicker";
 
 /**
  * Turns the page's theme into a scroll state instead of a set of blocks.
@@ -30,8 +31,19 @@ import { useEffect, useRef, type ReactNode } from "react";
  */
 type Zone = "dark" | "light";
 
-/** must match the dip transition in globals.css */
-const DIP_MS = 260;
+/**
+ * How long the dip runs before the swap lands in it. Short on purpose: this is latency the
+ * reader feels as the page not responding to the section they are already looking at. At 260ms
+ * nothing changed colour for a quarter of a second after the boundary and the whole crossover
+ * read as lagging behind the scroll. 90ms is enough to take the edge off the swap and short
+ * enough to feel immediate.
+ */
+const DIP_MS = 90;
+
+/**
+ * Fraction of the viewport the incoming zone's top must cross to win. Larger fires earlier.
+ */
+const LINE = 0.55;
 
 export function ThemeFlow({ children, initial = "dark" }: { children: ReactNode; initial?: Zone }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -61,10 +73,11 @@ export function ThemeFlow({ children, initial = "dark" }: { children: ReactNode;
     const commit = (next: Zone) => {
       current = next;
       html.dataset.theme = next;
+      html.dataset.ground = next;
     };
 
-    const decide = () => {
-      const line = window.scrollY + window.innerHeight * 0.42;
+    const decide = (y: number, vh: number) => {
+      const line = y + vh * LINE;
       let next = initial;
       for (const t of tops) {
         if (t.top <= line) next = t.zone;
@@ -79,36 +92,22 @@ export function ThemeFlow({ children, initial = "dark" }: { children: ReactNode;
       // dip, swap at the bottom of the dip, lift again
       window.clearTimeout(dipTimer);
       window.clearTimeout(clearTimer);
+      // the ground starts crossfading on this frame; only the token swap waits for the dip
+      html.dataset.ground = next;
       html.dataset.swapping = "1";
       dipTimer = window.setTimeout(() => commit(next), DIP_MS);
       clearTimer = window.setTimeout(() => delete html.dataset.swapping, DIP_MS + 40);
     };
 
-    let raf = 0;
-    const onScroll = () => {
-      if (!raf)
-        raf = requestAnimationFrame(() => {
-          raf = 0;
-          decide();
-        });
-    };
-    const onResize = () => {
-      measure();
-      decide();
-    };
-
     measure();
     commit(initial);
-    decide();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
+    const off = onScrollFrame(decide, measure);
     return () => {
-      cancelAnimationFrame(raf);
+      off();
       window.clearTimeout(dipTimer);
       window.clearTimeout(clearTimer);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
       delete html.dataset.theme;
+      delete html.dataset.ground;
       delete html.dataset.swapping;
     };
   }, [initial]);

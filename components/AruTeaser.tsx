@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Reveal } from "./Reveal";
 import { Cta } from "./Cta";
+import { Parallax } from "./Parallax";
 import { fadeUp } from "@/lib/motion";
 import { SOURCES, TRACK, YT, totalGenerated } from "@/lib/aruData";
 import { beginVideoPlayback, endVideoPlayback } from "@/lib/videoPlayback";
@@ -127,6 +128,7 @@ export function AruTeaser() {
             transition={{ delay: 0.1 }}
             className="flex flex-col"
           >
+            <Parallax speed={38}>
             <div className="grid grid-cols-2 gap-2">
               {STRIP.map((src, i) => (
                 <div key={i} className="overflow-hidden rounded-[4px] border border-panel-border">
@@ -135,6 +137,7 @@ export function AruTeaser() {
                 </div>
               ))}
             </div>
+            </Parallax>
 
             <dl className="mt-6 border-t border-rule pt-3">
               {CREDITS.map(([k, v]) => (

@@ -148,7 +148,7 @@ html[data-theme="light"] {
 /* The dip that the swap hides in. One opacity transition on one wrapper, so one composited
    layer moves and nothing else is touched. */
 .flow-content {
-  transition: opacity 260ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 90ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 html[data-swapping="1"] .flow-content {
   opacity: 0.86;
@@ -165,7 +165,7 @@ html[data-swapping="1"] .flow-content {
 .flow-sheet {
   position: absolute;
   inset: 0;
-  transition: opacity 620ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 520ms cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity;
 }
 .flow-sheet-dark {
@@ -176,8 +176,10 @@ html[data-swapping="1"] .flow-content {
   opacity: 0;
   background: radial-gradient(120% 130% at 50% -25%, #DDE6D8 0%, #F4F2EA 62%);
 }
-html[data-theme="light"] .flow-sheet-dark { opacity: 0; }
-html[data-theme="light"] .flow-sheet-light { opacity: 1; }
+/* keyed to data-ground, which flips on the boundary frame, while data-theme waits for
+   the dip. The ground is what tells the reader the page heard them. */
+html[data-ground="light"] .flow-sheet-dark { opacity: 0; }
+html[data-ground="light"] .flow-sheet-light { opacity: 1; }
 
 /* Two slow orbs so the ground is never completely still behind the hero, and a glow that
    follows the pointer. Transform and opacity only, so the compositor runs them and they cost

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { TerraStack } from "./TerraStack";
 import { SpotlightCard } from "./SpotlightCard";
 import { HoverScrollShot } from "./HoverScrollShot";
+import { Parallax } from "./Parallax";
 import { WebGLLogo3D } from "./WebGLLogo3D";
 import { Cta } from "./Cta";
 import { Reveal } from "./Reveal";
@@ -62,9 +63,11 @@ export function TerraTeaser() {
                 <WebGLLogo3D className="h-[240px] w-full lg:h-[280px]" />
                 <div className="mt-1 text-center font-mono text-[0.6rem] uppercase tracking-[0.14em] text-sand">terra · brand mark</div>
               </div>
+              <Parallax speed={-34}>
               <SpotlightCard className="overflow-hidden rounded-[12px] border border-panel-border bg-ink-raised shadow-[0_26px_60px_rgba(0,0,0,0.45)]">
                 <HoverScrollShot src="/images/terra-outsourcing-preview.webp" alt="terra-plat.vn" urlLabel="terra-plat.vn · live site" />
               </SpotlightCard>
+              </Parallax>
             </div>
 
             <SpotlightCard className="rounded-[12px] border border-panel-border bg-panel p-7 backdrop-blur-md">
