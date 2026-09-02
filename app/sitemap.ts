@@ -4,7 +4,7 @@ import { SITE_URL } from "@/lib/site";
 // Static export: Next writes this out as /sitemap.xml at build time.
 export const dynamic = "force-static";
 
-const ROUTES = ["", "/terra", "/aru-otoko", "/bong-vespera", "/ielts-studio", "/video"] as const;
+const ROUTES = ["", "/terra", "/nha-minh", "/aru-otoko", "/bong-vespera", "/ielts-studio", "/video"] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
