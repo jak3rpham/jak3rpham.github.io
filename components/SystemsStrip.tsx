@@ -41,7 +41,7 @@ const SYSTEMS: System[] = [
   {
     name: "Marketing data hub",
     stations: [
-      { label: "GSC · GA4 · PSI", kind: "in" },
+      { label: "3 sources", sub: "GSC · GA4 · PSI", kind: "in" },
       { label: "Apps Script", sub: "→ Sheets", kind: "engine" },
       { label: "Dashboard", kind: "out" },
     ],
@@ -52,7 +52,7 @@ const SYSTEMS: System[] = [
     name: "Whitepaper → CRM",
     stations: [
       { label: "One form", kind: "in" },
-      { label: "PDF + webhook", kind: "engine" },
+      { label: "PDF + webhook", sub: "same submit", kind: "engine" },
       { label: "CRM lead", kind: "out" },
     ],
     delta: "Static PDF → tracked",
@@ -60,8 +60,8 @@ const SYSTEMS: System[] = [
   },
 ];
 
-const RAIL_Y = 52;
-const X = [26, 120, 214];
+const RAIL_Y = 13;
+const X = [9, 120, 231];
 
 function Node({ kind, x }: { kind: Kind; x: number }) {
   const stroke = "var(--color-forest)";
@@ -84,71 +84,56 @@ function Node({ kind, x }: { kind: Kind; x: number }) {
 
 function Schematic({ stations, delta }: { stations: Station[]; delta: string }) {
   return (
-    <svg viewBox="0 0 240 84" className="h-auto w-full" role="img" aria-label={stations.map((s) => s.label).join(" then ")}>
-      {/* two-point <path>, not <line>: WebKit only honours the pathLength attribute framer
-          normalises the draw-on against on <path>. */}
-      <motion.path
-        d={`M${X[0]} ${RAIL_Y}L${X[2]} ${RAIL_Y}`}
-        fill="none"
-        stroke="var(--color-rule)"
-        strokeWidth={1.4}
-        initial={{ pathLength: 0 }}
-        whileInView={{ pathLength: 1 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      />
+    <div>
+      <div className="mb-3 text-center font-mono text-[0.62rem] tracking-[0.04em] text-forest">{delta}</div>
 
-      {/* the measured outcome, printed on the rail itself — the annotation is the point */}
-      <motion.text
-        x={120}
-        y={RAIL_Y - 26}
-        textAnchor="middle"
-        fontFamily="var(--font-mono)"
-        fontSize={10}
-        fill="var(--color-forest)"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.4, delay: 0.7 }}
+      {/* The SVG carries no type at all. Labels used to live inside it, which meant they scaled
+          with the viewBox and collided the moment a station name was longer than "Publish" — and
+          the sub-lines sat below the viewBox height and were simply clipped. Graphics here, text
+          in HTML below, so the labels wrap and stay legible at any card width. */}
+      <svg
+        viewBox="0 0 240 26"
+        className="h-auto w-full"
+        role="img"
+        aria-label={stations.map((s) => s.label).join(", then ")}
       >
-        {delta}
-      </motion.text>
-
-      {stations.map((s, i) => (
-        <motion.g
-          key={s.label}
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+        {/* two-point <path>, not <line>: WebKit only honours the pathLength attribute framer
+            normalises the draw-on against on <path>. */}
+        <motion.path
+          d={`M${X[0]} ${RAIL_Y}L${X[2]} ${RAIL_Y}`}
+          fill="none"
+          stroke="var(--color-rule)"
+          strokeWidth={1.4}
+          initial={{ pathLength: 0 }}
+          whileInView={{ pathLength: 1 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ delay: 0.15 + i * 0.12, type: "spring", stiffness: 240, damping: 17 }}
-          style={{ transformBox: "view-box", transformOrigin: `${X[i]}px ${RAIL_Y}px` }}
-        >
-          <Node kind={s.kind} x={X[i]} />
-          <text
-            x={X[i]}
-            y={RAIL_Y + 24}
-            textAnchor={i === 0 ? "start" : i === 2 ? "end" : "middle"}
-            fontFamily="var(--font-mono)"
-            fontSize={9.5}
-            fill="var(--color-cream)"
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        />
+        {stations.map((s, i) => (
+          <motion.g
+            key={s.label}
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ delay: 0.15 + i * 0.12, type: "spring", stiffness: 240, damping: 17 }}
+            style={{ transformBox: "view-box", transformOrigin: `${X[i]}px ${RAIL_Y}px` }}
           >
-            {s.label}
-          </text>
-          {s.sub && (
-            <text
-              x={X[i]}
-              y={RAIL_Y + 36}
-              textAnchor="middle"
-              fontFamily="var(--font-mono)"
-              fontSize={8.5}
-              fill="var(--color-sand)"
-            >
-              {s.sub}
-            </text>
-          )}
-        </motion.g>
-      ))}
-    </svg>
+            <Node kind={s.kind} x={X[i]} />
+          </motion.g>
+        ))}
+      </svg>
+
+      {/* min-height reserves the sub-line, so a card without one still lines its name up
+          with its neighbours instead of riding 16px high */}
+      <div className="mt-3 grid min-h-[2rem] grid-cols-3 gap-x-2">
+        {stations.map((s, i) => (
+          <div key={s.label} className={i === 0 ? "text-left" : i === 2 ? "text-right" : "text-center"}>
+            <div className="break-words font-mono text-[0.62rem] leading-tight text-cream">{s.label}</div>
+            {s.sub && <div className="mt-1 break-words font-mono text-[0.56rem] leading-tight text-sand">{s.sub}</div>}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -186,7 +171,7 @@ export function SystemsStrip() {
         >
           {SYSTEMS.map((s) => (
             <motion.div key={s.name} variants={fadeUp} className="flex flex-col">
-              <div className="rounded-[10px] border border-rule/70 bg-ink-raised/40 px-3 py-2">
+              <div className="rounded-[10px] border border-rule/70 bg-ink-raised/40 px-4 py-4">
                 <Schematic stations={s.stations} delta={s.delta} />
               </div>
               <div className="mt-4 text-[1.02rem] font-medium text-cream">{s.name}</div>
