@@ -66,7 +66,7 @@ const X = [9, 120, 231];
 function Node({ kind, x }: { kind: Kind; x: number }) {
   const stroke = "var(--color-forest)";
   if (kind === "in") {
-    return <rect x={x - 5} y={RAIL_Y - 5} width={10} height={10} fill="var(--color-ink-raised)" stroke={stroke} strokeWidth={1.5} />;
+    return <rect x={x - 5} y={RAIL_Y - 5} width={10} height={10} fill="#141813" stroke={stroke} strokeWidth={1.5} />;
   }
   if (kind === "out") {
     return (
@@ -76,7 +76,7 @@ function Node({ kind, x }: { kind: Kind; x: number }) {
   return (
     <>
       <circle cx={x} cy={RAIL_Y} r={11} fill="none" stroke={stroke} strokeOpacity={0.25} />
-      <circle cx={x} cy={RAIL_Y} r={6.5} fill="var(--color-ink-raised)" stroke={stroke} strokeWidth={1.5} />
+      <circle cx={x} cy={RAIL_Y} r={6.5} fill="#141813" stroke={stroke} strokeWidth={1.5} />
       <circle cx={x} cy={RAIL_Y} r={2.2} fill={stroke} />
     </>
   );

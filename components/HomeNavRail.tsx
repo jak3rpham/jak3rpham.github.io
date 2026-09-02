@@ -20,13 +20,6 @@ const ITEMS: { id: string; label: string }[] = [
   { id: "contact", label: "Contact" },
 ];
 
-/**
- * The rail is fixed, so it floats over both the ink and the paper bands and cannot be
- * themed by the wrapper the way the sections are. It already knows which section is
- * active, so it reads its own colours off that instead.
- */
-const LIGHT_SECTIONS = new Set(["about", "terra", "work"]);
-
 export function HomeNavRail() {
   const [active, setActive] = useState<string>("hero");
 
@@ -50,8 +43,6 @@ export function HomeNavRail() {
     };
   }, []);
 
-  const onLight = active != null && LIGHT_SECTIONS.has(active);
-
   return (
     <nav
       aria-label="Page sections"
@@ -59,8 +50,6 @@ export function HomeNavRail() {
     >
       {ITEMS.map((it) => {
         const on = active === it.id;
-        // umber is the light band's accent (see .theme-light); the glow is dropped on paper
-        const accent = onLight ? "#6F5B33" : "var(--color-forest)";
         return (
           <button
             key={it.id}
@@ -71,9 +60,10 @@ export function HomeNavRail() {
           >
             <span
               className={`whitespace-nowrap font-mono text-[0.6rem] uppercase tracking-[0.1em] transition-all duration-300 ${
-                on ? "opacity-100" : "translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-70"
+                on
+                  ? "text-forest opacity-100"
+                  : "translate-x-1 text-sand opacity-0 group-hover:translate-x-0 group-hover:opacity-70"
               }`}
-              style={{ color: on ? accent : onLight ? "#6A705E" : "var(--color-sand)" }}
             >
               {it.label}
             </span>
@@ -82,8 +72,8 @@ export function HomeNavRail() {
               style={{
                 width: on ? 22 : 8,
                 height: 8,
-                background: on ? accent : onLight ? "rgba(22,25,15,0.28)" : "rgba(245,242,232,0.28)",
-                boxShadow: on && !onLight ? `0 0 12px ${accent}` : "none",
+                background: on ? "var(--color-forest)" : "rgba(245,242,232,0.28)",
+                boxShadow: on ? "0 0 12px var(--color-forest)" : "none",
               }}
             />
           </button>

@@ -57,12 +57,12 @@ export function TerraTeaser() {
                 <div
                   aria-hidden
                   className="pointer-events-none absolute inset-0 -z-10 blur-[90px]"
-                  style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-forest) 16%, transparent), transparent 65%)" }}
+                  style={{ background: "radial-gradient(circle, rgba(199,185,161,0.16), transparent 65%)" }}
                 />
                 <WebGLLogo3D className="h-[240px] w-full lg:h-[280px]" />
                 <div className="mt-1 text-center font-mono text-[0.6rem] uppercase tracking-[0.14em] text-sand">terra · brand mark</div>
               </div>
-              <SpotlightCard className="overflow-hidden rounded-[12px] border border-panel-border bg-ink-raised shadow-[0_26px_60px_rgba(0,0,0,0.18)]">
+              <SpotlightCard className="overflow-hidden rounded-[12px] border border-panel-border bg-ink-raised shadow-[0_26px_60px_rgba(0,0,0,0.45)]">
                 <HoverScrollShot src="/images/terra-outsourcing-preview.webp" alt="terra-plat.vn" urlLabel="terra-plat.vn · live site" />
               </SpotlightCard>
             </div>
@@ -78,8 +78,8 @@ export function TerraTeaser() {
               <svg className="h-[170px] w-full" viewBox="0 0 600 170" preserveAspectRatio="none" aria-hidden="true">
                 <defs>
                   <linearGradient id="gareaG" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stopColor="var(--color-forest)" stopOpacity=".28" />
-                    <stop offset="1" stopColor="var(--color-forest)" stopOpacity="0" />
+                    <stop offset="0" stopColor="#C7B9A1" stopOpacity=".28" />
+                    <stop offset="1" stopColor="#C7B9A1" stopOpacity="0" />
                   </linearGradient>
                 </defs>
                 {/* launch baseline, so the climb is read against something */}
@@ -122,7 +122,7 @@ export function TerraTeaser() {
                 </span>
               </div>
 
-              <div className="mt-2 flex items-center justify-between font-mono text-[0.54rem] uppercase tracking-[0.1em] text-sand">
+              <div className="mt-2 flex items-center justify-between font-mono text-[0.54rem] uppercase tracking-[0.1em] text-sand/80">
                 <span>Feb 2025</span>
                 <span className="h-px flex-1 bg-rule/60" />
                 <span>Mar 2026</span>
@@ -132,7 +132,7 @@ export function TerraTeaser() {
               </div>
               {/* provenance, stated plainly: this is the shape of the real report, hand-traced,
                   not a live data feed. Saying so is worth more than pretending otherwise. */}
-              <div className="mt-1.5 text-center font-mono text-[0.54rem] tracking-[0.06em] text-sand">
+              <div className="mt-1.5 text-center font-mono text-[0.54rem] tracking-[0.06em] text-sand/70">
                 Curve redrawn from the Search Console clicks/day report
               </div>
               <div className="mt-6 grid grid-cols-2 border-t border-rule md:grid-cols-4">

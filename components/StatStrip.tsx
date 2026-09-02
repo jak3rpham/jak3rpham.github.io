@@ -11,7 +11,7 @@ const STATS: { value: string; label: string }[] = [
 
 export function StatStrip() {
   return (
-    <div className="relative z-[4] border-y border-rule bg-ink-raised/60 py-6">
+    <div className="relative z-[4] border-y border-rule bg-black/20 py-6">
       <VelocityMarquee baseVelocity={3}>
         {STATS.map((s) => (
           <span key={s.label} className="flex items-center gap-4 pr-8">
