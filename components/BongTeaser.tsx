@@ -112,7 +112,7 @@ export function BongTeaser() {
                       {r.ok ? "✓" : "✕"}
                     </span>
                     <span className="text-cream">{r.step}</span>
-                    <span className="text-sand/80">{r.detail}</span>
+                    <span className="text-sand">{r.detail}</span>
                     <span className={`ml-auto ${r.ok ? "text-tan" : "text-tan line-through decoration-tan/40"}`}>{r.out}</span>
                   </li>
                 ))}

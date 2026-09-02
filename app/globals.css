@@ -88,6 +88,35 @@ body {
   color: var(--color-ink);
 }
 
+/* Light band. Applied by components/ThemeBand.tsx.
+
+   The page is dark by default and stays that way. This flips the token set for one
+   run of sections, so the ~500 token-based utilities already in the components
+   (text-cream, bg-ink, border-rule) invert without being edited.
+
+   The accent needs its own value: the homepage swaps --color-forest for a bone tint
+   (see ThemeScope), which is near-invisible on cream. Umber is the same warm neutral
+   read at the other end of the scale. This is a class on the band, so it beats the
+   value ThemeScope inherits down from the root.
+
+   KEEP THIS COMMENT PLAIN ASCII. A decorated version of it (a long ----- rule line
+   plus an em dash and an ellipsis) made the build drop the whole rule below it from
+   the compiled CSS, silently, while the rules after it survived. */
+.theme-light {
+  --color-ink: #F2F0E8;
+  --color-ink-raised: #FBFAF4;
+  --color-cream: #16190F;
+  --color-tan: #454B3C;
+  --color-sand: #5A6050;
+  --color-clay: #6E7462;
+  --color-forest: #6F5B33;
+  --color-amber: #6F5B33;
+  --color-panel: rgba(255, 255, 255, 0.66);
+  --color-panel-border: rgba(22, 25, 15, 0.15);
+  --color-rule: rgba(22, 25, 15, 0.14);
+  color: var(--color-cream);
+}
+
 /* grain overlay texture */
 .grain-bg {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -108,7 +137,11 @@ body {
   padding: 1px;
   pointer-events: none;
   z-index: 5;
-  background: radial-gradient(240px circle at var(--sx) var(--sy), rgba(143, 212, 158, 0.85), rgba(210, 226, 190, 0.06) 60%);
+  /* follows the accent token instead of a hardcoded green, so the hover border is bone on
+     the dark homepage, umber inside a light band, and green on the case-study routes */
+  background: radial-gradient(240px circle at var(--sx) var(--sy),
+    color-mix(in srgb, var(--color-forest) 85%, transparent),
+    color-mix(in srgb, var(--color-forest) 6%, transparent) 60%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
