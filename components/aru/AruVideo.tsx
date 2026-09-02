@@ -73,10 +73,10 @@ export function AruVideo({
 
   // inline: play right here in the same box, no lightbox.
   // A clean bordered frame, NOT <Panel>: Panel's hard offset shadow read as a stray box
-  // behind the player. `native-cursor` restores the pointer over the iframe.
+  // behind the player.
   if (inline && playing) {
     return (
-      <div className={`native-cursor overflow-hidden rounded-[3px] border-2 border-[#0C0906] bg-black ${className}`}>
+      <div className={`overflow-hidden rounded-[3px] border-2 border-[#0C0906] bg-black ${className}`}>
         <iframe
           className={`block w-full ${ratio}`}
           src={`https://www.youtube.com/embed/${id}?autoplay=1`}

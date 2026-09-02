@@ -92,7 +92,7 @@ export function AruReels() {
 
       {open ? (
         <div
-          className="native-cursor fixed inset-0 z-[2000] flex items-center justify-center bg-ink/90 p-4"
+          className="fixed inset-0 z-[2000] flex items-center justify-center bg-ink/90 p-4"
           onClick={() => setOpen(false)}
           role="dialog"
           aria-modal="true"

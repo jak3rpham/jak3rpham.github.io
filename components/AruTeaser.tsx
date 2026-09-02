@@ -17,11 +17,18 @@ const POSTER = "/images/aru-otoko/poster/poster-horizontal.webp";
 const still = (id: string) => SOURCES.find((s) => s.id === id)?.still ?? "";
 const STRIP = ["s08", "s01", "s07", "s09"].map(still);
 
-const STATS: [string, string][] = [
-  [`${SOURCES.length}`, "AI clips"],
-  [`${TRACK.seconds}s`, "Final cut"],
-  [`${TRACK.bpm}`, "BPM"],
-  [`${totalGenerated()}s`, "Generated"],
+/**
+ * A billing block, not the bordered 4-cell stat grid the other teasers used to share.
+ * This one is a film, so its side rail reads like end credits — same facts, a register that
+ * belongs to the medium, and no longer interchangeable with the terra and bong teasers.
+ */
+const CREDITS: [string, string][] = [
+  ["Direction · Edit", "Tatsuki"],
+  ["Source", `${SOURCES.length} AI generations`],
+  ["Runtime", `${TRACK.seconds}s`],
+  ["Tempo", `${TRACK.bpm} BPM`],
+  ["Generated", `${Math.round(totalGenerated())}s raw`],
+  ["Camera", "none"],
 ];
 
 function FeatureVideo() {
@@ -36,7 +43,7 @@ function FeatureVideo() {
 
   if (playing && YT.hero) {
     return (
-      <div className="native-cursor h-full overflow-hidden rounded-[10px] border border-panel-border bg-black">
+      <div className="h-full overflow-hidden rounded-[10px] border border-panel-border bg-black">
         <iframe
           className="block aspect-video w-full lg:h-full"
           src={`https://www.youtube.com/embed/${YT.hero}?autoplay=1`}
@@ -129,22 +136,15 @@ export function AruTeaser() {
               ))}
             </div>
 
-            <div className="mt-5 grid grid-cols-4 border-y border-rule">
-              {STATS.map(([n, l], i) => (
-                <div key={l} className={`px-1 py-4 text-center ${i < STATS.length - 1 ? "border-r border-rule" : ""}`}>
-                  <div className="font-display text-[1.5rem] font-bold leading-none tracking-[-0.02em] text-cream">{n}</div>
-                  <div className="mt-1.5 font-mono text-[0.5rem] uppercase tracking-[0.06em] text-sand">{l}</div>
+            <dl className="mt-6 border-t border-rule pt-3">
+              {CREDITS.map(([k, v]) => (
+                <div key={k} className="flex items-baseline gap-3 py-[0.42rem]">
+                  <dt className="whitespace-nowrap font-mono text-[0.56rem] uppercase tracking-[0.16em] text-sand">{k}</dt>
+                  <span aria-hidden className="min-w-3 flex-1 translate-y-[-0.25em] border-b border-dotted border-rule" />
+                  <dd className="whitespace-nowrap font-mono text-[0.72rem] text-cream">{v}</dd>
                 </div>
               ))}
-            </div>
-
-            <div className="mt-5 flex flex-wrap gap-2">
-              {["AI Direction", "Music Video", "Solo Build"].map((p) => (
-                <span key={p} className="rounded-full border border-rule px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.08em] text-sand">
-                  {p}
-                </span>
-              ))}
-            </div>
+            </dl>
 
             <Cta href="/aru-otoko" className="mt-auto">Full case study</Cta>
           </motion.div>

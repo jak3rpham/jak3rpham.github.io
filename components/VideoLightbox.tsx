@@ -44,7 +44,7 @@ export function VideoLightbox({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="native-cursor fixed inset-0 z-[2000] flex items-center justify-center bg-black/95 px-[var(--pad)]"
+          className="fixed inset-0 z-[2000] flex items-center justify-center bg-black/95 px-[var(--pad)]"
           onClick={(e) => {
             if (e.target === e.currentTarget) onClose();
           }}
