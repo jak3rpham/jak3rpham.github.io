@@ -1,6 +1,7 @@
 import { ThemeFlow, FlowGround } from "@/components/ThemeFlow";
 import { ShrinkSection } from "@/components/ShrinkSection";
 import { HomeNavRail } from "@/components/HomeNavRail";
+import { HeroSequence } from "@/components/HeroSequence";
 import { Hero } from "@/components/Hero";
 import { StatStrip } from "@/components/StatStrip";
 import { About } from "@/components/About";
@@ -37,6 +38,12 @@ export default function Home() {
         <ShrinkSection zone="dark">
           <Hero />
         </ShrinkSection>
+
+        {/* stays in the dark run: the artwork is near black, and it is the hand off out of the
+            hero rather than a section of its own */}
+        <div data-zone="dark" className="relative z-[4]">
+          <HeroSequence />
+        </div>
 
         <div data-zone="light" className="relative z-[4]">
           <StatStrip />

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { onScrollFrame } from "@/lib/scrollTicker";
 
 /**
  * Scroll-driven image sequence on a canvas. Pin the section, scrub the frames.
@@ -18,6 +19,8 @@ export function FrameScrub({
   pad = 4,
   ext = "webp",
   heightVh = 260,
+  minWidth = 0,
+  preloadVh = 0.75,
   className = "",
 }: {
   /** e.g. "/images/aru-otoko/frames/s00" */
@@ -34,6 +37,19 @@ export function FrameScrub({
    * a short track (~140) or it feels like wading; a short one wants a tall track.
    */
   heightVh?: number;
+  /**
+   * Below this viewport width the sequence is never fetched and the fallback still is shown
+   * instead. Not a quality compromise: a phone cannot resolve a 1920 wide sequence, so the
+   * only thing it would gain from downloading one is the download.
+   */
+  minWidth?: number;
+  /**
+   * How far ahead of the stage, in viewports, the frames start downloading. The stage usually
+   * sits right after the hero, so a generous lead means every visitor pays for the sequence on
+   * first paint whether they scroll or not. Three quarters of a viewport starts the fetch once
+   * they have actually begun scrolling, and still leaves time to decode before the stage pins.
+   */
+  preloadVh?: number;
   className?: string;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -125,14 +141,40 @@ export function FrameScrub({
       });
     }
 
-    load();
+    /**
+     * Wait until the stage is within a viewport and a half before fetching anything. A full
+     * resolution sequence is several megabytes, and loading it on mount meant every visitor
+     * paid for it up front whether or not they ever scrolled that far. Deferring costs nothing
+     * in quality: the frames are identical, they just arrive when they are about to be needed.
+     *
+     * The lead is `preloadVh` viewports; the poster covers the gap if the decode is not done.
+     */
+    let started = false;
+    let offGate: (() => void) | undefined;
+    const gate = (y: number, vh: number) => {
+      const el = wrap.current;
+      if (started || !el) return;
+      // checked per tick rather than once on mount: the ticker re-runs on resize, so a window
+      // that starts narrow and is widened later still gets the sequence instead of being
+      // stuck on the poster for the rest of the session
+      if (minWidth && window.innerWidth < minWidth) return;
+      const distance = el.getBoundingClientRect().top;
+      if (distance > vh * preloadVh) return;
+      started = true;
+      offGate?.();
+      offGate = undefined;
+      load();
+    };
+    offGate = onScrollFrame(gate);
+
     return () => {
       cancelled = true;
+      offGate?.();
       cancelAnimationFrame(raf);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
     };
-  }, [dir, count, pad, ext]);
+  }, [dir, count, pad, ext, minWidth, preloadVh]);
 
   return (
     <div ref={wrap} className={`relative ${className}`} style={{ height: `${heightVh}vh` }}>
