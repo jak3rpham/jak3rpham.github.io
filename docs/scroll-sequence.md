@@ -32,28 +32,73 @@ Pick one. Two sequences on the homepage is 5 MB before any other asset loads.
 
 Ask for **one still**, not a sequence. The motion is added afterwards, which keeps the image
 consistent frame to frame. Generating frames directly is what caused the coherence failure
-documented in the Bóng Vespera case study.
+already documented in the Bóng Vespera case study: the model holds about five seconds before
+the scene drifts.
 
-The brief needs to carry the constraints the pipeline imposes, not just the subject:
+The subject has to be **about him**. This is a portfolio, so a sequence that is merely pretty
+is a 2 MB decoration. It should show either the person or the way he works. Three concepts
+that do that, in the order I would build them:
+
+### Concept A: the builder, resolving
+
+For the hero. A portrait-scale figure at a desk, seen from behind or three quarters, lit by
+the screen, assembling out of drifting particles or a wireframe into a solid image as the
+reader scrolls in. It says the same thing the copy does, that one person does the whole
+chain, and it puts a human on the first screen without needing a posed headshot.
 
 ```
-Subject:      [what is in the frame]
-Composition:  centred subject, generous empty margin on all four sides, nothing important
-              within 12% of any edge (the frame gets cropped and scaled at several breakpoints)
-Camera:       locked off, no lens distortion, no vignette
-Lighting:     single key, soft falloff, no hard specular highlights
-Background:   flat or very soft gradient, no busy texture
-              (busy backgrounds cost 3 to 4x the file size once cut into frames)
-Palette:      near-black #0D0F0D ground, off-white #F1F3EA, one accent #14796C
+Subject:      a single figure at a desk seen from three quarters behind, screen lit,
+              surrounded by faint floating UI fragments, chart lines and code glyphs
+              that read as debris orbiting the work, not as legible interface
+State:        the figure and the debris are partly dissolved into fine particles,
+              mid assembly, as if the image is still resolving
+Composition:  figure occupying the left third, large empty margin right for the headline
+Camera:       locked off, eye level, 50mm, no lens distortion, no vignette
+Lighting:     single cool key from the screen, warm rim from behind, deep falloff
+Background:   near black, flat, no texture
+Palette:      near black #0D0F0D, off white #F1F3EA, one accent #14796C
               no other saturated colour
 Aspect:       16:9
 Resolution:   2560x1440 minimum
-Format:       PNG, no compression artefacts
-Negative:     text, logos, watermarks, film grain, chromatic aberration, motion blur
+Format:       PNG
+Negative:     text, logos, watermarks, film grain, chromatic aberration, motion blur,
+              readable UI, brand marks, face detail
 ```
 
-Grain and blur are excluded on purpose: both are noise, both survive into every frame, and both
-multiply the encoded size of the whole sequence.
+Faces are excluded deliberately. A generated face that is nearly him is worse than no face,
+and the shot works better as a silhouette anyway.
+
+### Concept B: the system drawing itself
+
+For `#systems`, which is the most abstract section on the page and the hardest to read as a
+still. The four pipelines already on that section, drawn as one connected diagram that builds
+itself input to output as the reader scrolls.
+
+```
+Subject:      an isometric node and edge diagram, four parallel tracks running left to right,
+              each track a small input block, a processing hub, an output block
+State:        mid construction, edges drawn part way, some nodes still forming
+Composition:  centred, generous margin on all four sides
+Camera:       locked off isometric, no perspective drift
+Lighting:     flat, self illuminated edges
+Background:   near black, flat
+Palette:      near black #0D0F0D, off white #F1F3EA, one accent #14796C
+Aspect:       16:9
+Resolution:   2560x1440 minimum
+Format:       PNG
+Negative:     text, labels, logos, watermarks, grain, blur, perspective
+```
+
+Labels are excluded: they would be baked into every frame at a size that cannot survive the
+responsive scaling. The labels stay as HTML over the canvas, where they also stay readable to
+a screen reader.
+
+### Concept C: ink to paper
+
+For the crossover into the first light run. The same object, filmed as the light changes from
+near black to paper, so the theme change the page already performs is echoed in the image
+rather than only in the CSS. Cheapest of the three to art direct and the most likely to look
+like decoration, so build it last if at all.
 
 ## 2. Turn the still into motion
 

@@ -28,41 +28,44 @@ import { Footer } from "@/components/Footer";
  */
 export default function Home() {
   return (
-    <ThemeFlow initial="dark">
+    <>
+      {/* outside the flow wrapper on purpose: the ground must not dip with the content, it is
+          the thing the dip is hiding the swap against */}
       <FlowGround />
       <HomeNavRail />
+      <ThemeFlow initial="dark">
+        <ShrinkSection zone="dark">
+          <Hero />
+        </ShrinkSection>
 
-      <ShrinkSection zone="dark">
-        <Hero />
-      </ShrinkSection>
-
-      <div data-zone="light" className="relative z-[4]">
-        <StatStrip />
-        <About />
-        {/* sits directly before the terra teaser on purpose: it opens on "the growth numbers
+        <div data-zone="light" className="relative z-[4]">
+          <StatStrip />
+          <About />
+          {/* sits directly before the terra teaser on purpose: it opens on "the growth numbers
             came from software", which only lands next to the numbers themselves */}
-        <SystemsStrip />
-        <TerraTeaser />
-      </div>
+          <SystemsStrip />
+          <TerraTeaser />
+        </div>
 
-      {/* Nha Minh moved down one slot to join the other case studies. It carries its own
+        {/* Nha Minh moved down one slot to join the other case studies. It carries its own
           identity, an orange accent on dark, so it reads as one of the shown works rather
           than one of the proved ones. */}
-      <div data-zone="dark" className="relative z-[4]">
-        <NhaMinhTeaser />
-        <AruTeaser />
-        <BongTeaser />
-      </div>
+        <div data-zone="dark" className="relative z-[4]">
+          <NhaMinhTeaser />
+          <AruTeaser />
+          <BongTeaser />
+        </div>
 
-      <div data-zone="light" className="relative z-[4]">
-        <WorkSection />
-      </div>
+        <div data-zone="light" className="relative z-[4]">
+          <WorkSection />
+        </div>
 
-      <div data-zone="dark" className="relative z-[4]">
-        <VideoTeaser />
-        <Contact />
-        <Footer />
-      </div>
-    </ThemeFlow>
+        <div data-zone="dark" className="relative z-[4]">
+          <VideoTeaser />
+          <Contact />
+          <Footer />
+        </div>
+      </ThemeFlow>
+    </>
   );
 }

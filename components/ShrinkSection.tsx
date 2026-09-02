@@ -75,7 +75,15 @@ export function ShrinkSection({
   }, [minScale, radius]);
 
   return (
-    <div ref={ref} className="shrink-stage bg-ink" data-zone={zone}>
+    <div
+      ref={ref}
+      className="shrink-stage"
+      data-zone={zone}
+      /* a literal ink rather than the token: this block is always dark, and reading the token
+         would make it flip to paper for the frame the swap lands on, while it is still partly
+         on screen */
+      style={{ background: "#0D0F0D" }}
+    >
       {children}
     </div>
   );
