@@ -60,6 +60,7 @@ const PROJECTS: Project[] = [
     img: "/images/ielts-preview.webp",
     urlLabel: "ielts-test-kohl.vercel.app",
     links: [
+      { label: "Case study →", href: "/ielts-studio" },
       { label: "Live ↗", href: "https://ielts-test-kohl.vercel.app/" },
       { label: "Code ↗", href: "https://github.com/jak3rpham/Ielts-Test" },
     ],

@@ -13,7 +13,8 @@ const WORK_ITEMS: { href: string; label: string; sub: string }[] = [
   { href: "#terra", label: "terra-plat.vn", sub: "B2B SaaS growth · 22 mo" },
   { href: "#aru", label: "ある男", sub: "AI music video" },
   { href: "#bong", label: "Bóng Vespera", sub: "AI creative pipeline" },
-  { href: "#work", label: "Selected builds", sub: "IELTS Studio · Badminton · uphub" },
+  { href: "/ielts-studio", label: "IELTS Studio", sub: "Product build · AI grading" },
+  { href: "#work", label: "Selected builds", sub: "Badminton · uphub" },
 ];
 
 const MOBILE_LINKS: { href: string; label: string }[] = [
@@ -22,6 +23,7 @@ const MOBILE_LINKS: { href: string; label: string }[] = [
   { href: "#terra", label: "terra-plat.vn growth" },
   { href: "#aru", label: "ある男 · AI video" },
   { href: "#bong", label: "Bóng Vespera" },
+  { href: "/ielts-studio", label: "IELTS Studio · build" },
   { href: "#work", label: "Selected builds" },
   { href: "/video", label: "Films" },
   { href: "#contact", label: "Contact" },
