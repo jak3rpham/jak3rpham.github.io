@@ -1,18 +1,38 @@
 import type { Metadata } from "next";
-import { Outfit, Bricolage_Grotesque, Noto_Serif_JP, DM_Mono } from "next/font/google";
+import {
+  Outfit,
+  Bricolage_Grotesque,
+  Noto_Serif_JP,
+  DM_Mono,
+} from "next/font/google";
 import { SITE_URL, PERSON } from "@/lib/site";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { Nav } from "@/components/Nav";
-import { ThemeScope } from "@/components/ThemeScope";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Preloader } from "@/components/Preloader";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import "./globals.css";
 
-const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: "--font-outfit" });
-const bricolage = Bricolage_Grotesque({ subsets: ["latin"], weight: ["500", "600", "700", "800"], variable: "--font-bricolage" });
-const notoSerifJP = Noto_Serif_JP({ subsets: ["latin"], weight: ["600", "700", "900"], variable: "--font-noto-serif-jp" });
-const dmMono = DM_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-dm-mono" });
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-outfit",
+});
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-bricolage",
+});
+const notoSerifJP = Noto_Serif_JP({
+  subsets: ["latin"],
+  weight: ["600", "700", "900"],
+  variable: "--font-noto-serif-jp",
+});
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-dm-mono",
+});
 
 const TITLE = "Pham Ngoc Thanh (Tatsuki) · Growth, product & video";
 const DESCRIPTION =
@@ -32,7 +52,11 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
   },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
   icons: {
     icon: [
       { url: "/favicon-32.png", sizes: "32x32" },
@@ -56,8 +80,15 @@ const personJsonLd = {
   jobTitle: "Growth & technical marketer, product builder, video director",
   description: DESCRIPTION,
   knowsLanguage: ["vi", "en"],
-  address: { "@type": "PostalAddress", addressLocality: PERSON.city, addressCountry: PERSON.country },
-  alumniOf: { "@type": "CollegeOrUniversity", name: "UEH International School of Business" },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: PERSON.city,
+    addressCountry: PERSON.country,
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "UEH International School of Business",
+  },
   knowsAbout: [
     "Technical SEO",
     "Growth marketing",
@@ -70,9 +101,16 @@ const personJsonLd = {
   sameAs: PERSON.profiles,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" className={`${outfit.variable} ${bricolage.variable} ${notoSerifJP.variable} ${dmMono.variable}`}>
+    <html
+      lang="en"
+      className={`${outfit.variable} ${bricolage.variable} ${notoSerifJP.variable} ${dmMono.variable}`}
+    >
       <body>
         {/* Person graph: this is the page an "who is Pham Ngoc Thanh" query resolves to,
             so state the identity, the disciplines, and the contact points explicitly. */}
@@ -80,13 +118,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <ThemeScope>
-          <Preloader />
-          <ScrollProgress />
-          <GrainOverlay />
-          <Nav />
-          <SmoothScroll>{children}</SmoothScroll>
-        </ThemeScope>
+        <Preloader />
+        <ScrollProgress />
+        <GrainOverlay />
+        <Nav />
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

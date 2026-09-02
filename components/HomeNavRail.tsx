@@ -72,7 +72,9 @@ export function HomeNavRail() {
               style={{
                 width: on ? 22 : 8,
                 height: 8,
-                background: on ? "var(--color-forest)" : "rgba(245,242,232,0.28)",
+                // a token, not a fixed off white: the rail is fixed so it floats over both
+                // states, and a light dot is invisible once the page turns to paper
+                background: on ? "var(--color-forest)" : "color-mix(in srgb, var(--color-cream) 32%, transparent)",
                 boxShadow: on ? "0 0 12px var(--color-forest)" : "none",
               }}
             />
