@@ -32,26 +32,45 @@ export function ShrinkSection({
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    let raf = 0;
-    const apply = () => {
-      raf = 0;
+    // Offsets are measured once and on resize, never inside the scroll handler: reading
+    // getBoundingClientRect per frame forces a synchronous layout, which is what made the
+    // transition stutter.
+    let top = 0;
+    let height = 0;
+    const measure = () => {
       const r = el.getBoundingClientRect();
-      // starts once the section's bottom reaches the fold, completes when it reaches the top
-      const span = window.innerHeight;
-      const p = Math.max(0, Math.min(1, 1 - r.bottom / span));
+      top = r.top + window.scrollY;
+      height = r.height;
+    };
+
+    const write = () => {
+      const bottom = top + height - window.scrollY;
+      const p = Math.max(0, Math.min(1, 1 - bottom / window.innerHeight));
       el.style.setProperty("--shrink", (1 - (1 - minScale) * p).toFixed(4));
       el.style.setProperty("--shrink-radius", `${(radius * p).toFixed(1)}px`);
     };
+
+    let raf = 0;
     const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(apply);
+      if (!raf)
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          write();
+        });
     };
-    apply();
+    const onResize = () => {
+      measure();
+      write();
+    };
+
+    measure();
+    write();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
     };
   }, [minScale, radius]);
 

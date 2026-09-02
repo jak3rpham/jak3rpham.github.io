@@ -25,6 +25,8 @@
 
 :root {
   --pad: clamp(1.6rem, 5vw, 5rem);
+  /* dark by default so the scrollbar matches every route; the homepage flips it per state */
+  color-scheme: dark;
 }
 
 * {
@@ -115,9 +117,9 @@ body {
 @property --color-panel-border { syntax: "<color>"; inherits: true; initial-value: rgba(210, 226, 190, 0.14); }
 @property --color-rule { syntax: "<color>"; inherits: true; initial-value: rgba(210, 226, 190, 0.12); }
 
-.theme-flow {
-  --flow-ease: cubic-bezier(0.33, 0, 0.2, 1);
-  --flow-time: 650ms;
+html {
+  --flow-ease: cubic-bezier(0.4, 0, 0.15, 1);
+  --flow-time: 1100ms;
   transition:
     --color-ink var(--flow-time) var(--flow-ease),
     --color-ink-raised var(--flow-time) var(--flow-ease),
@@ -132,7 +134,8 @@ body {
     --color-rule var(--flow-time) var(--flow-ease);
 }
 
-.theme-flow[data-theme="dark"] {
+html[data-theme="dark"] {
+  color-scheme: dark;
   --color-ink: #0D0F0D;
   --color-ink-raised: #141813;
   --color-cream: #F1F3EA;
@@ -146,7 +149,8 @@ body {
   --color-rule: rgba(210, 226, 190, 0.12);
 }
 
-.theme-flow[data-theme="light"] {
+html[data-theme="light"] {
+  color-scheme: light;
   --color-ink: #F4F2EA;
   --color-ink-raised: #FFFFFF;
   --color-cream: #14170F;
@@ -161,7 +165,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .theme-flow { transition: none; }
+  html { transition: none; }
 }
 
 /* The ground the flow paints on. Fixed, so it is the page's colour rather than a section's,
@@ -173,13 +177,53 @@ body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    radial-gradient(420px circle at var(--mx, 50%) var(--my, 30%),
-      color-mix(in srgb, var(--color-forest) 13%, transparent),
-      transparent 70%),
-    radial-gradient(120% 130% at 50% -25%,
-      color-mix(in srgb, var(--color-forest) 7%, var(--color-ink)) 0%,
-      var(--color-ink) 62%);
+  overflow: hidden;
+  background: radial-gradient(120% 130% at 50% -25%,
+    color-mix(in srgb, var(--color-forest) 7%, var(--color-ink)) 0%,
+    var(--color-ink) 62%);
+}
+
+/* Two slow orbs so the ground is never completely still behind the hero. Transform only, so
+   the compositor runs them without touching layout or style, and they cost nothing during the
+   theme transition. */
+.flow-orb {
+  position: absolute;
+  display: block;
+  width: 62vmax;
+  height: 62vmax;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+  will-change: transform;
+}
+.flow-orb-a {
+  top: -22vmax;
+  left: -12vmax;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-forest) 22%, transparent), transparent 68%);
+  animation: flow-drift-a 34s ease-in-out infinite;
+}
+.flow-orb-b {
+  bottom: -26vmax;
+  right: -16vmax;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-forest) 15%, transparent), transparent 70%);
+  animation: flow-drift-b 46s ease-in-out infinite;
+}
+@keyframes flow-drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(9vmax, 6vmax, 0) scale(1.14); }
+}
+@keyframes flow-drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.08); }
+  50% { transform: translate3d(-8vmax, -5vmax, 0) scale(1); }
+}
+.flow-pointer {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 30%),
+    color-mix(in srgb, var(--color-forest) 13%, transparent), transparent 70%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow-orb { animation: none; }
 }
 
 /* Scroll driven shrink. See components/ShrinkSection.tsx. The section narrows into a rounded

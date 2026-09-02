@@ -25,10 +25,11 @@ varying vec3 vView;
 uniform vec3 uTint;
 void main() {
   float fres = pow(1.0 - max(dot(normalize(vN), normalize(vView)), 0.0), 2.1);
-  // Each element glows in its own tint: a bright fill (no dark shared base) so the
-  // mark reads clearly on the black background, with edges brightening toward full tint.
-  vec3 col = uTint * (0.45 + 0.55 * fres);
-  col += uTint * 0.15 * pow(fres, 3.0);
+  // The body reads AS the tint and the fresnel only lifts the edges, rather than the tint
+  // being a ceiling the body sits well under. That matters now the mark is a specific brand
+  // colour: what is passed in is what shows, so #14796C renders as #14796C.
+  vec3 col = uTint * (0.88 + 0.26 * fres);
+  col += uTint * 0.12 * pow(fres, 3.0);
   gl_FragColor = vec4(min(col, 1.0), 1.0);
 }
 `;
@@ -102,10 +103,12 @@ export function WebGLLogo3D({ className = "" }: { className?: string }) {
 
     const makeProgram = (tint: [number, number, number]) =>
       new Program(gl, { vertex: VERT, fragment: FRAG, uniforms: { uTint: { value: tint } } });
-    const progGreen = makeProgram([0.56, 0.83, 0.62]);
-    const progBanana = makeProgram([0.68, 0.87, 0.36]); // "xanh lá chuối" — light yellow-green
-    const progBlue = makeProgram([0.42, 0.68, 0.95]);
-    const progOrange = makeProgram([0.95, 0.62, 0.3]);
+    // terra brand teal for the mark itself, with the three accent dots pushed to their
+    // saturated versions so they stay lively against it on a light ground.
+    const progGreen = makeProgram([0.078, 0.475, 0.424]); // #14796C, the brand colour
+    const progBanana = makeProgram([0.647, 0.878, 0.239]); // #A5E03D chartreuse
+    const progBlue = makeProgram([0.184, 0.659, 0.961]); // #2FA8F5
+    const progOrange = makeProgram([1.0, 0.545, 0.239]); // #FF8B3D
 
     const r = 0.17;
     const cylGeo = new Cylinder(gl, { radiusTop: r, radiusBottom: r, height: 1, radialSegments: 28 });

@@ -4,71 +4,90 @@ import { useEffect, useRef, type ReactNode } from "react";
 /**
  * Turns the page's theme into a scroll state instead of a set of blocks.
  *
- * Children mark themselves with data-zone="dark" or "light". This walks those zones on scroll
- * and writes the winning one to data-theme on the wrapper. Because every palette token is
- * registered with @property and the wrapper carries a transition for them (see globals.css),
- * the flip is not a swap: each token interpolates, so headings, rules, panels, buttons and the
- * ground all cross over together on the same easing.
+ * Children mark themselves with data-zone="dark" or "light". This writes the winning one to
+ * data-theme on the DOCUMENT ELEMENT, not on a wrapper: the scrollbar and the body's own
+ * background sit outside any wrapper, and leaving them behind was what put a dark strip down
+ * the edge of the light sections. Putting the state on <html> also lets color-scheme follow,
+ * which is what actually recolours the scrollbar.
+ *
+ * Because every palette token is registered with @property and <html> carries a transition for
+ * them (see globals.css), the flip is not a swap: each token interpolates, so headings, rules,
+ * panels, buttons and the ground cross over together on one easing.
  *
  * The decision line sits at 42% of the viewport rather than the middle, so the page has
- * usually committed to the new state slightly before the reader's eye reaches it, which is
- * what stops the change from feeling like it happened underneath them.
+ * usually committed to the new state slightly before the reader's eye reaches it.
  *
- * A scroll listener, not an IntersectionObserver: Lenis drives scrolling in a way IO does not
- * observe, so IO never fires here. Same reason as the nav rails.
+ * Zone offsets are measured once and re-measured on resize, never during a scroll. Reading
+ * getBoundingClientRect inside a scroll handler forces a synchronous layout on every frame,
+ * and with this component, ShrinkSection and the nav rail all doing it the page had a visible
+ * stutter through the transition. The scroll path now only compares numbers.
  */
-export function ThemeFlow({ children, initial = "dark" }: { children: ReactNode; initial?: "dark" | "light" }) {
+type Zone = "dark" | "light";
+
+export function ThemeFlow({ children, initial = "dark" }: { children: ReactNode; initial?: Zone }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const root = ref.current;
     if (!root) return;
-    const zones = [...root.querySelectorAll<HTMLElement>("[data-zone]")];
-    if (!zones.length) return;
+    const els = [...root.querySelectorAll<HTMLElement>("[data-zone]")];
+    if (!els.length) return;
 
-    let current = initial;
-    let raf = 0;
+    let tops: { top: number; zone: Zone }[] = [];
+    const measure = () => {
+      const y = window.scrollY;
+      tops = els.map((e) => ({ top: e.getBoundingClientRect().top + y, zone: (e.dataset.zone as Zone) ?? initial }));
+    };
 
-    const apply = () => {
-      raf = 0;
-      const line = window.innerHeight * 0.42;
-      // last zone whose top has crossed the line wins, so the state follows reading order
+    let current: Zone | null = null;
+    const decide = () => {
+      const line = window.scrollY + window.innerHeight * 0.42;
       let next = initial;
-      for (const z of zones) {
-        if (z.getBoundingClientRect().top <= line) next = (z.dataset.zone as "dark" | "light") ?? next;
+      for (const t of tops) {
+        if (t.top <= line) next = t.zone;
         else break;
       }
       if (next !== current) {
         current = next;
-        root.dataset.theme = next;
+        document.documentElement.dataset.theme = next;
       }
     };
+
+    let raf = 0;
     const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(apply);
+      if (!raf)
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          decide();
+        });
+    };
+    const onResize = () => {
+      measure();
+      decide();
     };
 
-    root.dataset.theme = initial;
-    apply();
+    measure();
+    decide();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onResize);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
+      delete document.documentElement.dataset.theme;
     };
   }, [initial]);
 
-  return (
-    <div ref={ref} className="theme-flow" data-theme={initial}>
-      {children}
-    </div>
-  );
+  return <div ref={ref}>{children}</div>;
 }
 
 /**
- * The page's colour, painted once and fixed, plus a pointer glow in the accent. Both read the
- * animated tokens, so the ground crossfades with the rest of the page rather than being
- * swapped underneath it.
+ * The page's colour, painted once and fixed.
+ *
+ * Three layers: the ground itself, two slow drifting accent orbs so the hero is never
+ * completely still, and a glow that follows the pointer. All of them read the animated tokens,
+ * so the ground crosses states with the rest of the page. The orbs are animated with transform
+ * only, which the compositor handles without touching layout or style.
  */
 export function FlowGround() {
   const ref = useRef<HTMLDivElement>(null);
@@ -81,15 +100,15 @@ export function FlowGround() {
     let raf = 0;
     let x = 50;
     let y = 30;
-    const apply = () => {
-      raf = 0;
-      el.style.setProperty("--mx", `${x}%`);
-      el.style.setProperty("--my", `${y}%`);
-    };
     const onMove = (e: MouseEvent) => {
       x = (e.clientX / window.innerWidth) * 100;
       y = (e.clientY / window.innerHeight) * 100;
-      if (!raf) raf = requestAnimationFrame(apply);
+      if (!raf)
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          el.style.setProperty("--mx", `${x}%`);
+          el.style.setProperty("--my", `${y}%`);
+        });
     };
     window.addEventListener("mousemove", onMove, { passive: true });
     return () => {
@@ -98,5 +117,11 @@ export function FlowGround() {
     };
   }, []);
 
-  return <div ref={ref} aria-hidden className="flow-ground" />;
+  return (
+    <div aria-hidden className="flow-ground">
+      <span className="flow-orb flow-orb-a" />
+      <span className="flow-orb flow-orb-b" />
+      <div ref={ref} className="flow-pointer" />
+    </div>
+  );
 }
