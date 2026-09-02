@@ -44,7 +44,7 @@ const PROJECTS: Project[] = [
     n: "03",
     title: "Badminton Payment Splitter",
     tags: "AI-directed build + Supabase · 2026",
-    desc: "Solved a recurring group-payment friction point: a live PWA that auto-generates a VietQR code per member and tracks payment status in real time.",
+    desc: "A group-payment and universal debt ledger PWA with live VietQR / MoMo generation, automated surplus fund tracking, and realtime Supabase synchronization.",
     img: "/images/badminton-preview.webp",
     urlLabel: "badminton-app-weld.vercel.app",
     links: [
