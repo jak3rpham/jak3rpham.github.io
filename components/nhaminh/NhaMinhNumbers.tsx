@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Reveal } from "@/components/Reveal";
 import { fadeUp } from "@/lib/motion";
+import { WebGLNhaMinh3D } from "@/components/WebGLNhaMinh3D";
 
 function ExternalIcon() {
   return (
@@ -58,43 +59,58 @@ export function NhaMinhNumbers() {
           ))}
         </div>
 
-        {/* Bottom CTA Box */}
-        <div className="mt-12 flex flex-col items-center justify-center rounded-2xl border border-orange-200 bg-gradient-to-br from-white via-orange-50/40 to-orange-100/30 p-8 text-center shadow-sm">
-          <h3 className="font-display text-xl font-bold text-slate-900 md:text-2xl">
-            Explore the Production Codebase & Live App
-          </h3>
-          <p className="mt-2 max-w-[52ch] text-[0.92rem] text-slate-600">
-            Review the dual-interface React architecture, Gemini 2.5 Flash Vision OCR pipeline, and safety test suites on GitHub.
-          </p>
+        {/* Bottom CTA Card with 3D Illustration */}
+        <div className="mt-12 overflow-hidden rounded-3xl border border-orange-200 bg-gradient-to-br from-white via-orange-50/40 to-orange-100/20 p-6 md:p-8 shadow-sm">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
+            
+            <div className="lg:col-span-8 space-y-3">
+              <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[#FF6B4B] font-bold">
+                Open Source & Live App
+              </span>
+              <h3 className="font-display text-xl font-bold text-slate-900 md:text-2xl">
+                Explore the Production Codebase & Live App
+              </h3>
+              <p className="max-w-[56ch] text-[0.92rem] text-slate-600">
+                Review the dual-interface React architecture, Gemini 2.5 Flash Vision OCR pipeline, and 134 safety unit tests on GitHub.
+              </p>
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href="https://ai-riser-namdosan-fa737.web.app"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF6B4B] to-[#FF8E53] px-5 py-2.5 font-mono text-xs font-bold text-white shadow-[0_6px_20px_rgba(255,107,75,0.35)] transition-all hover:scale-[1.02]"
-            >
-              <span>Launch Live App</span>
-              <ExternalIcon />
-            </a>
+              <div className="pt-2 flex flex-wrap gap-3">
+                <a
+                  href="https://ai-riser-namdosan-fa737.web.app"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF6B4B] to-[#FF8E53] px-5 py-2.5 font-mono text-xs font-bold text-white shadow-[0_6px_20px_rgba(255,107,75,0.35)] transition-all hover:scale-[1.02]"
+                >
+                  <span>Launch Live App</span>
+                  <ExternalIcon />
+                </a>
 
-            <a
-              href="https://github.com/jak3rpham/ai-riser-namdosan"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-mono text-xs font-bold text-slate-700 shadow-sm hover:border-[#FF6B4B] hover:text-[#FF6B4B]"
-            >
-              <span>GitHub Repository</span>
-              <ExternalIcon />
-            </a>
+                <a
+                  href="https://github.com/jak3rpham/ai-riser-namdosan"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-mono text-xs font-bold text-slate-700 shadow-sm hover:border-[#FF6B4B] hover:text-[#FF6B4B]"
+                >
+                  <span>GitHub Repository</span>
+                  <ExternalIcon />
+                </a>
 
-            <a
-              href="/"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-mono text-xs font-bold text-slate-700 shadow-sm hover:border-[#FF6B4B] hover:text-[#FF6B4B]"
-            >
-              <ArrowLeftIcon />
-              <span>Return Home</span>
-            </a>
+                <a
+                  href="/"
+                  className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-mono text-xs font-bold text-slate-700 shadow-sm hover:border-[#FF6B4B] hover:text-[#FF6B4B]"
+                >
+                  <ArrowLeftIcon />
+                  <span>Return Home</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Decorative 3D Illustration */}
+            <div className="lg:col-span-4 relative flex items-center justify-center">
+              <div className="pointer-events-none absolute inset-0 rounded-full bg-[#FF6B4B]/15 blur-2xl" />
+              <WebGLNhaMinh3D className="h-[180px] w-full sm:h-[200px]" />
+            </div>
+
           </div>
         </div>
 

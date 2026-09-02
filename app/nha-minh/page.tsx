@@ -3,7 +3,6 @@ import { SceneBackdrop } from "@/components/SceneBackdrop";
 import { NhaMinhHero } from "@/components/nhaminh/NhaMinhHero";
 import { NhaMinhContext } from "@/components/nhaminh/NhaMinhContext";
 import { NhaMinhVideoTheater } from "@/components/nhaminh/NhaMinhVideoTheater";
-import { NhaMinhEmblem3D } from "@/components/nhaminh/NhaMinhEmblem3D";
 import { NhaMinhPipeline } from "@/components/nhaminh/NhaMinhPipeline";
 import { NhaMinhDualUI } from "@/components/nhaminh/NhaMinhDualUI";
 import { NhaMinhAllFeatures } from "@/components/nhaminh/NhaMinhAllFeatures";
@@ -24,7 +23,6 @@ export default function NhaMinhPage() {
       <NhaMinhHero />
       <NhaMinhContext />
       <NhaMinhVideoTheater />
-      <NhaMinhEmblem3D />
       <NhaMinhPipeline />
       <NhaMinhDualUI />
       <NhaMinhAllFeatures />
