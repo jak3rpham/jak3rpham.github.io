@@ -31,14 +31,8 @@ import { onScrollFrame } from "@/lib/scrollTicker";
  */
 type Zone = "dark" | "light";
 
-/**
- * How long the dip runs before the swap lands in it. Short on purpose: this is latency the
- * reader feels as the page not responding to the section they are already looking at. At 260ms
- * nothing changed colour for a quarter of a second after the boundary and the whole crossover
- * read as lagging behind the scroll. 90ms is enough to take the edge off the swap and short
- * enough to feel immediate.
- */
-const DIP_MS = 90;
+/** how long the pulse that accompanies the swap stays down; must match globals.css */
+const PULSE_MS = 190;
 
 /**
  * Fraction of the viewport the incoming zone's top must cross to win. Larger fires earlier.
@@ -67,13 +61,26 @@ export function ThemeFlow({ children, initial = "dark" }: { children: ReactNode;
     };
 
     let current: Zone | null = null;
-    let dipTimer: number | undefined;
-    let clearTimer: number | undefined;
+    let pulseTimer: number | undefined;
 
-    const commit = (next: Zone) => {
+    /**
+     * Ground and text change on the SAME frame. An earlier version flipped the ground on the
+     * boundary and let the tokens follow 90ms later, on the theory that a dip could hide the
+     * swap. What that actually produced was text visibly arriving after its background, which
+     * is the one thing a two state page cannot get away with. There is no ordering to tune
+     * here any more: one attribute, one frame, everything at once.
+     *
+     * The softness comes from a short pulse that plays alongside the change rather than from
+     * staggering it, so nothing is ever waiting on anything else.
+     */
+    const commit = (next: Zone, pulse = true) => {
       current = next;
       html.dataset.theme = next;
-      html.dataset.ground = next;
+      window.clearTimeout(pulseTimer);
+      if (pulse && !reduced) {
+        html.dataset.swapping = "1";
+        pulseTimer = window.setTimeout(() => delete html.dataset.swapping, PULSE_MS);
+      }
     };
 
     const decide = (y: number, vh: number) => {
@@ -84,30 +91,17 @@ export function ThemeFlow({ children, initial = "dark" }: { children: ReactNode;
         else break;
       }
       if (next === current) return;
-
-      if (reduced) {
-        commit(next);
-        return;
-      }
-      // dip, swap at the bottom of the dip, lift again
-      window.clearTimeout(dipTimer);
-      window.clearTimeout(clearTimer);
-      // the ground starts crossfading on this frame; only the token swap waits for the dip
-      html.dataset.ground = next;
-      html.dataset.swapping = "1";
-      dipTimer = window.setTimeout(() => commit(next), DIP_MS);
-      clearTimer = window.setTimeout(() => delete html.dataset.swapping, DIP_MS + 40);
+      commit(next);
     };
 
     measure();
-    commit(initial);
+    // no pulse for the initial state: nothing changed, the page just loaded
+    commit(initial, false);
     const off = onScrollFrame(decide, measure);
     return () => {
       off();
-      window.clearTimeout(dipTimer);
-      window.clearTimeout(clearTimer);
+      window.clearTimeout(pulseTimer);
       delete html.dataset.theme;
-      delete html.dataset.ground;
       delete html.dataset.swapping;
     };
   }, [initial]);

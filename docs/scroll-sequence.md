@@ -30,6 +30,11 @@ Pick one. Two sequences on the homepage is 5 MB before any other asset loads.
 
 ## 1. Request the source image from Antigravity
 
+**The request itself lives in [`antigravity-brief.md`](./antigravity-brief.md)**, as a
+self-contained file with no engineering in it, so it can be handed to the agent directly. The
+rest of this section is the reasoning behind what that file asks for; the file is the thing to
+send.
+
 Ask for **one still**, not a sequence. The motion is added afterwards, which keeps the image
 consistent frame to frame. Generating frames directly is what caused the coherence failure
 already documented in the Bóng Vespera case study: the model holds about five seconds before
