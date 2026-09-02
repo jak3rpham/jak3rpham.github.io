@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useReducedMotion, type Variants } from
 import { useScramble } from "@/lib/useScramble";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { Cta } from "./Cta";
+import { SequenceBackdrop } from "./SequenceBackdrop";
 
 const container: Variants = {
   hidden: {},
@@ -50,8 +51,21 @@ export function Hero() {
       id="hero"
       className="relative grid min-h-[100dvh] grid-cols-1 items-center gap-14 overflow-hidden px-[var(--pad)] pb-20 pt-24 md:grid-cols-[1.5fr_1fr] md:gap-12 md:pl-[clamp(2.5rem,8vw,8rem)]"
     >
-      {/* legibility scrim over the shared 3D backdrop, left-weighted where the copy sits */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-ink/80 via-ink/35 to-transparent" />
+      {/* The generated sequence is the hero's ground, scrubbed by the hero's own pass through
+          the viewport. Mirrored: the artwork puts its figure on the left with the margin on
+          the right, and the copy lives on the left here, so flipping it drops the figure under
+          the portrait side and leaves the headline over empty ground. */}
+      <SequenceBackdrop
+        dir="/images/home/frames/hero"
+        count={150}
+        poster="/images/home/hero-still.webp"
+        mirrored
+        opacity={0.85}
+        className="z-0"
+      />
+
+      {/* legibility scrim, left-weighted where the copy sits */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-ink/85 via-ink/45 to-ink/10" />
 
       <motion.div style={{ y: textY, opacity: textOpacity }} className="relative z-[3] max-w-[48rem]">
         <motion.div

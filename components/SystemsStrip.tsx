@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Reveal } from "./Reveal";
+import { SequenceBackdrop } from "./SequenceBackdrop";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
 /**
@@ -160,6 +161,26 @@ export function SystemsStrip() {
             The growth numbers came from software, not effort. Four things I built so a team of three
             could publish and measure without me in the loop.
           </motion.p>
+        </div>
+
+        {/* The generated diagram, as the ground this section stands on. It is near black
+            artwork and this is a paper band, so it lives in its own dark panel rather than
+            behind the whole section: a black rectangle spanning a light page would read as a
+            hole, and the schematics below it are themed for paper and would vanish on it. */}
+        <div className="relative mt-10 h-[clamp(220px,32vw,420px)] overflow-hidden rounded-[16px] border border-panel-border bg-[#0D0F0D]">
+          <SequenceBackdrop
+            dir="/images/home/frames/systems"
+            count={150}
+            poster="/images/home/systems-still.webp"
+            opacity={0.95}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0D0F0D] via-transparent to-transparent"
+          />
+          <span className="absolute bottom-4 left-5 font-mono text-[0.58rem] uppercase tracking-[0.14em] text-[#8B9880]">
+            four tracks, input to output
+          </span>
         </div>
 
         <motion.div
