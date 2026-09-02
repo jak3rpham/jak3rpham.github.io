@@ -78,21 +78,18 @@ export function NhaMinhTeaser() {
             </span>
           </div>
 
-          <Reveal className="mt-4">
-            <div className="flex items-center gap-4 sm:gap-6">
-              {/* Official 3D-styled App Heart Logo */}
-              <div className="relative flex items-center justify-center shrink-0">
-                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-tr from-[#FF6B4B] to-[#FFA07A] opacity-40 blur-xl animate-pulse" />
-                <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 md:h-18 md:w-18 items-center justify-center rounded-[20px] bg-gradient-to-br from-[#FF7A59] via-[#FF6B4B] to-[#E05334] p-3 text-white shadow-[0_10px_25px_rgba(255,107,75,0.35),inset_0_2px_4px_rgba(255,255,255,0.6),inset_0_-2px_4px_rgba(0,0,0,0.15)]">
-                  <HeartIcon className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 text-white drop-shadow-md" />
-                </div>
-              </div>
-
-              <h2 className="font-display text-[clamp(2.4rem,5.6vw,4.8rem)] font-bold leading-[1.04] tracking-[-0.04em] text-cream">
-                Nhà Mình · <span className="text-[#FF6B4B] drop-shadow-[0_0_24px_rgba(255,107,75,0.4)]">Healthcare AI</span>
-              </h2>
+          <div className="mt-4 flex flex-wrap items-center gap-3.5 sm:gap-4.5">
+            {/* Clean Official App Icon */}
+            <div className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FF7A59] via-[#FF6B4B] to-[#E05334] p-2.5 shadow-md shadow-[#FF6B4B]/20">
+              <HeartIcon className="h-7 w-7 sm:h-8 sm:w-8 text-white drop-shadow-sm" />
             </div>
-          </Reveal>
+
+            <Reveal>
+              <h2 className="font-display text-[clamp(2.4rem,5.6vw,4.8rem)] font-bold leading-[1.04] tracking-[-0.04em] text-cream">
+                Nhà Mình · <span className="text-[#FF6B4B]">Healthcare AI</span>
+              </h2>
+            </Reveal>
+          </div>
 
           <p className="mt-6 max-w-[68ch] text-[clamp(1.15rem,1.65vw,1.38rem)] font-light leading-[1.75] text-tan">
             An AI-driven family healthcare companion designed for Vietnamese elderly parents (60+) and adult caregivers living
