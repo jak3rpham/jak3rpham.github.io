@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SpotlightCard } from "./SpotlightCard";
-import { WebGLNhaMinh3D } from "./WebGLNhaMinh3D";
 import { Cta } from "./Cta";
 import { Reveal } from "./Reveal";
 import { fadeUp } from "@/lib/motion";
@@ -19,6 +18,14 @@ const TABS = [
   { id: "child", label: "Caregiver Dashboard" },
   { id: "ocr", label: "Gemini Vision OCR" },
 ] as const;
+
+function HeartIcon({ className = "h-8 w-8" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+    </svg>
+  );
+}
 
 export function NhaMinhTeaser() {
   const [activeTab, setActiveTab] = useState<"parent" | "child" | "ocr">("parent");
@@ -60,7 +67,7 @@ export function NhaMinhTeaser() {
       <div className="pointer-events-none absolute -right-20 bottom-1/4 h-[420px] w-[420px] rounded-full bg-[#FF6B4B]/8 blur-[140px]" />
 
       <div className="mx-auto max-w-[1400px]">
-        {/* Section Header with Integrated 3D Emblem */}
+        {/* Section Header with Official App Heart Logo */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
           <div className="flex flex-wrap items-center gap-3">
             <span className="font-mono text-[0.72rem] uppercase tracking-[0.2em] text-[#FF6B4B]">
@@ -73,12 +80,12 @@ export function NhaMinhTeaser() {
 
           <Reveal className="mt-4">
             <div className="flex items-center gap-4 sm:gap-6">
-              <div className="relative flex h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 shrink-0 items-center justify-center">
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 rounded-full bg-[#FF6B4B]/35 blur-xl animate-pulse"
-                />
-                <WebGLNhaMinh3D className="relative h-full w-full" />
+              {/* Official 3D-styled App Heart Logo */}
+              <div className="relative flex items-center justify-center shrink-0">
+                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-tr from-[#FF6B4B] to-[#FFA07A] opacity-40 blur-xl animate-pulse" />
+                <div className="relative flex h-14 w-14 sm:h-16 sm:w-16 md:h-18 md:w-18 items-center justify-center rounded-[20px] bg-gradient-to-br from-[#FF7A59] via-[#FF6B4B] to-[#E05334] p-3 text-white shadow-[0_10px_25px_rgba(255,107,75,0.35),inset_0_2px_4px_rgba(255,255,255,0.6),inset_0_-2px_4px_rgba(0,0,0,0.15)]">
+                  <HeartIcon className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 text-white drop-shadow-md" />
+                </div>
               </div>
 
               <h2 className="font-display text-[clamp(2.4rem,5.6vw,4.8rem)] font-bold leading-[1.04] tracking-[-0.04em] text-cream">

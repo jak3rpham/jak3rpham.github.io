@@ -93,7 +93,7 @@ void main() {
 /**
  * Builds a smooth parametric 3D Heart geometry.
  */
-function createHeartGeometry(gl: WebGLRenderingContext, segU = 72, segV = 48) {
+function createHeartGeometry(gl: WebGLRenderingContext, segU = 48, segV = 32) {
   const pos: number[] = [];
   const nor: number[] = [];
   const idx: number[] = [];
@@ -112,7 +112,7 @@ function createHeartGeometry(gl: WebGLRenderingContext, segU = 72, segV = 48) {
     return [x, y, z];
   }
 
-  const eps = 0.005;
+  const eps = 0.008;
 
   for (let i = 0; i <= segU; i++) {
     const u = (i / segU) * Math.PI;
