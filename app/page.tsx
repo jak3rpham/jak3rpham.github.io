@@ -41,9 +41,17 @@ export default function Home() {
         <div data-zone="light" className="relative z-[4]">
           <StatStrip />
           <About />
-          {/* sits directly before the terra teaser on purpose: it opens on "the growth numbers
-            came from software", which only lands next to the numbers themselves */}
+        </div>
+
+        {/* Its own dark zone, so the generated diagram can be the section's ground rather than
+            an illustration sitting inside it. Still immediately before the terra teaser, which
+            is what the copy needs: it opens on "the growth numbers came from software", and
+            that only lands next to the numbers themselves. */}
+        <div data-zone="dark" className="relative z-[4]">
           <SystemsStrip />
+        </div>
+
+        <div data-zone="light" className="relative z-[4]">
           <TerraTeaser />
         </div>
 

@@ -52,20 +52,21 @@ export function Hero() {
       className="relative grid min-h-[100dvh] grid-cols-1 items-center gap-14 overflow-hidden px-[var(--pad)] pb-20 pt-24 md:grid-cols-[1.5fr_1fr] md:gap-12 md:pl-[clamp(2.5rem,8vw,8rem)]"
     >
       {/* The generated sequence is the hero's ground, scrubbed by the hero's own pass through
-          the viewport. Mirrored: the artwork puts its figure on the left with the margin on
-          the right, and the copy lives on the left here, so flipping it drops the figure under
-          the portrait side and leaves the headline over empty ground. */}
+          the viewport. Left unmirrored: the artwork's figure sits left and the portrait card
+          sits right, so the two occupy different halves instead of stacking. Pass `mirrored`
+          to flip it if that ever changes. */}
       <SequenceBackdrop
         dir="/images/home/frames/hero"
         count={150}
         poster="/images/home/hero-still.webp"
-        mirrored
         opacity={0.85}
         className="z-0"
       />
 
-      {/* legibility scrim, left-weighted where the copy sits */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-ink/85 via-ink/45 to-ink/10" />
+      {/* Legibility scrim. Lighter on the left than it used to be: the copy sits over the
+          figure now, and a heavy wash there would bury the artwork the section is built on.
+          Enough to hold the headline, not enough to flatten what is behind it. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-ink/70 via-ink/40 to-ink/15" />
 
       <motion.div style={{ y: textY, opacity: textOpacity }} className="relative z-[3] max-w-[48rem]">
         <motion.div

@@ -140,8 +140,23 @@ function Schematic({ stations, delta }: { stations: Station[]; delta: string }) 
 
 export function SystemsStrip() {
   return (
-    <section id="systems" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(3.5rem,7vw,6rem)]">
-      <div className="mx-auto max-w-[1400px]">
+    <section id="systems" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(4.5rem,9vw,8rem)]">
+      {/* The generated diagram is this section's ground, not an illustration inside it. That
+          is only possible because the section is its own dark zone: the artwork is near black,
+          and on a paper band it would have read as a hole punched in the page while the
+          schematics, themed for paper, disappeared on top of it. */}
+      <SequenceBackdrop
+        dir="/images/home/frames/systems"
+        count={150}
+        poster="/images/home/systems-still.webp"
+        opacity={0.5}
+        className="z-0"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-ink via-ink/55 to-ink"
+      />
+      <div className="relative z-[2] mx-auto max-w-[1400px]">
         <div className="flex flex-wrap items-end justify-between gap-6 border-b border-rule pb-6">
           <div>
             <span className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-forest">{"// systems"}</span>
@@ -161,26 +176,6 @@ export function SystemsStrip() {
             The growth numbers came from software, not effort. Four things I built so a team of three
             could publish and measure without me in the loop.
           </motion.p>
-        </div>
-
-        {/* The generated diagram, as the ground this section stands on. It is near black
-            artwork and this is a paper band, so it lives in its own dark panel rather than
-            behind the whole section: a black rectangle spanning a light page would read as a
-            hole, and the schematics below it are themed for paper and would vanish on it. */}
-        <div className="relative mt-10 h-[clamp(220px,32vw,420px)] overflow-hidden rounded-[16px] border border-panel-border bg-[#0D0F0D]">
-          <SequenceBackdrop
-            dir="/images/home/frames/systems"
-            count={150}
-            poster="/images/home/systems-still.webp"
-            opacity={0.95}
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0D0F0D] via-transparent to-transparent"
-          />
-          <span className="absolute bottom-4 left-5 font-mono text-[0.58rem] uppercase tracking-[0.14em] text-[#8B9880]">
-            four tracks, input to output
-          </span>
         </div>
 
         <motion.div
