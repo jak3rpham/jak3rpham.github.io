@@ -181,6 +181,34 @@ Several sequences sharing one pinned stage and one scroll progress:
 />
 ```
 
+One sequence carried across several sections, pinned, rather than behind one:
+
+```tsx
+<SequenceSpan
+  dir="/images/home/frames/systems"
+  count={150}
+  poster="/images/home/systems-still.webp"
+  opacity={0.5}
+  lightOpacity={0.34}
+  playStart={0.3}
+  playEnd={0.95}
+  fadeOut={0.8}
+>
+  <div data-zone="dark" className="relative z-[4]"><SystemsStrip /></div>
+  <div data-zone="light" className="relative z-[4]"><TerraTeaser /></div>
+</SequenceSpan>
+```
+
+It adds no height of its own: the canvas is `sticky` with a negative bottom margin equal to its
+own height, so the sections keep their normal flow and the artwork holds still underneath them.
+Progress is the wrapper's traversal, so the run needs to be meaningfully taller than a viewport
+or there is nothing to scrub against; measure it rather than guessing. `playStart` and `playEnd`
+are the window inside the run the frames are spent over, so a sequence can arrive part way in
+and be finished before the run ends: the example above starts at 30%, which is three quarters of
+the way through the About section it leads, so the diagram is already on screen when the systems
+heading arrives rather than appearing with it. `fadeOut` is where the layer starts leaving.
+`lightOpacity` is the peak while the page is on paper, where the layer is inverted.
+
 `heightVh` is the scrollable track. Lower means fewer vh per frame, so the sequence races. A
 150 frame sequence wants roughly 200 to 260; a short one wants a taller track. Tune it by feel
 once it is in place.
