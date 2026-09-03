@@ -34,11 +34,16 @@ export function Hero() {
   const reduceMotion = useReducedMotion();
   const hoverCapable = useMediaQuery("(hover: hover) and (pointer: fine)");
   const { display, isScrambling, trigger } = useScramble("Pham Ngoc Thanh");
+  const isTouch = !hoverCapable;
+  const d1 = isTouch ? 0.1 : 0.9;
+  const d2 = isTouch ? 0.2 : 1.05;
+  const d3 = isTouch ? 0.3 : 1.2;
+  const d4 = isTouch ? 0.4 : 1.4;
 
   return (
     <section
       id="hero"
-      className="relative grid h-full min-h-[100dvh] grid-cols-1 items-center gap-14 overflow-hidden px-[var(--pad)] pb-20 pt-24 md:grid-cols-[1.5fr_1fr] md:gap-12 md:pl-[clamp(2.5rem,8vw,8rem)]"
+      className="relative grid h-full min-h-[100dvh] grid-cols-1 items-center gap-8 sm:gap-14 overflow-hidden px-[var(--pad)] pb-12 pt-20 sm:pb-20 sm:pt-24 md:grid-cols-[1.5fr_1fr] md:gap-12 md:pl-[clamp(2.5rem,8vw,8rem)]"
     >
       {/* No scroll driven parallax here any more. HeroStage pins this whole screen and spends
           the scroll on the card instead, so a `useScroll` against this section would sit at
@@ -66,8 +71,8 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.8 }}
-          className="mb-7 flex items-center gap-4 text-sand"
+          transition={{ delay: d1, duration: 0.6 }}
+          className="mb-5 sm:mb-7 flex items-center gap-4 text-sand"
         >
           <span className="font-mono t-label uppercase tracking-[0.18em]">Growth, product &amp; video</span>
           <span className="h-px w-10 flex-none bg-rule" />
@@ -78,20 +83,18 @@ export function Hero() {
         </motion.div>
 
         <motion.h1
-          variants={container}
-          initial="hidden"
-          animate="visible"
-          className="relative whitespace-nowrap font-display text-[clamp(2.1rem,6vw,4.7rem)] font-extrabold leading-[0.95] tracking-[-0.04em] text-cream"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: isTouch ? 0.15 : 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative whitespace-normal sm:whitespace-nowrap font-display text-[clamp(2.1rem,6.2vw,4.7rem)] font-extrabold leading-[1.02] sm:leading-[0.95] tracking-[-0.04em] text-cream"
           onMouseEnter={hoverCapable && !reduceMotion ? trigger : undefined}
         >
           {isScrambling ? (
             <span aria-hidden>{display}</span>
           ) : (
-            <>
-              <Letters text="Pham Ngoc" />
-              {" "}
-              <Letters text="Thanh" className="text-forest" />
-            </>
+            <span>
+              Pham Ngoc <span className="text-forest">Thanh</span>
+            </span>
           )}
           <span className="sr-only">Pham Ngoc Thanh</span>
         </motion.h1>
@@ -99,8 +102,8 @@ export function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.05, duration: 0.8 }}
-          className="mt-7 max-w-[46rem] text-[clamp(1.2rem,1.8vw,1.55rem)] font-light leading-[1.5] text-tan"
+          transition={{ delay: d2, duration: 0.6 }}
+          className="mt-5 sm:mt-7 max-w-[46rem] text-[clamp(1.15rem,1.8vw,1.55rem)] font-light leading-[1.5] text-tan"
         >
           <strong className="font-medium text-cream">Technical</strong> enough to <span className="text-forest">build it</span>,{" "}
           <strong className="font-medium text-cream">creative</strong> enough to <span className="text-forest">film it</span>.
@@ -109,8 +112,8 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="mt-9 flex flex-wrap items-center gap-4"
+          transition={{ delay: d3, duration: 0.6 }}
+          className="mt-7 sm:mt-9 flex flex-wrap items-center gap-4"
         >
           <Cta href="#work" size="lg">See the work</Cta>
           <Cta href="#contact" variant="secondary" size="lg">Get in touch</Cta>
@@ -119,8 +122,8 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.4, duration: 0.8 }}
-          className="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-rule pt-5"
+          transition={{ delay: d4, duration: 0.6 }}
+          className="mt-8 sm:mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-rule pt-5"
         >
           {RANGE.map((r) => (
             <span key={r} className="font-mono t-micro uppercase tracking-[0.14em] text-sand">
@@ -135,16 +138,20 @@ export function Hero() {
           being measured was also the thing carrying a transform: the frame was aimed at wherever
           the portrait happened to be on its way in, and when it settled somewhere else the frame
           closed on empty scrim with the picture outside it. Nothing transforms this box. */}
-      <div data-hero-portrait className="relative z-[3] mx-auto aspect-[4/5] w-[min(64vw,312px)]">
-      {/* Opacity only. It used to rise 40px as well, and for the first second and a half of the
-          page that put the picture 40px below the frame that closes on it; a reader who flicked
-          straight down saw the frame shut on empty scrim. Nothing inside this box may move. */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute inset-0"
+      {/* Portrait photo: On mobile, displayed cleanly without special motion delays; on desktop, serves as the target for the pinned closing frame */}
+      <div
+        data-hero-portrait
+        className="relative z-[3] mx-auto aspect-[4/5] w-[min(60vw,240px)] sm:w-[min(64vw,280px)] lg:w-[min(64vw,312px)] mt-4 lg:mt-0"
       >
+        {/* Opacity only. It used to rise 40px as well, and for the first second and a half of the
+            page that put the picture 40px below the frame that closes on it; a reader who flicked
+            straight down saw the frame shut on empty scrim. Nothing inside this box may move. */}
+        <motion.div
+          initial={{ opacity: isTouch ? 1 : 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: isTouch ? 0.2 : 1, delay: isTouch ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0"
+        >
         <span
           aria-hidden
           className="pointer-events-none absolute -right-6 -top-10 select-none font-serif-jp text-[8rem] font-black leading-none text-cream/[0.06]"

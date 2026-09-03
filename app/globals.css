@@ -165,13 +165,9 @@ html[data-theme="light"] {
    still swap in one frame, so what the longer crossfade buys is a softer arrival, not a slower
    one; do not push the ground much past this or the copy sits on a half mixed colour long
    enough to notice. */
+/* Static section flow content without GPU opacity dip */
 .flow-content {
-  --swap-pulse: 0.88;
-  transition: opacity 230ms cubic-bezier(0.3, 0, 0.2, 1);
-}
-html[data-swapping="1"] .flow-content {
-  opacity: var(--swap-pulse);
-  transition-duration: 90ms;
+  position: relative;
 }
 
 /* Two grounds, stacked, crossfaded. Literal colours so they can fade against each other. */
@@ -185,7 +181,8 @@ html[data-swapping="1"] .flow-content {
 .flow-sheet {
   position: absolute;
   inset: 0;
-  transition: opacity 320ms cubic-bezier(0.4, 0, 0.2, 1);
+  contain: strict;
+  transition: opacity 650ms cubic-bezier(0.25, 1, 0.5, 1);
   will-change: opacity;
 }
 .flow-sheet-dark {
@@ -211,7 +208,6 @@ html[data-theme="light"] .flow-sheet-light { opacity: 1; }
   width: 62vmax;
   height: 62vmax;
   border-radius: 50%;
-  filter: blur(60px);
   will-change: transform;
 }
 .flow-orb-a {
@@ -369,7 +365,6 @@ html[data-opening="1"] .home-rail {
      the dark strength for a frame on a page that opens on paper. */
   opacity: calc(var(--seq-p, 0) * var(--seq-dark, 1));
   filter: invert(0) hue-rotate(0deg);
-  transition: filter 320ms cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity;
 }
 html[data-theme="light"] .seq-art {

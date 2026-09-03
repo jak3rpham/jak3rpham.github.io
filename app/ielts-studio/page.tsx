@@ -23,6 +23,8 @@ export default function IeltsStudioPage() {
   return (
     <>
       <SceneBackdrop variant="ielts" className="pointer-events-none fixed inset-0 z-0" />
+      {/* Dark tint overlay: darkens background and subdues pattern so text is effortlessly readable */}
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[#070907]/80" aria-hidden="true" />
       <IeltsHero />
       <IeltsWhy />
       <IeltsGrading />

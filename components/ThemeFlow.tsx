@@ -100,8 +100,20 @@ export function ThemeFlow({ children, initial = "dark" }: { children: ReactNode;
     // no pulse for the initial state: nothing changed, the page just loaded
     commit(initial, false);
     const off = onScrollFrame(decide, measure);
+
+    const onWinLoad = () => {
+      measure();
+      decide(window.scrollY, window.innerHeight);
+    };
+    window.addEventListener("load", onWinLoad);
+    const t1 = window.setTimeout(onWinLoad, 400);
+    const t2 = window.setTimeout(onWinLoad, 1200);
+
     return () => {
       off();
+      window.removeEventListener("load", onWinLoad);
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
       window.clearTimeout(pulseTimer);
       delete html.dataset.theme;
       delete html.dataset.swapping;

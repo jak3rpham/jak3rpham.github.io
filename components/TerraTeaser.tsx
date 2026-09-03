@@ -54,13 +54,13 @@ export function TerraTeaser() {
         <div className="mt-12">
           <TerraStack>
             <div className="grid w-full grid-cols-1 items-center gap-6 shadow-none! md:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] md:gap-10">
-              <div className="relative hidden md:block">
+              <div className="relative block">
                 <div
                   aria-hidden
                   className="pointer-events-none absolute inset-0 -z-10 blur-[90px]"
                   style={{ background: "radial-gradient(circle, rgba(199,185,161,0.16), transparent 65%)" }}
                 />
-                <WebGLLogo3D className="h-[240px] w-full lg:h-[280px]" />
+                <WebGLLogo3D className="h-[200px] w-full sm:h-[240px] lg:h-[280px]" />
                 <div className="mt-1 text-center font-mono t-micro uppercase tracking-[0.14em] text-sand">terra · brand mark</div>
               </div>
               <Parallax speed={-34}>

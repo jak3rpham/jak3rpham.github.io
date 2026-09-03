@@ -84,8 +84,8 @@ const PROJECTS: Project[] = [
  */
 function ProjectPanel({ p }: { p: Project }) {
   return (
-    <SpotlightCard className="group flex h-[66vh] w-[min(86vw,760px)] shrink-0 flex-col overflow-hidden rounded-[16px] border border-panel-border bg-ink-raised transition-colors duration-300 hover:border-forest/50">
-      <div className="relative h-[52%] shrink-0 overflow-hidden border-b border-panel-border bg-ink">
+    <SpotlightCard className="group flex h-auto min-h-[460px] w-full flex-col overflow-hidden rounded-[16px] border border-panel-border bg-ink-raised transition-colors duration-300 hover:border-forest/50 lg:h-[66vh] lg:w-[min(86vw,760px)] lg:shrink-0">
+      <div className="relative h-[210px] sm:h-[260px] lg:h-[52%] shrink-0 overflow-hidden border-b border-panel-border bg-ink">
         {/* The unifier is a desaturation on the image itself, released on hover. Four products in
             four brand palettes sitting side by side read as a clipping file; held near grey they
             read as one body of work, and the colour comes back when one is looked at.
@@ -111,7 +111,7 @@ function ProjectPanel({ p }: { p: Project }) {
         />
       </div>
 
-      <div className="flex flex-1 flex-col px-7 pb-6 pt-5">
+      <div className="flex flex-1 flex-col px-5 sm:px-7 pb-6 pt-5">
         {/* index rail: the numeral on the panel ground, where it is actually readable */}
         <div className="flex items-baseline gap-4">
           <span className="font-serif-jp text-[2.1rem] font-black leading-none text-forest">{p.n}</span>
@@ -239,7 +239,7 @@ export function WorkSection() {
 
 function FreelanceRow() {
   return (
-    <div className="w-full rounded-[16px] border border-rule bg-ink-raised p-9">
+    <div className="w-full rounded-[16px] border border-rule bg-ink-raised p-6 sm:p-9">
       <span className="font-serif-jp text-3xl font-bold text-forest">05</span>
       <div className="mb-1 mt-3 text-[1.9rem] font-semibold text-cream">Open for freelance</div>
       <div className="mb-3 font-mono t-micro uppercase tracking-[0.06em] text-sand">Web · AI Integration · Product · 2026</div>

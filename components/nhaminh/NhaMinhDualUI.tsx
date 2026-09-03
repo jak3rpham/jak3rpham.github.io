@@ -53,11 +53,11 @@ export function NhaMinhDualUI() {
 
         {/* Mode Switcher */}
         <div className="mt-6 flex justify-center">
-          <div className="flex rounded-full border border-orange-200 bg-white p-1 shadow-sm">
+          <div className="flex max-w-full overflow-x-auto rounded-full border border-orange-200 bg-white p-1 shadow-sm">
             {(
               [
-                { id: "parent", label: "👵 App Ba Mẹ (Parent Mode · 60+)" },
-                { id: "child", label: "📱 App Con (Caregiver Dashboard)" },
+                { id: "parent", label: "👵 App Ba Mẹ (Parent Mode · 60+)", shortLabel: "👵 App Ba Mẹ (60+)" },
+                { id: "child", label: "📱 App Con (Caregiver Dashboard)", shortLabel: "📱 App Con (Caregiver)" },
               ] as const
             ).map((tab) => {
               const isActive = activeTab === tab.id;
@@ -69,7 +69,7 @@ export function NhaMinhDualUI() {
                     startTimeRef.current = Date.now();
                     setProgress(0);
                   }}
-                  className={`relative overflow-hidden rounded-full px-5 py-2 font-mono text-xs uppercase tracking-wider transition-all ${
+                  className={`relative overflow-hidden rounded-full px-3 sm:px-5 py-2 font-mono text-xs uppercase tracking-wider transition-all shrink-0 ${
                     isActive
                       ? "bg-[#FF6B4B] font-bold text-white shadow-[0_2px_12px_rgba(255,107,75,0.35)]"
                       : "text-slate-600 hover:text-slate-900"
@@ -81,7 +81,10 @@ export function NhaMinhDualUI() {
                       style={{ width: `${progress}%` }}
                     />
                   )}
-                  <span className="relative z-10">{tab.label}</span>
+                  <span className="relative z-10 whitespace-nowrap">
+                    <span className="sm:hidden">{tab.shortLabel}</span>
+                    <span className="hidden sm:inline">{tab.label}</span>
+                  </span>
                 </button>
               );
             })}

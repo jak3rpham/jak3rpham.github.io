@@ -98,11 +98,11 @@ void main(){
   float a = ink * (0.26 + 0.62 * glow) + under * (0.12 + 0.70 * glow);
   vec3  c = mix(uInk, uMark, clamp(glow * 1.35, 0.0, 1.0));
 
-  // keep it a backdrop: fade top and bottom so it never competes with the copy
+  // keep it a backdrop: subtle and unobtrusive so copy remains effortlessly readable
   float vig = smoothstep(0.0, 0.30, st.y) * (1.0 - smoothstep(0.70, 1.0, st.y));
   vig = mix(0.5, 1.0, vig);
 
-  gl_FragColor = vec4(c, a * vig * 0.9);
+  gl_FragColor = vec4(c, a * vig * 0.45);
 }
 `;
 

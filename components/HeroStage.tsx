@@ -286,7 +286,7 @@ export function HeroStage({
         {lead && shown && (
           <div
             ref={leadRef}
-            className="absolute bottom-5 left-[var(--pad)] top-[var(--nav-h)] z-[3] flex w-[min(52vw,42rem)] items-center will-change-[opacity,transform]"
+            className="absolute bottom-5 left-[var(--pad)] top-[var(--nav-h)] z-[3] flex w-[min(57vw,47rem)] items-center will-change-[opacity,transform]"
             style={{ transform: "translate3d(0, 0, 0)" }}
           >
             {lead}

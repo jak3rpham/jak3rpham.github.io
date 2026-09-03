@@ -54,17 +54,17 @@ function LaneRow({ lane }: { lane: Lane }) {
   return (
     <a
       href={lane.href}
-      className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-5 border-t border-rule py-[clamp(0.4rem,1.8vh,1rem)] transition-colors hover:bg-forest/[0.05]"
+      className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-3 sm:gap-x-5 border-t border-rule py-[clamp(0.5rem,1.9vh,1.05rem)] transition-colors hover:bg-forest/[0.05]"
     >
-      <span className="font-serif-jp text-[1.35rem] font-black leading-none text-forest">{lane.n}</span>
-      <span className="min-w-0">
-        <span className="block text-[clamp(0.88rem,2.2vh,1.12rem)] font-medium leading-snug text-cream">{lane.t}</span>
-        <span className="mt-1 block max-w-[46ch] text-[clamp(0.75rem,1.75vh,0.92rem)] font-light leading-[1.5] text-tan">
+      <span className="font-serif-jp text-[1.3rem] sm:text-[1.45rem] font-black leading-none text-forest">{lane.n}</span>
+      <span className="min-w-0 pr-1 sm:pr-0">
+        <span className="block text-[clamp(0.94rem,2.3vh,1.18rem)] font-semibold leading-snug text-cream">{lane.t}</span>
+        <span className="mt-1 block max-w-[50ch] text-[clamp(0.8rem,1.85vh,0.96rem)] font-light leading-[1.5] text-tan">
           {lane.d}
         </span>
       </span>
-      <span className="flex items-center gap-1.5 whitespace-nowrap font-mono t-micro uppercase tracking-[0.1em] text-forest transition-transform duration-200 group-hover:translate-x-1">
-        {lane.go} <span aria-hidden>&rarr;</span>
+      <span className="flex items-center gap-1.5 whitespace-nowrap font-mono text-[0.74rem] sm:text-[0.8rem] uppercase tracking-[0.1em] text-forest transition-transform duration-200 group-hover:translate-x-1">
+        <span className="hidden sm:inline">{lane.go}</span> <span aria-hidden>&rarr;</span>
       </span>
     </a>
   );
@@ -98,11 +98,11 @@ function LaneRow({ lane }: { lane: Lane }) {
 export function AboutPanel() {
   return (
     <div id="about">
-      <h2 className="font-display text-[clamp(1.35rem,min(3.3vw,4.6vh),2.9rem)] font-bold leading-[1.04] tracking-[-0.035em] text-cream">
+      <h2 className="font-display text-[clamp(1.5rem,min(3.6vw,4.9vh),3.1rem)] font-bold leading-[1.04] tracking-[-0.035em] text-cream">
         One person, the <span className="text-forest">whole pipeline</span>.
       </h2>
 
-      <p className="mt-[clamp(0.5rem,1.6vh,1rem)] max-w-[54ch] text-[clamp(0.82rem,2.2vh,1.12rem)] font-light leading-[1.55] text-tan">
+      <p className="mt-[clamp(0.5rem,1.6vh,1rem)] max-w-[58ch] text-[clamp(0.88rem,2.3vh,1.18rem)] font-light leading-[1.55] text-tan">
         Four lanes, four disciplines I actually ship in. Each one goes straight to the proof.
       </p>
 
@@ -112,8 +112,14 @@ export function AboutPanel() {
         ))}
       </div>
 
-      <div className="mt-[clamp(0.75rem,2.4vh,1.5rem)] whitespace-nowrap border-t border-rule pt-[clamp(0.5rem,1.8vh,1.25rem)] font-mono text-[clamp(0.75rem,1.6vh,0.82rem)] uppercase tracking-[0.13em] text-sand">
-        Ho Chi Minh City · UEH ISB B.Intl Business 2025 · IELTS 7.0 C1 · VI / EN
+      <div className="mt-[clamp(0.75rem,2.4vh,1.5rem)] flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-rule pt-[clamp(0.5rem,1.8vh,1.25rem)] font-mono text-[clamp(0.75rem,1.7vh,0.85rem)] uppercase tracking-[0.11em] text-sand">
+        <span>Ho Chi Minh City</span>
+        <span className="text-rule">·</span>
+        <span>UEH ISB B.Intl Business 2025</span>
+        <span className="text-rule">·</span>
+        <span>IELTS 7.0 C1</span>
+        <span className="text-rule">·</span>
+        <span>VI / EN</span>
       </div>
     </div>
   );

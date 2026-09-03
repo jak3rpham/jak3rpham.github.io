@@ -46,7 +46,7 @@ export function Contact() {
               <div key={k} className="flex flex-col gap-1.5">
                 <span className="font-mono t-micro uppercase tracking-[0.12em] text-sand">{k}</span>
                 {href ? (
-                  <a href={href} className="t-body text-cream transition-colors hover:text-forest">
+                  <a href={href} className="t-body text-cream transition-colors hover:text-forest break-all sm:break-normal">
                     {v}
                   </a>
                 ) : (

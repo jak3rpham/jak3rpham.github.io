@@ -55,7 +55,10 @@ export function StatColumn() {
   }, []);
 
   return (
-    <div ref={ref} className="flex flex-col items-start gap-5 border-l border-rule pl-6">
+    <div
+      ref={ref}
+      className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3 lg:flex lg:flex-col lg:items-start lg:gap-5 lg:border-l lg:border-rule lg:pl-6"
+    >
       {STATS.map((s, i) => (
         <div key={s.label} className="stat-drop" style={{ animationDelay: `${i * 90}ms` }}>
           <div className="font-display text-[clamp(1.5rem,2.4vw,2.1rem)] font-bold leading-none tracking-[-0.03em] text-cream tabular-nums">

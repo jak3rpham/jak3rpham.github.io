@@ -49,15 +49,16 @@ export function BongTeaser() {
           </p>
         </motion.div>
 
-        <motion.svg
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="mt-12 mb-10 h-auto w-full"
-          viewBox="0 0 1000 130"
-          aria-hidden="true"
-        >
+        <div className="mt-12 mb-10 overflow-x-auto pb-2">
+          <motion.svg
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="h-auto min-w-[640px] w-full md:min-w-0"
+            viewBox="0 0 1000 130"
+            aria-hidden="true"
+          >
           {/* <path>, not <line>: WebKit only honours the pathLength attribute framer uses to
               normalise the draw-on to a 0..1 stroke-dasharray on <path>. */}
           <motion.path
@@ -91,6 +92,7 @@ export function BongTeaser() {
             </motion.g>
           ))}
         </motion.svg>
+      </div>
 
         <motion.div
           variants={fadeUp}

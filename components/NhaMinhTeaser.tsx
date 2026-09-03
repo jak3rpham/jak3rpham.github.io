@@ -14,9 +14,9 @@ const TELEMETRY: [string, string, string][] = [
 ];
 
 const TABS = [
-  { id: "parent", label: "Parent Mode (Senior 60+)" },
-  { id: "child", label: "Caregiver Dashboard" },
-  { id: "ocr", label: "Gemini Vision OCR" },
+  { id: "parent", label: "Parent Mode (Senior 60+)", shortLabel: "Parent (60+)" },
+  { id: "child", label: "Caregiver Dashboard", shortLabel: "Caregiver" },
+  { id: "ocr", label: "Gemini Vision OCR", shortLabel: "Vision OCR" },
 ] as const;
 
 function HeartIcon({ className = "h-8 w-8" }: { className?: string }) {
@@ -114,22 +114,22 @@ export function NhaMinhTeaser() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
+          className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 md:gap-6"
         >
           {TELEMETRY.map(([val, label, sub]) => (
             <SpotlightCard
               key={label}
-              className="group flex flex-col justify-between rounded-[18px] border border-panel-border bg-ink-raised/85 p-6 backdrop-blur-xl transition-all duration-300 hover:border-forest/40 hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)]"
+              className="group flex flex-col justify-between rounded-[18px] border border-panel-border bg-ink-raised/85 p-4 sm:p-5 md:p-6 backdrop-blur-xl transition-all duration-300 hover:border-forest/40 hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)]"
             >
               <div>
-                <span className="font-display text-[clamp(2rem,3.2vw,2.8rem)] font-bold leading-none tracking-tight text-forest drop-shadow-[0_0_10px_rgba(224,83,52,0.22)]">
+                <span className="font-display text-[clamp(1.35rem,4.2vw,2.2rem)] md:text-[clamp(2rem,3.2vw,2.8rem)] font-bold leading-none tracking-tight text-forest drop-shadow-[0_0_10px_rgba(224,83,52,0.22)] block break-words">
                   {val}
                 </span>
-                <div className="mt-3 font-mono t-label uppercase tracking-[0.08em] text-cream font-semibold">
+                <div className="mt-2.5 sm:mt-3 font-mono t-label uppercase tracking-[0.08em] text-cream font-semibold leading-tight">
                   {label}
                 </div>
               </div>
-              <p className="mt-2 t-label font-light leading-[1.5] text-sand">{sub}</p>
+              <p className="mt-2 text-xs sm:t-label font-light leading-[1.5] text-sand">{sub}</p>
             </SpotlightCard>
           ))}
         </motion.div>
@@ -149,7 +149,7 @@ export function NhaMinhTeaser() {
              section sets. Both are gone. Everything inside is token based, so it follows the
              page, and the hairlines it is drawn with moved from `white/10`, which is invisible
              on white, to the rule token. */
-          className="mt-12 overflow-hidden rounded-[24px] border border-panel-border bg-ink-raised p-6 shadow-[0_12px_34px_-12px_rgba(0,0,0,0.10)] backdrop-blur-2xl md:p-10"
+          className="mt-12 overflow-hidden rounded-[24px] border border-panel-border bg-ink-raised p-4 sm:p-6 shadow-[0_12px_34px_-12px_rgba(0,0,0,0.10)] backdrop-blur-2xl md:p-10"
         >
           {/* Top Bar with Live Indicator & Auto-Progress Tab Buttons */}
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-rule/80 pb-6">
@@ -164,7 +164,7 @@ export function NhaMinhTeaser() {
             </div>
 
             {/* Glass Tab Switcher with Real-Time Progress Indicator */}
-            <div className="flex rounded-full border border-panel-border bg-ink/70 p-1.5 backdrop-blur-md">
+            <div className="flex w-full sm:w-auto items-center justify-between sm:justify-start rounded-full border border-panel-border bg-ink/70 p-1 sm:p-1.5 backdrop-blur-md overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {TABS.map((tab) => {
                 const isActive = activeTab === tab.id;
                 return (
@@ -174,7 +174,7 @@ export function NhaMinhTeaser() {
                       setActiveTab(tab.id);
                       setProgress(0);
                     }}
-                    className={`relative overflow-hidden rounded-full px-4 py-2 font-mono t-micro uppercase tracking-[0.1em] transition-all duration-200 ${
+                    className={`relative flex-1 sm:flex-initial text-center overflow-hidden rounded-full px-2.5 sm:px-4 py-1.5 sm:py-2 font-mono text-[0.68rem] sm:t-micro uppercase tracking-[0.05em] sm:tracking-[0.1em] transition-all duration-200 shrink-0 ${
                       isActive
                         ? "bg-forest font-bold text-ink shadow-[0_0_12px_rgba(224,83,52,0.28)]"
                         : "text-sand hover:text-cream"
@@ -186,7 +186,10 @@ export function NhaMinhTeaser() {
                         style={{ width: `${progress}%` }}
                       />
                     )}
-                    <span className="relative z-10">{tab.label}</span>
+                    <span className="relative z-10 whitespace-nowrap">
+                      <span className="sm:hidden">{tab.shortLabel}</span>
+                      <span className="hidden sm:inline">{tab.label}</span>
+                    </span>
                   </button>
                 );
               })}
