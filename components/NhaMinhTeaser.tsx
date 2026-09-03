@@ -61,7 +61,17 @@ export function NhaMinhTeaser() {
   }, [isVoicePlaying]);
 
   return (
-    <section id="nhaminh" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(4rem,8vw,7.5rem)]">
+    /* Nha Minh's accent is its own. `--color-forest` is the page's accent token, so redeclaring
+       it here turns every text-forest, border-forest and bg-forest inside this section orange
+       without touching one of them, and it still crosses states with everything else because it
+       is set once rather than per element. #E05334 is the value the section already used for its
+       literal orange, and it is the darker of the two it had, which is the one that survives on
+       paper; #FF6B4B stays for fills and glows where nothing has to be read through it. */
+    <section
+      id="nhaminh"
+      className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(4rem,8vw,7.5rem)]"
+      style={{ "--color-forest": "#E05334" } as React.CSSProperties}
+    >
       {/* Harmonious Ambient Glows */}
       <div className="pointer-events-none absolute -left-20 top-1/4 h-[420px] w-[420px] rounded-full bg-[#FF6B4B]/8 blur-[130px]" />
       <div className="pointer-events-none absolute -right-20 bottom-1/4 h-[420px] w-[420px] rounded-full bg-[#FF6B4B]/8 blur-[140px]" />
@@ -70,10 +80,10 @@ export function NhaMinhTeaser() {
         {/* Section Header with Official App Heart Logo */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
           <div className="flex flex-wrap items-center gap-3">
-            <span className="font-mono text-[0.72rem] uppercase tracking-[0.2em] text-[#FF6B4B]">
+            <span className="font-mono t-label uppercase tracking-[0.2em] text-[#FF6B4B]">
               AI Riser Vietnam 2026 Submission
             </span>
-            <span className="rounded-full border border-[#FF6B4B]/30 bg-[#FF6B4B]/10 px-3 py-1 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-[#FF6B4B] backdrop-blur-md">
+            <span className="rounded-full border border-[#FF6B4B]/30 bg-[#FF6B4B]/10 px-3 py-1 font-mono t-micro uppercase tracking-[0.14em] text-[#FF6B4B] backdrop-blur-md">
               Full-Stack & Multimodal AI Lead
             </span>
           </div>
@@ -109,17 +119,17 @@ export function NhaMinhTeaser() {
           {TELEMETRY.map(([val, label, sub]) => (
             <SpotlightCard
               key={label}
-              className="group flex flex-col justify-between rounded-[18px] border border-panel-border bg-ink-raised/85 p-6 backdrop-blur-xl transition-all duration-300 hover:border-forest/40 hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+              className="group flex flex-col justify-between rounded-[18px] border border-panel-border bg-ink-raised/85 p-6 backdrop-blur-xl transition-all duration-300 hover:border-forest/40 hover:shadow-[0_6px_18px_rgba(0,0,0,0.12)]"
             >
               <div>
-                <span className="font-display text-[clamp(2rem,3.2vw,2.8rem)] font-bold leading-none tracking-tight text-forest drop-shadow-[0_0_12px_rgba(143,212,158,0.35)]">
+                <span className="font-display text-[clamp(2rem,3.2vw,2.8rem)] font-bold leading-none tracking-tight text-forest drop-shadow-[0_0_10px_rgba(224,83,52,0.22)]">
                   {val}
                 </span>
-                <div className="mt-3 font-mono text-[0.72rem] uppercase tracking-[0.08em] text-cream font-semibold">
+                <div className="mt-3 font-mono t-label uppercase tracking-[0.08em] text-cream font-semibold">
                   {label}
                 </div>
               </div>
-              <p className="mt-2 text-[0.78rem] font-light leading-[1.5] text-sand">{sub}</p>
+              <p className="mt-2 t-label font-light leading-[1.5] text-sand">{sub}</p>
             </SpotlightCard>
           ))}
         </motion.div>
@@ -132,7 +142,14 @@ export function NhaMinhTeaser() {
           viewport={{ once: true, amount: 0.2 }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="mt-12 overflow-hidden rounded-[24px] border border-white/10 bg-ink-raised/80 p-6 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] backdrop-blur-2xl md:p-10"
+          /* The simulation reads on paper like the rest of its run. It was wrapped in theme-ink
+             for a while so it would stay a dark picture of a dark product; that put a black slab
+             in the middle of a white section and needed its own accent override on top, because
+             theme-ink redeclares the palette down to --color-forest and beat the orange this
+             section sets. Both are gone. Everything inside is token based, so it follows the
+             page, and the hairlines it is drawn with moved from `white/10`, which is invisible
+             on white, to the rule token. */
+          className="mt-12 overflow-hidden rounded-[24px] border border-panel-border bg-ink-raised p-6 shadow-[0_12px_34px_-12px_rgba(0,0,0,0.10)] backdrop-blur-2xl md:p-10"
         >
           {/* Top Bar with Live Indicator & Auto-Progress Tab Buttons */}
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-rule/80 pb-6">
@@ -141,13 +158,13 @@ export function NhaMinhTeaser() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-forest opacity-75" />
                 <span className="relative inline-flex h-3 w-3 rounded-full bg-forest" />
               </span>
-              <span className="font-mono text-[0.74rem] uppercase tracking-[0.16em] text-cream">
+              <span className="font-mono t-label uppercase tracking-[0.16em] text-cream">
                 Live Dual-Interface & Multimodal Simulation
               </span>
             </div>
 
             {/* Glass Tab Switcher with Real-Time Progress Indicator */}
-            <div className="flex rounded-full border border-white/10 bg-ink/70 p-1.5 backdrop-blur-md">
+            <div className="flex rounded-full border border-panel-border bg-ink/70 p-1.5 backdrop-blur-md">
               {TABS.map((tab) => {
                 const isActive = activeTab === tab.id;
                 return (
@@ -157,9 +174,9 @@ export function NhaMinhTeaser() {
                       setActiveTab(tab.id);
                       setProgress(0);
                     }}
-                    className={`relative overflow-hidden rounded-full px-4 py-2 font-mono text-[0.68rem] uppercase tracking-[0.1em] transition-all duration-200 ${
+                    className={`relative overflow-hidden rounded-full px-4 py-2 font-mono t-micro uppercase tracking-[0.1em] transition-all duration-200 ${
                       isActive
-                        ? "bg-forest font-bold text-ink shadow-[0_0_20px_rgba(143,212,158,0.45)]"
+                        ? "bg-forest font-bold text-ink shadow-[0_0_12px_rgba(224,83,52,0.28)]"
                         : "text-sand hover:text-cream"
                     }`}
                   >
@@ -189,10 +206,10 @@ export function NhaMinhTeaser() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.97 }}
                     transition={{ duration: 0.3 }}
-                    className="w-full max-w-[360px] rounded-[32px] border-[3px] border-forest/30 bg-ink p-4 shadow-[0_16px_50px_rgba(0,0,0,0.8)] backdrop-blur-2xl"
+                    className="w-full max-w-[360px] rounded-[32px] border-[3px] border-forest/30 bg-ink p-4 shadow-[0_10px_26px_rgba(0,0,0,0.16)] backdrop-blur-2xl"
                   >
                     {/* Dynamic Island Header */}
-                    <div className="mx-auto mb-3 h-4 w-24 rounded-full bg-ink-raised border border-white/10" />
+                    <div className="mx-auto mb-3 h-4 w-24 rounded-full bg-ink-raised border border-panel-border" />
 
                     <div className="rounded-[22px] border border-forest/20 bg-ink-raised/90 p-4">
                       <div className="flex items-center justify-between border-b border-rule/60 pb-3">
@@ -202,28 +219,28 @@ export function NhaMinhTeaser() {
                           </div>
                           <div>
                             <div className="font-display text-base font-bold text-cream">Today's Schedule</div>
-                            <div className="font-mono text-[0.6rem] text-sand">Senior Mode · 24px+ Font</div>
+                            <div className="font-mono t-micro text-sand">Senior Mode · 24px+ Font</div>
                           </div>
                         </div>
-                        <span className="rounded-full border border-forest/40 bg-forest/10 px-2.5 py-1 font-mono text-[0.62rem] font-bold text-forest">
+                        <span className="rounded-full border border-forest/40 bg-forest/10 px-2.5 py-1 font-mono t-micro font-bold text-forest">
                           {pillTaken ? "🟢 3/3 Doses Taken" : "🟡 2/3 Taken"}
                         </span>
                       </div>
 
                       {/* Medicine Card */}
                       <div className="mt-3.5 rounded-xl border border-forest/40 bg-ink/90 p-3.5">
-                        <span className="rounded bg-forest/20 px-2 py-0.5 font-mono text-[0.65rem] font-bold text-forest">
+                        <span className="rounded bg-forest/20 px-2 py-0.5 font-mono t-micro font-bold text-forest">
                           19:00 · Evening Dose
                         </span>
                         <div className="mt-1 text-lg font-bold text-cream">Amlodipine 5mg (1 tab)</div>
-                        <div className="text-[0.8rem] text-tan">Take after dinner · BP control</div>
+                        <div className="t-label text-tan">Take after dinner · BP control</div>
 
                         <button
                           onClick={() => setPillTaken(!pillTaken)}
                           className={`mt-3 w-full rounded-lg py-2.5 font-display text-sm font-bold transition-all ${
                             pillTaken
                               ? "bg-forest/20 text-forest border border-forest/50"
-                              : "bg-forest text-ink hover:scale-[1.02] shadow-[0_0_20px_rgba(143,212,158,0.4)]"
+                              : "bg-forest text-ink hover:scale-[1.02] shadow-[0_0_12px_rgba(224,83,52,0.25)]"
                           }`}
                         >
                           {pillTaken ? "✓ Marked as Taken" : "✓ Tap to Confirm: Taken"}
@@ -231,7 +248,7 @@ export function NhaMinhTeaser() {
                       </div>
 
                       {/* Voice Assistant 'Cháu Bi' */}
-                      <div className="mt-3 rounded-xl border border-white/10 bg-ink/70 p-3">
+                      <div className="mt-3 rounded-xl border border-panel-border bg-ink/70 p-3">
                         <div className="flex items-center gap-3">
                           <button
                             onClick={() => setIsVoicePlaying(true)}
@@ -240,8 +257,8 @@ export function NhaMinhTeaser() {
                             {isVoicePlaying ? "🔊" : "🎙️"}
                           </button>
                           <div className="flex-1 min-w-0">
-                            <div className="text-[0.82rem] font-bold text-cream">Voice AI "Cháu Bi"</div>
-                            <p className="truncate text-[0.72rem] text-tan">
+                            <div className="t-small font-bold text-cream">Voice AI "Cháu Bi"</div>
+                            <p className="truncate t-label text-tan">
                               {isVoicePlaying ? "Speaking: Amlodipine dosage details..." : "Tap mic to ask questions"}
                             </p>
                           </div>
@@ -259,7 +276,7 @@ export function NhaMinhTeaser() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.97 }}
                     transition={{ duration: 0.3 }}
-                    className="w-full max-w-[480px] overflow-hidden rounded-[20px] border border-white/15 bg-ink p-2 shadow-[0_16px_50px_rgba(0,0,0,0.8)] backdrop-blur-2xl"
+                    className="w-full max-w-[480px] overflow-hidden rounded-[20px] border border-white/15 bg-ink p-2 shadow-[0_10px_26px_rgba(0,0,0,0.16)] backdrop-blur-2xl"
                   >
                     {/* Browser Window Header */}
                     <div className="flex items-center gap-2 px-3 py-2 border-b border-rule/50 bg-ink-raised/60 rounded-t-[14px]">
@@ -268,13 +285,13 @@ export function NhaMinhTeaser() {
                         <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
                         <span className="h-2.5 w-2.5 rounded-full bg-green-500/80" />
                       </div>
-                      <span className="mx-auto font-mono text-[0.65rem] text-sand">nhaminh.app/dashboard</span>
+                      <span className="mx-auto font-mono t-micro text-sand">nhaminh.app/dashboard</span>
                     </div>
 
                     <div className="p-4 bg-ink-raised/90 space-y-3">
                       <div className="grid grid-cols-2 gap-3">
-                        <div className="rounded-xl border border-white/10 bg-ink/80 p-3.5">
-                          <span className="font-mono text-[0.62rem] text-sand uppercase">Morning BP</span>
+                        <div className="rounded-xl border border-panel-border bg-ink/80 p-3.5">
+                          <span className="font-mono t-micro text-sand uppercase">Morning BP</span>
                           <div className="mt-1 text-2xl font-bold text-cream">
                             122/80 <span className="text-xs font-normal text-forest">mmHg</span>
                           </div>
@@ -283,8 +300,8 @@ export function NhaMinhTeaser() {
                           </svg>
                         </div>
 
-                        <div className="rounded-xl border border-white/10 bg-ink/80 p-3.5">
-                          <span className="font-mono text-[0.62rem] text-sand uppercase">Blood Glucose</span>
+                        <div className="rounded-xl border border-panel-border bg-ink/80 p-3.5">
+                          <span className="font-mono t-micro text-sand uppercase">Blood Glucose</span>
                           <div className="mt-1 text-2xl font-bold text-cream">
                             6.1 <span className="text-xs font-normal text-tan">mmol/L</span>
                           </div>
@@ -295,9 +312,9 @@ export function NhaMinhTeaser() {
                       </div>
 
                       <div className="rounded-xl border border-rule/50 bg-ink/70 p-3.5">
-                        <div className="font-mono text-[0.62rem] text-sand uppercase mb-1">Realtime Event Stream</div>
-                        <div className="text-[0.82rem] text-tan">💊 Dad confirmed taking Amlodipine 5mg at 19:04</div>
-                        <div className="mt-1 text-[0.74rem] text-sand">📅 Synced to Google Calendar & Tasks</div>
+                        <div className="font-mono t-micro text-sand uppercase mb-1">Realtime Event Stream</div>
+                        <div className="t-small text-tan">💊 Dad confirmed taking Amlodipine 5mg at 19:04</div>
+                        <div className="mt-1 t-label text-sand">📅 Synced to Google Calendar & Tasks</div>
                       </div>
                     </div>
                   </motion.div>
@@ -311,18 +328,18 @@ export function NhaMinhTeaser() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.97 }}
                     transition={{ duration: 0.3 }}
-                    className="w-full max-w-[480px] overflow-hidden rounded-[20px] border border-forest/30 bg-ink p-5 shadow-[0_16px_50px_rgba(0,0,0,0.8)] backdrop-blur-2xl"
+                    className="w-full max-w-[480px] overflow-hidden rounded-[20px] border border-forest/30 bg-ink p-5 shadow-[0_10px_26px_rgba(0,0,0,0.16)] backdrop-blur-2xl"
                   >
                     <div className="flex items-center justify-between border-b border-rule/60 pb-3">
                       <div className="font-display text-base font-bold text-cream">Gemini 2.5 Flash Vision OCR</div>
-                      <span className="font-mono text-[0.65rem] text-forest">99.4% Extraction Accuracy</span>
+                      <span className="font-mono t-micro text-forest">99.4% Extraction Accuracy</span>
                     </div>
 
                     <div className="mt-4 relative overflow-hidden rounded-xl border border-forest/30 bg-ink-raised/90 p-4">
                       <motion.div
                         animate={{ top: ["0%", "100%", "0%"] }}
                         transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-                        className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-forest to-transparent shadow-[0_0_15px_#8FD49E]"
+                        className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-forest to-transparent shadow-[0_0_15px_#FF6B4B]"
                       />
                       <div className="space-y-2 font-mono text-xs text-tan">
                         <div className="text-forest font-semibold">Structured Medication Schema (JSON):</div>
@@ -331,7 +348,7 @@ export function NhaMinhTeaser() {
                         <div>• <span className="text-cream font-bold">Atorvastatin 10mg</span>: 1 tab/day (Bedtime)</div>
                       </div>
                     </div>
-                    <div className="mt-3 flex items-center justify-between font-mono text-[0.68rem] text-sand">
+                    <div className="mt-3 flex items-center justify-between font-mono t-micro text-sand">
                       <span>Latency: 1.14s</span>
                       <span className="text-forest">Safety Guardrail: PASSED</span>
                     </div>
@@ -351,8 +368,8 @@ export function NhaMinhTeaser() {
                     "Deterministic medical safety guardrails: 5 invariant boundaries block unauthorized diagnosis and medication swapping.",
                     "Google Workspace integration: automated bi-directional synchronization with Google Calendar & Google Tasks.",
                   ].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-[0.92rem] font-light leading-[1.68] text-tan">
-                      <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-forest/20 text-forest text-[0.65rem] font-bold">
+                    <li key={idx} className="flex items-start gap-3 t-small font-light leading-[1.68] text-tan">
+                      <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-forest/20 text-forest t-micro font-bold">
                         ✓
                       </span>
                       <span>{item}</span>

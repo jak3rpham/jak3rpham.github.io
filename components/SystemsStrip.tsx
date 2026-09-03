@@ -1,7 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
 import { Reveal } from "./Reveal";
-import { SequenceBackdrop } from "./SequenceBackdrop";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
 /**
@@ -86,7 +85,7 @@ function Node({ kind, x }: { kind: Kind; x: number }) {
 function Schematic({ stations, delta }: { stations: Station[]; delta: string }) {
   return (
     <div>
-      <div className="mb-3 text-center font-mono text-[0.62rem] tracking-[0.04em] text-forest">{delta}</div>
+      <div className="mb-3 text-center font-mono t-micro tracking-[0.04em] text-forest">{delta}</div>
 
       {/* The SVG carries no type at all. Labels used to live inside it, which meant they scaled
           with the viewBox and collided the moment a station name was longer than "Publish" — and
@@ -124,13 +123,15 @@ function Schematic({ stations, delta }: { stations: Station[]; delta: string }) 
         ))}
       </svg>
 
-      {/* min-height reserves the sub-line, so a card without one still lines its name up
-          with its neighbours instead of riding 16px high */}
-      <div className="mt-3 grid min-h-[2rem] grid-cols-3 gap-x-2">
+      {/* The reserve here is what keeps the four cards identical. It was 2rem, which is one line
+          of label and no sub; the moment a station wrapped to two lines, or carried a sub that
+          wrapped, that card's box grew and its name and note sat lower than its neighbours' for
+          the rest of the row. 4.5rem is the worst case at this type size, two lines of each. */}
+      <div className="mt-3 grid min-h-[4.5rem] grid-cols-3 items-start gap-x-2">
         {stations.map((s, i) => (
           <div key={s.label} className={i === 0 ? "text-left" : i === 2 ? "text-right" : "text-center"}>
-            <div className="break-words font-mono text-[0.62rem] leading-tight text-cream">{s.label}</div>
-            {s.sub && <div className="mt-1 break-words font-mono text-[0.56rem] leading-tight text-sand">{s.sub}</div>}
+            <div className="break-words font-mono t-micro leading-tight text-cream">{s.label}</div>
+            {s.sub && <div className="mt-1 break-words font-mono t-micro leading-tight text-sand">{s.sub}</div>}
           </div>
         ))}
       </div>
@@ -141,17 +142,11 @@ function Schematic({ stations, delta }: { stations: Station[]; delta: string }) 
 export function SystemsStrip() {
   return (
     <section id="systems" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(4.5rem,9vw,8rem)]">
-      {/* The generated diagram is this section's ground, not an illustration inside it. That
-          is only possible because the section is its own dark zone: the artwork is near black,
-          and on a paper band it would have read as a hole punched in the page while the
-          schematics, themed for paper, disappeared on top of it. */}
-      <SequenceBackdrop
-        dir="/images/home/frames/systems"
-        count={150}
-        poster="/images/home/systems-still.webp"
-        opacity={0.5}
-        className="z-0"
-      />
+      {/* The generated diagram is the ground for this section and the terra teaser after it,
+          pinned by the SequenceSpan in app/page.tsx so it draws itself across both rather than
+          finishing inside this one. It is spent, and gone, before the paper is fully in: the
+          artwork is near black, and holding it under a paper band would read as a hole punched
+          in the page. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-ink via-ink/55 to-ink"
@@ -159,7 +154,7 @@ export function SystemsStrip() {
       <div className="relative z-[2] mx-auto max-w-[1400px]">
         <div className="flex flex-wrap items-end justify-between gap-6 border-b border-rule pb-6">
           <div>
-            <span className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-forest">{"// systems"}</span>
+            <span className="font-mono t-micro uppercase tracking-[0.18em] text-forest">{"// systems"}</span>
             <Reveal className="mt-3">
               <h2 className="font-display text-[clamp(1.9rem,4.4vw,3.2rem)] font-bold leading-[1.06] tracking-[-0.035em] text-cream">
                 Behind the numbers, <span className="text-forest">tooling</span>
@@ -171,7 +166,7 @@ export function SystemsStrip() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
-            className="max-w-[44ch] text-[1rem] font-light leading-[1.7] text-tan"
+            className="max-w-[44ch] t-body font-light leading-[1.7] text-tan"
           >
             The growth numbers came from software, not effort. Four things I built so a team of three
             could publish and measure without me in the loop.
@@ -183,26 +178,26 @@ export function SystemsStrip() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
-          className="mt-10 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4"
+          className="mt-10 grid grid-cols-1 items-stretch gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4"
         >
           {SYSTEMS.map((s) => (
-            <motion.div key={s.name} variants={fadeUp} className="flex flex-col">
+            <motion.div key={s.name} variants={fadeUp} className="flex h-full flex-col">
               <div className="rounded-[10px] border border-rule/70 bg-ink-raised/40 px-4 py-4">
                 <Schematic stations={s.stations} delta={s.delta} />
               </div>
-              <div className="mt-4 text-[1.02rem] font-medium text-cream">{s.name}</div>
-              <p className="mt-1.5 text-[0.92rem] font-light leading-[1.6] text-tan">{s.note}</p>
+              <div className="mt-4 t-body font-medium leading-snug text-cream">{s.name}</div>
+              <p className="mt-1.5 t-small font-light leading-[1.6] text-tan">{s.note}</p>
             </motion.div>
           ))}
         </motion.div>
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-rule pt-5">
-          <span className="font-mono text-[0.62rem] uppercase tracking-[0.12em] text-sand">
+          <span className="font-mono t-micro uppercase tracking-[0.12em] text-sand">
             Built at terra-plat.vn · Sep 2024 → Jun 2026 · WordPress · Apps Script · Gemini
           </span>
           <a
             href="/terra"
-            className="group flex items-center gap-1.5 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-forest"
+            className="group flex items-center gap-1.5 font-mono t-micro uppercase tracking-[0.1em] text-forest"
           >
             How they fit together
             <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">
