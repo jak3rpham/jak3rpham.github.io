@@ -86,7 +86,7 @@ function WorkMenu({ active }: { active: boolean }) {
           />
         )}
         Work
-        <span className={`text-[0.6rem] transition-transform duration-200 ${open ? "rotate-180" : ""}`}>▾</span>
+        <span className={`t-micro transition-transform duration-200 ${open ? "rotate-180" : ""}`}>▾</span>
       </button>
 
       <AnimatePresence>
@@ -105,10 +105,10 @@ function WorkMenu({ active }: { active: boolean }) {
                 onClick={() => setOpen(false)}
                 className="group flex flex-col gap-0.5 rounded-[9px] px-3 py-2.5 transition-colors hover:bg-forest/12"
               >
-                <span className="font-sans text-[0.82rem] normal-case tracking-normal text-cream transition-colors group-hover:text-forest">
+                <span className="font-sans t-small normal-case tracking-normal text-cream transition-colors group-hover:text-forest">
                   {it.label}
                 </span>
-                <span className="font-mono text-[0.58rem] uppercase tracking-[0.08em] text-sand">{it.sub}</span>
+                <span className="font-mono t-micro uppercase tracking-[0.08em] text-sand">{it.sub}</span>
               </a>
             ))}
           </motion.div>
@@ -150,7 +150,7 @@ function MobileMenu({ isLight }: { isLight: boolean }) {
         }`}
       >
         Menu
-        <span className={`text-[0.6rem] transition-transform duration-200 ${open ? "rotate-180" : ""}`}>▾</span>
+        <span className={`t-micro transition-transform duration-200 ${open ? "rotate-180" : ""}`}>▾</span>
       </button>
 
       <AnimatePresence>
@@ -171,7 +171,7 @@ function MobileMenu({ isLight }: { isLight: boolean }) {
                 key={it.href}
                 href={it.href}
                 onClick={() => setOpen(false)}
-                className={`block rounded-[9px] px-3 py-2.5 font-sans text-[0.9rem] normal-case tracking-normal transition-colors ${
+                className={`block rounded-[9px] px-3 py-2.5 font-sans t-small normal-case tracking-normal transition-colors ${
                   isLight
                     ? "text-slate-700 hover:bg-orange-50 hover:text-[#FF6B4B]"
                     : "text-cream hover:bg-forest/12 hover:text-forest"
@@ -225,7 +225,7 @@ export function Nav() {
 
   return (
     <nav
-      className={`fixed inset-x-0 top-0 z-[100] flex h-[68px] items-center justify-between px-[var(--pad)] font-mono text-[0.72rem] uppercase tracking-[0.12em] transition-all duration-300 ${
+      className={`chrome-adaptive fixed inset-x-0 top-0 z-[100] flex h-[68px] items-center justify-between px-[var(--pad)] font-mono t-label uppercase tracking-[0.12em] transition-all duration-300 ${
         scrolled
           ? isNhaMinh
             ? "bg-[#FBF9F5]/85 border-b border-orange-200/80 shadow-[0_4px_20px_rgba(255,107,75,0.06)] backdrop-blur-md"
@@ -236,7 +236,7 @@ export function Nav() {
       {/* Brand Logo & Author Name */}
       <a href={isHome ? "#hero" : "/"} className="flex items-baseline gap-2 transition-opacity hover:opacity-85">
         {!isHome && <span className={isNhaMinh ? "text-[#FF6B4B]" : "text-forest"}>←</span>}
-        <b className={`font-serif-jp text-[1.05rem] font-bold leading-none ${isNhaMinh ? "text-[#FF6B4B]" : "text-forest"}`}>
+        <b className={`font-serif-jp t-body font-bold leading-none ${isNhaMinh ? "text-[#FF6B4B]" : "text-forest"}`}>
           達樹
         </b>
         <span className={isNhaMinh ? "text-slate-700 font-semibold" : "text-tan"}>Tatsuki</span>

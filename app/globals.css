@@ -10,7 +10,7 @@
   --color-clay: #6E7A64;
   --color-forest: #8FD49E;
   /* Single accent. Intentionally overrides Tailwind's stock `amber` (bare utility
-     only — amber-50..amber-950 still resolve to Tailwind's default orange scale
+     only - amber-50..amber-950 still resolve to Tailwind's default orange scale
      and are never used here). Kept as one solid green, never a gradient. */
   --color-amber: #8FD49E;
   --color-panel: rgba(24, 30, 22, 0.5);
@@ -25,6 +25,10 @@
 
 :root {
   --pad: clamp(1.6rem, 5vw, 5rem);
+  /* the fixed header's height. The pinned opening centres its columns BELOW this, not in the
+     viewport, because centring in the viewport put the About headline under the header on any
+     window shorter than about 780px. */
+  --nav-h: 68px;
   /* dark by default so the scrollbar matches every route; the homepage flips it per state */
   color-scheme: dark;
 }
@@ -61,7 +65,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* In @layer base so text-colour utilities (text-ink, text-tan, …) on an <a> actually win.
+/* In @layer base so text-colour utilities (text-ink, text-tan, ...) on an <a> actually win.
    Unlayered, this `color: inherit` beat every layered utility, so <a>-based buttons and nav
    links silently fell back to the inherited colour (the "beige button, washed-out text" bug).
    Links with no colour utility still inherit, as before. */
@@ -153,14 +157,21 @@ html[data-theme="light"] {
    nothing else is touched.
 
    Tune here: --swap-pulse is how far it dims, and the two durations are the fall and the
-   recovery. Keep the total under PULSE_MS in ThemeFlow.tsx. */
+   recovery. The fall must stay under PULSE_MS in ThemeFlow.tsx, which is how long the dim is
+   held; the recovery runs after the attribute is dropped and is free to be longer.
+
+   These were 55 and 150 against a 190ms ground, which read as a cut. The whole crossover is
+   now slower: the ground crossfades over 320ms and the dip is stretched to match. The tokens
+   still swap in one frame, so what the longer crossfade buys is a softer arrival, not a slower
+   one; do not push the ground much past this or the copy sits on a half mixed colour long
+   enough to notice. */
 .flow-content {
-  --swap-pulse: 0.9;
-  transition: opacity 150ms cubic-bezier(0.3, 0, 0.2, 1);
+  --swap-pulse: 0.88;
+  transition: opacity 230ms cubic-bezier(0.3, 0, 0.2, 1);
 }
 html[data-swapping="1"] .flow-content {
   opacity: var(--swap-pulse);
-  transition-duration: 55ms;
+  transition-duration: 90ms;
 }
 
 /* Two grounds, stacked, crossfaded. Literal colours so they can fade against each other. */
@@ -174,7 +185,7 @@ html[data-swapping="1"] .flow-content {
 .flow-sheet {
   position: absolute;
   inset: 0;
-  transition: opacity 190ms cubic-bezier(0.3, 0, 0.2, 1);
+  transition: opacity 320ms cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity;
 }
 .flow-sheet-dark {
@@ -243,16 +254,130 @@ html[data-theme="light"] .flow-sheet-light { opacity: 1; }
   .flow-sheet, .flow-content { transition: none; }
 }
 
-/* Scroll driven shrink. See components/ShrinkSection.tsx. The section narrows into a rounded
-   card as it leaves, uncovering the ground and the next state behind it. */
-.shrink-stage {
-  position: relative;
-  z-index: 4;
-  transform: scale(var(--shrink, 1));
-  border-radius: var(--shrink-radius, 0px);
-  overflow: hidden;
-  transform-origin: center top;
-  will-change: transform;
+/* THE TYPE SCALE.
+
+   There were thirty one different literal font sizes on this page and twenty of them were under
+   0.75rem, the commonest being 0.62rem and 0.6rem, with a few at 0.54rem. That is under 9px on a
+   default root, which is not small type, it is type nobody reads. Worse, the sizes were arbitrary
+   per component, so two labels doing the same job were three tenths of a pixel apart for no
+   reason anyone could recover.
+
+   Five steps, and 0.75rem is the FLOOR. Everything that was below it came up to it. If a layout
+   only worked because its label was 9px, the layout was wrong, not the size.
+
+   Use the class, not a literal. That is the whole point of it being a standard: the next tuning
+   pass happens here rather than in sixty files. Display sizes stay as clamp() literals in the
+   components, because those are compositional decisions rather than scale steps. */
+.t-micro { font-size: 0.75rem; }
+.t-label { font-size: 0.82rem; }
+.t-small { font-size: 0.92rem; }
+.t-body  { font-size: 1.02rem; }
+.t-lead  { font-size: 1.12rem; }
+
+/* A subtree that keeps the ink palette whatever the page is doing.
+
+   Two users, and they are the same problem seen from both sides. The hero container is a dark
+   surface on a page that is paper from the first pixel, so the container needs ink tokens; and
+   the site chrome sitting on top of that container needs them too for as long as the container is
+   under it, which is what `data-chrome` says. HeroStage writes that attribute from the position
+   of its own closing frame: while the frame's top edge is still above the header, the header is
+   over ink; once it has passed, the header is over paper and the attribute goes.
+
+   Values are the dark palette, kept in step by hand. A scope like this overrides EVERY token in
+   the palette, accent included, so anything set further up the tree has to be set again inside. */
+.theme-ink,
+html[data-chrome="ink"] .chrome-adaptive {
+  color-scheme: dark;
+  --color-ink: #0D0F0D;
+  --color-ink-raised: #141813;
+  --color-cream: #F1F3EA;
+  --color-tan: #C6D0B7;
+  --color-sand: #8B9880;
+  --color-clay: #6E7A64;
+  --color-forest: #8FD49E;
+  --color-amber: #8FD49E;
+  --color-panel: rgba(24, 30, 22, 0.5);
+  --color-panel-border: rgba(210, 226, 190, 0.14);
+  --color-rule: rgba(210, 226, 190, 0.12);
+}
+
+/* The closing container's shadow.
+
+   It has to sit on a WRAPPER, not on the card. `clip-path` is applied after filters and after
+   the element's own box-shadow, so a shadow on the clipped element is clipped away with it. A
+   drop-shadow filter on the parent takes the already clipped shape as its input and casts from
+   that, which is the only way to get a shadow of the frame rather than of the viewport.
+
+   Static, so nothing is written per frame; at full bleed the shadow is simply off screen. Heavier
+   on paper, because that is where a dark card has to be lifted off the ground. */
+.hero-shadow {
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.34));
+  transition: filter 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+html[data-theme="light"] .hero-shadow {
+  filter: drop-shadow(0 26px 46px rgba(20, 23, 15, 0.26));
+}
+
+/* The section rail steps out of the way while the opening is pinned. It is a rail for moving
+   between sections and there is only one section on screen for the length of that stage, and the
+   three columns of the closed composition need every pixel it was holding. HeroStage writes the
+   attribute; see the note there for the arithmetic. */
+html[data-opening="1"] .home-rail {
+  opacity: 0;
+  pointer-events: none;
+}
+.home-rail {
+  transition: opacity 260ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* A project screenshot in the selected builds row. Held near grey so four products in four
+   brand palettes read as one body of work, and given its colour back when one is looked at.
+
+   A class rather than an inline style on the element: inline wins over every class, so the
+   hover had nothing to override and the colour never came back. */
+.shot {
+  filter: saturate(0.12) contrast(1.06);
+}
+.group:hover .shot {
+  filter: saturate(1) contrast(1);
+}
+
+/* One item of the hero stage's number column. HeroStage mounts the column at its cue and drives
+   its arrival from the right; this is the stagger inside it, top to bottom, which plays once and
+   so belongs to the element rather than to the scroll ticker. */
+.stat-drop {
+  animation: stat-drop 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes stat-drop {
+  from { opacity: 0; transform: translateY(-18px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stat-drop { animation: none; }
+}
+
+/* The pinned artwork of a SequenceSpan. It crosses the theme with everything else instead of
+   having to be gone before the paper arrives. The frames are line work on near black, so on
+   paper the whole layer is inverted: ground to white, lines to dark. hue-rotate(180deg) is
+   what keeps the accent in its own hue rather than flipping to the complement.
+
+   Both states name the same function list, so the two interpolate. Only filter transitions
+   here. Opacity is written every frame by the scroll ticker and must not lag behind it. */
+.seq-art {
+  /* The scroll ticker writes --seq-p, the 0 to 1 ramp, and nothing else. Which peak it is
+     multiplied by belongs here rather than in the tick: a stale read of data-theme was painting
+     the dark strength for a frame on a page that opens on paper. */
+  opacity: calc(var(--seq-p, 0) * var(--seq-dark, 1));
+  filter: invert(0) hue-rotate(0deg);
+  transition: filter 320ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+html[data-theme="light"] .seq-art {
+  opacity: calc(var(--seq-p, 0) * var(--seq-light, 1));
+  filter: invert(1) hue-rotate(180deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .seq-art { transition: none; }
 }
 
 /* grain overlay texture */
@@ -294,3 +419,5 @@ html[data-theme="light"] .flow-sheet-light { opacity: 1; }
     display: none;
   }
 }
+
+/* end of file */

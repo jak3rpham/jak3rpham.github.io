@@ -32,12 +32,14 @@ import { onScrollFrame } from "@/lib/scrollTicker";
 type Zone = "dark" | "light";
 
 /** how long the pulse that accompanies the swap stays down; must match globals.css */
-const PULSE_MS = 190;
+const PULSE_MS = 260;
 
 /**
  * Fraction of the viewport the incoming zone's top must cross to win. Larger fires earlier.
+ * Exported because HeroStage places a zone marker inside itself and has to do the same
+ * arithmetic to know where the swap will land.
  */
-const LINE = 0.55;
+export const LINE = 0.55;
 
 export function ThemeFlow({ children, initial = "dark" }: { children: ReactNode; initial?: Zone }) {
   const ref = useRef<HTMLDivElement>(null);

@@ -1,10 +1,8 @@
 "use client";
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion, type Variants } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { useScramble } from "@/lib/useScramble";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { Cta } from "./Cta";
-import { SequenceBackdrop } from "./SequenceBackdrop";
 
 const container: Variants = {
   hidden: {},
@@ -36,50 +34,46 @@ export function Hero() {
   const reduceMotion = useReducedMotion();
   const hoverCapable = useMediaQuery("(hover: hover) and (pointer: fine)");
   const { display, isScrambling, trigger } = useScramble("Pham Ngoc Thanh");
-  const heroRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", reduceMotion ? "0%" : "-38%"]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.7], [1, reduceMotion ? 1 : 0]);
-  const portraitY = useTransform(scrollYProgress, [0, 1], ["0%", reduceMotion ? "0%" : "20%"]);
-  const portraitScale = useTransform(scrollYProgress, [0, 1], [1, reduceMotion ? 1 : 1.07]);
-  const portraitRotate = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -12]);
 
   return (
     <section
-      ref={heroRef}
       id="hero"
-      className="relative grid min-h-[100dvh] grid-cols-1 items-center gap-14 overflow-hidden px-[var(--pad)] pb-20 pt-24 md:grid-cols-[1.5fr_1fr] md:gap-12 md:pl-[clamp(2.5rem,8vw,8rem)]"
+      className="relative grid h-full min-h-[100dvh] grid-cols-1 items-center gap-14 overflow-hidden px-[var(--pad)] pb-20 pt-24 md:grid-cols-[1.5fr_1fr] md:gap-12 md:pl-[clamp(2.5rem,8vw,8rem)]"
     >
-      {/* The generated sequence is the hero's ground, scrubbed by the hero's own pass through
-          the viewport. Left unmirrored: the artwork's figure sits left and the portrait card
-          sits right, so the two occupy different halves instead of stacking. Pass `mirrored`
-          to flip it if that ever changes. */}
-      <SequenceBackdrop
-        dir="/images/home/frames/hero"
-        count={150}
-        poster="/images/home/hero-still.webp"
-        opacity={0.85}
-        className="z-0"
-      />
+      {/* No scroll driven parallax here any more. HeroStage pins this whole screen and spends
+          the scroll on the card instead, so a `useScroll` against this section would sit at
+          zero forever, and an internal drift under a shrinking card reads as two motions
+          fighting. What is left is the arrival.
 
-      {/* Legibility scrim. Lighter on the left than it used to be: the copy sits over the
-          figure now, and a heavy wash there would bury the artwork the section is built on.
-          Enough to hold the headline, not enough to flatten what is behind it. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-ink/70 via-ink/40 to-ink/15" />
+          The scrim is the card's surface, and it is what makes the closing frame legible: the
+          artwork behind the stage does not move, so an unpainted card would shut against an
+          identical background and the move would be invisible. HeroStage wraps this in
+          `theme-ink`, so these are ink values on a page that is paper throughout: the container
+          is the dark thing and the frame closing on it uncovers light that was always behind.
 
-      <motion.div style={{ y: textY, opacity: textOpacity }} className="relative z-[3] max-w-[48rem]">
+          Heavier and flatter than it was. The artwork behind is inverted on paper, so what shows
+          through a thin right hand end is a PALE image under a dark wash, which greys the
+          container instead of texturing it. The sequence is the reveal now, not the underlay. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-ink/96 via-ink/92 to-ink/86" />
+
+      {/* HeroStage publishes --hero-fade as its frame closes; the copy leaves ahead of it so the
+          clip never crops a sentence in half. A var rather than a subscriber of its own, so the
+          stage stays the only thing reading the scroll on this screen. */}
+      <div
+        className="relative z-[3] max-w-[48rem] will-change-[opacity]"
+        style={{ opacity: "calc(1 - var(--hero-fade, 0))" }}
+      >
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9, duration: 0.8 }}
           className="mb-7 flex items-center gap-4 text-sand"
         >
-          <span className="font-mono text-[0.72rem] uppercase tracking-[0.18em]">Growth, product &amp; video</span>
+          <span className="font-mono t-label uppercase tracking-[0.18em]">Growth, product &amp; video</span>
           <span className="h-px w-10 flex-none bg-rule" />
           <span className="flex items-baseline gap-1.5">
-            <b className="font-serif-jp text-[1.15rem] font-bold text-forest">達樹</b>
-            <span className="font-mono text-[0.72rem] uppercase tracking-[0.18em]">Tatsuki</span>
+            <b className="font-serif-jp t-lead font-bold text-forest">達樹</b>
+            <span className="font-mono t-label uppercase tracking-[0.18em]">Tatsuki</span>
           </span>
         </motion.div>
 
@@ -129,19 +123,27 @@ export function Hero() {
           className="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-rule pt-5"
         >
           {RANGE.map((r) => (
-            <span key={r} className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-sand">
+            <span key={r} className="font-mono t-micro uppercase tracking-[0.14em] text-sand">
               {r}
             </span>
           ))}
         </motion.div>
-      </motion.div>
+      </div>
 
+      {/* The marker HeroStage aims its closing frame at is this plain wrapper, and the entry
+          animation is on the child. They used to be the same element, which meant the thing
+          being measured was also the thing carrying a transform: the frame was aimed at wherever
+          the portrait happened to be on its way in, and when it settled somewhere else the frame
+          closed on empty scrim with the picture outside it. Nothing transforms this box. */}
+      <div data-hero-portrait className="relative z-[3] mx-auto aspect-[4/5] w-[min(64vw,312px)]">
+      {/* Opacity only. It used to rise 40px as well, and for the first second and a half of the
+          page that put the picture 40px below the frame that closes on it; a reader who flicked
+          straight down saw the frame shut on empty scrim. Nothing inside this box may move. */}
       <motion.div
-        style={{ y: portraitY, scale: portraitScale, rotateY: portraitRotate, transformPerspective: 1200 }}
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-[3] mx-auto aspect-[4/5] w-[min(64vw,312px)]"
+        className="absolute inset-0"
       >
         <span
           aria-hidden
@@ -149,7 +151,9 @@ export function Hero() {
         >
           達樹
         </span>
-        <div className="absolute inset-0 overflow-hidden rounded-[16px] border border-panel-border shadow-[0_30px_70px_rgba(0,0,0,0.5)]">
+        {/* a lighter drop than it carried on ink: this screen is paper now, and a 0.5 black at 70px
+              reads as a bruise under a card on white */}
+          <div className="absolute inset-0 overflow-hidden rounded-[16px] border border-panel-border shadow-[0_24px_60px_rgba(0,0,0,0.22)]">
           <img
             src="/images/hero-portrait.webp"
             alt="Pham Ngoc Thanh"
@@ -157,6 +161,7 @@ export function Hero() {
           />
         </div>
       </motion.div>
+      </div>
     </section>
   );
 }

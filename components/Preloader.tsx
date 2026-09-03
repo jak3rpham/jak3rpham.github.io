@@ -34,7 +34,12 @@ export function Preloader() {
     <AnimatePresence>
       {!done && (
         <motion.div
-          className="fixed inset-0 z-[200] flex items-end justify-between overflow-hidden bg-ink px-[var(--pad)] pb-[clamp(2rem,6vw,4rem)]"
+          /* theme-ink: the curtain is the same object on every route and must not read the page's
+             state. The homepage now opens on paper, and without this the curtain turned WHITE the
+             moment ThemeFlow ran, so the site loaded dark, flashed to a white sheet, and then
+             uncovered a dark hero. It also hides the one frame between the server's default
+             palette, which is the dark one, and the homepage asking for paper. */
+          className="theme-ink fixed inset-0 z-[200] flex items-end justify-between overflow-hidden bg-ink px-[var(--pad)] pb-[clamp(2rem,6vw,4rem)]"
           exit={{ y: "-100%" }}
           transition={{ duration: reduce ? 0 : 0.5, ease: [0.76, 0, 0.24, 1] }}
         >
@@ -45,7 +50,7 @@ export function Preloader() {
             className="flex items-end gap-3"
           >
             <span className="font-serif-jp text-[clamp(3rem,9vw,6rem)] font-black leading-[0.8] text-forest">達樹</span>
-            <span className="mb-1 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-sand">Tatsuki</span>
+            <span className="mb-1 font-mono t-micro uppercase tracking-[0.2em] text-sand">Tatsuki</span>
           </motion.div>
           <div className="font-display text-[clamp(3rem,9vw,6rem)] font-bold leading-[0.8] tracking-[-0.04em] text-cream tabular-nums">
             {count.value.toFixed(0)}

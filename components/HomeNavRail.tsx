@@ -11,11 +11,12 @@ import { useEffect, useState } from "react";
 const ITEMS: { id: string; label: string }[] = [
   { id: "hero", label: "Top" },
   { id: "about", label: "About" },
-  { id: "nhaminh", label: "Nhà Mình (AI)" },
+  { id: "systems", label: "Systems" },
   { id: "terra", label: "Terra" },
+  { id: "nhaminh", label: "Nhà Mình (AI)" },
+  { id: "work", label: "Selected builds" },
   { id: "aru", label: "AI Video" },
   { id: "bong", label: "Bóng Vespera" },
-  { id: "work", label: "Selected builds" },
   { id: "video", label: "Films" },
   { id: "contact", label: "Contact" },
 ];
@@ -46,7 +47,7 @@ export function HomeNavRail() {
   return (
     <nav
       aria-label="Page sections"
-      className="fixed right-4 top-1/2 z-[80] hidden -translate-y-1/2 flex-col items-end gap-3 lg:flex"
+      className="home-rail chrome-adaptive fixed right-4 top-1/2 z-[80] hidden -translate-y-1/2 flex-col items-end gap-3 lg:flex"
     >
       {ITEMS.map((it) => {
         const on = active === it.id;
@@ -59,7 +60,7 @@ export function HomeNavRail() {
             aria-current={on ? "true" : undefined}
           >
             <span
-              className={`whitespace-nowrap font-mono text-[0.6rem] uppercase tracking-[0.1em] transition-all duration-300 ${
+              className={`whitespace-nowrap font-mono t-micro uppercase tracking-[0.1em] transition-all duration-300 ${
                 on
                   ? "text-forest opacity-100"
                   : "translate-x-1 text-sand opacity-0 group-hover:translate-x-0 group-hover:opacity-70"
