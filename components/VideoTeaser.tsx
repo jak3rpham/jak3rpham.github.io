@@ -33,22 +33,22 @@ function VideoCard({
       />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent from-40% to-black/85" />
       {v.badge && (
-        <span className="absolute left-3 top-3 z-[2] rounded-md bg-black/60 px-2.5 py-1 font-mono text-[0.58rem] uppercase tracking-[0.08em] text-cream backdrop-blur-sm">
+        <span className="absolute left-3 top-3 z-[2] rounded-md bg-black/60 px-2.5 py-1 font-mono t-micro uppercase tracking-[0.08em] text-cream backdrop-blur-sm">
           {v.badge}
         </span>
       )}
       <span
         className={`absolute left-1/2 top-1/2 z-[2] flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[1.5px] border-cream/85 pl-1 text-cream transition-colors group-hover:border-forest group-hover:text-forest ${
-          big ? "h-[68px] w-[68px] text-[1.1rem]" : "h-[50px] w-[50px]"
+          big ? "h-[68px] w-[68px] t-lead" : "h-[50px] w-[50px]"
         }`}
       >
         ▶
       </span>
       <div className="absolute inset-x-4 bottom-4 z-[2]">
-        <div className={`font-semibold leading-[1.15] text-cream ${big ? "font-display text-[clamp(1.4rem,2.6vw,2.2rem)] tracking-[-0.02em]" : "text-[1.02rem]"}`}>
+        <div className={`font-semibold leading-[1.15] text-cream ${big ? "font-display text-[clamp(1.4rem,2.6vw,2.2rem)] tracking-[-0.02em]" : "t-body"}`}>
           {v.title}
         </div>
-        <div className="mt-1 font-mono text-[0.56rem] uppercase tracking-[0.05em] text-sand">{v.meta}</div>
+        <div className="mt-1 font-mono t-micro uppercase tracking-[0.05em] text-sand">{v.meta}</div>
       </div>
     </motion.button>
   );
@@ -73,7 +73,7 @@ export function VideoTeaser() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
-            className="max-w-[38ch] text-[1.02rem] font-light leading-[1.7] text-tan"
+            className="max-w-[38ch] t-body font-light leading-[1.7] text-tan"
           >
             End-to-end production: TVCs, brand films, event recaps, music videos, explainers. Two-time Top 1 TVC at Business Challenge.
           </motion.p>
@@ -104,8 +104,8 @@ export function VideoTeaser() {
           className="group mt-6 flex items-center justify-between rounded-[14px] border border-rule px-7 py-6 transition-colors hover:border-forest/50 hover:bg-forest/5"
         >
           <div>
-            <div className="text-[1.1rem] font-semibold text-cream">View full video reel</div>
-            <div className="mt-1 font-mono text-[0.6rem] uppercase tracking-[0.06em] text-sand">
+            <div className="t-lead font-semibold text-cream">View full video reel</div>
+            <div className="mt-1 font-mono t-micro uppercase tracking-[0.06em] text-sand">
               Brand films · TVCs · Events · Music videos · Explainers
             </div>
           </div>

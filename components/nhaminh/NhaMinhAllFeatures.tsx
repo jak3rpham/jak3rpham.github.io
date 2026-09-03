@@ -67,7 +67,7 @@ export function NhaMinhAllFeatures() {
         
         {/* Heading */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-          <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
+          <span className="font-mono t-micro uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
             04 · Core Capabilities
           </span>
           <Reveal className="mt-2">
@@ -75,7 +75,7 @@ export function NhaMinhAllFeatures() {
               Complete Feature & <span className="text-[#FF6B4B]">System Suite</span>
             </h2>
           </Reveal>
-          <p className="mt-2 max-w-[62ch] text-[0.96rem] font-normal leading-[1.65] text-slate-600">
+          <p className="mt-2 max-w-[62ch] t-body font-normal leading-[1.65] text-slate-600">
             Every core capability of Nhà Mình is built with authentic healthcare workflows, validated by real screencasts and multimodal AI pipelines.
           </p>
         </motion.div>
@@ -103,7 +103,7 @@ export function NhaMinhAllFeatures() {
                     playsInline
                     className="h-full w-full object-cover"
                   />
-                  <div className="absolute right-2.5 top-2.5 rounded-full bg-black/60 px-2.5 py-0.5 font-mono text-[0.6rem] font-bold text-white backdrop-blur-md">
+                  <div className="absolute right-2.5 top-2.5 rounded-full bg-black/60 px-2.5 py-0.5 font-mono t-micro font-bold text-white backdrop-blur-md">
                     {feat.badge}
                   </div>
                 </div>
@@ -111,7 +111,7 @@ export function NhaMinhAllFeatures() {
                 {/* Details */}
                 <div className="p-3">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-[0.62rem] uppercase tracking-widest text-[#FF6B4B] font-bold">
+                    <span className="font-mono t-micro uppercase tracking-widest text-[#FF6B4B] font-bold">
                       // {feat.tag}
                     </span>
                     <span className="font-serif-jp text-base font-bold text-[#FF6B4B]">{feat.num}</span>
@@ -119,7 +119,7 @@ export function NhaMinhAllFeatures() {
                   <h3 className="mt-1 font-display text-base font-bold text-slate-900 leading-tight">
                     {feat.title}
                   </h3>
-                  <p className="mt-2 text-[0.84rem] font-normal leading-[1.6] text-slate-600">
+                  <p className="mt-2 t-small font-normal leading-[1.6] text-slate-600">
                     {feat.desc}
                   </p>
                 </div>

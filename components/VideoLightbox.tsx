@@ -58,7 +58,7 @@ export function VideoLightbox({
           >
             <button
               onClick={onClose}
-              className="absolute -top-10 right-0 font-mono text-[0.75rem] uppercase tracking-[0.1em] text-cream"
+              className="absolute -top-10 right-0 font-mono t-label uppercase tracking-[0.1em] text-cream"
             >
               ✕ Close
             </button>

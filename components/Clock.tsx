@@ -18,7 +18,7 @@ export function Clock() {
   }, []);
 
   return (
-    <div className="absolute right-[var(--pad)] top-[4.4rem] z-[6] font-mono text-[0.68rem] uppercase tracking-[0.16em] text-sand">
+    <div className="absolute right-[var(--pad)] top-[4.4rem] z-[6] font-mono t-micro uppercase tracking-[0.16em] text-sand">
       {label}
     </div>
   );

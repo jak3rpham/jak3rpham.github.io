@@ -106,13 +106,13 @@ function SystemPanel({ s }: { s: System }) {
         <DrawDiagram nodes={s.nodes} edges={s.edges} className="h-auto w-full" />
       </div>
       <div className="mt-6">
-        <div className="mb-2 font-mono text-[0.66rem] uppercase tracking-[0.12em] text-forest">{s.tag}</div>
+        <div className="mb-2 font-mono t-micro uppercase tracking-[0.12em] text-forest">{s.tag}</div>
         <div className="mb-2.5 font-display text-[clamp(1.4rem,2.4vw,1.9rem)] font-bold leading-tight tracking-[-0.02em] text-cream">{s.title}</div>
-        <p className="mb-3.5 text-[1rem] font-light leading-[1.65] text-tan">{s.desc}</p>
-        <p className="mb-4 border-l-2 border-forest/50 pl-4 text-[0.95rem] font-light leading-[1.55] text-sand">{s.impact}</p>
+        <p className="mb-3.5 t-body font-light leading-[1.65] text-tan">{s.desc}</p>
+        <p className="mb-4 border-l-2 border-forest/50 pl-4 t-small font-light leading-[1.55] text-sand">{s.impact}</p>
         <div className="flex flex-wrap gap-2">
           {s.pills.map((p) => (
-            <span key={p} className="rounded-full border border-rule px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.08em] text-sand">
+            <span key={p} className="rounded-full border border-rule px-3 py-1.5 font-mono t-micro uppercase tracking-[0.08em] text-sand">
               {p}
             </span>
           ))}
@@ -134,7 +134,7 @@ export function TerraSystems() {
           </Reveal>
         </div>
 
-        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-14 max-w-[64ch] text-[1.1rem] font-light leading-[1.75] text-tan">
+        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-14 max-w-[64ch] t-lead font-light leading-[1.75] text-tan">
           The growth did not come from effort alone. I built the tooling that let a small, non-technical team publish, measure, and
           convert on its own. Each system solves a different bottleneck, so each one is shaped differently.
         </motion.p>
@@ -146,10 +146,10 @@ export function TerraSystems() {
         </div>
 
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} className="mt-16">
-          <div className="mb-4 font-mono text-[0.66rem] uppercase tracking-[0.12em] text-sand">// Plus the foundation</div>
+          <div className="mb-4 font-mono t-micro uppercase tracking-[0.12em] text-sand">// Plus the foundation</div>
           <div className="flex flex-wrap gap-2">
             {FOUNDATION.map((f) => (
-              <span key={f} className="rounded-full border border-rule px-3.5 py-2 font-mono text-[0.62rem] uppercase tracking-[0.06em] text-tan">
+              <span key={f} className="rounded-full border border-rule px-3.5 py-2 font-mono t-micro uppercase tracking-[0.06em] text-tan">
                 {f}
               </span>
             ))}

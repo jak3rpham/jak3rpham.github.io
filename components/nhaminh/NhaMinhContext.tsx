@@ -38,7 +38,7 @@ export function NhaMinhContext() {
         
         {/* Section Heading */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-          <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
+          <span className="font-mono t-micro uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
             01 · Master Portal & Architectural Challenge
           </span>
           <Reveal className="mt-2">
@@ -53,7 +53,7 @@ export function NhaMinhContext() {
           
           {/* Left Context Points (6 Cols) */}
           <div className="lg:col-span-6 space-y-3.5">
-            <p className="text-[0.96rem] font-normal leading-[1.68] text-slate-600">
+            <p className="t-body font-normal leading-[1.68] text-slate-600">
               Over 13 million seniors in Vietnam manage 2 to 4 chronic medications daily. Existing software is engineered for young digital natives with tiny fonts and cold clinical jargon.
             </p>
 
@@ -88,8 +88,8 @@ export function NhaMinhContext() {
                       <Icon />
                     </div>
                     <div>
-                      <h4 className="font-display text-[0.92rem] font-bold text-slate-900">{item.title}</h4>
-                      <p className="mt-1 text-[0.82rem] font-normal leading-[1.55] text-slate-600">{item.desc}</p>
+                      <h4 className="font-display t-small font-bold text-slate-900">{item.title}</h4>
+                      <p className="mt-1 t-small font-normal leading-[1.55] text-slate-600">{item.desc}</p>
                     </div>
                   </div>
                 );
@@ -107,7 +107,7 @@ export function NhaMinhContext() {
                   className="h-full w-full object-cover object-top"
                 />
               </div>
-              <div className="flex items-center justify-between px-3 py-2 font-mono text-[0.68rem] text-slate-500">
+              <div className="flex items-center justify-between px-3 py-2 font-mono t-micro text-slate-500">
                 <span className="flex items-center gap-1.5 font-semibold text-slate-700">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#FF6B4B]" />
                   Multi-Role Portal Entry

@@ -58,11 +58,11 @@ export function AruVideo({
             <img src={thumb} alt="" className="absolute inset-0 h-full w-full object-cover opacity-35" />
           ) : null}
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-ink/55 px-6 text-center">
-            <span className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-forest">
+            <span className="font-mono t-micro uppercase tracking-[0.16em] text-forest">
               awaiting upload
             </span>
-            <span className="font-mono text-[0.68rem] text-tan">{label}</span>
-            <span className="max-w-[34ch] font-mono text-[0.55rem] leading-[1.7] text-clay">
+            <span className="font-mono t-micro text-tan">{label}</span>
+            <span className="max-w-[34ch] font-mono t-micro leading-[1.7] text-clay">
               {vertical ? "9:16" : "16:9"} · drop the YouTube id into lib/aruData.ts → YT
             </span>
           </div>
@@ -115,7 +115,7 @@ export function AruVideo({
                 <span className="ml-1 block h-0 w-0 border-y-[9px] border-l-[14px] border-y-transparent border-l-cream" />
               </span>
             </div>
-            <span className="absolute bottom-3 left-3 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-tan">
+            <span className="absolute bottom-3 left-3 font-mono t-micro uppercase tracking-[0.14em] text-tan">
               {label}
             </span>
           </div>

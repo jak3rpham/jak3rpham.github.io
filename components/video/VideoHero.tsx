@@ -19,7 +19,7 @@ function Tel({ to, decimals = 0, prefix = "", suffix = "", label, staticValue }:
         {staticValue ?? c.value.toFixed(decimals)}
         {suffix}
       </div>
-      <div className="mt-2 font-mono text-[0.56rem] uppercase tracking-[0.1em] text-sand">{label}</div>
+      <div className="mt-2 font-mono t-micro uppercase tracking-[0.1em] text-sand">{label}</div>
     </div>
   );
 }
@@ -69,7 +69,7 @@ export function VideoHero() {
         >
           <b className="font-serif-jp text-[1.3rem] font-bold text-forest">影</b>
           <span className="h-px w-8 bg-rule" />
-          <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em]">Creative work · video &amp; brand production</span>
+          <span className="font-mono t-micro uppercase tracking-[0.16em]">Creative work · video &amp; brand production</span>
         </motion.div>
         <motion.p
           initial={{ opacity: 0, y: 16 }}

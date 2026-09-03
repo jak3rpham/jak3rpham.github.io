@@ -2,8 +2,8 @@ export function HoverScrollShot({ src, alt, urlLabel }: { src: string; alt: stri
   return (
     <div className="group">
       <div className="flex items-center justify-between gap-3 border-b border-rule bg-ink/50 px-4 py-2.5">
-        <span className="font-mono text-[0.64rem] lowercase tracking-[0.04em] text-sand">{urlLabel}</span>
-        <span className="hidden font-mono text-[0.56rem] uppercase tracking-[0.08em] text-sand [@media(hover:hover)]:inline">
+        <span className="font-mono t-micro lowercase tracking-[0.04em] text-sand">{urlLabel}</span>
+        <span className="hidden font-mono t-micro uppercase tracking-[0.08em] text-sand [@media(hover:hover)]:inline">
           hover to scroll ↓
         </span>
       </div>

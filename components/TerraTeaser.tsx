@@ -39,7 +39,7 @@ export function TerraTeaser() {
     <section id="terra" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(3.5rem,7vw,6rem)]">
       <div className="mx-auto max-w-[1400px]">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-          <span className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-forest">Featured case study</span>
+          <span className="font-mono t-micro uppercase tracking-[0.18em] text-forest">Featured case study</span>
           <Reveal className="mt-4">
             <h2 className="font-display text-[clamp(2.6rem,6vw,4.6rem)] font-bold leading-[1.06] tracking-[-0.035em] text-cream">
               terra-plat.vn <span className="text-forest">growth</span>
@@ -61,7 +61,7 @@ export function TerraTeaser() {
                   style={{ background: "radial-gradient(circle, rgba(199,185,161,0.16), transparent 65%)" }}
                 />
                 <WebGLLogo3D className="h-[240px] w-full lg:h-[280px]" />
-                <div className="mt-1 text-center font-mono text-[0.6rem] uppercase tracking-[0.14em] text-sand">terra · brand mark</div>
+                <div className="mt-1 text-center font-mono t-micro uppercase tracking-[0.14em] text-sand">terra · brand mark</div>
               </div>
               <Parallax speed={-34}>
               <SpotlightCard className="overflow-hidden rounded-[12px] border border-panel-border bg-ink-raised shadow-[0_26px_60px_rgba(0,0,0,0.45)]">
@@ -71,7 +71,7 @@ export function TerraTeaser() {
             </div>
 
             <SpotlightCard className="rounded-[12px] border border-panel-border bg-panel p-7 backdrop-blur-md">
-              <div className="mb-5 border-b border-rule pb-3 font-mono text-[0.64rem] uppercase tracking-[0.1em] text-sand">
+              <div className="mb-5 border-b border-rule pb-3 font-mono t-micro uppercase tracking-[0.1em] text-sand">
                 terra-plat.vn · Google Search Console
               </div>
               {/* Annotations live in HTML on top, not in <text> inside the SVG: this chart is
@@ -117,25 +117,25 @@ export function TerraTeaser() {
                 />
               </svg>
 
-                <span className="pointer-events-none absolute left-0 top-[70%] font-mono text-[0.56rem] uppercase tracking-[0.08em] text-sand">
+                <span className="pointer-events-none absolute left-0 top-[70%] font-mono t-micro uppercase tracking-[0.08em] text-sand">
                   ~170/day · baseline
                 </span>
-                <span className="pointer-events-none absolute right-3 top-0 font-mono text-[0.62rem] tracking-[0.04em] text-forest">
+                <span className="pointer-events-none absolute right-3 top-0 font-mono t-micro tracking-[0.04em] text-forest">
                   2,137/day
                 </span>
               </div>
 
-              <div className="mt-2 flex items-center justify-between font-mono text-[0.54rem] uppercase tracking-[0.1em] text-sand/80">
+              <div className="mt-2 flex items-center justify-between font-mono t-micro uppercase tracking-[0.1em] text-sand/80">
                 <span>Feb 2025</span>
                 <span className="h-px flex-1 bg-rule/60" />
                 <span>Mar 2026</span>
               </div>
-              <div className="mt-3 text-center font-mono text-[0.62rem] uppercase tracking-[0.1em] text-sand">
+              <div className="mt-3 text-center font-mono t-micro uppercase tracking-[0.1em] text-sand">
                 Organic clicks/day · 12× launch
               </div>
               {/* provenance, stated plainly: this is the shape of the real report, hand-traced,
                   not a live data feed. Saying so is worth more than pretending otherwise. */}
-              <div className="mt-1.5 text-center font-mono text-[0.54rem] tracking-[0.06em] text-sand/70">
+              <div className="mt-1.5 text-center font-mono t-micro tracking-[0.06em] text-sand/70">
                 Curve redrawn from the Search Console clicks/day report
               </div>
               <div className="mt-6 grid grid-cols-2 border-t border-rule md:grid-cols-4">
@@ -147,7 +147,7 @@ export function TerraTeaser() {
                     } md:border-r md:last:border-r-0`}
                   >
                     <div className="font-display text-[1.7rem] font-bold leading-none tracking-[-0.02em] text-cream">{n}</div>
-                    <div className="mt-1.5 font-mono text-[0.54rem] uppercase tracking-[0.06em] text-sand">{l}</div>
+                    <div className="mt-1.5 font-mono t-micro uppercase tracking-[0.06em] text-sand">{l}</div>
                   </div>
                 ))}
               </div>
@@ -166,7 +166,7 @@ export function TerraTeaser() {
             {BULLETS.map((text, i) => (
               <li
                 key={i}
-                className="relative pl-5 text-[1.05rem] font-light leading-[1.65] text-tan before:absolute before:left-0 before:top-[0.7em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-forest"
+                className="relative pl-5 t-body font-light leading-[1.65] text-tan before:absolute before:left-0 before:top-[0.7em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-forest"
               >
                 {text}
               </li>
@@ -178,8 +178,8 @@ export function TerraTeaser() {
             <dl className="mb-6 border-t border-rule">
               {SPEC.map(([k, v]) => (
                 <div key={k} className="flex items-baseline justify-between gap-4 border-b border-rule py-2">
-                  <dt className="font-mono text-[0.56rem] uppercase tracking-[0.14em] text-sand">{k}</dt>
-                  <dd className="text-right font-mono text-[0.72rem] text-cream">{v}</dd>
+                  <dt className="font-mono t-micro uppercase tracking-[0.14em] text-sand">{k}</dt>
+                  <dd className="text-right font-mono t-label text-cream">{v}</dd>
                 </div>
               ))}
             </dl>

@@ -31,12 +31,12 @@ export function AruVertical() {
           inline
         />
         <Prose className="space-y-4">
-          <p className="max-w-[52ch] text-[1.02rem] font-light leading-[1.78] text-tan">
+          <p className="max-w-[52ch] t-body font-light leading-[1.78] text-tan">
             The 16:9 frame was fixed in the style block and never varied, so nothing here
             was generated vertical. The crop had to find a 9:16 read inside a widescreen
             composition, which works for the tight shots and fights the wide ones.
           </p>
-          <p className="max-w-[52ch] text-[1.02rem] font-light leading-[1.78] text-tan">
+          <p className="max-w-[52ch] t-body font-light leading-[1.78] text-tan">
             <span className="text-cream">The close-up survives the crop; the skyline does not.</span>{" "}
             Framing for two aspect ratios is a decision that belongs at the prompt, before
             anything exists, not at the edit, after everything does.

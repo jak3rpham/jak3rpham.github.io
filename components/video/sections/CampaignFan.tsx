@@ -22,7 +22,7 @@ function CardFace({ film }: { film: Film }) {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent to-black/45" />
         {film.badge && (
           <span
-            className="absolute left-2.5 top-2.5 rounded-[5px] px-2 py-0.5 font-mono text-[0.5rem] font-semibold uppercase tracking-[0.06em] text-ink"
+            className="absolute left-2.5 top-2.5 rounded-[5px] px-2 py-0.5 font-mono t-micro font-semibold uppercase tracking-[0.06em] text-ink"
             style={{ background: AC }}
           >
             {film.badge}
@@ -36,8 +36,8 @@ function CardFace({ film }: { film: Film }) {
         </span>
       </div>
       <div className="px-3.5 py-3">
-        <div className="text-[0.95rem] font-semibold leading-snug text-cream">{film.title}</div>
-        <div className="mt-1.5 font-mono text-[0.52rem] uppercase tracking-[0.05em] text-sand">{film.meta}</div>
+        <div className="t-small font-semibold leading-snug text-cream">{film.title}</div>
+        <div className="mt-1.5 font-mono t-micro uppercase tracking-[0.05em] text-sand">{film.meta}</div>
       </div>
     </div>
   );
@@ -60,7 +60,7 @@ export function CampaignFan() {
             Communication <span style={{ color: AC }}>campaigns</span>
           </h3>
         </Reveal>
-        <div className="text-right font-mono text-[0.62rem] uppercase leading-[1.7] tracking-[0.12em] text-sand">
+        <div className="text-right font-mono t-micro uppercase leading-[1.7] tracking-[0.12em] text-sand">
           SRadio · L.O.M
           <br />
           {fanCapable ? "Hover · click a card" : "Swipe · tap a card"}

@@ -40,10 +40,10 @@ export function AruLearnings() {
             <div className="flex items-start gap-4">
               <span className="font-serif-jp text-[2rem] font-bold leading-none text-forest/70">{l.k}</span>
               <div>
-                <h3 className="font-display text-[1.2rem] font-semibold leading-[1.3] tracking-[-0.015em] text-cream">
+                <h3 className="font-display t-lead font-semibold leading-[1.3] tracking-[-0.015em] text-cream">
                   {l.title}
                 </h3>
-                <p className="mt-2.5 text-[0.96rem] font-light leading-[1.75] text-tan">{l.body}</p>
+                <p className="mt-2.5 t-body font-light leading-[1.75] text-tan">{l.body}</p>
               </div>
             </div>
           </motion.article>
@@ -58,7 +58,7 @@ export function AruLearnings() {
         className="mt-12 pt-4"
       >
         <Prose className="max-w-[70ch]">
-        <p className="text-[1.1rem] font-light leading-[1.8] text-tan">
+        <p className="t-lead font-light leading-[1.8] text-tan">
           The video is a prototype and stops where the credits stopped, it is not a finished
           piece and is not offered as one.{" "}
           <span className="text-cream">

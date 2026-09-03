@@ -47,10 +47,10 @@ export function NhaMinhHero() {
             </a>
 
             <div className="flex items-center gap-2">
-              <span className="rounded-full border border-orange-200 bg-orange-50 px-3 py-1 font-mono text-[0.65rem] font-bold uppercase tracking-wider text-[#FF6B4B]">
+              <span className="rounded-full border border-orange-200 bg-orange-50 px-3 py-1 font-mono t-micro font-bold uppercase tracking-wider text-[#FF6B4B]">
                 AI Riser Vietnam 2026
               </span>
-              <span className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1 font-mono text-[0.65rem] font-bold uppercase tracking-wider text-sky-600">
+              <span className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1 font-mono t-micro font-bold uppercase tracking-wider text-sky-600">
                 Official Submission
               </span>
             </div>
@@ -81,7 +81,7 @@ export function NhaMinhHero() {
               </div>
 
               {/* Tagline & Core Philosophy */}
-              <p className="mt-5 text-[1.02rem] font-normal leading-[1.7] text-slate-600 max-w-[58ch]">
+              <p className="mt-5 t-body font-normal leading-[1.7] text-slate-600 max-w-[58ch]">
                 A purpose-built dual-experience healthcare companion connecting elderly parents and adult caregivers living apart. Powered by Gemini 2.5 Flash Vision prescription OCR, the conversational voice assistant "Cháu Bi", and bi-directional Google Calendar sync.
               </p>
 
@@ -93,7 +93,7 @@ export function NhaMinhHero() {
                   { text: "5 Safety Rails", bg: "bg-amber-50 border-amber-200 text-amber-700" },
                   { text: "Google Workspace", bg: "bg-purple-50 border-purple-200 text-purple-700" },
                 ].map((b, idx) => (
-                  <span key={idx} className={`rounded-lg border px-2.5 py-1 font-mono text-[0.68rem] font-bold ${b.bg}`}>
+                  <span key={idx} className={`rounded-lg border px-2.5 py-1 font-mono t-micro font-bold ${b.bg}`}>
                     {b.text}
                   </span>
                 ))}
@@ -135,7 +135,7 @@ export function NhaMinhHero() {
                     className="h-full w-full border-0"
                   />
                 </div>
-                <div className="flex items-center justify-between px-2.5 py-2 font-mono text-[0.68rem] text-slate-500">
+                <div className="flex items-center justify-between px-2.5 py-2 font-mono t-micro text-slate-500">
                   <span className="flex items-center gap-1.5 font-semibold text-slate-700">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#FF6B4B] animate-ping" />
                     1080p Official Demo Video
@@ -166,8 +166,8 @@ export function NhaMinhHero() {
                 key={m.label}
                 className="rounded-xl border border-orange-100 bg-white/80 p-3.5 shadow-sm backdrop-blur-md"
               >
-                <span className="font-mono text-[0.6rem] font-bold uppercase tracking-wider text-slate-400">{m.label}</span>
-                <div className="mt-1 font-display text-[0.88rem] font-bold text-slate-800">{m.val}</div>
+                <span className="font-mono t-micro font-bold uppercase tracking-wider text-slate-400">{m.label}</span>
+                <div className="mt-1 font-display t-small font-bold text-slate-800">{m.val}</div>
               </div>
             ))}
           </div>

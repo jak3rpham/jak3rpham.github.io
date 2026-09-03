@@ -49,7 +49,7 @@ export function VideoNavRail({ items }: { items: RailItem[] }) {
             aria-current={on ? "true" : undefined}
           >
             <span
-              className={`whitespace-nowrap font-mono text-[0.6rem] uppercase tracking-[0.1em] transition-all duration-300 ${
+              className={`whitespace-nowrap font-mono t-micro uppercase tracking-[0.1em] transition-all duration-300 ${
                 on ? "opacity-100" : "translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-70"
               }`}
               style={{ color: on ? it.accent : "var(--color-sand, #b8b2a2)" }}

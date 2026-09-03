@@ -66,23 +66,23 @@ export function AruReels() {
                   <span className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-cream/80 bg-ink/50 transition-transform duration-300 group-hover:scale-110">
                     <span className="ml-1 block h-0 w-0 border-y-[9px] border-l-[14px] border-y-transparent border-l-cream" />
                   </span>
-                  <span className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-cream">
+                  <span className="font-mono t-micro uppercase tracking-[0.16em] text-cream">
                     Process reel
                   </span>
                 </div>
-                <span className="absolute bottom-2 left-0 right-0 text-center font-mono text-[0.55rem] tracking-[0.08em] text-tan">
+                <span className="absolute bottom-2 left-0 right-0 text-center font-mono t-micro tracking-[0.08em] text-tan">
                   Instagram · {REELS_IG.handle}
                 </span>
               </div>
             </button>
           </div>
           <Prose className="space-y-4">
-            <p className="max-w-[54ch] text-[1.06rem] font-light leading-[1.78] text-tan">
+            <p className="max-w-[54ch] t-body font-light leading-[1.78] text-tan">
               Everything else on this page is an artifact: a still, a prompt, a timeline. This is
               the reasoning that produced them, which is the part that actually transfers to the
               next project.
             </p>
-            <p className="max-w-[54ch] text-[1.06rem] font-light leading-[1.78] text-tan">
+            <p className="max-w-[54ch] t-body font-light leading-[1.78] text-tan">
               The tools will be obsolete within a year.{" "}
               <span className="text-cream">Knowing which layer a problem belongs to will not be.</span>
             </p>
@@ -99,7 +99,7 @@ export function AruReels() {
         >
           <button
             onClick={() => setOpen(false)}
-            className="absolute right-4 top-4 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-cream hover:text-forest"
+            className="absolute right-4 top-4 font-mono t-micro uppercase tracking-[0.14em] text-cream hover:text-forest"
           >
             ✕ close
           </button>

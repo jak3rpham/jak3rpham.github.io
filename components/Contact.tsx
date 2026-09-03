@@ -44,13 +44,13 @@ export function Contact() {
           <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-7 border-t border-rule pt-9 sm:grid-cols-3 lg:grid-cols-5">
             {CONTACT_LINES.map(({ k, v, href }) => (
               <div key={k} className="flex flex-col gap-1.5">
-                <span className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-sand">{k}</span>
+                <span className="font-mono t-micro uppercase tracking-[0.12em] text-sand">{k}</span>
                 {href ? (
-                  <a href={href} className="text-[1.02rem] text-cream transition-colors hover:text-forest">
+                  <a href={href} className="t-body text-cream transition-colors hover:text-forest">
                     {v}
                   </a>
                 ) : (
-                  <span className="text-[1.02rem] text-cream">{v}</span>
+                  <span className="t-body text-cream">{v}</span>
                 )}
               </div>
             ))}
@@ -67,7 +67,7 @@ export function Contact() {
                 href={href}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-full border border-rule px-4 py-2 font-mono text-[0.62rem] uppercase tracking-[0.06em] text-sand transition-colors hover:border-forest hover:bg-forest hover:text-ink"
+                className="rounded-full border border-rule px-4 py-2 font-mono t-micro uppercase tracking-[0.06em] text-sand transition-colors hover:border-forest hover:bg-forest hover:text-ink"
               >
                 {label}
               </a>

@@ -44,7 +44,7 @@ export function IeltsHero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.7 }}
-          className="mb-6 flex flex-wrap items-center gap-3 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-sand"
+          className="mb-6 flex flex-wrap items-center gap-3 font-mono t-micro uppercase tracking-[0.16em] text-sand"
         >
           <span className="text-forest">{"// case study"}</span>
           <span className="h-px w-8 bg-rule" />
@@ -75,8 +75,8 @@ export function IeltsHero() {
         >
           {SPEC.map(([k, v]) => (
             <div key={k} className="flex flex-wrap items-baseline gap-x-6 gap-y-1 border-b border-rule py-3">
-              <dt className="w-[104px] shrink-0 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-sand">{k}</dt>
-              <dd className="min-w-0 font-mono text-[0.86rem] text-cream">{v}</dd>
+              <dt className="w-[104px] shrink-0 font-mono t-micro uppercase tracking-[0.12em] text-sand">{k}</dt>
+              <dd className="min-w-0 font-mono t-small text-cream">{v}</dd>
             </div>
           ))}
         </motion.dl>
@@ -92,7 +92,7 @@ export function IeltsHero() {
               <div className="font-display text-[clamp(1.5rem,3vw,2.2rem)] font-bold leading-none tracking-[-0.03em] text-cream">
                 {n}
               </div>
-              <div className="mt-2 font-mono text-[0.54rem] uppercase tracking-[0.1em] text-sand">{l}</div>
+              <div className="mt-2 font-mono t-micro uppercase tracking-[0.1em] text-sand">{l}</div>
             </div>
           ))}
         </motion.div>

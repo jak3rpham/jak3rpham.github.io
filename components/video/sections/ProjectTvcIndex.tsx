@@ -19,7 +19,7 @@ function Row({ film, i, onOpen }: { film: Film; i: number; onOpen: (f: Film) => 
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="group flex w-full items-center gap-5 border-b border-rule py-6 text-left"
     >
-      <span className="w-9 shrink-0 font-mono text-[0.72rem] tracking-[0.1em] lg:hidden" style={{ color: AC }}>
+      <span className="w-9 shrink-0 font-mono t-label tracking-[0.1em] lg:hidden" style={{ color: AC }}>
         {ROMAN[i]}
       </span>
       <div className="relative aspect-video w-[46%] shrink-0 overflow-hidden rounded-[12px] border border-panel-border bg-ink-raised transition-colors group-hover:border-[color:var(--ac)]">
@@ -41,9 +41,9 @@ function Row({ film, i, onOpen }: { film: Film; i: number; onOpen: (f: Film) => 
         <div className="font-display text-[clamp(1.2rem,2.4vw,1.9rem)] font-bold leading-tight text-cream transition-transform duration-300 group-hover:translate-x-1">
           {film.title}
         </div>
-        <div className="mt-1.5 font-mono text-[0.58rem] uppercase tracking-[0.06em] text-sand">{film.meta}</div>
+        <div className="mt-1.5 font-mono t-micro uppercase tracking-[0.06em] text-sand">{film.meta}</div>
         {film.badge && (
-          <span className="mt-2 inline-block rounded-[5px] border px-2 py-0.5 font-mono text-[0.5rem] uppercase tracking-[0.06em]" style={{ borderColor: `${AC}66`, color: AC }}>
+          <span className="mt-2 inline-block rounded-[5px] border px-2 py-0.5 font-mono t-micro uppercase tracking-[0.06em]" style={{ borderColor: `${AC}66`, color: AC }}>
             {film.badge}
           </span>
         )}
@@ -91,7 +91,7 @@ export function ProjectTvcIndex() {
               University project <span style={{ color: AC }}>TVCs</span>
             </h3>
           </Reveal>
-          <div className="text-right font-mono text-[0.62rem] uppercase leading-[1.7] tracking-[0.12em] text-sand">
+          <div className="text-right font-mono t-micro uppercase leading-[1.7] tracking-[0.12em] text-sand">
             ISB · terra
             <br />
             Brand & product films
@@ -115,7 +115,7 @@ export function ProjectTvcIndex() {
                   {ROMAN[idx]}
                 </motion.div>
               </AnimatePresence>
-              <div className="mt-2 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-sand">
+              <div className="mt-2 font-mono t-micro uppercase tracking-[0.12em] text-sand">
                 {String(idx + 1).padStart(2, "0")} / {String(PROJECT_TVC.length).padStart(2, "0")}
               </div>
             </div>

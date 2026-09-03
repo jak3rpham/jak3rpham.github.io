@@ -72,7 +72,7 @@ function FeatureVideo() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-transparent" />
 
-        <span className="absolute left-5 top-5 rounded-full bg-ink/70 px-3 py-1 font-mono text-[0.55rem] uppercase tracking-[0.14em] text-cream backdrop-blur-sm">
+        <span className="absolute left-5 top-5 rounded-full bg-ink/70 px-3 py-1 font-mono t-micro uppercase tracking-[0.14em] text-cream backdrop-blur-sm">
           Final cut · 33s · watch here
         </span>
 
@@ -98,7 +98,7 @@ export function AruTeaser() {
     <section id="aru" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(3.5rem,7vw,6rem)]">
       <div className="mx-auto max-w-[1400px]">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-          <p className="mb-2 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-forest">
+          <p className="mb-2 font-mono t-micro uppercase tracking-[0.22em] text-forest">
             Case study · AI music video
           </p>
           <Reveal>
@@ -142,9 +142,9 @@ export function AruTeaser() {
             <dl className="mt-6 border-t border-rule pt-3">
               {CREDITS.map(([k, v]) => (
                 <div key={k} className="flex items-baseline gap-3 py-[0.42rem]">
-                  <dt className="whitespace-nowrap font-mono text-[0.56rem] uppercase tracking-[0.16em] text-sand">{k}</dt>
+                  <dt className="whitespace-nowrap font-mono t-micro uppercase tracking-[0.16em] text-sand">{k}</dt>
                   <span aria-hidden className="min-w-3 flex-1 translate-y-[-0.25em] border-b border-dotted border-rule" />
-                  <dd className="whitespace-nowrap font-mono text-[0.72rem] text-cream">{v}</dd>
+                  <dd className="whitespace-nowrap font-mono t-label text-cream">{v}</dd>
                 </div>
               ))}
             </dl>

@@ -18,7 +18,7 @@ function Tel({ to, decimals = 0, prefix = "", suffix = "", label, staticValue }:
         {staticValue ?? c.value.toFixed(decimals)}
         {suffix}
       </div>
-      <div className="mt-2 font-mono text-[0.56rem] uppercase tracking-[0.1em] text-sand">{label}</div>
+      <div className="mt-2 font-mono t-micro uppercase tracking-[0.1em] text-sand">{label}</div>
     </div>
   );
 }
@@ -52,9 +52,9 @@ export function TerraHero() {
           transition={{ delay: 0.9, duration: 0.7 }}
           className="mt-5 flex flex-wrap items-center gap-3 text-sand"
         >
-          <b className="font-serif-jp text-[1.1rem] font-bold text-forest">達樹</b>
+          <b className="font-serif-jp t-lead font-bold text-forest">達樹</b>
           <span className="h-px w-8 bg-rule" />
-          <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em]">Featured case study · Sep 2024 → Jun 2026</span>
+          <span className="font-mono t-micro uppercase tracking-[0.16em]">Featured case study · Sep 2024 → Jun 2026</span>
         </motion.div>
         <motion.p
           initial={{ opacity: 0, y: 16 }}

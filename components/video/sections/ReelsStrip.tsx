@@ -39,12 +39,12 @@ function ReelCard({ film, i, onOpen }: { film: Film; i: number; onOpen: (f: Film
         >
           ▶
         </span>
-        <span className="absolute right-2.5 top-2.5 rounded-[5px] bg-black/55 px-2 py-0.5 font-mono text-[0.5rem] uppercase tracking-[0.06em] text-[color:var(--ac)] backdrop-blur-sm">
+        <span className="absolute right-2.5 top-2.5 rounded-[5px] bg-black/55 px-2 py-0.5 font-mono t-micro uppercase tracking-[0.06em] text-[color:var(--ac)] backdrop-blur-sm">
           9:16
         </span>
         <div className="absolute inset-x-3 bottom-3">
-          <div className="text-[0.82rem] font-semibold leading-tight text-cream">{film.title}</div>
-          <div className="mt-0.5 font-mono text-[0.52rem] uppercase tracking-[0.04em] text-sand">{film.meta}</div>
+          <div className="t-small font-semibold leading-tight text-cream">{film.title}</div>
+          <div className="mt-0.5 font-mono t-micro uppercase tracking-[0.04em] text-sand">{film.meta}</div>
         </div>
       </div>
     </motion.button>
@@ -124,7 +124,7 @@ export function ReelsStrip() {
             </h3>
           </Reveal>
           <div className="flex items-center gap-4">
-            <div className="text-right font-mono text-[0.62rem] uppercase leading-[1.7] tracking-[0.12em] text-sand">
+            <div className="text-right font-mono t-micro uppercase leading-[1.7] tracking-[0.12em] text-sand">
               Vertical · 9:16 · {REELS.length}
               <br />
               Drag or use →

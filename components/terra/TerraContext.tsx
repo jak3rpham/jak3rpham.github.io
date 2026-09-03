@@ -35,7 +35,7 @@ export function TerraContext() {
             <p className="mb-6 max-w-[24ch] font-display text-[clamp(1.5rem,2.6vw,2.2rem)] font-medium leading-[1.35] tracking-[-0.01em] text-cream">
               Joined at <span className="text-forest">~170 clicks/day</span>, health 55, no GA4. Sole tech &amp; creative lead.
             </p>
-            <p className="max-w-[54ch] text-[1.12rem] font-light leading-[1.85] text-tan">
+            <p className="max-w-[54ch] t-lead font-light leading-[1.85] text-tan">
               terra is a B2B payroll and HR SaaS for <strong className="font-medium text-cream">FDI enterprises</strong> in Vietnam,
               selling to HR managers and CFOs through a long, research-heavy, bilingual buyer journey (VI + EN for Japanese and
               European decision-makers). The mandate was full-stack: build the SEO foundation, the analytics layer, and the content
@@ -52,8 +52,8 @@ export function TerraContext() {
           >
             {SPECS.map(([k, v]) => (
               <motion.div key={k} variants={row} className="flex items-center justify-between gap-4 border-b border-rule px-4 py-3.5 last:border-b-0">
-                <span className="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-sand">{k}</span>
-                <span className="text-right text-[0.95rem] font-medium text-cream">{v}</span>
+                <span className="font-mono t-micro uppercase tracking-[0.1em] text-sand">{k}</span>
+                <span className="text-right t-small font-medium text-cream">{v}</span>
               </motion.div>
             ))}
           </motion.div>

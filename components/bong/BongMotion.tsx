@@ -34,7 +34,7 @@ export function BongMotion() {
           </Reveal>
         </div>
 
-        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-10 max-w-[64ch] text-[1.1rem] font-light leading-[1.75] text-tan">
+        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-10 max-w-[64ch] t-lead font-light leading-[1.75] text-tan">
           Both included to show the boundary between free-tier and production capability. The contrast is the lesson. Hiding the
           failure would have been easier; showing it with the diagnosis is what separates a portfolio piece from a brochure.
         </motion.p>
@@ -50,9 +50,9 @@ export function BongMotion() {
             <motion.div key={c.title} variants={fadeUp} className="overflow-hidden rounded-[16px] border border-panel-border bg-ink-raised">
               <video src={c.src} poster={c.poster} controls muted loop playsInline preload="metadata" className="block w-full bg-black" />
               <div className="px-6 py-5">
-                <div className="font-mono text-[0.6rem] uppercase tracking-[0.08em] text-forest">{c.kicker}</div>
-                <div className="mt-1.5 text-[1.1rem] font-semibold text-cream">{c.title}</div>
-                <p className="mt-2 text-[0.92rem] font-light leading-[1.6] text-tan">{c.desc}</p>
+                <div className="font-mono t-micro uppercase tracking-[0.08em] text-forest">{c.kicker}</div>
+                <div className="mt-1.5 t-lead font-semibold text-cream">{c.title}</div>
+                <p className="mt-2 t-small font-light leading-[1.6] text-tan">{c.desc}</p>
               </div>
             </motion.div>
           ))}

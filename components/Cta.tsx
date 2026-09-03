@@ -18,8 +18,8 @@ type Arrow = "right" | "up-right" | "none";
  * <Cta> instead of hand-copying the classes.
  */
 const SIZE: Record<Size, string> = {
-  md: "px-7 py-3.5 text-[0.95rem]",
-  lg: "px-8 py-4 text-[1rem]",
+  md: "px-7 py-3.5 t-small",
+  lg: "px-8 py-4 t-body",
 };
 
 const VARIANT: Record<Variant, string> = {

@@ -78,7 +78,7 @@ export function NhaMinhPipeline() {
         
         {/* Section Heading */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-          <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
+          <span className="font-mono t-micro uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
             03 · Multimodal AI Architecture
           </span>
           <Reveal className="mt-2">
@@ -118,11 +118,11 @@ export function NhaMinhPipeline() {
           {/* Left Narrative */}
           <div className="lg:col-span-6 rounded-2xl border border-orange-200 bg-white p-6 shadow-sm flex flex-col justify-between">
             <div>
-              <span className="font-mono text-[0.65rem] uppercase tracking-widest text-[#FF6B4B] font-bold">
+              <span className="font-mono t-micro uppercase tracking-widest text-[#FF6B4B] font-bold">
                 // Pipeline Step {cur.step}
               </span>
               <h3 className="mt-1 font-display text-xl font-bold text-slate-900">{cur.title}</h3>
-              <p className="mt-3 text-[0.92rem] font-normal leading-[1.65] text-slate-600">{cur.desc}</p>
+              <p className="mt-3 t-small font-normal leading-[1.65] text-slate-600">{cur.desc}</p>
             </div>
 
             <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between font-mono text-xs text-slate-500">
@@ -140,14 +140,14 @@ export function NhaMinhPipeline() {
                   <span className="h-2 w-2 rounded-full bg-yellow-500/80" />
                   <span className="h-2 w-2 rounded-full bg-green-500/80" />
                 </div>
-                <span className="font-mono text-[0.62rem] text-slate-400">payload.pipeline_step_{cur.step}.ts</span>
+                <span className="font-mono t-micro text-slate-400">payload.pipeline_step_{cur.step}.ts</span>
               </div>
-              <pre className="mt-3 overflow-x-auto font-mono text-[0.76rem] leading-[1.6] text-emerald-400">
+              <pre className="mt-3 overflow-x-auto font-mono t-label leading-[1.6] text-emerald-400">
                 <code>{cur.code}</code>
               </pre>
             </div>
 
-            <div className="mt-4 flex items-center justify-between pt-3 border-t border-slate-800 font-mono text-[0.62rem] text-slate-400">
+            <div className="mt-4 flex items-center justify-between pt-3 border-t border-slate-800 font-mono t-micro text-slate-400">
               <span>Deterministic Assertion: PASSED</span>
               <span className="text-emerald-400">134 Unit Tests Verified</span>
             </div>

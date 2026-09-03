@@ -23,7 +23,7 @@ export function BongReflection() {
           </Reveal>
         </div>
 
-        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-8 max-w-[62ch] text-[1.1rem] font-light leading-[1.75] text-tan">
+        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-8 max-w-[62ch] t-lead font-light leading-[1.75] text-tan">
           There is no best AI. There is only the right model for each stage of the work.
         </motion.p>
 
@@ -31,18 +31,18 @@ export function BongReflection() {
           <table className="w-full border-collapse text-left">
             <thead>
               <tr className="border-b border-rule">
-                <th className="px-5 py-4 font-mono text-[0.58rem] uppercase tracking-[0.08em] text-sand">Stage</th>
-                <th className="px-5 py-4 font-mono text-[0.58rem] uppercase tracking-[0.08em] text-sand">Best tool</th>
-                <th className="hidden px-5 py-4 font-mono text-[0.58rem] uppercase tracking-[0.08em] text-sand sm:table-cell">Why this model, here</th>
+                <th className="px-5 py-4 font-mono t-micro uppercase tracking-[0.08em] text-sand">Stage</th>
+                <th className="px-5 py-4 font-mono t-micro uppercase tracking-[0.08em] text-sand">Best tool</th>
+                <th className="hidden px-5 py-4 font-mono t-micro uppercase tracking-[0.08em] text-sand sm:table-cell">Why this model, here</th>
               </tr>
             </thead>
             <tbody>
               {ROWS.map(([stage, tool, why]) => (
                 <tr key={stage} className="border-b border-rule last:border-b-0 align-top">
-                  <td className="whitespace-nowrap px-5 py-4 text-[0.92rem] font-medium text-cream">{stage}</td>
-                  <td className="whitespace-nowrap px-5 py-4 font-mono text-[0.82rem] text-forest">{tool}</td>
-                  <td className="px-5 py-4 text-[0.9rem] font-light leading-[1.55] text-tan">
-                    <span className="mb-1 block font-mono text-[0.7rem] text-sand sm:hidden">Why here</span>
+                  <td className="whitespace-nowrap px-5 py-4 t-small font-medium text-cream">{stage}</td>
+                  <td className="whitespace-nowrap px-5 py-4 font-mono t-small text-forest">{tool}</td>
+                  <td className="px-5 py-4 t-small font-light leading-[1.55] text-tan">
+                    <span className="mb-1 block font-mono t-micro text-sand sm:hidden">Why here</span>
                     {why}
                   </td>
                 </tr>
@@ -55,7 +55,7 @@ export function BongReflection() {
           <p className="text-[clamp(1.3rem,2.6vw,1.9rem)] font-light leading-[1.4] text-cream">
             Flux fails at text. GPT Image 1 succeeds where newer models do not. The orchestration is matching them.
           </p>
-          <cite className="mt-3 block font-mono text-[0.62rem] uppercase not-italic tracking-[0.08em] text-sand">Operating principle</cite>
+          <cite className="mt-3 block font-mono t-micro uppercase not-italic tracking-[0.08em] text-sand">Operating principle</cite>
         </motion.blockquote>
       </div>
     </section>

@@ -62,12 +62,12 @@ export function DrawDiagram({
             <circle cx={n.x} cy={n.y} r={r} fill="#141813" stroke="var(--color-forest)" strokeWidth={1.6} />
             <circle cx={n.x} cy={n.y} r={2.6} fill="var(--color-forest)" />
             {n.label && (
-              <text x={n.x} y={n.y + r + 15} textAnchor="middle" fontFamily="var(--font-mono)" fontSize={10.5} fill="var(--color-cream)">
+              <text x={n.x} y={n.y + r + 15} textAnchor="middle" fontFamily="var(--font-mono)" fontSize={12} fill="var(--color-cream)">
                 {n.label}
               </text>
             )}
             {n.sub && (
-              <text x={n.x} y={n.y + r + 29} textAnchor="middle" fontFamily="var(--font-mono)" fontSize={9} fill="var(--color-sand)">
+              <text x={n.x} y={n.y + r + 29} textAnchor="middle" fontFamily="var(--font-mono)" fontSize={12} fill="var(--color-sand)">
                 {n.sub}
               </text>
             )}

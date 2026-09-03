@@ -33,8 +33,8 @@ function KpiCard({ k }: { k: Kpi }) {
       <div className="font-display text-[clamp(1.8rem,3.4vw,2.8rem)] font-bold leading-none tracking-[-0.03em] text-forest">
         {shown}
       </div>
-      <div className="mt-3 text-[0.95rem] font-medium text-cream">{k.label}</div>
-      <div className="mt-0.5 font-mono text-[0.58rem] uppercase tracking-[0.06em] text-sand">{k.sub}</div>
+      <div className="mt-3 t-small font-medium text-cream">{k.label}</div>
+      <div className="mt-0.5 font-mono t-micro uppercase tracking-[0.06em] text-sand">{k.sub}</div>
     </motion.div>
   );
 }

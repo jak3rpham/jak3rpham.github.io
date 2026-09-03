@@ -29,7 +29,7 @@ export function BongFinal() {
             className="mx-auto w-full max-w-[420px] overflow-hidden rounded-[16px] border border-panel-border bg-ink-raised"
           >
             <img src="/images/vng-demo/final/ad-mockup-final.webp" alt="BÓNG VESPERA ad mockup final" loading="lazy" className="w-full" />
-            <figcaption className="px-4 py-3 text-center font-mono text-[0.6rem] uppercase tracking-[0.08em] text-sand">
+            <figcaption className="px-4 py-3 text-center font-mono t-micro uppercase tracking-[0.08em] text-sand">
               BÓNG VESPERA · ad cover
             </figcaption>
           </motion.figure>

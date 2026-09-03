@@ -65,10 +65,10 @@ export function AruWalk() {
         />
         <div className="relative mx-auto max-w-[1400px]">
           <div className="mb-4 inline-flex items-stretch">
-            <span className="bg-forest px-2.5 py-1 font-mono text-[0.62rem] font-medium leading-none tracking-[0.1em] text-ink">
+            <span className="bg-forest px-2.5 py-1 font-mono t-micro font-medium leading-none tracking-[0.1em] text-ink">
               01
             </span>
-            <span className="border-y-2 border-r-2 border-[#0C0906] bg-panel px-2.5 py-1 font-mono text-[0.62rem] uppercase leading-none tracking-[0.14em] text-sand">
+            <span className="border-y-2 border-r-2 border-[#0C0906] bg-panel px-2.5 py-1 font-mono t-micro uppercase leading-none tracking-[0.14em] text-sand">
               {ASSET_S00.label} · the asset
             </span>
           </div>
@@ -85,7 +85,7 @@ export function AruWalk() {
             className="mt-5"
           >
             <Prose className="max-w-[60ch]">
-              <p className="text-[1.06rem] font-light leading-[1.78] text-tan">
+              <p className="t-body font-light leading-[1.78] text-tan">
                 One 5-second generation, split into 151 frames. You set the pace of his walk with
                 the scroll, and three more clips move with it. In the video the walk is doubled to
                 2.0× so the street tears past; here it is yours to slow down, the one moment the
@@ -101,7 +101,7 @@ export function AruWalk() {
       <div className="px-[var(--pad)] pb-[clamp(3rem,7vw,6rem)]">
         <div className="mx-auto max-w-[1400px]">
           <Prose className="max-w-[62ch]">
-            <p className="font-mono text-[0.72rem] leading-[1.9] tracking-[0.02em] text-sand">
+            <p className="font-mono t-label leading-[1.9] tracking-[0.02em] text-sand">
               {ASSET_S00.note} The video opens on the skyline and ends on the burning street; the
               walk is the pulse in between.
             </p>

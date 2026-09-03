@@ -43,14 +43,14 @@ export function TerraPages() {
       <HoverScrollShot src={p.img} alt={p.title} urlLabel={p.label} />
       <div className="flex items-center justify-between gap-4 px-6 py-5">
         <div>
-          <div className="text-[1.2rem] font-semibold text-cream">{p.title}</div>
-          <div className="mt-0.5 font-mono text-[0.62rem] uppercase tracking-[0.06em] text-sand">{p.kind}</div>
+          <div className="t-lead font-semibold text-cream">{p.title}</div>
+          <div className="mt-0.5 font-mono t-micro uppercase tracking-[0.06em] text-sand">{p.kind}</div>
         </div>
         <a
           href={p.url}
           target="_blank"
           rel="noreferrer"
-          className="shrink-0 rounded-full border border-rule px-4 py-2.5 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-forest transition-colors hover:border-forest hover:bg-forest hover:text-ink"
+          className="shrink-0 rounded-full border border-rule px-4 py-2.5 font-mono t-micro uppercase tracking-[0.08em] text-forest transition-colors hover:border-forest hover:bg-forest hover:text-ink"
         >
           Live ↗
         </a>
@@ -68,7 +68,7 @@ export function TerraPages() {
             </h2>
           </Reveal>
         </div>
-        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-10 max-w-[62ch] text-[1.1rem] font-light leading-[1.75] text-tan">
+        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-10 max-w-[62ch] t-lead font-light leading-[1.75] text-tan">
           Pages I shipped end-to-end: keyword strategy, copy, layout, on-page SEO, and technical implementation. Drag to browse; hover
           a screenshot to scroll the full page.
         </motion.p>

@@ -85,7 +85,7 @@ export function BongTeaser() {
               <text x={node.x} y="76" textAnchor="middle" fill="var(--color-cream)" fontFamily="var(--font-sans)" fontSize="14" fontWeight={500}>
                 {node.t}
               </text>
-              <text x={node.x} y="93" textAnchor="middle" fill="var(--color-sand)" fontFamily="var(--font-mono)" fontSize="10.5">
+              <text x={node.x} y="93" textAnchor="middle" fill="var(--color-sand)" fontFamily="var(--font-mono)" fontSize="12">
                 {node.m}
               </text>
             </motion.g>
@@ -102,13 +102,13 @@ export function BongTeaser() {
         >
           <div>
             <div className="mb-6 overflow-hidden rounded-[10px] border border-rule bg-ink-raised/50">
-              <div className="flex items-center justify-between border-b border-rule px-4 py-2.5 font-mono text-[0.56rem] uppercase tracking-[0.14em] text-sand">
+              <div className="flex items-center justify-between border-b border-rule px-4 py-2.5 font-mono t-micro uppercase tracking-[0.14em] text-sand">
                 <span>{"// run log"}</span>
                 <span>solo · may 2026</span>
               </div>
               <ul className="px-4 py-2">
                 {RUN.map((r) => (
-                  <li key={r.step} className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 py-2 font-mono text-[0.7rem]">
+                  <li key={r.step} className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 py-2 font-mono t-micro">
                     <span aria-hidden className={r.ok ? "text-forest" : "text-tan"}>
                       {r.ok ? "✓" : "✕"}
                     </span>
@@ -118,7 +118,7 @@ export function BongTeaser() {
                   </li>
                 ))}
               </ul>
-              <div className="flex flex-wrap gap-x-6 gap-y-1 border-t border-rule px-4 py-3 font-mono text-[0.62rem] text-sand">
+              <div className="flex flex-wrap gap-x-6 gap-y-1 border-t border-rule px-4 py-3 font-mono t-micro text-sand">
                 {TOTALS.map(([k, v]) => (
                   <span key={k}>
                     {k} <span className="text-cream">{v}</span>

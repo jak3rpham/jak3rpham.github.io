@@ -50,7 +50,7 @@ export function NhaMinhSafety() {
     <section className="relative z-[4] px-[var(--pad)] py-12">
       <div className="mx-auto max-w-[1120px]">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-          <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
+          <span className="font-mono t-micro uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
             05 · Clinical Boundaries
           </span>
           <Reveal className="mt-2">
@@ -88,26 +88,26 @@ export function NhaMinhSafety() {
               <span className="font-serif-jp text-2xl font-bold text-[#FF6B4B]">{cur.num}</span>
               <h3 className="font-display text-xl font-bold text-slate-900">{cur.title}</h3>
             </div>
-            <span className="rounded-full bg-orange-50 border border-orange-200 px-3 py-0.5 font-mono text-[0.62rem] text-[#FF6B4B] uppercase font-bold">
+            <span className="rounded-full bg-orange-50 border border-orange-200 px-3 py-0.5 font-mono t-micro text-[#FF6B4B] uppercase font-bold">
               Zero Tolerance Invariant
             </span>
           </div>
 
-          <p className="mt-4 text-[0.96rem] font-normal leading-[1.65] text-slate-600 max-w-[78ch]">{cur.rule}</p>
+          <p className="mt-4 t-body font-normal leading-[1.65] text-slate-600 max-w-[78ch]">{cur.rule}</p>
 
           <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="rounded-xl border border-red-200 bg-red-50/70 p-4">
-              <span className="font-mono text-[0.62rem] uppercase tracking-wider text-red-700 font-bold">
+              <span className="font-mono t-micro uppercase tracking-wider text-red-700 font-bold">
                 [UNACCEPTABLE LLM HALLUCINATION]
               </span>
-              <p className="mt-1.5 text-[0.85rem] font-mono leading-[1.6] text-red-900">{cur.bad}</p>
+              <p className="mt-1.5 t-small font-mono leading-[1.6] text-red-900">{cur.bad}</p>
             </div>
 
             <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4">
-              <span className="font-mono text-[0.62rem] uppercase tracking-wider text-emerald-700 font-bold">
+              <span className="font-mono t-micro uppercase tracking-wider text-emerald-700 font-bold">
                 [NHÀ MÌNH DETERMINISTIC RESPONSE]
               </span>
-              <p className="mt-1.5 text-[0.85rem] font-mono leading-[1.6] text-emerald-900">{cur.good}</p>
+              <p className="mt-1.5 t-small font-mono leading-[1.6] text-emerald-900">{cur.good}</p>
             </div>
           </div>
         </div>

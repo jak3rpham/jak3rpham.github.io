@@ -26,7 +26,7 @@ export function IeltsWhy() {
     <section id="why" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(4rem,8vw,7rem)]">
       <div className="mx-auto max-w-[1180px]">
         <div className="mb-10 border-b border-rule pb-6">
-          <span className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-forest">{"// why it exists"}</span>
+          <span className="font-mono t-micro uppercase tracking-[0.18em] text-forest">{"// why it exists"}</span>
           <Reveal className="mt-3">
             <h2 className="font-display text-[clamp(2.2rem,5vw,3.8rem)] font-bold leading-[1.06] tracking-[-0.035em] text-cream">
               Built for a real user. <span className="text-forest">Me.</span>
@@ -39,7 +39,7 @@ export function IeltsWhy() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
-          className="mb-12 max-w-[62ch] text-[1.12rem] font-light leading-[1.8] text-tan"
+          className="mb-12 max-w-[62ch] t-lead font-light leading-[1.8] text-tan"
         >
           Practice apps grade you against a keyword list and call it a band score. What actually moves a
           score is being told, specifically, what to fix next — and being trained against the traps a
@@ -56,9 +56,9 @@ export function IeltsWhy() {
         >
           {CONSTRAINTS.map((c) => (
             <motion.div key={c.k} variants={fadeUp} className="bg-ink p-7">
-              <div className="font-mono text-[0.7rem] tracking-[0.1em] text-forest">{c.k}</div>
-              <div className="mb-3 mt-3 text-[1.12rem] font-medium leading-tight text-cream">{c.t}</div>
-              <p className="text-[0.94rem] font-light leading-[1.7] text-tan">{c.d}</p>
+              <div className="font-mono t-micro tracking-[0.1em] text-forest">{c.k}</div>
+              <div className="mb-3 mt-3 t-lead font-medium leading-tight text-cream">{c.t}</div>
+              <p className="t-small font-light leading-[1.7] text-tan">{c.d}</p>
             </motion.div>
           ))}
         </motion.div>

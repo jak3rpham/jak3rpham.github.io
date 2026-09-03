@@ -45,7 +45,7 @@ function Cover({ film, big, onOpen }: { film: Film; big?: boolean; onOpen: (f: F
         style={{ boxShadow: `inset 0 0 80px -20px ${AC}` }}
       />
       {linkOnly ? (
-        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border-[1.5px] px-5 py-2 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-cream transition-colors group-hover:text-[color:var(--ac)]" style={{ borderColor: "rgba(245,242,232,0.8)" }}>
+        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border-[1.5px] px-5 py-2 font-mono t-micro uppercase tracking-[0.12em] text-cream transition-colors group-hover:text-[color:var(--ac)]" style={{ borderColor: "rgba(245,242,232,0.8)" }}>
           Case study →
         </span>
       ) : (
@@ -57,7 +57,7 @@ function Cover({ film, big, onOpen }: { film: Film; big?: boolean; onOpen: (f: F
         </span>
       )}
       {film.badge && (
-        <span className="absolute right-4 top-4 rounded-md px-2.5 py-1 font-mono text-[0.54rem] font-semibold uppercase tracking-[0.08em] text-ink" style={{ background: AC }}>
+        <span className="absolute right-4 top-4 rounded-md px-2.5 py-1 font-mono t-micro font-semibold uppercase tracking-[0.08em] text-ink" style={{ background: AC }}>
           {film.badge}
         </span>
       )}
@@ -65,7 +65,7 @@ function Cover({ film, big, onOpen }: { film: Film; big?: boolean; onOpen: (f: F
         <div className={`font-display font-bold leading-[0.98] tracking-[-0.02em] text-cream ${big ? "text-[clamp(2rem,6vw,4.2rem)]" : "text-[1.5rem]"}`}>
           {film.title}
         </div>
-        <div className="mt-2 font-mono text-[0.6rem] uppercase tracking-[0.06em] text-sand">{film.meta}</div>
+        <div className="mt-2 font-mono t-micro uppercase tracking-[0.06em] text-sand">{film.meta}</div>
       </div>
     </Wrapper>
   );
@@ -93,7 +93,7 @@ export function MusicWall() {
               Music <span style={{ color: AC }}>videos</span>
             </h3>
           </Reveal>
-          <div className="text-right font-mono text-[0.62rem] uppercase leading-[1.7] tracking-[0.12em] text-sand">
+          <div className="text-right font-mono t-micro uppercase leading-[1.7] tracking-[0.12em] text-sand">
             L.O.M Music Club
             <br />
             Themes · MVs · visualizers

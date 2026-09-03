@@ -27,10 +27,10 @@ export function AruHero() {
               animate="visible"
               className="mb-5 inline-flex items-stretch"
             >
-              <span className="bg-forest px-2.5 py-1 font-mono text-[0.62rem] font-medium leading-none tracking-[0.1em] text-ink">
+              <span className="bg-forest px-2.5 py-1 font-mono t-micro font-medium leading-none tracking-[0.1em] text-ink">
                 CASE STUDY
               </span>
-              <span className="border-y-2 border-r-2 border-[#0C0906] bg-panel px-2.5 py-1 font-mono text-[0.62rem] uppercase leading-none tracking-[0.14em] text-sand">
+              <span className="border-y-2 border-r-2 border-[#0C0906] bg-panel px-2.5 py-1 font-mono t-micro uppercase leading-none tracking-[0.14em] text-sand">
                 AI music video · prototype
               </span>
             </motion.div>
@@ -41,7 +41,7 @@ export function AruHero() {
               </h1>
             </Reveal>
             <Reveal delay={0.08}>
-              <p className="mt-2 font-mono text-[0.7rem] uppercase tracking-[0.24em] text-forest">
+              <p className="mt-2 font-mono t-micro uppercase tracking-[0.24em] text-forest">
                 Aru Otoko · a man
               </p>
             </Reveal>
@@ -63,7 +63,7 @@ export function AruHero() {
               className="mt-4"
             >
               <Prose className="max-w-[54ch]">
-                <p className="text-[1.04rem] font-light leading-[1.75] text-tan">
+                <p className="t-body font-light leading-[1.75] text-tan">
                   A 33-second music video for the song, made from eleven AI generations. The city
                   never slows for him. That rush is not generated; it is speed-ramped in by hand,
                   clip by clip. This is an account of building it.
@@ -80,8 +80,8 @@ export function AruHero() {
             >
               {STATS.map((s) => (
                 <div key={s.k}>
-                  <dt className="font-mono text-[0.56rem] uppercase tracking-[0.16em] text-clay">{s.k}</dt>
-                  <dd className="mt-1 font-mono text-[0.95rem] text-cream">{s.v}</dd>
+                  <dt className="font-mono t-micro uppercase tracking-[0.16em] text-clay">{s.k}</dt>
+                  <dd className="mt-1 font-mono t-small text-cream">{s.v}</dd>
                 </div>
               ))}
             </motion.dl>
@@ -95,7 +95,7 @@ export function AruHero() {
               poster={POSTER.horizontal}
               inline
             />
-            <p className="mt-3 font-mono text-[0.58rem] leading-[1.8] tracking-[0.04em] text-clay">
+            <p className="mt-3 font-mono t-micro leading-[1.8] tracking-[0.04em] text-clay">
               AI-directed and orchestrated end to end · not a commissioned production
             </p>
           </motion.div>

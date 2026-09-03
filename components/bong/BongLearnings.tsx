@@ -44,8 +44,8 @@ export function BongLearnings() {
           {LEARNINGS.map((l) => (
             <motion.div key={l.k} variants={fadeUp} className="rounded-[16px] border border-panel-border bg-panel p-6 backdrop-blur-md">
               <div className="font-serif-jp text-[1.6rem] leading-none text-forest">{l.k}</div>
-              <div className="mb-2 mt-3 text-[1.1rem] font-semibold text-cream">{l.title}</div>
-              <p className="text-[0.9rem] font-light leading-[1.6] text-tan">{l.body}</p>
+              <div className="mb-2 mt-3 t-lead font-semibold text-cream">{l.title}</div>
+              <p className="t-small font-light leading-[1.6] text-tan">{l.body}</p>
             </motion.div>
           ))}
         </motion.div>

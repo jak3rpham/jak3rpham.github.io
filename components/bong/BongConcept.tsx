@@ -42,7 +42,7 @@ export function BongConcept() {
           </Reveal>
         </div>
 
-        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-10 max-w-[64ch] text-[1.1rem] font-light leading-[1.75] text-tan">
+        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-10 max-w-[64ch] t-lead font-light leading-[1.75] text-tan">
           Decision under constraint matters more than picking the best concept. C won because a single subject plus atmospheric scenes
           maximise per-credit yield on Flux, and the mood is recruiter-distinctive (most VN game ads default to power fantasy).
         </motion.p>
@@ -63,14 +63,14 @@ export function BongConcept() {
               }`}
             >
               {c.pick && (
-                <span className="absolute right-4 top-4 rounded-[5px] bg-forest px-2 py-0.5 font-mono text-[0.52rem] font-semibold uppercase tracking-[0.1em] text-ink">
+                <span className="absolute right-4 top-4 rounded-[5px] bg-forest px-2 py-0.5 font-mono t-micro font-semibold uppercase tracking-[0.1em] text-ink">
                   Picked
                 </span>
               )}
-              <div className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-sand">{c.dir}</div>
-              <div className="mb-2 mt-1 text-[1.2rem] font-semibold text-cream">{c.title}</div>
-              <p className="mb-4 text-[0.92rem] font-light leading-[1.6] text-tan">{c.desc}</p>
-              <div className="space-y-1 border-t border-rule pt-3 text-[0.82rem] text-sand">
+              <div className="font-mono t-micro uppercase tracking-[0.12em] text-sand">{c.dir}</div>
+              <div className="mb-2 mt-1 t-lead font-semibold text-cream">{c.title}</div>
+              <p className="mb-4 t-small font-light leading-[1.6] text-tan">{c.desc}</p>
+              <div className="space-y-1 border-t border-rule pt-3 t-small text-sand">
                 <div>
                   Mood <b className="font-medium text-forest">{c.mood}</b>
                 </div>

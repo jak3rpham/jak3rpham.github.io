@@ -38,10 +38,10 @@ export function AruSection({
         <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
           <div>
             <div className="mb-4 inline-flex items-stretch">
-              <span className="bg-forest px-2.5 py-1 font-mono text-[0.62rem] font-medium leading-none tracking-[0.1em] text-ink">
+              <span className="bg-forest px-2.5 py-1 font-mono t-micro font-medium leading-none tracking-[0.1em] text-ink">
                 {no}
               </span>
-              <span className="border-y-2 border-r-2 border-[#0C0906] bg-panel px-2.5 py-1 font-mono text-[0.62rem] uppercase leading-none tracking-[0.14em] text-sand">
+              <span className="border-y-2 border-r-2 border-[#0C0906] bg-panel px-2.5 py-1 font-mono t-micro uppercase leading-none tracking-[0.14em] text-sand">
                 {kicker}
               </span>
             </div>
@@ -55,7 +55,7 @@ export function AruSection({
         </div>
         {lede ? (
           <Prose className="mb-10 max-w-[66ch]">
-            <p className="text-[1.08rem] font-light leading-[1.75] text-tan">{lede}</p>
+            <p className="t-lead font-light leading-[1.75] text-tan">{lede}</p>
           </Prose>
         ) : null}
         {children}

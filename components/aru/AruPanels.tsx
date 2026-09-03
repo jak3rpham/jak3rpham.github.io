@@ -72,14 +72,14 @@ export function AruPanels() {
             </h3>
             <button
               onClick={() => toggle(active.id)}
-              className="font-mono text-[0.62rem] uppercase tracking-[0.12em] text-sand hover:text-cream"
+              className="font-mono t-micro uppercase tracking-[0.12em] text-sand hover:text-cream"
             >
               ✕ close
             </button>
           </div>
 
           {active.note ? (
-            <p className="mb-6 max-w-[70ch] text-[0.98rem] font-light leading-[1.75] text-tan">
+            <p className="mb-6 max-w-[70ch] t-body font-light leading-[1.75] text-tan">
               {active.note}
             </p>
           ) : null}
@@ -89,7 +89,7 @@ export function AruPanels() {
               {active.imgPrompt ? (
                 <Prompt label="Image prompt" body={active.imgPrompt} />
               ) : (
-                <p className="rounded-[4px] border border-rule bg-ink/60 p-3 font-mono text-[0.66rem] leading-[1.85] text-sand">
+                <p className="rounded-[4px] border border-rule bg-ink/60 p-3 font-mono t-micro leading-[1.85] text-sand">
                   No written prompt on record. This shot emerged in the build rather than from the
                   spec.
                 </p>
@@ -98,17 +98,17 @@ export function AruPanels() {
               {active.imgPrompt ? (
                 <>
                   <details className="group">
-                    <summary className="cursor-pointer list-none font-mono text-[0.6rem] uppercase tracking-[0.14em] text-clay hover:text-sand">
+                    <summary className="cursor-pointer list-none font-mono t-micro uppercase tracking-[0.14em] text-clay hover:text-sand">
                       + style block · appended verbatim, never varied
                     </summary>
-                    <p className="mt-2 font-mono text-[0.66rem] leading-[1.9] text-sand">{STYLE_BLOCK}</p>
+                    <p className="mt-2 font-mono t-micro leading-[1.9] text-sand">{STYLE_BLOCK}</p>
                   </details>
                   {active.id !== "s06" && active.id !== "s08" ? (
                     <details className="group">
-                      <summary className="cursor-pointer list-none font-mono text-[0.6rem] uppercase tracking-[0.14em] text-clay hover:text-sand">
+                      <summary className="cursor-pointer list-none font-mono t-micro uppercase tracking-[0.14em] text-clay hover:text-sand">
                         + wardrobe canon · the model has no memory between runs
                       </summary>
-                      <p className="mt-2 font-mono text-[0.66rem] leading-[1.9] text-sand">{WARDROBE}</p>
+                      <p className="mt-2 font-mono t-micro leading-[1.9] text-sand">{WARDROBE}</p>
                     </details>
                   ) : null}
                 </>
@@ -123,7 +123,7 @@ export function AruPanels() {
                 poster={active.still}
                 inline
               />
-              <p className="mt-3 font-mono text-[0.6rem] leading-[1.9] text-sand">
+              <p className="mt-3 font-mono t-micro leading-[1.9] text-sand">
                 Uncut, ungraded, straight out of Seedance. {GEN_DUR}s at {GEN_RES}, the only length
                 and frame the model makes.
               </p>
@@ -156,7 +156,7 @@ export function AruPanels() {
         viewport={{ once: true, amount: 0.3 }}
         className="mb-12"
       >
-        <p className="mb-3 inline-block rounded bg-ink/80 px-2 py-1 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-sand">
+        <p className="mb-3 inline-block rounded bg-ink/80 px-2 py-1 font-mono t-micro uppercase tracking-[0.14em] text-sand">
           reference · loaded before the first generation
         </p>
         <div className="grid gap-3 sm:grid-cols-3">
@@ -165,23 +165,23 @@ export function AruPanels() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={r.src} alt={r.label} loading="lazy" className="block aspect-[16/9] w-full object-cover opacity-90" />
               <div className="border-t-2 border-[#0C0906] p-3">
-                <p className="font-mono text-[0.58rem] uppercase tracking-[0.12em] text-forest">{r.label}</p>
-                <p className="mt-1 text-[0.82rem] font-light leading-[1.6] text-tan">{r.note}</p>
+                <p className="font-mono t-micro uppercase tracking-[0.12em] text-forest">{r.label}</p>
+                <p className="mt-1 t-small font-light leading-[1.6] text-tan">{r.note}</p>
               </div>
             </Panel>
           ))}
         </div>
         <Prose className="mt-3">
-          <p className="font-mono text-[0.62rem] leading-[1.8] text-sand">{REFERENCE_CREDIT}</p>
+          <p className="font-mono t-micro leading-[1.8] text-sand">{REFERENCE_CREDIT}</p>
         </Prose>
       </motion.div>
 
       {/* the shots that made the cut */}
       <div className="mb-4 flex items-center gap-2">
-        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-forest text-[0.7rem] font-bold leading-none text-forest">
+        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-forest t-micro font-bold leading-none text-forest">
           +
         </span>
-        <p className="font-mono text-[0.68rem] uppercase tracking-[0.12em] text-cream">
+        <p className="font-mono t-micro uppercase tracking-[0.12em] text-cream">
           Tap any shot for its two prompts + the raw clip
         </p>
       </div>
@@ -213,7 +213,7 @@ export function AruPanels() {
             <p className="mb-1 font-display text-[1.35rem] font-semibold tracking-[-0.02em] text-cream">
               {dropped.length} generations that never made the cut
             </p>
-            <p className="text-[0.98rem] font-light leading-[1.7] text-tan">
+            <p className="t-body font-light leading-[1.7] text-tan">
               Generated, paid for, and left out. Approving a still is cheap; animating one is not.
               These are the price of finding the edit by making more than you keep.
             </p>
@@ -274,7 +274,7 @@ function ShotButton({
           }`}
         />
         <span
-          className={`absolute left-0 top-0 px-2 py-0.5 font-mono text-[0.6rem] font-medium tracking-[0.08em] text-ink ${
+          className={`absolute left-0 top-0 px-2 py-0.5 font-mono t-micro font-medium tracking-[0.08em] text-ink ${
             muted ? "bg-sand" : "bg-forest"
           }`}
         >
@@ -282,16 +282,16 @@ function ShotButton({
         </span>
         {/* persistent affordance: makes it obvious the panel opens */}
         <span
-          className={`absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full border text-[0.85rem] font-bold leading-none transition-transform duration-300 group-hover:scale-110 ${
+          className={`absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full border t-small font-bold leading-none transition-transform duration-300 group-hover:scale-110 ${
             open ? "rotate-45 border-forest bg-forest text-ink" : "border-cream/70 bg-ink/70 text-cream"
           }`}
           aria-hidden
         >
           +
         </span>
-        <span className="absolute bottom-0 left-0 right-0 flex items-center justify-between gap-1 bg-gradient-to-t from-ink/95 to-transparent px-2 pb-1.5 pt-7 font-mono text-[0.58rem] tracking-[0.04em] text-cream">
+        <span className="absolute bottom-0 left-0 right-0 flex items-center justify-between gap-1 bg-gradient-to-t from-ink/95 to-transparent px-2 pb-1.5 pt-7 font-mono t-micro tracking-[0.04em] text-cream">
           {s.title}
-          <span className="shrink-0 text-[0.5rem] uppercase tracking-[0.1em] text-forest">
+          <span className="shrink-0 t-micro uppercase tracking-[0.1em] text-forest">
             {open ? "close" : "prompts +"}
           </span>
         </span>
@@ -303,8 +303,8 @@ function ShotButton({
 function Prompt({ label, body }: { label: string; body: string }) {
   return (
     <div>
-      <p className="mb-1.5 font-mono text-[0.56rem] uppercase tracking-[0.16em] text-forest">{label}</p>
-      <p className="rounded-[4px] border border-rule bg-ink/70 p-3 font-mono text-[0.68rem] leading-[1.85] text-tan">
+      <p className="mb-1.5 font-mono t-micro uppercase tracking-[0.16em] text-forest">{label}</p>
+      <p className="rounded-[4px] border border-rule bg-ink/70 p-3 font-mono t-micro leading-[1.85] text-tan">
         {body}
       </p>
     </div>

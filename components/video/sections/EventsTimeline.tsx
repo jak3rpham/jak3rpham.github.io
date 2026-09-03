@@ -53,7 +53,7 @@ export function EventsTimeline() {
               <span style={{ color: AC }}>Events</span> & recaps
             </h3>
           </Reveal>
-          <div className="text-right font-mono text-[0.62rem] uppercase leading-[1.7] tracking-[0.12em] text-sand">
+          <div className="text-right font-mono t-micro uppercase leading-[1.7] tracking-[0.12em] text-sand">
             L.O.M · SRadio
             <br />
             Drag → along the timeline
@@ -108,8 +108,8 @@ export function EventsTimeline() {
                 </span>
               </div>
               <div className="px-4 py-3">
-                <div className="text-[0.98rem] font-semibold leading-snug text-cream">{film.title}</div>
-                <div className="mt-1 font-mono text-[0.54rem] uppercase tracking-[0.05em] text-sand">{film.meta}</div>
+                <div className="t-body font-semibold leading-snug text-cream">{film.title}</div>
+                <div className="mt-1 font-mono t-micro uppercase tracking-[0.05em] text-sand">{film.meta}</div>
               </div>
             </button>
           </motion.div>

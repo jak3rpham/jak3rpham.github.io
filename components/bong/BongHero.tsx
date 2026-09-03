@@ -17,7 +17,7 @@ function Tel({ to, decimals = 0, suffix = "", label, staticValue }: { to?: numbe
         {staticValue ?? c.value.toFixed(decimals)}
         {suffix}
       </div>
-      <div className="mt-2 font-mono text-[0.56rem] uppercase tracking-[0.1em] text-sand">{label}</div>
+      <div className="mt-2 font-mono t-micro uppercase tracking-[0.1em] text-sand">{label}</div>
     </div>
   );
 }
@@ -55,7 +55,7 @@ export function BongHero() {
         >
           <b className="font-serif-jp text-[1.3rem] font-bold text-forest">霧</b>
           <span className="h-px w-8 bg-rule" />
-          <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em]">Case study · AI-orchestrated pipeline · May 2026</span>
+          <span className="font-mono t-micro uppercase tracking-[0.16em]">Case study · AI-orchestrated pipeline · May 2026</span>
         </motion.div>
         <motion.p
           initial={{ opacity: 0, y: 16 }}
@@ -105,8 +105,8 @@ export function BongHero() {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
           </div>
           <figcaption className="flex items-center justify-between gap-3 border-t border-panel-border px-4 py-3">
-            <span className="text-[0.9rem] font-semibold text-cream">After the Recognition</span>
-            <span className="font-mono text-[0.56rem] uppercase tracking-[0.1em] text-sand">KF5 · Flux Pro 1.1</span>
+            <span className="t-small font-semibold text-cream">After the Recognition</span>
+            <span className="font-mono t-micro uppercase tracking-[0.1em] text-sand">KF5 · Flux Pro 1.1</span>
           </figcaption>
         </figure>
       </motion.div>

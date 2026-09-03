@@ -57,8 +57,8 @@ const TRAPS: [string, string][] = [
 function Row({ k, v }: { k: string; v: string }) {
   return (
     <div className="flex flex-wrap gap-x-4 gap-y-1 border-t border-rule/70 py-3">
-      <span className="w-[74px] shrink-0 font-mono text-[0.58rem] uppercase tracking-[0.12em] text-sand">{k}</span>
-      <span className="min-w-0 flex-1 text-[0.95rem] font-light leading-[1.65] text-tan">{v}</span>
+      <span className="w-[74px] shrink-0 font-mono t-micro uppercase tracking-[0.12em] text-sand">{k}</span>
+      <span className="min-w-0 flex-1 t-small font-light leading-[1.65] text-tan">{v}</span>
     </div>
   );
 }
@@ -69,14 +69,14 @@ export function IeltsGrading() {
       <div className="mx-auto max-w-[1180px]">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-6 border-b border-rule pb-6">
           <div>
-            <span className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-forest">{"// the grader"}</span>
+            <span className="font-mono t-micro uppercase tracking-[0.18em] text-forest">{"// the grader"}</span>
             <Reveal className="mt-3">
               <h2 className="font-display text-[clamp(2.2rem,5vw,3.8rem)] font-bold leading-[1.06] tracking-[-0.035em] text-cream">
                 What I <span className="text-forest">didn&apos;t</span> do
               </h2>
             </Reveal>
           </div>
-          <p className="max-w-[40ch] text-[1rem] font-light leading-[1.7] text-tan">
+          <p className="max-w-[40ch] t-body font-light leading-[1.7] text-tan">
             Four decisions where the obvious version was already working, and shipping it would have been
             the mistake.
           </p>
@@ -96,8 +96,8 @@ export function IeltsGrading() {
               className="flex flex-col rounded-[14px] border border-panel-border bg-panel/60 p-7 backdrop-blur-md"
             >
               <div className="flex items-baseline gap-3">
-                <span className="font-mono text-[0.72rem] tracking-[0.1em] text-forest">{d.n}</span>
-                <span className="text-[1.15rem] font-medium text-cream">{d.title}</span>
+                <span className="font-mono t-label tracking-[0.1em] text-forest">{d.n}</span>
+                <span className="t-lead font-medium text-cream">{d.title}</span>
               </div>
               <div className="mt-4">
                 <Row k="Obvious" v={d.naive} />
@@ -120,12 +120,12 @@ export function IeltsGrading() {
             <h3 className="font-display text-[clamp(1.6rem,3.4vw,2.4rem)] font-bold leading-tight tracking-[-0.03em] text-cream">
               Traps are the <span className="text-forest">specification</span>
             </h3>
-            <span className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-sand">
+            <span className="font-mono t-micro uppercase tracking-[0.12em] text-sand">
               /api/generate-questions
             </span>
           </div>
 
-          <p className="mb-8 max-w-[64ch] text-[1.05rem] font-light leading-[1.8] text-tan">
+          <p className="mb-8 max-w-[64ch] t-body font-light leading-[1.8] text-tan">
             Since no real papers are used, the app has to write its own questions — and a generated
             question is worthless if it can be answered by matching words. The generator prompt is not
             &ldquo;write some questions&rdquo;; it is a set of rules about how a question must be able to
@@ -135,13 +135,13 @@ export function IeltsGrading() {
           <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[14px] border border-rule bg-rule sm:grid-cols-2">
             {TRAPS.map(([t, d]) => (
               <div key={t} className="bg-ink-raised/60 p-6">
-                <div className="mb-2 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-forest">{t}</div>
-                <p className="text-[0.94rem] font-light leading-[1.7] text-tan">{d}</p>
+                <div className="mb-2 font-mono t-micro uppercase tracking-[0.1em] text-forest">{t}</div>
+                <p className="t-small font-light leading-[1.7] text-tan">{d}</p>
               </div>
             ))}
           </div>
 
-          <p className="mt-6 max-w-[64ch] border-l-2 border-forest/50 pl-5 text-[0.98rem] font-light leading-[1.75] text-sand">
+          <p className="mt-6 max-w-[64ch] border-l-2 border-forest/50 pl-5 t-body font-light leading-[1.75] text-sand">
             Reading questions are additionally shaped per part — Part 1 easier and mostly True/False/Not
             Given, Part 3 hardest with the tightest distractors and almost no plain TFNG — because a
             generator that ignores part difficulty produces a flat paper that trains the wrong reflex.

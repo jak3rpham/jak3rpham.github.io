@@ -49,16 +49,16 @@ function KFCard({ k }: { k: KF }) {
     <div className="mx-auto w-full max-w-[400px] overflow-hidden rounded-[16px] border border-panel-border bg-ink-raised">
       <div className="relative aspect-[2/3] overflow-hidden bg-ink-raised">
         <img src={k.img} alt={k.title} draggable={false} className="h-full w-full object-cover" />
-        <span className="absolute left-3 top-3 rounded-[5px] bg-black/60 px-2 py-0.5 font-mono text-[0.6rem] uppercase tracking-[0.08em] text-cream backdrop-blur-sm">
+        <span className="absolute left-3 top-3 rounded-[5px] bg-black/60 px-2 py-0.5 font-mono t-micro uppercase tracking-[0.08em] text-cream backdrop-blur-sm">
           {k.no}
         </span>
       </div>
       <div className="px-5 py-4">
         <div className="flex items-baseline justify-between gap-3">
-          <div className="text-[1.15rem] font-semibold text-cream">{k.title}</div>
-          <div className="shrink-0 font-mono text-[0.58rem] uppercase tracking-[0.04em] text-forest">{k.credit}</div>
+          <div className="t-lead font-semibold text-cream">{k.title}</div>
+          <div className="shrink-0 font-mono t-micro uppercase tracking-[0.04em] text-forest">{k.credit}</div>
         </div>
-        <p className="mt-2 text-[0.86rem] font-light leading-[1.55] text-tan">{k.lesson}</p>
+        <p className="mt-2 t-small font-light leading-[1.55] text-tan">{k.lesson}</p>
       </div>
     </div>
   );
@@ -75,7 +75,7 @@ export function BongKeyframes() {
             </h2>
           </Reveal>
         </div>
-        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-4 max-w-[62ch] text-[1.05rem] font-light leading-[1.7] text-tan">
+        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-4 max-w-[62ch] t-body font-light leading-[1.7] text-tan">
           Five atmospheric stills, each with its credit cost and the prompting lesson it taught. Drag to browse, or use the arrows.
         </motion.p>
       </div>

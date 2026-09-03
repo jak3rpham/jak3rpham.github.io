@@ -72,8 +72,8 @@ function Diagram({ title, meta, data }: { title: string; meta: string; data: { n
   return (
     <div className="rounded-[14px] border border-panel-border bg-panel/60 p-6 backdrop-blur-md">
       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3 border-b border-rule pb-3">
-        <span className="text-[1.02rem] font-medium text-cream">{title}</span>
-        <span className="font-mono text-[0.58rem] uppercase tracking-[0.1em] text-sand">{meta}</span>
+        <span className="t-body font-medium text-cream">{title}</span>
+        <span className="font-mono t-micro uppercase tracking-[0.1em] text-sand">{meta}</span>
       </div>
       <div className="rounded-[10px] border border-rule/60 bg-ink/40 p-2">
         <DrawDiagram nodes={data.nodes} edges={data.edges} className="h-auto w-full" />
@@ -87,7 +87,7 @@ export function IeltsSystem() {
     <section id="system" className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(4rem,8vw,7rem)]">
       <div className="mx-auto max-w-[1180px]">
         <div className="mb-10 border-b border-rule pb-6">
-          <span className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-forest">{"// the system"}</span>
+          <span className="font-mono t-micro uppercase tracking-[0.18em] text-forest">{"// the system"}</span>
           <Reveal className="mt-3">
             <h2 className="font-display text-[clamp(2.2rem,5vw,3.8rem)] font-bold leading-[1.06] tracking-[-0.035em] text-cream">
               Degrades <span className="text-forest">on purpose</span>
@@ -100,7 +100,7 @@ export function IeltsSystem() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
-          className="mb-10 max-w-[64ch] text-[1.08rem] font-light leading-[1.8] text-tan"
+          className="mb-10 max-w-[64ch] t-lead font-light leading-[1.8] text-tan"
         >
           Clone the repo, run it, and it works — progress saves to the browser and nothing asks you to
           sign in. Add two environment variables and the same build becomes multi-user with row-level
@@ -134,16 +134,16 @@ export function IeltsSystem() {
             <h3 className="font-display text-[clamp(1.5rem,3vw,2.1rem)] font-bold tracking-[-0.03em] text-cream">
               Four tables, four different shapes
             </h3>
-            <span className="font-mono text-[0.58rem] uppercase tracking-[0.12em] text-sand">RLS on every one</span>
+            <span className="font-mono t-micro uppercase tracking-[0.12em] text-sand">RLS on every one</span>
           </div>
           <div className="border-t border-rule">
             {TABLES.map((t) => (
               <div key={t.name} className="grid grid-cols-1 gap-x-8 gap-y-2 border-b border-rule py-5 md:grid-cols-[210px_1fr]">
                 <div>
-                  <div className="font-mono text-[0.86rem] text-forest">{t.name}</div>
-                  <div className="mt-1.5 font-mono text-[0.58rem] uppercase tracking-[0.08em] text-sand">{t.shape}</div>
+                  <div className="font-mono t-small text-forest">{t.name}</div>
+                  <div className="mt-1.5 font-mono t-micro uppercase tracking-[0.08em] text-sand">{t.shape}</div>
                 </div>
-                <p className="max-w-[68ch] text-[0.98rem] font-light leading-[1.7] text-tan">{t.note}</p>
+                <p className="max-w-[68ch] t-body font-light leading-[1.7] text-tan">{t.note}</p>
               </div>
             ))}
           </div>
@@ -158,8 +158,8 @@ export function IeltsSystem() {
         >
           {OPS.map(([t, d]) => (
             <motion.div key={t} variants={fadeUp} className="bg-ink p-6">
-              <div className="mb-2 text-[1.02rem] font-medium text-cream">{t}</div>
-              <p className="text-[0.94rem] font-light leading-[1.7] text-tan">{d}</p>
+              <div className="mb-2 t-body font-medium text-cream">{t}</div>
+              <p className="t-small font-light leading-[1.7] text-tan">{d}</p>
             </motion.div>
           ))}
         </motion.div>

@@ -63,7 +63,7 @@ export function TerraScope() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
-          className="mb-12 max-w-[64ch] text-[1.1rem] font-light leading-[1.75] text-tan"
+          className="mb-12 max-w-[64ch] t-lead font-light leading-[1.75] text-tan"
         >
           Growth was the headline, not the whole job. Around it ran a full operating scope: compliance verification,
           board-level reporting, a documented change process, paid and social execution, marketing automation, and in-house
@@ -79,13 +79,13 @@ export function TerraScope() {
           className="mb-12 overflow-hidden rounded-[14px] border border-forest/40 bg-panel p-8 backdrop-blur-md md:p-10"
         >
           <div className="mb-4 flex items-center gap-3">
-            <span className="font-mono text-[0.66rem] uppercase tracking-[0.12em] text-forest">// Regulatory verification</span>
+            <span className="font-mono t-micro uppercase tracking-[0.12em] text-forest">// Regulatory verification</span>
             <span className="h-px flex-1 bg-forest/25" />
           </div>
           <p className="max-w-[62ch] font-display text-[clamp(1.35rem,2.4vw,2rem)] font-medium leading-[1.35] tracking-[-0.01em] text-cream">
             Every claim shipped had to survive expert review.
           </p>
-          <p className="mt-5 max-w-[62ch] text-[1.08rem] font-light leading-[1.8] text-tan">
+          <p className="mt-5 max-w-[62ch] t-lead font-light leading-[1.8] text-tan">
             Worked directly with the Payroll and IT teams to verify payroll calculation logic and to confirm that all website
             content complied with Vietnamese labour law before publishing. In a category where wrong content is a legal risk,
             marketing could not run ahead of the experts.
@@ -106,9 +106,9 @@ export function TerraScope() {
               variants={fadeUp}
               className="rounded-[12px] border border-panel-border bg-panel p-6 backdrop-blur-md transition-transform duration-200 hover:-translate-y-1"
             >
-              <div className="mb-3 font-mono text-[0.64rem] uppercase tracking-[0.12em] text-forest">{c.tag}</div>
-              <div className="mb-2.5 text-[1.15rem] font-semibold text-cream">{c.title}</div>
-              <p className="text-[0.98rem] font-light leading-[1.7] text-tan">{c.body}</p>
+              <div className="mb-3 font-mono t-micro uppercase tracking-[0.12em] text-forest">{c.tag}</div>
+              <div className="mb-2.5 t-lead font-semibold text-cream">{c.title}</div>
+              <p className="t-body font-light leading-[1.7] text-tan">{c.body}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -119,7 +119,7 @@ export function TerraScope() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
-          className="mt-8 max-w-[64ch] border-l-2 border-forest/50 pl-4 text-[0.98rem] font-light leading-[1.7] text-sand"
+          className="mt-8 max-w-[64ch] border-l-2 border-forest/50 pl-4 t-body font-light leading-[1.7] text-sand"
         >
           Maintained and updated the Japanese-language content alongside the VI and EN builds, in collaboration with a
           Japanese colleague.
@@ -133,13 +133,13 @@ export function TerraScope() {
           viewport={{ once: true, amount: 0.3 }}
           className="mt-14"
         >
-          <div className="mb-2 font-mono text-[0.66rem] uppercase tracking-[0.12em] text-sand">// In-house creative output</div>
-          <p className="mb-5 max-w-[56ch] text-[1.02rem] font-light leading-[1.7] text-tan">
+          <div className="mb-2 font-mono t-micro uppercase tracking-[0.12em] text-sand">// In-house creative output</div>
+          <p className="mb-5 max-w-[56ch] t-body font-light leading-[1.7] text-tan">
             Creative production ran alongside the growth work, one person covering both.
           </p>
           <div className="flex flex-wrap gap-2">
             {CREATIVE.map((c) => (
-              <span key={c} className="rounded-full border border-rule px-3.5 py-2 font-mono text-[0.62rem] uppercase tracking-[0.06em] text-tan">
+              <span key={c} className="rounded-full border border-rule px-3.5 py-2 font-mono t-micro uppercase tracking-[0.06em] text-tan">
                 {c}
               </span>
             ))}

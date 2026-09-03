@@ -41,7 +41,7 @@ export function NhaMinhDualUI() {
     <section className="relative z-[4] px-[var(--pad)] py-12">
       <div className="mx-auto max-w-[1120px]">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-          <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
+          <span className="font-mono t-micro uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
             04 · Product Architecture
           </span>
           <Reveal className="mt-2">
@@ -115,7 +115,7 @@ export function NhaMinhDualUI() {
                     <span className="h-2 w-2 rounded-full bg-yellow-500/80" />
                     <span className="h-2 w-2 rounded-full bg-green-500/80" />
                   </div>
-                  <span className="mx-auto font-mono text-[0.62rem] text-slate-500">nhaminh.app/dashboard</span>
+                  <span className="mx-auto font-mono t-micro text-slate-500">nhaminh.app/dashboard</span>
                 </div>
                 <div className="overflow-hidden rounded-b-xl">
                   <img
@@ -131,13 +131,13 @@ export function NhaMinhDualUI() {
           {/* Right Highlights */}
           <div className="lg:col-span-5 h-[460px] min-h-[460px] flex flex-col justify-center">
             <div className="rounded-2xl border border-orange-100 bg-white/90 p-6 shadow-sm backdrop-blur-md">
-              <div className="font-mono text-[0.68rem] uppercase tracking-wider text-[#FF6B4B] font-bold">
+              <div className="font-mono t-micro uppercase tracking-wider text-[#FF6B4B] font-bold">
                 {activeTab === "parent" ? "// Senior Accessibility" : "// Caregiver Telemetry"}
               </div>
               <h3 className="mt-2 font-display text-xl font-bold text-slate-900">
                 {activeTab === "parent" ? "Zero Cognitive Load for Seniors" : "Clinical Oversight & Peace of Mind"}
               </h3>
-              <ul className="mt-4 space-y-3 text-[0.88rem] font-normal leading-[1.6] text-slate-600">
+              <ul className="mt-4 space-y-3 t-small font-normal leading-[1.6] text-slate-600">
                 {activeTab === "parent" ? (
                   <>
                     <li className="flex items-start gap-2">

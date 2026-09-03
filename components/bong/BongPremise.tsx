@@ -36,7 +36,7 @@ export function BongPremise() {
               Most AI-creative demos use AI as a <span className="text-forest">single tool</span>. I wanted to test AI as{" "}
               <span className="text-forest">orchestration</span>.
             </p>
-            <p className="max-w-[54ch] text-[1.12rem] font-light leading-[1.85] text-tan">
+            <p className="max-w-[54ch] t-lead font-light leading-[1.85] text-tan">
               Every stage (concept, atmospheric stills, typography, motion) goes to a different model based on what it is genuinely
               best at: Claude, Flux Pro 1.1 Ultra, GPT Image 1, Seedance 2.0. No model does everything; the work is in matching them.
               The campaign is fictional on purpose, so what it shows is the orchestration logic underneath, and what shippable output
@@ -53,8 +53,8 @@ export function BongPremise() {
           >
             {SPECS.map(([k, v]) => (
               <motion.div key={k} variants={row} className="flex items-center justify-between gap-4 border-b border-rule px-4 py-3.5 last:border-b-0">
-                <span className="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-sand">{k}</span>
-                <span className="text-right text-[0.9rem] font-medium text-cream">{v}</span>
+                <span className="font-mono t-micro uppercase tracking-[0.1em] text-sand">{k}</span>
+                <span className="text-right t-small font-medium text-cream">{v}</span>
               </motion.div>
             ))}
           </motion.div>

@@ -25,7 +25,7 @@ export function TerraBroke() {
           <p className="mb-6 max-w-[26ch] font-display text-[clamp(1.6rem,2.8vw,2.4rem)] font-medium leading-[1.3] tracking-[-0.01em] text-cream">
             The 12× and 2,137 clicks/day are a <span className="text-forest">peak</span>, not a promise.
           </p>
-          <p className="text-[1.12rem] font-light leading-[1.85] text-tan">
+          <p className="t-lead font-light leading-[1.85] text-tan">
             Those figures mark March 2026, the high point of a 17-month climb. Through Q2 2026 organic compressed as
             impressions and rankings shifted across the category. I caught the drop early in the same GSC pipeline I built,
             which is exactly what that pipeline is for: the number that matters is not the peak, it is how fast you see the

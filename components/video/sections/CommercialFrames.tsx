@@ -21,7 +21,7 @@ function DeviceFrame({ film, onOpen }: { film: Film; onOpen: (f: Film) => void }
           <span className="h-2.5 w-2.5 rounded-full bg-[#e0655a]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#e0b978]" />
           <span className="h-2.5 w-2.5 rounded-full" style={{ background: AC }} />
-          <span className="ml-3 flex-1 truncate rounded-md bg-ink px-3 py-1 font-mono text-[0.55rem] text-sand">
+          <span className="ml-3 flex-1 truncate rounded-md bg-ink px-3 py-1 font-mono t-micro text-sand">
             youtube.com/watch · {film.title}
           </span>
         </div>
@@ -53,14 +53,14 @@ function Copy({ film, i }: { film: Film; i: number }) {
       viewport={{ once: true, amount: 0.5 }}
       transition={{ duration: 0.6, delay: 0.1 }}
     >
-      <div className="font-mono text-[0.62rem] uppercase tracking-[0.14em]" style={{ color: AC }}>
+      <div className="font-mono t-micro uppercase tracking-[0.14em]" style={{ color: AC }}>
         {film.badge === "terra" ? "terra · product" : "client · Mona Media"} · {String(i + 1).padStart(2, "0")}
       </div>
       <h4 className="mt-3 font-display text-[clamp(1.5rem,3vw,2.4rem)] font-bold leading-[1.08] tracking-[-0.02em] text-cream">
         {film.title}
       </h4>
-      <p className="mt-3 max-w-[40ch] text-[0.98rem] font-light leading-[1.6] text-tan">{film.meta}</p>
-      <span className="mt-5 inline-flex items-center gap-2 font-mono text-[0.66rem] uppercase tracking-[0.1em]" style={{ color: AC }}>
+      <p className="mt-3 max-w-[40ch] t-body font-light leading-[1.6] text-tan">{film.meta}</p>
+      <span className="mt-5 inline-flex items-center gap-2 font-mono t-micro uppercase tracking-[0.1em]" style={{ color: AC }}>
         ▶ Watch explainer
       </span>
     </motion.div>
@@ -87,7 +87,7 @@ export function CommercialFrames() {
               Commercial & <span style={{ color: AC }}>explainer</span>
             </h3>
           </Reveal>
-          <div className="text-right font-mono text-[0.62rem] uppercase leading-[1.7] tracking-[0.12em] text-sand">
+          <div className="text-right font-mono t-micro uppercase leading-[1.7] tracking-[0.12em] text-sand">
             Mona Media · terra
             <br />
             Product & support demos

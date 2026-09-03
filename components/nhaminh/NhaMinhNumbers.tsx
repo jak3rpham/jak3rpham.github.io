@@ -35,7 +35,7 @@ export function NhaMinhNumbers() {
     <section className="relative z-[4] px-[var(--pad)] py-12">
       <div className="mx-auto max-w-[1120px]">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
-          <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
+          <span className="font-mono t-micro uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
             06 · System Performance
           </span>
           <Reveal className="mt-2">
@@ -54,7 +54,7 @@ export function NhaMinhNumbers() {
             >
               <span className="font-display text-3xl font-extrabold text-[#FF6B4B]">{val}</span>
               <div className="mt-2 text-sm font-bold text-slate-900">{title}</div>
-              <p className="mt-1 text-[0.82rem] font-normal leading-[1.55] text-slate-600">{desc}</p>
+              <p className="mt-1 t-small font-normal leading-[1.55] text-slate-600">{desc}</p>
             </div>
           ))}
         </div>
@@ -64,13 +64,13 @@ export function NhaMinhNumbers() {
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
             
             <div className="lg:col-span-8 space-y-3">
-              <span className="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[#FF6B4B] font-bold">
+              <span className="font-mono t-micro uppercase tracking-[0.16em] text-[#FF6B4B] font-bold">
                 Open Source & Live App
               </span>
               <h3 className="font-display text-xl font-bold text-slate-900 md:text-2xl">
                 Explore the Production Codebase & Live App
               </h3>
-              <p className="max-w-[56ch] text-[0.92rem] text-slate-600">
+              <p className="max-w-[56ch] t-small text-slate-600">
                 Review the dual-interface React architecture, Gemini 2.5 Flash Vision OCR pipeline, and 134 safety unit tests on GitHub.
               </p>
 

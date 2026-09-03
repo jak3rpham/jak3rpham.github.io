@@ -35,7 +35,7 @@ export function BongPipeline() {
           </Reveal>
         </div>
 
-        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-8 max-w-[64ch] text-[1.1rem] font-light leading-[1.75] text-tan">
+        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mb-8 max-w-[64ch] t-lead font-light leading-[1.75] text-tan">
           Each stage hands its artifact to the next. No single model handles two stages; model selection is by what each is genuinely
           best at.
         </motion.p>
@@ -51,7 +51,7 @@ export function BongPipeline() {
             loading="lazy"
             className="w-full"
           />
-          <figcaption className="px-6 py-4 text-center font-mono text-[0.62rem] leading-relaxed tracking-[0.04em] text-sand">
+          <figcaption className="px-6 py-4 text-center font-mono t-micro leading-relaxed tracking-[0.04em] text-sand">
             Figma Weave canvas · working pipeline (top) + parked iterations: gradient overlay rejected, Flux text-rendering failures,
             hook layer dropped
           </figcaption>

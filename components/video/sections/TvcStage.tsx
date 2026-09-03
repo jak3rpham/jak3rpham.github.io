@@ -68,7 +68,7 @@ function AwardCard({ film, i, onOpen }: { film: Film; i: number; onOpen: (f: Fil
         </span>
         <div className="absolute inset-x-5 bottom-5">
           <div className="font-display text-[1.6rem] font-bold leading-none text-cream">{film.title}</div>
-          <div className="mt-1.5 font-mono text-[0.62rem] uppercase tracking-[0.06em] text-sand">{film.meta}</div>
+          <div className="mt-1.5 font-mono t-micro uppercase tracking-[0.06em] text-sand">{film.meta}</div>
         </div>
       </div>
 
@@ -79,12 +79,12 @@ function AwardCard({ film, i, onOpen }: { film: Film; i: number; onOpen: (f: Fil
           <div className="font-display text-[1.5rem] font-bold" style={{ color: AC }}>
             0{value}
           </div>
-          <div className="font-mono text-[0.42rem] uppercase tracking-[0.12em] text-sand">Top</div>
+          <div className="font-mono t-micro uppercase tracking-[0.12em] text-sand">Top</div>
         </div>
       </div>
       {film.badge && (
         <span
-          className="absolute -top-2 right-5 rounded-md px-2.5 py-1 font-mono text-[0.56rem] font-semibold uppercase tracking-[0.08em] text-ink"
+          className="absolute -top-2 right-5 rounded-md px-2.5 py-1 font-mono t-micro font-semibold uppercase tracking-[0.08em] text-ink"
           style={{ background: AC }}
         >
           {film.badge}
@@ -109,8 +109,8 @@ function AlsoCard({ film, onOpen }: { film: Film; onOpen: (f: Film) => void }) {
         />
       </div>
       <div className="px-4 py-3">
-        <div className="text-[0.95rem] font-semibold text-cream">{film.title}</div>
-        <div className="mt-0.5 font-mono text-[0.54rem] uppercase tracking-[0.05em] text-sand">{film.meta}</div>
+        <div className="t-small font-semibold text-cream">{film.title}</div>
+        <div className="mt-0.5 font-mono t-micro uppercase tracking-[0.05em] text-sand">{film.meta}</div>
       </div>
     </button>
   );
@@ -137,7 +137,7 @@ export function TvcStage() {
               TVC & <span style={{ color: AC }}>competition</span>
             </h3>
           </Reveal>
-          <div className="text-right font-mono text-[0.62rem] uppercase leading-[1.7] tracking-[0.12em] text-sand">
+          <div className="text-right font-mono t-micro uppercase leading-[1.7] tracking-[0.12em] text-sand">
             2× Top 1 · national
             <br />
             Back-to-back champion
@@ -152,7 +152,7 @@ export function TvcStage() {
 
         <div className="mt-16">
           <div className="mb-5 flex items-center gap-4">
-            <span className="font-mono text-[0.62rem] uppercase tracking-[0.12em] text-sand">Also competed</span>
+            <span className="font-mono t-micro uppercase tracking-[0.12em] text-sand">Also competed</span>
             <span className="h-px flex-1" style={{ background: `linear-gradient(90deg, ${AC}55, transparent)` }} />
           </div>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">

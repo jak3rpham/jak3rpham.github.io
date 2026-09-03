@@ -27,7 +27,7 @@ export function VideoContact() {
               Need video for <span className="text-forest">your brand?</span>
             </h2>
           </Reveal>
-          <div className="text-right font-mono text-[0.64rem] uppercase leading-[1.7] tracking-[0.14em] text-sand">
+          <div className="text-right font-mono t-micro uppercase leading-[1.7] tracking-[0.14em] text-sand">
             Contact
             <br />
             Freelance
@@ -41,7 +41,7 @@ export function VideoContact() {
 
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }} className="mt-8 flex flex-wrap gap-2">
           {CLIENTS.map((c) => (
-            <span key={c} className="rounded-full border border-rule px-3.5 py-2 font-mono text-[0.62rem] uppercase tracking-[0.06em] text-tan">
+            <span key={c} className="rounded-full border border-rule px-3.5 py-2 font-mono t-micro uppercase tracking-[0.06em] text-tan">
               {c}
             </span>
           ))}

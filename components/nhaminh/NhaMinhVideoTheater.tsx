@@ -139,10 +139,10 @@ export function NhaMinhVideoTheater() {
         {/* Section Header */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
+            <span className="font-mono t-micro uppercase tracking-[0.18em] text-[#FF6B4B] font-bold">
               02 · Live Video Showcase Theater
             </span>
-            <span className="rounded-full border border-orange-200 bg-orange-50 px-2.5 py-0.5 font-mono text-[0.62rem] font-bold uppercase tracking-wider text-[#FF6B4B]">
+            <span className="rounded-full border border-orange-200 bg-orange-50 px-2.5 py-0.5 font-mono t-micro font-bold uppercase tracking-wider text-[#FF6B4B]">
               8 Real Screencasts
             </span>
           </div>
@@ -178,7 +178,7 @@ export function NhaMinhVideoTheater() {
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent p-4 pointer-events-none">
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="font-mono text-[0.62rem] uppercase tracking-widest text-[#FF8E53] font-bold">
+                      <span className="font-mono t-micro uppercase tracking-widest text-[#FF8E53] font-bold">
                         Chapter {activeVideo.id} · {activeVideo.tag}
                       </span>
                       <h3 className="text-base font-bold text-white mt-0.5 leading-tight">{activeVideo.title}</h3>
@@ -199,7 +199,7 @@ export function NhaMinhVideoTheater() {
               </div>
 
               {/* Player Bottom Controls */}
-              <div className="mt-2.5 flex items-center justify-between px-3 py-1 font-mono text-[0.7rem] text-slate-500">
+              <div className="mt-2.5 flex items-center justify-between px-3 py-1 font-mono t-micro text-slate-500">
                 <button
                   onClick={() => {
                     const v = videoRef.current;
@@ -224,14 +224,14 @@ export function NhaMinhVideoTheater() {
 
             {/* Context Note */}
             <div className="mt-3 rounded-xl border border-orange-100 bg-white/80 p-3.5 shadow-sm backdrop-blur-md">
-              <span className="font-mono text-[0.62rem] uppercase tracking-wider text-slate-400 font-bold">Clinical Workflow:</span>
-              <p className="mt-1 text-[0.88rem] font-normal leading-[1.6] text-slate-600">{activeVideo.desc}</p>
+              <span className="font-mono t-micro uppercase tracking-wider text-slate-400 font-bold">Clinical Workflow:</span>
+              <p className="mt-1 t-small font-normal leading-[1.6] text-slate-600">{activeVideo.desc}</p>
             </div>
           </div>
 
           {/* Playlist Selector (Right 4 Cols) */}
           <div className="lg:col-span-4 space-y-1.5">
-            <span className="block mb-1 font-mono text-[0.65rem] uppercase tracking-wider text-slate-500 font-bold">
+            <span className="block mb-1 font-mono t-micro uppercase tracking-wider text-slate-500 font-bold">
               Chapters ({VIDEOS.length}):
             </span>
 
@@ -249,17 +249,17 @@ export function NhaMinhVideoTheater() {
                 >
                   <div className="flex items-center gap-2.5">
                     <span
-                      className={`font-mono text-[0.68rem] font-bold px-1.5 py-0.5 rounded ${
+                      className={`font-mono t-micro font-bold px-1.5 py-0.5 rounded ${
                         isActive ? "bg-[#FF6B4B] text-white" : "bg-slate-100 text-slate-600"
                       }`}
                     >
                       {vid.id}
                     </span>
                     <div>
-                      <div className={`text-[0.78rem] font-bold leading-tight ${isActive ? "text-[#FF6B4B]" : "text-slate-800"}`}>
+                      <div className={`t-label font-bold leading-tight ${isActive ? "text-[#FF6B4B]" : "text-slate-800"}`}>
                         {vid.title}
                       </div>
-                      <div className="mt-0.5 font-mono text-[0.58rem] text-slate-400">{vid.tag}</div>
+                      <div className="mt-0.5 font-mono t-micro text-slate-400">{vid.tag}</div>
                     </div>
                   </div>
 
