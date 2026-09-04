@@ -1,12 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
+import { onScrollFrame } from "@/lib/scrollTicker";
 
 /**
  * Fixed right-edge dot rail for the homepage, one dot per section, so a reader can see the
  * whole shape of the page and jump around. Adapted from the /video route's VideoNavRail: active
- * = the last section whose top has crossed 40% of the viewport, tracked on scroll (this fires
- * under Lenis on real input, same as VideoNavRail). Single green accent, on brand. lg+ only;
- * on smaller screens the header menu covers discovery.
+ * = the last section whose top has crossed 40% of the viewport, tracked on scroll.
+ * Section offsets are cached on mount and resize; no getBoundingClientRect calls during scroll.
+ * Single green accent, on brand. lg+ only; on smaller screens the header menu covers discovery.
  */
 const ITEMS: { id: string; label: string }[] = [
   { id: "hero", label: "Top" },
@@ -25,22 +26,47 @@ export function HomeNavRail() {
   const [active, setActive] = useState<string>("hero");
 
   useEffect(() => {
-    const line = () => window.innerHeight * 0.4;
-    const compute = () => {
-      let current = ITEMS[0].id;
-      for (const { id } of ITEMS) {
+    let tops: { id: string; top: number }[] = [];
+    const measure = () => {
+      const y = window.scrollY;
+      tops = ITEMS.map(({ id }) => {
         const el = document.getElementById(id);
-        if (!el) continue;
-        if (el.getBoundingClientRect().top <= line()) current = id;
-      }
-      setActive(current);
+        return {
+          id,
+          top: el ? el.getBoundingClientRect().top + y : 0,
+        };
+      });
     };
-    compute();
-    window.addEventListener("scroll", compute, { passive: true });
-    window.addEventListener("resize", compute);
+
+    let currentId = ITEMS[0].id;
+    const decide = (y: number, vh: number) => {
+      const line = y + vh * 0.4;
+      let next = ITEMS[0].id;
+      for (const t of tops) {
+        if (t.top <= line) next = t.id;
+      }
+      if (next !== currentId) {
+        currentId = next;
+        setActive(next);
+      }
+    };
+
+    measure();
+    const off = onScrollFrame(decide, measure);
+
+    const onWinLoad = () => {
+      measure();
+      decide(window.scrollY, window.innerHeight);
+    };
+    window.addEventListener("load", onWinLoad);
+    const t1 = window.setTimeout(onWinLoad, 400);
+    const t2 = window.setTimeout(onWinLoad, 1200);
+
     return () => {
-      window.removeEventListener("scroll", compute);
-      window.removeEventListener("resize", compute);
+      off();
+      window.removeEventListener("load", onWinLoad);
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
     };
   }, []);
 

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SpotlightCard } from "./SpotlightCard";
 import { Cta } from "./Cta";
@@ -28,15 +28,31 @@ function HeartIcon({ className = "h-8 w-8" }: { className?: string }) {
 }
 
 export function NhaMinhTeaser() {
+  const sectionRef = useRef<HTMLElement>(null);
   const [activeTab, setActiveTab] = useState<"parent" | "child" | "ocr">("parent");
   const [pillTaken, setPillTaken] = useState(false);
   const [isVoicePlaying, setIsVoicePlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Auto-progressing tab timer (5 seconds cycle, pauses on user hover)
+  // Only run the timer when the section is in the viewport
   useEffect(() => {
-    if (isHovered) return;
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { rootMargin: "100px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-progressing tab timer (5 seconds cycle, pauses on user hover or when offscreen)
+  useEffect(() => {
+    if (isHovered || !isVisible) return;
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -51,7 +67,7 @@ export function NhaMinhTeaser() {
     }, 100);
 
     return () => clearInterval(interval);
-  }, [activeTab, isHovered]);
+  }, [activeTab, isHovered, isVisible]);
 
   useEffect(() => {
     if (isVoicePlaying) {
@@ -68,6 +84,7 @@ export function NhaMinhTeaser() {
        literal orange, and it is the darker of the two it had, which is the one that survives on
        paper; #FF6B4B stays for fills and glows where nothing has to be read through it. */
     <section
+      ref={sectionRef}
       id="nhaminh"
       className="relative z-[4] overflow-hidden px-[var(--pad)] py-[clamp(4rem,8vw,7.5rem)]"
       style={{ "--color-forest": "#E05334" } as React.CSSProperties}

@@ -113,7 +113,7 @@ export function SequenceSpan({
       // 0 when the run's top meets the top of the viewport, 1 when its bottom meets the bottom
       travel = Math.max(1, r.height - window.innerHeight);
       if (!c) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const w = Math.round(window.innerWidth * dpr);
       const h = Math.round(window.innerHeight * dpr);
       if (w > 0 && h > 0 && (c.width !== w || c.height !== h)) {
@@ -150,16 +150,28 @@ export function SequenceSpan({
       });
       if (!ok || cancelled) return;
 
-      const loaded = await Promise.all(
-        Array.from({ length: count }, (_, i) =>
-          new Promise<HTMLImageElement | null>((res) => {
-            const img = new Image();
-            img.onload = () => res(img);
-            img.onerror = () => res(null);
+      // Concurrency worker pool: load 8 frames concurrently to prevent saturating the network
+      // and image decoding threads all at once.
+      const loaded: (HTMLImageElement | null)[] = new Array(count);
+      const concurrency = 8;
+      let currentIndex = 0;
+
+      async function worker() {
+        while (currentIndex < count && !cancelled) {
+          const i = currentIndex++;
+          const img = new Image();
+          await new Promise<void>((resolve) => {
+            img.onload = () => {
+              loaded[i] = img;
+              resolve();
+            };
+            img.onerror = () => resolve();
             img.src = src(i);
-          }),
-        ),
-      );
+          });
+        }
+      }
+
+      await Promise.all(Array.from({ length: Math.min(concurrency, count) }, () => worker()));
       if (cancelled) return;
       for (const f of loaded) if (f) frames.push(f);
       if (frames.length < 2) return;

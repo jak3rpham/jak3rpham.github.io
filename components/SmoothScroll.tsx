@@ -1,8 +1,9 @@
 "use client";
 import { ReactLenis, useLenis } from "lenis/react";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
 function GsapLenisSync() {
   const lenis = useLenis();
@@ -13,7 +14,7 @@ function GsapLenisSync() {
     lenis.on("scroll", onScroll);
     const raf = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(raf);
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.lagSmoothing(500, 33);
     // Layouts settle after fonts/images; refresh so pinned triggers measure correctly.
     const refresh = () => ScrollTrigger.refresh();
     const t = setTimeout(refresh, 600);
@@ -29,10 +30,7 @@ function GsapLenisSync() {
 }
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-  }, []);
+  const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   if (reduced) return <>{children}</>;
 
