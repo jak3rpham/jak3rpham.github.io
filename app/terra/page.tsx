@@ -5,6 +5,7 @@ import { TerraContext } from "@/components/terra/TerraContext";
 import { TerraSystems } from "@/components/terra/TerraSystems";
 import { TerraPages } from "@/components/terra/TerraPages";
 import { TerraScope } from "@/components/terra/TerraScope";
+import { TerraSocial } from "@/components/terra/TerraSocial";
 import { TerraNumbers } from "@/components/terra/TerraNumbers";
 import { TerraBroke } from "@/components/terra/TerraBroke";
 import { Footer } from "@/components/Footer";
@@ -27,6 +28,7 @@ export default function TerraPage() {
       <TerraSystems />
       <TerraPages />
       <TerraScope />
+      <TerraSocial />
       <TerraNumbers />
       <TerraBroke />
       <Footer />

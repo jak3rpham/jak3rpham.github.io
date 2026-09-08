@@ -117,7 +117,7 @@ export function TerraLogoVector({ className = "" }: { className?: string }) {
   );
 }
 
-export function WebGLLogo3D({ className = "" }: { className?: string }) {
+export function WebGLLogo3D({ className = "", cameraZ = 9.6, offsetY = -1.0 }: { className?: string; cameraZ?: number; offsetY?: number }) {
   const mountRef = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
 
@@ -153,9 +153,9 @@ export function WebGLLogo3D({ className = "" }: { className?: string }) {
       canvas.style.transition = "opacity 0.6s ease-out";
 
       const camera = new Camera(gl, { fov: 30 });
-      camera.position.set(0, 0, 9.6);
+      camera.position.set(0, 0, cameraZ);
       const root = new Transform();
-      root.position.y = -1.0;
+      root.position.y = offsetY;
       root.scale.x = -1;
 
       const makeProgram = (tint: [number, number, number]) =>
@@ -238,6 +238,10 @@ export function WebGLLogo3D({ className = "" }: { className?: string }) {
       }
       resize();
       window.addEventListener("resize", resize);
+      // Container height is set in vh and settles after fonts and the preloader,
+      // so a one-shot measure on mount can latch a wrong size. Track the element.
+      const ro = new ResizeObserver(() => resize());
+      ro.observe(mount);
 
       const mouse = new Vec2(0, 0);
       const mTarget = new Vec2(0, 0);
@@ -291,6 +295,7 @@ export function WebGLLogo3D({ className = "" }: { className?: string }) {
       return () => {
         cancelAnimationFrame(raf);
         window.removeEventListener("resize", resize);
+        ro.disconnect();
         window.removeEventListener("mousemove", onMove);
         document.removeEventListener("visibilitychange", onVis);
         io.disconnect();

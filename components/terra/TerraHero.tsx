@@ -85,7 +85,7 @@ export function TerraHero() {
         style={{ y: objY }}
         className="relative z-[2] h-[52vh] w-full md:h-[78vh]"
       >
-        <WebGLLogo3D className="absolute inset-0" />
+        <WebGLLogo3D className="h-full w-full" cameraZ={13.2} offsetY={-1.0} />
       </motion.div>
     </section>
   );

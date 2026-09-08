@@ -12,6 +12,11 @@ const CARDS: ScopeCard[] = [
     body: "Built and delivered the recurring performance reporting used by the team and by the BOD to set quarterly and annual direction. Reports ran on GSC, GA4, and PageSpeed pipelines via MCP and API, each with extracted insight and recommended next actions.",
   },
   {
+    tag: "// Website build",
+    title: "The site itself, front and back",
+    body: "Designed and built the site on WordPress and Elementor, working past what the page builder exposes: theme and template changes, custom CSS and JavaScript on the front end, functional changes on the back end. Owning that layer is what made the SEO and tooling work possible on the same codebase.",
+  },
+  {
     tag: "// Change process",
     title: "Website change briefs",
     body: "Owned the site change process: wrote briefs specifying what to change, why, and the expected outcome, each backed by performance data, then implemented and measured the result.",
