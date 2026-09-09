@@ -132,6 +132,22 @@ export function HeroStage({
   // read as a query rather than set as state from inside the effect: a reduced motion reader gets
   // the finished composition from the first render, with no cascading update to schedule it
   const reduce = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const compact = useMediaQuery("(max-width: 899px)");
+
+  useEffect(() => {
+    if (!compact && !reduce) return;
+    let end = 0;
+    const html = document.documentElement;
+    const measure = () => {
+      const hero = wrap.current?.querySelector("#hero");
+      if (hero) end = hero.getBoundingClientRect().bottom + window.scrollY - CHROME_H;
+    };
+    const off = onScrollFrame((y) => {
+      if (y < end) html.dataset.chrome = "ink";
+      else delete html.dataset.chrome;
+    }, measure);
+    return () => { off(); delete html.dataset.chrome; };
+  }, [compact, reduce]);
 
   // derived in the body, not the effect, so the four numbers can be dependencies of their own
   // rather than an object literal that is a new identity on every render
@@ -141,7 +157,7 @@ export function HeroStage({
   const padL = typeof inset === "number" ? inset : inset.l ?? 0;
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduce || compact) return;
 
     let top = 0;
     let travel = 1;
@@ -258,9 +274,21 @@ export function HeroStage({
       setChrome(false);
       setOpening(false);
     };
-  }, [reduce, closeEnd, driftStart, radius, padT, padR, padB, padL, settleX, enterAt, entered]);
+  }, [reduce, compact, closeEnd, driftStart, radius, padT, padR, padB, padL, settleX, enterAt, entered]);
 
   const shown = entered || reduce;
+
+  if (compact || reduce) {
+    return (
+      <div ref={wrap} data-zone={zone} className="relative z-[4]">
+        <div className="theme-ink relative">{children}</div>
+        <div className="relative px-[var(--pad)] py-14">
+          {lead}
+          {aside && <div className="mt-10 border-t border-rule pt-8">{aside}</div>}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div ref={wrap} data-zone={zone} className="relative z-[4]" style={{ height: `${heightVh}vh` }}>
@@ -270,7 +298,7 @@ export function HeroStage({
             parent casts from the already clipped shape. theme-ink on the card, because the
             container is the dark thing on a page that is paper throughout. */}
         <div className="hero-shadow absolute inset-0">
-          <div ref={card} className="theme-ink absolute inset-0 will-change-[clip-path,transform]">
+          <div ref={card} data-hero-card className="theme-ink absolute inset-0 will-change-[clip-path,transform]">
             {children}
           </div>
         </div>

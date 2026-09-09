@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Reveal } from "../Reveal";
 import { fadeUp } from "@/lib/motion";
 
-const ROWS: [string, string, string][] = [
+export const ROWS: [string, string, string][] = [
   ["Atmospheric keyframes", "Flux Pro 1.1 Ultra", "Cinematic depth, painterly finish, layered fog, single-subject composition."],
   ["Vietnamese typography", "GPT Image 1", "Accurate diacritic rendering (BÓNG, SƯƠNG, KHÔNG) and transparent-background support."],
   ["Concept expansion", "Claude Opus 4.7", "Production-prompt construction from a short brief, structured output, reference inference."],
@@ -61,3 +61,4 @@ export function BongReflection() {
     </section>
   );
 }
+

@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 import { Reveal } from "../Reveal";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
-const CONSTRAINTS: { k: string; t: string; d: string }[] = [
+export const CONSTRAINTS: { k: string; t: string; d: string }[] = [
   {
     k: "01",
     t: "Two users, one codebase",
-    d: "I needed it as a learner and as someone teaching from it. Those want opposite things — a learner wants zero setup, a teacher wants accounts, saved progress and a way to add material. Both had to fit in one app without a paid tier or a second build.",
+    d: "I needed it as a learner and as someone teaching from it. Those want opposite things. a learner wants zero setup, a teacher wants accounts, saved progress and a way to add material. Both had to fit in one app without a paid tier or a second build.",
   },
   {
     k: "02",
@@ -42,7 +42,7 @@ export function IeltsWhy() {
           className="mb-12 max-w-[62ch] t-lead font-light leading-[1.8] text-tan"
         >
           Practice apps grade you against a keyword list and call it a band score. What actually moves a
-          score is being told, specifically, what to fix next — and being trained against the traps a
+          score is being told, specifically, what to fix next. and being trained against the traps a
           real paper sets. That is a writing problem and a prompt problem before it is a UI problem, so
           that is where most of the work went.
         </motion.p>
@@ -66,3 +66,4 @@ export function IeltsWhy() {
     </section>
   );
 }
+

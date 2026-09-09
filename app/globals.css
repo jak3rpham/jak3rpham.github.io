@@ -416,3 +416,28 @@ html[data-theme="light"] .seq-art {
 }
 
 /* end of file */
+
+/* Case-study reading scale, scoped to the detailed project routes. */
+.case-detail h2 { text-wrap: balance; }
+.case-detail .t-body { font-size: 1.0625rem; line-height: 1.7; }
+.case-detail .t-small { font-size: 1rem; }
+.case-detail .t-label { font-size: .875rem; }
+.case-detail section { scroll-margin-top: 90px; }
+/* Project palettes retain light/dark transitions within one visual identity. */
+html:has([data-project=aru]){--project-accent:#f0b571;--project-dark:#17130f;--project-glow:#38271c;--project-paper:#f3ece1;--project-wash:#e6d5bf;--project-text:#d8cdbb;--project-muted:#bfb29e;--project-deep:#8b4e20}
+html:has([data-project=bong]){--project-accent:#8ac8cf;--project-dark:#0c1b23;--project-glow:#183b48;--project-paper:#eaf1f0;--project-wash:#c4dbdc;--project-text:#c5dce0;--project-muted:#9db9c1;--project-deep:#245c6c}
+html:has([data-project=ielts]){--project-accent:#b1baff;--project-dark:#171b30;--project-glow:#303b65;--project-paper:#f5f3ed;--project-wash:#dce0f0;--project-text:#d5d9ee;--project-muted:#aeb6d3;--project-deep:#48568f}
+html:has([data-project=nha]){--project-accent:#ff987e;--project-dark:#201714;--project-glow:#402820;--project-paper:#fbf9f5;--project-wash:#f9e3d8;--project-text:#e0c9bf;--project-muted:#baa69d;--project-deep:#b8442c}
+html:has([data-project=aru]),html:has([data-project=bong]),html:has([data-project=nha]),html:has([data-project=ielts]){--color-forest:var(--project-accent);--color-amber:var(--project-accent);--color-ink:var(--project-dark);--color-tan:var(--project-text);--color-sand:var(--project-muted);--color-panel:color-mix(in srgb,var(--project-accent) 9%,transparent);--color-rule:color-mix(in srgb,var(--project-accent) 25%,transparent)}
+html[data-theme=light]:has([data-project=aru]),html[data-theme=light]:has([data-project=bong]),html[data-theme=light]:has([data-project=nha]),html[data-theme=light]:has([data-project=ielts]){--color-forest:var(--project-deep);--color-amber:var(--project-deep);--color-ink:var(--project-paper);--color-cream:var(--project-dark);--color-tan:color-mix(in srgb,var(--project-dark) 78%,var(--project-paper));--color-sand:color-mix(in srgb,var(--project-dark) 65%,var(--project-paper));--color-panel:rgba(255,255,255,.5)}
+html:has([data-project=aru]) .flow-sheet-dark,html:has([data-project=bong]) .flow-sheet-dark,html:has([data-project=nha]) .flow-sheet-dark,html:has([data-project=ielts]) .flow-sheet-dark{background:radial-gradient(120% 130% at 50% -25%,var(--project-glow),var(--project-dark) 62%)}
+html:has([data-project=aru]) .flow-sheet-light,html:has([data-project=bong]) .flow-sheet-light,html:has([data-project=nha]) .flow-sheet-light,html:has([data-project=ielts]) .flow-sheet-light{background:radial-gradient(120% 130% at 50% -25%,var(--project-wash),var(--project-paper) 62%)}
+html:has([data-project=aru]) .flow-orb,html:has([data-project=bong]) .flow-orb,html:has([data-project=nha]) .flow-orb,html:has([data-project=ielts]) .flow-orb{background:radial-gradient(ellipse,color-mix(in srgb,var(--project-accent) 22%,transparent),transparent 70%)}
+html:has([data-project=aru]) .flow-pointer,html:has([data-project=bong]) .flow-pointer,html:has([data-project=nha]) .flow-pointer,html:has([data-project=ielts]) .flow-pointer{background:radial-gradient(ellipse at var(--mx,50%) var(--my,30%),color-mix(in srgb,var(--project-accent) 10%,transparent),transparent 55%)}
+.case-detail .t-micro,.case-detail .t-label,.case-detail .t-small{font-size:14px;line-height:1.6}.case-detail .t-body{font-size:17px;line-height:1.65}
+/* Readable metadata floor, including shared navigation and retained teasers. */
+.t-micro,.t-label{font-size:14px;line-height:1.5}.t-small{font-size:max(14px,1rem);line-height:1.6}
+
+.skip-link{position:fixed;top:10px;left:10px;z-index:200;padding:12px 20px;border-radius:8px;background:var(--color-cream,#f4f0e8);color:var(--color-ink,#121416);font-family:var(--font-dm-mono),monospace;font-size:14px;transform:translateY(-160%);transition:transform .18s ease-out}
+.skip-link:focus-visible{transform:none;outline:2px solid var(--color-forest,#5c8a4a);outline-offset:3px}
+#content:focus{outline:none}

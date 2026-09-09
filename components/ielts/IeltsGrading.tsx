@@ -10,7 +10,7 @@ type Decision = { n: string; title: string; naive: string; chose: string; becaus
  * what was made; this one shows what was rejected, because on a software project the
  * discarded option is the part that carries the judgement.
  */
-const DECISIONS: Decision[] = [
+export const DECISIONS: Decision[] = [
   {
     n: "01",
     title: "Two rubrics, not one",
@@ -24,7 +24,7 @@ const DECISIONS: Decision[] = [
     title: "Told to be harsh",
     naive: "Let the model score naturally and trust the number.",
     chose:
-      'Explicit anti-inflation instruction — "Be honest and calibrated — do not inflate. Reward only what is actually present." — plus enforced penalties for under-length and undeveloped arguments.',
+      'Explicit anti-inflation instruction. "Be honest and calibrated. do not inflate. Reward only what is actually present.". plus enforced penalties for under-length and undeveloped arguments.',
     because:
       "Language models are agreeable by default and drift toward flattering bands. A grader that says 7.0 to everyone is worse than no grader, because the learner stops working.",
   },
@@ -33,7 +33,7 @@ const DECISIONS: Decision[] = [
     title: "A contract, not a conversation",
     naive: "Show the model's prose feedback straight to the user.",
     chose:
-      "A locked JSON shape — four criteria with bands and comments, an overall, a single next fix, and 3–5 targeted corrections — with the response de-fenced and parsed defensively.",
+      "A locked JSON shape. four criteria with bands and comments, an overall, a single next fix, and 3–5 targeted corrections. with the response de-fenced and parsed defensively.",
     because:
       "Free text cannot drive a UI, and it cannot be compared across attempts. A shape makes the feedback renderable, and when parsing fails the route returns the raw text so it is debuggable instead of a blank screen.",
   },
@@ -47,10 +47,10 @@ const DECISIONS: Decision[] = [
   },
 ];
 
-const TRAPS: [string, string][] = [
-  ["Paraphrase the answer", "The correct option never reuses the source's keywords — keyword-spotting has to fail. Wrong options may lift wording straight from the text. That is the bait."],
+export const TRAPS: [string, string][] = [
+  ["Paraphrase the answer", "The correct option never reuses the source's keywords. keyword-spotting has to fail. Wrong options may lift wording straight from the text. That is the bait."],
   ["Distractors are misreadings", "A detail that is in the source but answers a different question; a half-truth; an overgeneralisation; a number that sits near the right one."],
-  ["Correction traps", 'Where a speaker states then revises — "Tuesday — sorry, Wednesday" — the obvious-sounding answer is the discarded one.'],
+  ["Correction traps", 'Where a speaker states then revises. "Tuesday. sorry, Wednesday". the obvious-sounding answer is the discarded one.'],
   ["NOT GIVEN vs FALSE", "Both must appear, and telling them apart has to require real work: absent information versus contradicted information, never merely off-topic."],
 ];
 
@@ -126,7 +126,7 @@ export function IeltsGrading() {
           </div>
 
           <p className="mb-8 max-w-[64ch] t-body font-light leading-[1.8] text-tan">
-            Since no real papers are used, the app has to write its own questions — and a generated
+            Since no real papers are used, the app has to write its own questions. and a generated
             question is worthless if it can be answered by matching words. The generator prompt is not
             &ldquo;write some questions&rdquo;; it is a set of rules about how a question must be able to
             catch a candidate who is skimming.
@@ -142,8 +142,8 @@ export function IeltsGrading() {
           </div>
 
           <p className="mt-6 max-w-[64ch] border-l-2 border-forest/50 pl-5 t-body font-light leading-[1.75] text-sand">
-            Reading questions are additionally shaped per part — Part 1 easier and mostly True/False/Not
-            Given, Part 3 hardest with the tightest distractors and almost no plain TFNG — because a
+            Reading questions are additionally shaped per part. Part 1 easier and mostly True/False/Not
+            Given, Part 3 hardest with the tightest distractors and almost no plain TFNG. because a
             generator that ignores part difficulty produces a flat paper that trains the wrong reflex.
           </p>
         </motion.div>
@@ -151,3 +151,4 @@ export function IeltsGrading() {
     </section>
   );
 }
+

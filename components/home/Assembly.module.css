@@ -1,0 +1,23 @@
+.motionButton{font-family:var(--font-dm-mono),monospace;font-weight:400;line-height:1.65}
+.assembly { position: absolute; top: -34px; right: -6%; width: 67%; height: 650px; }
+.canvas { position: absolute; inset: 0; touch-action: pan-y; }
+.canvas canvas { display: block; width: 100%; height: 100%; }
+.immersive { inset: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at 75% 45%, #294234 0%, #121d18 55%, #0d130f 100%); pointer-events: none; }
+.immersive .canvas { pointer-events: none; }
+.immersive .motionButton { pointer-events: auto; color: #d2dfc6; border-color: #d2dfc666; right: 5%; bottom: 4%; z-index: 5; font-size: 0.75rem !important; }
+.immersive .fallback { inset: 5% 0; opacity: 0.65; }
+.canvas[data-ready="false"] { opacity: 0; }
+.motionButton { position: absolute; right: 12%; bottom: 16%; z-index: 4; border: 0; border-bottom: 1px solid #6f7c6155; background: transparent; color: #59694b; padding: 10px 0; font-size: 0.64rem !important; }
+.motionButton:hover { color: #252c24; }
+.fallback { position: absolute; inset: 20%; perspective: 600px; }
+.fallback[hidden] { display: none; }
+.fallback span { position: absolute; width: 70%; aspect-ratio: 1; top: 8%; left: 15%; border: 25px solid #a8b39f; border-radius: 28%; box-shadow: inset 3px 3px 4px #fcfff5, 3px 4px 4px #323c2866; transform: rotateX(24deg) rotateY(-32deg) rotateZ(-25deg); }
+.fallback span:nth-child(2) { transform: translate(15px, 30px) rotateX(24deg) rotateY(-32deg) rotateZ(8deg); border-color: #bedb84; }
+.fallback span:nth-child(3) { transform: translate(30px, 60px) rotateX(24deg) rotateY(-32deg) rotateZ(40deg); }
+@media(min-width:1500px){.assembly{height:730px}}
+@media(max-width:1100px){.assembly{width:72%;right:-10%;top:0;height:580px}}
+@media(max-width:760px){.assembly{width:115%;height:360px;top:125px;right:-7.5%}.motionButton{bottom:8%;right:8%}}
+@media(max-width:380px){.assembly{top:115px}}
+.immersive{top:0;right:0;width:100%;height:100%}
+.motionButton,.immersive .motionButton{font-size:14px!important}
+@media(prefers-reduced-motion:reduce){.motionButton{display:none}}

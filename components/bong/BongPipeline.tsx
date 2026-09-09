@@ -13,7 +13,7 @@ const STAGES = [
   { label: "MOTION", sub: "Seedance 2.0" },
 ];
 
-const NODES: DiagramNode[] = STAGES.map((s, i) => ({
+export const NODES: DiagramNode[] = STAGES.map((s, i) => ({
   id: `n${i}`,
   x: 60 + i * 148,
   y: 42,
@@ -21,7 +21,7 @@ const NODES: DiagramNode[] = STAGES.map((s, i) => ({
   label: s.label,
   sub: s.sub,
 }));
-const EDGES: DiagramEdge[] = STAGES.slice(1).map((_, i) => [`n${i}`, `n${i + 1}`] as DiagramEdge);
+export const EDGES: DiagramEdge[] = STAGES.slice(1).map((_, i) => [`n${i}`, `n${i + 1}`] as DiagramEdge);
 
 export function BongPipeline() {
   return (
@@ -60,3 +60,4 @@ export function BongPipeline() {
     </section>
   );
 }
+

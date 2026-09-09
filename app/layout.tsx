@@ -6,11 +6,7 @@ import {
   DM_Mono,
 } from "next/font/google";
 import { SITE_URL, PERSON } from "@/lib/site";
-import { GrainOverlay } from "@/components/GrainOverlay";
-import { Nav } from "@/components/Nav";
-import { SmoothScroll } from "@/components/SmoothScroll";
-import { Preloader } from "@/components/Preloader";
-import { ScrollProgress } from "@/components/ScrollProgress";
+import { SiteChrome } from "@/components/SiteChrome";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -34,9 +30,9 @@ const dmMono = DM_Mono({
   variable: "--font-dm-mono",
 });
 
-const TITLE = "Pham Ngoc Thanh (Tatsuki) · Growth, product & video";
+const TITLE = "Pham Ngoc Thanh (Tatsuki) · Growth, AI & Creative";
 const DESCRIPTION =
-  "Pham Ngoc Thanh (Tatsuki): technical enough to build it, creative enough to film it. Technical SEO and growth, product builds, AI orchestration, and video. Ho Chi Minh City.";
+  "Pham Ngoc Thanh (Tatsuki) brings strategy, AI and a creative eye together across growth, products and films. Selected work, from terra to AI-directed projects. Ho Chi Minh City.";
 
 export const metadata: Metadata = {
   // every relative URL below (canonicals, og:image) resolves against this
@@ -77,7 +73,7 @@ const personJsonLd = {
   image: `${SITE_URL}/images/hero-portrait.webp`,
   email: `mailto:${PERSON.email}`,
   telephone: PERSON.phone,
-  jobTitle: "Growth & technical marketer, product builder, video director",
+  jobTitle: "Growth marketer, AI orchestrator, creative producer",
   description: DESCRIPTION,
   knowsLanguage: ["vi", "en"],
   address: {
@@ -118,11 +114,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <Preloader />
-        <ScrollProgress />
-        <GrainOverlay />
-        <Nav />
-        <SmoothScroll>{children}</SmoothScroll>
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

@@ -149,7 +149,7 @@ export function AruTeaser() {
               ))}
             </dl>
 
-            <Cta href="/aru-otoko" className="mt-auto">Full case study</Cta>
+            <Cta href="/aru-otoko" size="lg" className="mt-auto">Explore how the film was made</Cta>
           </motion.div>
         </div>
       </div>

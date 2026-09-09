@@ -9,16 +9,16 @@ import { onScrollFrame } from "@/lib/scrollTicker";
  * Section offsets are cached on mount and resize; no getBoundingClientRect calls during scroll.
  * Single green accent, on brand. lg+ only; on smaller screens the header menu covers discovery.
  */
-const ITEMS: { id: string; label: string }[] = [
+const ITEMS = [
   { id: "hero", label: "Top" },
-  { id: "about", label: "About" },
+  { id: "terra", label: "terra" },
   { id: "systems", label: "Systems" },
-  { id: "terra", label: "Terra" },
-  { id: "nhaminh", label: "Nhà Mình (AI)" },
-  { id: "work", label: "Selected builds" },
-  { id: "aru", label: "AI Video" },
+  { id: "work", label: "Products" },
+  { id: "nhaminh", label: "Nhà Mình" },
+  { id: "aru", label: "AI film" },
   { id: "bong", label: "Bóng Vespera" },
   { id: "video", label: "Films" },
+  { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -33,9 +33,9 @@ export function HomeNavRail() {
         const el = document.getElementById(id);
         return {
           id,
-          top: el ? el.getBoundingClientRect().top + y : 0,
+          top: el ? el.getBoundingClientRect().top + y : Number.POSITIVE_INFINITY,
         };
-      });
+      }).sort((a,b)=>a.top-b.top);
     };
 
     let currentId = ITEMS[0].id;

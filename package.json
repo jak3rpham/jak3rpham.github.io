@@ -7,7 +7,12 @@
     "build": "next build && node scripts/fix-og.mjs",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "preview": "node scripts/serve-preview.cjs",
+    "qa:home": "node scripts/check-homepage.mjs",
+    "qa:stories": "node scripts/check-stories.cjs",
+    "qa:preservation": "node scripts/check-preservation.cjs",
+    "qa:design-system": "node scripts/check-design-system.cjs"
   },
   "dependencies": {
     "framer-motion": "^12.42.2",
@@ -29,6 +34,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "jsdom": "^29.1.1",
+    "playwright-core": "^1.63.0",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.9"

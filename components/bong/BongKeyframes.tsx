@@ -6,7 +6,7 @@ import { fadeUp } from "@/lib/motion";
 
 type KF = { no: string; img: string; title: string; credit: string; lesson: string };
 
-const KEYFRAMES: KF[] = [
+export const KEYFRAMES: KF[] = [
   {
     no: "KF1",
     img: "/images/vng-demo/stills/kf1-the-gate-at-dawn.webp",
@@ -87,3 +87,4 @@ export function BongKeyframes() {
     </section>
   );
 }
+

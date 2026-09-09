@@ -2,24 +2,6 @@
 import { useEffect, useRef } from "react";
 import { onVideoPlaybackChange } from "@/lib/videoPlayback";
 
-/**
- * The ある男 backdrop: a raymarched city rendered through a ben-day halftone shader.
- *
- * Spider-Verse's actual technique is 3D geometry screened into halftone dots — the
- * dots are how it is rendered, not a texture laid over it. So this uses the method
- * rather than imitating the look, and the material comes from the project itself.
- *
- * It also enacts the MV's own thesis: the character is the anchor, the city never
- * stops rushing. Scroll drives the city forward; the panels above never move.
- *
- * Raw WebGL rather than ogl (which `WaveFieldBackdrop` uses) because this is a single
- * fullscreen triangle — ogl's scene graph buys nothing here and the shader was
- * validated standalone in this exact form.
- *
- * Settings are measured, not eyeballed. `EXP = 1.8` because the ben-day gaps swallow
- * ~58% of the light; 1.8 lands the mean back at the un-halftoned 28.9/255.
- */
-
 const P = {
   dot: 3.5,
   mix: 0.7,
@@ -297,14 +279,18 @@ export function HalftoneCityBackdrop({ className = "" }: { className?: string })
     if (!canvas) return;
     const cvs = canvas;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const motionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
     const coarse = window.matchMedia("(pointer: coarse)").matches;
 
     // quality ladder. phones and reduced-motion get one still frame and no loop at all.
     // Cap desktop render scale at 1.25: the raymarcher is fragment-bound, so on a 1440p+
     // screen every extra 0.25 of scale is real cost for little visible gain through halftone.
     let scale = coarse ? 0.55 : Math.min(window.devicePixelRatio || 1, 1.25);
-    const still = reduced;
+    let still = motionMedia.matches;
+    let inView = false;
+    let videoPlaying = false;
+    let program: WebGLProgram | null = null;
+    let buffer: WebGLBuffer | null = null;
 
     // GL objects live in `let`s because they are ALL invalidated by a WebGL context loss
     // and rebuilt by initGL() on restore. A playing video can push a GPU to drop this
@@ -321,7 +307,7 @@ export function HalftoneCityBackdrop({ className = "" }: { className?: string })
     let lastT = performance.now();
     let t0 = lastT;
     let contextLost = false;
-    let paused = false;
+    let paused = true;
     // Frame-cap the backdrop to ~33fps. This halves its GPU cost versus running at 60fps with
     // NO loss of detail (same render resolution, same march steps) — the city drifts slowly
     // enough that the cap is invisible. This is the "less lag, same look" lever.
@@ -369,7 +355,7 @@ export function HalftoneCityBackdrop({ className = "" }: { className?: string })
     }
 
     function frame() {
-      if (!gl || paused || contextLost) return;
+      if (!gl || paused || contextLost || document.hidden || !inView || still) return;
       raf = requestAnimationFrame(frame);
       const now = performance.now();
       const dt = now - lastT;
@@ -409,6 +395,8 @@ export function HalftoneCityBackdrop({ className = "" }: { className?: string })
       gl.attachShader(prog, vs);
       gl.attachShader(prog, fs);
       gl.linkProgram(prog);
+      gl.deleteShader(vs); gl.deleteShader(fs);
+      program = prog;
       if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
         console.error("HalftoneCityBackdrop link:", gl.getProgramInfoLog(prog));
         return false;
@@ -416,6 +404,7 @@ export function HalftoneCityBackdrop({ className = "" }: { className?: string })
       gl.useProgram(prog);
 
       const buf = gl.createBuffer();
+      buffer = buf;
       gl.bindBuffer(gl.ARRAY_BUFFER, buf);
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
       const loc = gl.getAttribLocation(prog, "a");
@@ -490,23 +479,30 @@ export function HalftoneCityBackdrop({ className = "" }: { className?: string })
         raf = requestAnimationFrame(frame);
       }
     }
-    const offPlayback = onVideoPlaybackChange(setPaused);
-
-    // hidden tabs pause rAF anyway; this keeps the clock from lurching on return
-    function onVisibility() {
-      if (document.hidden) {
-        cancelAnimationFrame(raf);
-      } else if (!paused && !contextLost && !still) {
-        lastT = performance.now();
-        raf = requestAnimationFrame(frame);
-      }
+    function syncActivity() {
+      still = motionMedia.matches;
+      setPaused(!inView || document.hidden || videoPlaying || still);
+      if (still && inView && !document.hidden && !contextLost) drawOnce();
     }
+    const section = cvs.closest('section') || cvs;
+    const intersection = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      syncActivity();
+    });
+    intersection.observe(section);
+    const offPlayback = onVideoPlaybackChange(playing => { videoPlaying = playing; syncActivity(); });
+    const onVisibility = syncActivity;
     document.addEventListener("visibilitychange", onVisibility);
+    motionMedia.addEventListener('change', syncActivity);
+
 
     return () => {
       cancelAnimationFrame(raf);
       cancelAnimationFrame(sizeRaf);
       ro.disconnect();
+      intersection.disconnect();
+      motionMedia.removeEventListener("change", syncActivity);
+      if (gl && !contextLost) { gl.deleteBuffer(buffer); gl.deleteProgram(program); }
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", onVisibility);
       cvs.removeEventListener("webglcontextlost", onContextLost);

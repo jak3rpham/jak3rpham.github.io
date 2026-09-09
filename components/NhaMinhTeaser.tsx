@@ -101,7 +101,7 @@ export function NhaMinhTeaser() {
               AI Riser Vietnam 2026 Submission
             </span>
             <span className="rounded-full border border-[#FF6B4B]/30 bg-[#FF6B4B]/10 px-3 py-1 font-mono t-micro uppercase tracking-[0.14em] text-[#FF6B4B] backdrop-blur-md">
-              Full-Stack & Multimodal AI Lead
+              Product & AI direction
             </span>
           </div>
 
@@ -380,7 +380,7 @@ export function NhaMinhTeaser() {
             {/* Right Highlights & Engineering Pillars */}
             <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-6">
               <div className="space-y-5">
-                <h3 className="font-display text-2xl font-bold text-cream">Key Engineering Pillars</h3>
+                <h3 className="font-display text-2xl font-bold text-cream">What the product does</h3>
                 <ul className="space-y-4">
                   {[
                     "Zero-cognitive friction UI: 24px+ typography, high-contrast palette, and voice-first natural language interaction.",
@@ -399,7 +399,7 @@ export function NhaMinhTeaser() {
               </div>
 
               <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-rule/80">
-                <Cta href="/nha-minh">Deep-Dive Case Study</Cta>
+                <Cta href="/nha-minh" size="lg">Explore the Nhà Mình case study</Cta>
                 <Cta
                   variant="secondary"
                   href="https://github.com/jak3rpham/ai-riser-namdosan"

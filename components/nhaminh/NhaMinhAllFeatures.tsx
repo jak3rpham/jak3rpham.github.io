@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Reveal } from "@/components/Reveal";
 import { fadeUp } from "@/lib/motion";
 
-const FEATURES = [
+export const FEATURES = [
   {
     num: "01",
     tag: "Multimodal OCR",
@@ -132,3 +132,4 @@ export function NhaMinhAllFeatures() {
     </section>
   );
 }
+

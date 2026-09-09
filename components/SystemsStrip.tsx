@@ -17,7 +17,7 @@ type Kind = "in" | "engine" | "out";
 type Station = { label: string; sub?: string; kind: Kind };
 type System = { name: string; stations: Station[]; delta: string; note: string };
 
-const SYSTEMS: System[] = [
+export const SYSTEMS: System[] = [
   {
     name: "HR Column Publisher",
     stations: [
@@ -82,7 +82,7 @@ function Node({ kind, x }: { kind: Kind; x: number }) {
   );
 }
 
-function Schematic({ stations, delta }: { stations: Station[]; delta: string }) {
+export function Schematic({ stations, delta }: { stations: Station[]; delta: string }) {
   return (
     <div>
       <div className="mb-3 text-center font-mono t-micro tracking-[0.04em] text-forest">{delta}</div>
@@ -209,3 +209,4 @@ export function SystemsStrip() {
     </section>
   );
 }
+

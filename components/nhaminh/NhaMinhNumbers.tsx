@@ -23,7 +23,7 @@ function ArrowLeftIcon() {
   );
 }
 
-const METRICS = [
+export const METRICS = [
   ["100%", "Medical Safety Pass Rate", "134 unit tests validating prompt boundaries against clinical malpractice."],
   ["<1.2s", "OCR Extraction Latency", "Near-instant extraction of drug names, dosages, and schedules via Gemini 2.5 Flash."],
   ["0", "Hallucinated Prescriptions", "Zero synthetic drugs created outside verified clinical databases."],
@@ -118,3 +118,4 @@ export function NhaMinhNumbers() {
     </section>
   );
 }
+

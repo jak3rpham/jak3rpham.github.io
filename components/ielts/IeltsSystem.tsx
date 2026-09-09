@@ -4,7 +4,7 @@ import { Reveal } from "../Reveal";
 import { DrawDiagram, type DiagramNode, type DiagramEdge } from "../DrawDiagram";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
-const BOOT: { nodes: DiagramNode[]; edges: DiagramEdge[] } = {
+export const BOOT: { nodes: DiagramNode[]; edges: DiagramEdge[] } = {
   nodes: [
     { id: "app", x: 52, y: 110, label: "App boots" },
     { id: "chk", x: 165, y: 110, label: "env set?", r: 9 },
@@ -15,7 +15,7 @@ const BOOT: { nodes: DiagramNode[]; edges: DiagramEdge[] } = {
   edges: [["app", "chk"], ["chk", "sb"], ["chk", "ls"], ["sb", "ui"], ["ls", "ui"]],
 };
 
-const GRADE: { nodes: DiagramNode[]; edges: DiagramEdge[] } = {
+export const GRADE: { nodes: DiagramNode[]; edges: DiagramEdge[] } = {
   nodes: [
     { id: "e", x: 48, y: 110, label: "Essay" },
     { id: "g", x: 150, y: 110, label: "Word gate", sub: "reject early" },
@@ -26,11 +26,11 @@ const GRADE: { nodes: DiagramNode[]; edges: DiagramEdge[] } = {
   edges: [["e", "g"], ["g", "r"], ["r", "c"], ["c", "j"]],
 };
 
-const TABLES: { name: string; shape: string; note: string }[] = [
+export const TABLES: { name: string; shape: string; note: string }[] = [
   {
     name: "user_progress",
     shape: "upsert · PK (user_id, item_id) · state jsonb",
-    note: "Progress is current state, so a row is overwritten, never appended. state is jsonb so a new kind of exercise needs no migration — only a new id prefix.",
+    note: "Progress is current state, so a row is overwritten, never appended. state is jsonb so a new kind of exercise needs no migration. only a new id prefix.",
   },
   {
     name: "mock_attempts",
@@ -49,7 +49,7 @@ const TABLES: { name: string; shape: string; note: string }[] = [
   },
 ];
 
-const OPS: [string, string][] = [
+export const OPS: [string, string][] = [
   [
     "Keys never reach the browser",
     "Every model call goes through a server route. The Anthropic and transcript keys have no NEXT_PUBLIC prefix, so they cannot be bundled by accident.",
@@ -102,7 +102,7 @@ export function IeltsSystem() {
           viewport={{ once: true, amount: 0.4 }}
           className="mb-10 max-w-[64ch] t-lead font-light leading-[1.8] text-tan"
         >
-          Clone the repo, run it, and it works — progress saves to the browser and nothing asks you to
+          Clone the repo, run it, and it works. progress saves to the browser and nothing asks you to
           sign in. Add two environment variables and the same build becomes multi-user with row-level
           security. There is no flag and no second code path: the app checks whether it was given
           credentials and picks a lane.
@@ -167,3 +167,4 @@ export function IeltsSystem() {
     </section>
   );
 }
+

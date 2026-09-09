@@ -184,7 +184,7 @@ export function TerraTeaser() {
               ))}
             </dl>
             <div className="flex flex-wrap items-center gap-4">
-              <Cta href="/terra">Full case study</Cta>
+              <Cta href="/terra" size="lg">Explore the Terra case study</Cta>
               <Cta href="https://terra-plat.vn" variant="secondary" arrow="up-right">Live site</Cta>
             </div>
           </div>

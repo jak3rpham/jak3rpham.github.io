@@ -3,10 +3,10 @@
 type Lane = { n: string; t: string; d: string; go: string; href: string };
 
 // Range proof: four disciplines actually shipped in, each pointing straight to a case.
-const LANES: Lane[] = [
+export const LANES: Lane[] = [
   {
     n: "01",
-    t: "Growth & technical",
+    t: "Growth & marketing",
     d: "Technical SEO, data pipelines, GA4 and GSC dashboards, and full-funnel execution in EN and VI.",
     go: "terra-plat.vn",
     href: "#terra",
@@ -14,7 +14,7 @@ const LANES: Lane[] = [
   {
     n: "02",
     t: "Product & AI builds",
-    d: "Shipped apps end to end: IELTS Studio with Claude API grading, a Badminton PWA on Supabase with live VietQR.",
+    d: "Directing AI-assisted builds from idea to working product: IELTS Studio and a group-payment app with live VietQR.",
     go: "Selected builds",
     href: "#work",
   },
@@ -124,3 +124,4 @@ export function AboutPanel() {
     </div>
   );
 }
+

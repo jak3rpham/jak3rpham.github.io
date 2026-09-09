@@ -1,10 +1,10 @@
 "use client";
-import { motion } from "framer-motion";
+import { SceneBackdrop } from "../SceneBackdrop";
 import { MultiScrub, type ScrubLayer } from "../MultiScrub";
 import { Halftone } from "../Halftone";
 import { Reveal } from "../Reveal";
 import { Prose } from "./AruSection";
-import { fadeUp } from "@/lib/motion";
+
 import { ASSET_S00 } from "@/lib/aruData";
 
 /**
@@ -53,9 +53,9 @@ const LAYERS: ScrubLayer[] = [
   },
 ];
 
-export function AruWalk() {
+export function AruWalk({ compact = false }: { compact?: boolean }) {
   return (
-    <section id="walk" className="relative z-[4]">
+    <section id="walk" className="relative z-[4] isolate overflow-clip"><div className="pointer-events-none absolute inset-0 -z-10"><SceneBackdrop variant="aru" className="sticky top-0 h-screen w-full" /></div>
       <div className="relative overflow-x-clip px-[var(--pad)] pt-[clamp(3rem,7vw,6rem)]">
         <Halftone
           size={4}
@@ -77,37 +77,13 @@ export function AruWalk() {
               Scroll, and he <span className="text-forest">walks.</span>
             </h2>
           </Reveal>
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            className="mt-5"
-          >
-            <Prose className="max-w-[60ch]">
-              <p className="t-body font-light leading-[1.78] text-tan">
-                One 5-second generation, split into 151 frames. You set the pace of his walk with
-                the scroll, and three more clips move with it. In the video the walk is doubled to
-                2.0× so the street tears past; here it is yours to slow down, the one moment the
-                city&rsquo;s rush lets up.
-              </p>
-            </Prose>
-          </motion.div>
+          <p className="mt-5 text-tan">Set the pace. Let the city move around him.</p>
         </div>
       </div>
 
-      <MultiScrub layers={LAYERS} heightVh={320} heightVhMobile={130} className="mt-[clamp(2rem,5vw,4rem)]" />
+      <MultiScrub layers={LAYERS} heightVh={compact ? 160 : 320} heightVhMobile={compact ? 115 : 130} className="mt-[clamp(2rem,5vw,4rem)]" />
 
-      <div className="px-[var(--pad)] pb-[clamp(3rem,7vw,6rem)]">
-        <div className="mx-auto max-w-[1400px]">
-          <Prose className="max-w-[62ch]">
-            <p className="font-mono t-label leading-[1.9] tracking-[0.02em] text-sand">
-              {ASSET_S00.note} The video opens on the skyline and ends on the burning street; the
-              walk is the pulse in between.
-            </p>
-          </Prose>
-        </div>
-      </div>
     </section>
   );
 }
+

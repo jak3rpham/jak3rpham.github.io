@@ -3,6 +3,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { useScramble } from "@/lib/useScramble";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { Cta } from "./Cta";
+import { Assembly } from "./home/Assembly";
 
 const container: Variants = {
   hidden: {},
@@ -59,7 +60,8 @@ export function Hero() {
           Heavier and flatter than it was. The artwork behind is inverted on paper, so what shows
           through a thin right hand end is a PALE image under a dark wash, which greys the
           container instead of texturing it. The sequence is the reveal now, not the underlay. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-ink/96 via-ink/92 to-ink/86" />
+      <Assembly />
+      <div aria-hidden className="hero-scrim pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-ink/80 via-ink/45 to-ink/15" />
 
       {/* HeroStage publishes --hero-fade as its frame closes; the copy leaves ahead of it so the
           clip never crops a sentence in half. A var rather than a subscriber of its own, so the
@@ -72,11 +74,11 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: d1, duration: 0.6 }}
-          className="mb-5 sm:mb-7 flex items-center gap-4 text-sand"
+          className="mb-5 sm:mb-7 flex flex-wrap items-center gap-x-4 gap-y-2 text-tan"
         >
-          <span className="font-mono t-label uppercase tracking-[0.18em]">Growth, product &amp; video</span>
-          <span className="h-px w-10 flex-none bg-rule" />
-          <span className="flex items-baseline gap-1.5">
+          <span className="font-mono t-label uppercase tracking-[0.18em]">Growth, AI &amp; creative</span>
+          <span className="hidden h-px w-10 flex-none bg-rule sm:block" />
+          <span className="flex shrink-0 items-baseline gap-1.5 whitespace-nowrap">
             <b className="font-serif-jp t-lead font-bold text-forest">達樹</b>
             <span className="font-mono t-label uppercase tracking-[0.18em]">Tatsuki</span>
           </span>
@@ -105,8 +107,7 @@ export function Hero() {
           transition={{ delay: d2, duration: 0.6 }}
           className="mt-5 sm:mt-7 max-w-[46rem] text-[clamp(1.15rem,1.8vw,1.55rem)] font-light leading-[1.5] text-tan"
         >
-          <strong className="font-medium text-cream">Technical</strong> enough to <span className="text-forest">build it</span>,{" "}
-          <strong className="font-medium text-cream">creative</strong> enough to <span className="text-forest">film it</span>.
+          I connect <strong className="font-medium text-cream">strategy, AI and creative direction</strong> — and turn ideas into <span className="text-forest">work you can see</span>.
         </motion.p>
 
         <motion.div
@@ -115,7 +116,7 @@ export function Hero() {
           transition={{ delay: d3, duration: 0.6 }}
           className="mt-7 sm:mt-9 flex flex-wrap items-center gap-4"
         >
-          <Cta href="#work" size="lg">See the work</Cta>
+          <Cta href="#terra" size="lg">Explore my work</Cta>
           <Cta href="#contact" variant="secondary" size="lg">Get in touch</Cta>
         </motion.div>
 

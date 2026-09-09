@@ -103,6 +103,8 @@ export function CampaignFan() {
                 key={film.yt}
                 onClick={() => setActive(film)}
                 onMouseEnter={() => setHover(i)}
+                onFocus={() => { setSpread(true); setHover(i); }}
+                onBlur={() => setHover(null)}
                 aria-label={film.title}
                 className="group absolute left-1/2 top-1/2 w-[300px] cursor-pointer transition-all duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
                 style={{

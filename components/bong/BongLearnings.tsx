@@ -4,7 +4,7 @@ import { Reveal } from "../Reveal";
 import { Cta } from "../Cta";
 import { fadeUp } from "@/lib/motion";
 
-const LEARNINGS: { k: string; title: string; body: string }[] = [
+export const LEARNINGS: { k: string; title: string; body: string }[] = [
   {
     k: "一",
     title: "Pivot under constraint",
@@ -58,3 +58,4 @@ export function BongLearnings() {
     </section>
   );
 }
+

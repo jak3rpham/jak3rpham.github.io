@@ -1,0 +1,3 @@
+.art{display:block;width:100%;height:auto;color:var(--color-forest);overflow:visible}.source,.result{transition:transform 350ms ease-out;transform-box:fill-box;transform-origin:center}.art:hover .source{transform:translateY(-5px) rotate(-3deg)}.art:hover .result{transform:translateY(-6px) rotate(2deg)}.signal{animation:signalTravel 3s linear infinite;animation-play-state:paused}section[data-in-view=true] .signal{animation-play-state:running}@keyframes signalTravel{to{stroke-dashoffset:-60}}@media(prefers-reduced-motion:reduce){.signal{animation:none}.source,.result{transition:none}.art:hover .source,.art:hover .result{transform:none}}
+
+@media(max-width:700px){.art text{font-size:28px}}

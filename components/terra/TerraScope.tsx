@@ -5,7 +5,7 @@ import { fadeUp } from "@/lib/motion";
 
 type ScopeCard = { tag: string; title: string; body: string };
 
-const CARDS: ScopeCard[] = [
+export const CARDS: ScopeCard[] = [
   {
     tag: "// Reporting",
     title: "Reporting into decisions",
@@ -38,7 +38,7 @@ const CARDS: ScopeCard[] = [
   },
 ];
 
-const CREATIVE = [
+export const CREATIVE = [
   "Service brochures",
   "Ad creative (paid social + search)",
   "Service videos",
@@ -154,3 +154,4 @@ export function TerraScope() {
     </section>
   );
 }
+

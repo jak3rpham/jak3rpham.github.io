@@ -127,20 +127,11 @@ function ProjectPanel({ p }: { p: Project }) {
         <p className="mt-3 line-clamp-3 t-small font-light leading-[1.6] text-tan">{p.desc}</p>
 
         <div className="mt-auto flex flex-wrap gap-2.5 border-t border-rule pt-5">
-          {p.links.map((l) => {
-            const external = l.href.startsWith("http");
-            return (
-              <a
-                key={l.label}
-                href={l.href}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noreferrer" : undefined}
-                className="rounded-full border border-rule px-4 py-2.5 font-mono t-micro uppercase tracking-[0.08em] text-forest transition-colors hover:border-forest hover:bg-forest hover:text-ink"
-              >
-                {l.label} <span aria-hidden>{external ? "↗" : "→"}</span>
-              </a>
-            );
-          })}
+          {p.links.map((l, index) => (
+            <Cta key={l.label} href={l.href} variant={index === 0 ? "primary" : "secondary"} arrow={l.href.startsWith("http") ? "up-right" : "right"}>
+              {l.label === "Case study" ? `Explore ${p.title}` : l.label === "Live" || l.label === "Visit" ? "Open live project" : "View code"}
+            </Cta>
+          ))}
         </div>
       </div>
     </SpotlightCard>
@@ -221,7 +212,7 @@ export function WorkSection() {
         >
           WORK
         </span>
-        <div ref={trackRef} className="flex h-full items-center gap-10 px-[var(--pad)] [perspective:1600px] will-change-transform">
+        <div ref={trackRef} data-work-track className="flex h-full items-center gap-10 px-[var(--pad)] [perspective:1600px] will-change-transform">
           <div className="flex h-[66vh] w-[min(84vw,620px)] shrink-0 items-center pr-10">
             <Heading />
           </div>

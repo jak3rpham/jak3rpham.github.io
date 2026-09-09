@@ -128,7 +128,7 @@ export function BongTeaser() {
                 ))}
               </div>
             </div>
-            <Cta href="/bong-vespera">Full case study</Cta>
+            <Cta href="/bong-vespera" size="lg">Explore the Bóng Vespera project</Cta>
           </div>
           <Parallax speed={-46} className="mx-auto w-full max-w-[300px] md:ml-auto md:mr-0">
           <div className="overflow-hidden rounded-[12px] border border-panel-border bg-ink-raised">

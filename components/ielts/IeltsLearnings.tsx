@@ -4,11 +4,11 @@ import { Reveal } from "../Reveal";
 import { Cta } from "../Cta";
 import { fadeUp } from "@/lib/motion";
 
-const LEARNINGS: { k: string; title: string; body: string }[] = [
+export const LEARNINGS: { k: string; title: string; body: string }[] = [
   {
     k: "一",
     title: "The prompt is the product",
-    body: "The UI took a weekend; the grader and the item-writer took the rest. What separates this from a wrapper is not the code around the API call — it is knowing that Task 1 is marked on Task Achievement and that a model will inflate a band unless you forbid it.",
+    body: "The UI took a weekend; the grader and the item-writer took the rest. What separates this from a wrapper is not the code around the API call. it is knowing that Task 1 is marked on Task Achievement and that a model will inflate a band unless you forbid it.",
   },
   {
     k: "二",
@@ -69,3 +69,4 @@ export function IeltsLearnings() {
     </section>
   );
 }
+

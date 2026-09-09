@@ -5,7 +5,7 @@ import { fadeUp } from "@/lib/motion";
 
 type Concept = { dir: string; title: string; desc: string; mood: string; target: string; pick?: boolean };
 
-const CONCEPTS: Concept[] = [
+export const CONCEPTS: Concept[] = [
   {
     dir: "Direction A",
     title: "The Last Lantern",
@@ -85,3 +85,4 @@ export function BongConcept() {
     </section>
   );
 }
+

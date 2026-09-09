@@ -9,30 +9,41 @@ type Tracked = (typeof TRACKED)[number];
 const WORK_SECTIONS: Tracked[] = ["nhaminh", "terra", "aru", "bong", "work"];
 
 const WORK_ITEMS: { href: string; label: string; sub: string }[] = [
+  { href: "/terra", label: "terra-plat.vn", sub: "B2B SaaS growth · 22 mo" },
   { href: "/nha-minh", label: "Nhà Mình", sub: "AI Riser 2026 · Healthcare AI" },
-  { href: "#terra", label: "terra-plat.vn", sub: "B2B SaaS growth · 22 mo" },
-  { href: "#aru", label: "ある男", sub: "AI music video" },
-  { href: "#bong", label: "Bóng Vespera", sub: "AI creative pipeline" },
+  { href: "/aru-otoko", label: "ある男", sub: "AI music video" },
+  { href: "/bong-vespera", label: "Bóng Vespera", sub: "AI creative pipeline" },
   { href: "/ielts-studio", label: "IELTS Studio", sub: "Product build · AI grading" },
   { href: "#work", label: "Selected builds", sub: "Badminton · uphub" },
 ];
+const CASE_PATHS = ["/terra", "/nha-minh", "/aru-otoko", "/bong-vespera", "/ielts-studio"];
 
 const MOBILE_LINKS: { href: string; label: string }[] = [
   { href: "#about", label: "About" },
+  { href: "/terra", label: "terra-plat.vn growth" },
   { href: "/nha-minh", label: "Nhà Mình · AI Healthcare" },
-  { href: "#terra", label: "terra-plat.vn growth" },
-  { href: "#aru", label: "ある男 · AI video" },
-  { href: "#bong", label: "Bóng Vespera" },
+  { href: "/aru-otoko", label: "ある男 · AI video" },
+  { href: "/bong-vespera", label: "Bóng Vespera" },
   { href: "/ielts-studio", label: "IELTS Studio · build" },
   { href: "#work", label: "Selected builds" },
   { href: "/video", label: "Films" },
   { href: "#contact", label: "Contact" },
 ];
 
-function PillLink({ id, label, active }: { id: string; label: string; active: boolean }) {
+// An anchor only resolves on the homepage; from anywhere else it has to route there first.
+function useHref(isHome: boolean) {
+  return (href: string) => (href.startsWith("#") && !isHome ? `/${href}` : href);
+}
+function NavItem({ href, className, onClick, children }: { href: string; className?: string; onClick?: () => void; children: React.ReactNode }) {
+  return href.startsWith("/") && !href.startsWith("//")
+    ? <Link href={href} className={className} onClick={onClick}>{children}</Link>
+    : <a href={href} className={className} onClick={onClick}>{children}</a>;
+}
+
+function PillLink({ id, label, active, isHome }: { id: string; label: string; active: boolean; isHome: boolean }) {
   return (
-    <a
-      href={`#${id}`}
+    <NavItem
+      href={isHome ? `#${id}` : `/#${id}`}
       className={`relative z-[2] whitespace-nowrap rounded-full px-4 py-1.5 transition-colors ${
         active ? "text-ink font-bold" : "text-tan hover:text-cream"
       }`}
@@ -45,11 +56,12 @@ function PillLink({ id, label, active }: { id: string; label: string; active: bo
         />
       )}
       {label}
-    </a>
+    </NavItem>
   );
 }
 
-function WorkMenu({ active }: { active: boolean }) {
+function WorkMenu({ active, isHome }: { active: boolean; isHome: boolean }) {
+  const to = useHref(isHome);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -99,9 +111,9 @@ function WorkMenu({ active }: { active: boolean }) {
             className="absolute right-0 top-[calc(100%+8px)] w-[260px] overflow-hidden rounded-[14px] border border-panel-border bg-ink/90 p-1.5 shadow-[0_20px_50px_rgba(0,0,0,0.5)] backdrop-blur-md"
           >
             {WORK_ITEMS.map((it) => (
-              <a
+              <NavItem
                 key={it.href}
-                href={it.href}
+                href={to(it.href)}
                 onClick={() => setOpen(false)}
                 className="group flex flex-col gap-0.5 rounded-[9px] px-3 py-2.5 transition-colors hover:bg-forest/12"
               >
@@ -109,7 +121,7 @@ function WorkMenu({ active }: { active: boolean }) {
                   {it.label}
                 </span>
                 <span className="font-mono t-micro uppercase tracking-[0.08em] text-sand">{it.sub}</span>
-              </a>
+              </NavItem>
             ))}
           </motion.div>
         )}
@@ -118,7 +130,8 @@ function WorkMenu({ active }: { active: boolean }) {
   );
 }
 
-function MobileMenu({ isLight }: { isLight: boolean }) {
+function MobileMenu({ isLight, isHome }: { isLight: boolean; isHome: boolean }) {
+  const to = useHref(isHome);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -167,9 +180,9 @@ function MobileMenu({ isLight }: { isLight: boolean }) {
             }`}
           >
             {MOBILE_LINKS.map((it) => (
-              <a
+              <NavItem
                 key={it.href}
-                href={it.href}
+                href={to(it.href)}
                 onClick={() => setOpen(false)}
                 className={`block rounded-[9px] px-3 py-2.5 font-sans t-small normal-case tracking-normal transition-colors ${
                   isLight
@@ -178,7 +191,7 @@ function MobileMenu({ isLight }: { isLight: boolean }) {
                 }`}
               >
                 {it.label}
-              </a>
+              </NavItem>
             ))}
           </motion.div>
         )}
@@ -246,14 +259,14 @@ export function Nav() {
       {isHome ? (
         <>
           <div className="hidden items-center gap-1 rounded-full border border-panel-border bg-panel p-1 backdrop-blur-md sm:flex">
-            <PillLink id="about" label="About" active={active === "about"} />
-            <WorkMenu active={workActive} />
+            <PillLink id="about" label="About" active={active === "about"} isHome={isHome} />
+            <WorkMenu active={workActive} isHome={isHome} />
             <Link href="/video" className="relative z-[2] rounded-full px-4 py-1.5 text-tan transition-colors hover:text-cream">
               Video
             </Link>
-            <PillLink id="contact" label="Contact" active={active === "contact"} />
+            <PillLink id="contact" label="Contact" active={active === "contact"} isHome={isHome} />
           </div>
-          <MobileMenu isLight={false} />
+          <MobileMenu isLight={false} isHome={isHome} />
         </>
       ) : isNhaMinh ? (
         <>
@@ -289,16 +302,24 @@ export function Nav() {
               GitHub ↗
             </a>
           </div>
-          <MobileMenu isLight={true} />
+          <MobileMenu isLight={true} isHome={isHome} />
         </>
       ) : (
         <>
           <div className="hidden items-center gap-1 rounded-full border border-panel-border bg-panel p-1 backdrop-blur-md sm:flex">
-            <Link href="/" className="relative z-[2] rounded-full px-4 py-1.5 text-tan transition-colors hover:text-cream">
-              Home
+            <PillLink id="about" label="About" active={false} isHome={isHome} />
+            <WorkMenu active={CASE_PATHS.includes(pathname)} isHome={isHome} />
+            <Link
+              href="/video"
+              className={`relative z-[2] rounded-full px-4 py-1.5 transition-colors ${
+                pathname === "/video" ? "text-cream font-bold" : "text-tan hover:text-cream"
+              }`}
+            >
+              Video
             </Link>
+            <PillLink id="contact" label="Contact" active={false} isHome={isHome} />
           </div>
-          <MobileMenu isLight={false} />
+          <MobileMenu isLight={false} isHome={isHome} />
         </>
       )}
     </nav>

@@ -14,7 +14,7 @@ type System = {
   edges: DiagramEdge[];
 };
 
-const SYSTEMS: System[] = [
+export const SYSTEMS: System[] = [
   {
     tag: "// WordPress plugin",
     title: "Page Publisher",
@@ -159,3 +159,4 @@ export function TerraSystems() {
     </section>
   );
 }
+

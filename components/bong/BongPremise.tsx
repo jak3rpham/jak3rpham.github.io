@@ -3,7 +3,7 @@ import { motion, type Variants } from "framer-motion";
 import { Reveal } from "../Reveal";
 import { fadeUp } from "@/lib/motion";
 
-const SPECS: [string, string][] = [
+export const SPECS: [string, string][] = [
   ["Project", "Fictional mobile RPG"],
   ["Brief", "Self-generated, no client"],
   ["Constraint", "1 day · free tier · $0"],
@@ -63,3 +63,4 @@ export function BongPremise() {
     </section>
   );
 }
+

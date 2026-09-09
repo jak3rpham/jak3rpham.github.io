@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "../../Reveal";
 import { VideoLightbox } from "../../VideoLightbox";
 import { PROJECT_TVC, SECTIONS, thumb, type Film } from "@/lib/videoData";
@@ -9,12 +9,13 @@ const AC = SECTIONS["project-tvc"].accent;
 const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
 
 function Row({ film, i, onOpen }: { film: Film; i: number; onOpen: (f: Film) => void }) {
+  const reduce = useReducedMotion();
   return (
     <motion.button
       data-idx={i}
       onClick={() => onOpen(film)}
-      initial={{ opacity: 0, x: 40 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ amount: 0.35 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="group flex w-full items-center gap-5 border-b border-rule py-6 text-left"
@@ -121,7 +122,7 @@ export function ProjectTvcIndex() {
             </div>
           </div>
 
-          <div ref={listRef} className="flex-1">
+          <div ref={listRef} className="min-w-0 flex-1">
             {PROJECT_TVC.map((f, i) => (
               <Row key={f.yt} film={f} i={i} onOpen={setActive} />
             ))}

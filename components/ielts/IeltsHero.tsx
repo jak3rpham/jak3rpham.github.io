@@ -7,7 +7,7 @@ import { Cta } from "../Cta";
 /**
  * Fourth hero archetype, deliberately unlike the other three: /terra and /video are splits
  * with an abstract WebGL object, /bong-vespera is a framed film still, /aru-otoko is
- * full-bleed. This one has no image at all — a software project's honest hero is its
+ * full-bleed. This one has no image at all. a software project's honest hero is its
  * manifest, so the page opens as a spec sheet: type, a mono fact table, and the two links
  * that actually matter (running app, source).
  */
@@ -16,7 +16,7 @@ const SPEC: [string, string][] = [
   ["Role", "Sole designer, engineer, author"],
   ["Stack", "Next.js 15 · React 19 · Supabase · Claude API"],
   ["Surface", "10 learner routes · 3 server routes · 4 Postgres tables"],
-  ["Content", "Written by me — no real exam papers"],
+  ["Content", "Written by me. no real exam papers"],
   ["Year", "2026"],
 ];
 
