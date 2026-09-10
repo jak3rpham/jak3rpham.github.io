@@ -21,7 +21,9 @@ export function YouTubeEmbed({ id, title, vertical = false }: { id: string; titl
             // A missing size returns YouTube's 120x90 grey placeholder with a 200, so onError never fires.
             onLoad={e => { if (e.currentTarget.naturalWidth <= 120) next(); }}
           />
-          <span className={s.play} aria-hidden="true">▶</span>
+          <span className={s.playDisc} aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M9 6.5l9 5.5-9 5.5z" fill="currentColor" /></svg>
+          </span>
         </button>}
   </div>;
 }
