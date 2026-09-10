@@ -3,7 +3,27 @@ import { useEffect, useRef, useState } from "react";
 import s from "./Stories.module.css";
 
 export function YouTubeEmbed({ id, title, vertical = false }: { id: string; title: string; vertical?: boolean }) {
-  return <div className={`${s.embed} ${vertical ? s.verticalEmbed : ""}`}><iframe src={`https://www.youtube.com/embed/${id}?rel=0`} title={title} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /></div>;
+  const [playing, setPlaying] = useState(false);
+  const sources = vertical
+    ? [`https://i.ytimg.com/vi/${id}/oardefault.jpg`, `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`, `https://i.ytimg.com/vi/${id}/hqdefault.jpg`]
+    : [`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`, `https://i.ytimg.com/vi/${id}/hqdefault.jpg`];
+  const [step, setStep] = useState(0);
+  const next = () => setStep(i => Math.min(i + 1, sources.length - 1));
+  return <div className={`${s.embed} ${vertical ? s.verticalEmbed : ""}`}>
+    {playing
+      ? <iframe src={`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`} title={title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
+      : <button type="button" className={s.embedPoster} onClick={() => setPlaying(true)} aria-label={`Play ${title}`}>
+          <img
+            src={sources[step]}
+            alt=""
+            loading="lazy"
+            onError={next}
+            // A missing size returns YouTube's 120x90 grey placeholder with a 200, so onError never fires.
+            onLoad={e => { if (e.currentTarget.naturalWidth <= 120) next(); }}
+          />
+          <span className={s.play} aria-hidden="true">▶</span>
+        </button>}
+  </div>;
 }
 
 export function FeatureClip({ src, poster, title, description, index }: { src: string; poster: string; title: string; description: string; index: number }) {
