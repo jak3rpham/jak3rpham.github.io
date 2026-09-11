@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/fix-og.mjs",
+    "build": "next build && node scripts/fix-og.mjs && node scripts/add-slash-redirects.mjs",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
