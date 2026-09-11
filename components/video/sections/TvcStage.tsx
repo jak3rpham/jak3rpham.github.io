@@ -68,7 +68,7 @@ function AwardCard({ film, i, onOpen }: { film: Film; i: number; onOpen: (f: Fil
         </span>
         <div className="absolute inset-x-5 bottom-5">
           <div className="font-display text-[1.6rem] font-bold leading-none text-cream">{film.title}</div>
-          <div className="mt-1.5 font-mono t-micro uppercase tracking-[0.06em] text-sand">{film.meta}</div>
+          <div className="mt-1.5 font-mono t-micro uppercase tracking-[0.06em] text-sand">{film.meta}{film.role ? " · " + film.role : ""}</div>
         </div>
       </div>
 
@@ -110,7 +110,7 @@ function AlsoCard({ film, onOpen }: { film: Film; onOpen: (f: Film) => void }) {
       </div>
       <div className="px-4 py-3">
         <div className="t-small font-semibold text-cream">{film.title}</div>
-        <div className="mt-0.5 font-mono t-micro uppercase tracking-[0.05em] text-sand">{film.meta}</div>
+        <div className="mt-0.5 font-mono t-micro uppercase tracking-[0.05em] text-sand">{film.meta}{film.role ? " · " + film.role : ""}</div>
       </div>
     </button>
   );

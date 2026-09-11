@@ -59,7 +59,7 @@ function Copy({ film, i }: { film: Film; i: number }) {
       <h4 className="mt-3 font-display text-[clamp(1.5rem,3vw,2.4rem)] font-bold leading-[1.08] tracking-[-0.02em] text-cream">
         {film.title}
       </h4>
-      <p className="mt-3 max-w-[40ch] t-body font-light leading-[1.6] text-tan">{film.meta}</p>
+      <p className="mt-3 max-w-[40ch] t-body font-light leading-[1.6] text-tan">{film.meta}{film.role ? " · " + film.role : ""}</p>
       <span className="mt-5 inline-flex items-center gap-2 font-mono t-micro uppercase tracking-[0.1em]" style={{ color: AC }}>
         ▶ Watch explainer
       </span>

@@ -18,7 +18,7 @@ export function VideoArchive() {
   return <MotionConfig reducedMotion="user"><Story next="video"><div className={s.archive} data-zone="dark">
     <section id="hero" className={s.hero}>
       <ScrollArtwork variant="film" images={HOME_PRIORITY.map(f=>({src:thumb(f.yt),alt:f.title}))}/>
-      <div className={s.heroCopy}><a href="/" className={s.label}>← Pham Ngoc Thanh / Moving image</a><h1>Every story<br/><em>has a rhythm.</em></h1><div className={s.heroBottom}><p>Brand films. Music. Campaigns.<br/>Different formats, different ways to feel.</p><span>Two Top 1 TVC awards<br/>Business Challenge · 2023 / 2024</span></div></div>
+      <div className={s.heroCopy}><a href="/" className={s.label}>← Pham Ngoc Thanh / Moving image</a><h1>Every story<br/><em>has a rhythm.</em></h1><div className={s.heroBottom}><p>Brand films. Music. Campaigns.<br/>Different formats, different ways to feel.</p><span>Editor on every film · full scope on the TVCs<br/>Video Manager · SRadio / Vice President · L.O.M<br/>2× Top 1 TVC · Business Challenge, UEH ISB</span></div></div>
     </section>
     <div id="archive"><nav className={s.index} aria-label="Film categories">{Object.values(SECTIONS).map((section,i)=><a key={section.id} href={`#${section.id}`}><span>0{i+1}</span>{section.label}<b>↘</b></a>)}</nav>
     <div id="films-0" className={s.awards}><TvcStage/></div>

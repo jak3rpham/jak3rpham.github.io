@@ -48,7 +48,7 @@ function VideoCard({
         <div className={`font-semibold leading-[1.15] text-cream ${big ? "font-display text-[clamp(1.4rem,2.6vw,2.2rem)] tracking-[-0.02em]" : "t-body"}`}>
           {v.title}
         </div>
-        <div className="mt-1 font-mono t-micro uppercase tracking-[0.05em] text-sand">{v.meta}</div>
+        <div className="mt-1 font-mono t-micro uppercase tracking-[0.05em] text-sand">{v.meta}{v.role ? " · " + v.role : ""}</div>
       </div>
     </motion.button>
   );

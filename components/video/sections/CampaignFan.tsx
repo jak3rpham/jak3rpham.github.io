@@ -37,7 +37,7 @@ function CardFace({ film }: { film: Film }) {
       </div>
       <div className="px-3.5 py-3">
         <div className="t-small font-semibold leading-snug text-cream">{film.title}</div>
-        <div className="mt-1.5 font-mono t-micro uppercase tracking-[0.05em] text-sand">{film.meta}</div>
+        <div className="mt-1.5 font-mono t-micro uppercase tracking-[0.05em] text-sand">{film.meta}{film.role ? " · " + film.role : ""}</div>
       </div>
     </div>
   );

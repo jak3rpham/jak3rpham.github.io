@@ -109,7 +109,7 @@ export function EventsTimeline() {
               </div>
               <div className="px-4 py-3">
                 <div className="t-body font-semibold leading-snug text-cream">{film.title}</div>
-                <div className="mt-1 font-mono t-micro uppercase tracking-[0.05em] text-sand">{film.meta}</div>
+                <div className="mt-1 font-mono t-micro uppercase tracking-[0.05em] text-sand">{film.meta}{film.role ? " · " + film.role : ""}</div>
               </div>
             </button>
           </motion.div>

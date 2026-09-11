@@ -28,7 +28,7 @@ export const LANES: Lane[] = [
   {
     n: "04",
     t: "Creative & film",
-    d: "TVCs, music videos, and AI-directed video from brief to final cut. Two-time Top 1 TVC at Business Challenge.",
+    d: "Editor on 45+ films: TVCs, music videos, events. Two-time Top 1 TVC at Business Challenge, UEH ISB.",
     go: "Video reel",
     href: "#video",
   },

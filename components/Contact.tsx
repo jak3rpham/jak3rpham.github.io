@@ -12,6 +12,7 @@ const CONTACT_LINES = [
   { k: "Location", v: "Ho Chi Minh City, VN" },
   { k: "Languages", v: "VI · EN IELTS 7.0" },
   { k: "Status", v: "Open to full-time & freelance · hybrid / remote" },
+  { k: "LinkedIn", v: "in/jkpham03", href: "https://linkedin.com/in/jkpham03/" },
 ];
 
 export function Contact() {
@@ -41,7 +42,7 @@ export function Contact() {
             </motion.a>
           </div>
 
-          <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-7 border-t border-rule pt-9 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="mt-12 grid grid-cols-2 gap-x-8 gap-y-7 border-t border-rule pt-9 sm:grid-cols-3 lg:grid-cols-6">
             {CONTACT_LINES.map(({ k, v, href }) => (
               <div key={k} className="flex flex-col gap-1.5">
                 <span className="font-mono t-micro uppercase tracking-[0.12em] text-sand">{k}</span>
@@ -58,7 +59,6 @@ export function Contact() {
 
           <div className="mt-9 flex flex-wrap gap-2">
             {[
-              ["LinkedIn", "https://linkedin.com/in/jkpham03/"],
               ["Facebook", "https://facebook.com/phamth.jaker/"],
               ["Instagram", "https://instagram.com/tatsuki.ddd/"],
             ].map(([label, href]) => (

@@ -44,7 +44,7 @@ function ReelCard({ film, i, onOpen }: { film: Film; i: number; onOpen: (f: Film
         </span>
         <div className="absolute inset-x-3 bottom-3">
           <div className="t-small font-semibold leading-tight text-cream">{film.title}</div>
-          <div className="mt-0.5 font-mono t-micro uppercase tracking-[0.04em] text-sand">{film.meta}</div>
+          <div className="mt-0.5 font-mono t-micro uppercase tracking-[0.04em] text-sand">{film.meta}{film.role ? " · " + film.role : ""}</div>
         </div>
       </div>
     </motion.button>

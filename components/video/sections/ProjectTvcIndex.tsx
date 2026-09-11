@@ -42,7 +42,7 @@ function Row({ film, i, onOpen }: { film: Film; i: number; onOpen: (f: Film) => 
         <div className="font-display text-[clamp(1.2rem,2.4vw,1.9rem)] font-bold leading-tight text-cream transition-transform duration-300 group-hover:translate-x-1">
           {film.title}
         </div>
-        <div className="mt-1.5 font-mono t-micro uppercase tracking-[0.06em] text-sand">{film.meta}</div>
+        <div className="mt-1.5 font-mono t-micro uppercase tracking-[0.06em] text-sand">{film.meta}{film.role ? " · " + film.role : ""}</div>
         {film.badge && (
           <span className="mt-2 inline-block rounded-[5px] border px-2 py-0.5 font-mono t-micro uppercase tracking-[0.06em]" style={{ borderColor: `${AC}66`, color: AC }}>
             {film.badge}

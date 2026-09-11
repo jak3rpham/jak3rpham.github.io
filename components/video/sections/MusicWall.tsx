@@ -65,7 +65,7 @@ function Cover({ film, big, onOpen }: { film: Film; big?: boolean; onOpen: (f: F
         <div className={`font-display font-bold leading-[0.98] tracking-[-0.02em] text-cream ${big ? "text-[clamp(2rem,6vw,4.2rem)]" : "text-[1.5rem]"}`}>
           {film.title}
         </div>
-        <div className="mt-2 font-mono t-micro uppercase tracking-[0.06em] text-sand">{film.meta}</div>
+        <div className="mt-2 font-mono t-micro uppercase tracking-[0.06em] text-sand">{film.meta}{film.role ? " · " + film.role : ""}</div>
       </div>
     </Wrapper>
   );
