@@ -1,0 +1,1697 @@
+/*
+Theme Name: Vitalité 2.0
+Theme URI: https://vitalite.io.vn
+Description: Child theme cho VITALITÉ — streetwear, WooCommerce. Header/footer bằng PHP, không dùng Elementor Theme Builder.
+Author: Vitalité
+Author URI: https://vitalite.io.vn
+Template: hello-elementor
+Version: 2.6.3
+Requires at least: 6.0
+Requires PHP: 8.0
+Text Domain: vitalite
+Domain Path: /languages
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+/* ==========================================================================
+   VITALITÉ — DESIGN SYSTEM
+   --------------------------------------------------------------------------
+   Font KHÔNG nạp bằng @import ở đây. @import chặn render và nối tiếp request
+   (CSS phải tải xong mới biết cần tải font) → hại LCP.
+   Font nạp bằng wp_enqueue_style + preconnect trong inc/enqueue.php.
+
+   Nền site là TRẮNG — để tôn sản phẩm, đúng chuẩn site fashion.
+   Vùng tối + iridescent chỉ dùng ở chỗ KỂ CHUYỆN, không có mockup sản phẩm.
+   ========================================================================== */
+
+:root {
+  /* ---- Typography ---- */
+  --vt-font-primary: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  /* Archivo variable, truc wdth. 'Archivo Expanded' KHONG ton tai tren Google
+     Fonts -- xem inc/enqueue.php. Be ngang dat bang --vt-display-wide. */
+  --vt-font-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --vt-display-wide: 125%;
+  --vt-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* ---- Ground & ink ---- */
+  --vt-paper: #FFFFFF;   /* nền chính — lưới sản phẩm, PDP */
+  --vt-tint: #F4F4F4;    /* nền phụ — khối nhấn nhẹ trên trắng */
+  --vt-ink: #0A0A0A;     /* chữ chính, và nền của vùng tối */
+  --vt-ink-soft: #16161A;
+  --vt-line: #E4E4E6;
+  --vt-line-strong: #C9C9CE;
+  --vt-muted: #6E6E76;
+  --vt-dim: #75757F;   /* cu #9A9AA2 chi 2.79:1, truot ca chuan chu lon */
+
+  /* ---- Đảo màu cho vùng tối ---- */
+  --vt-on-dark: #F2F2F4;
+  --vt-on-dark-muted: rgba(242, 242, 244, .68);
+  --vt-on-dark-line: rgba(242, 242, 244, .18);
+
+  /* ---- Accent ----
+     TẠM THỜI ĐEN. Brand đang đổi chủ, hệ màu mới chưa chốt.
+     Thời kỳ cũ dùng hồng magenta ~#CA2058; thời kỳ mới đi xanh dương + tím (🖤💜).
+     Không đóng đinh vào màu của thời kỳ sắp bị thay.
+     Có mã chính thức → đổi ĐÚNG BIẾN NÀY, không sửa chỗ nào khác. */
+  --vt-accent: #0A0A0A;
+  --vt-accent-on: #FFFFFF;
+
+  /* ---- Iridescent ----
+     QUAN SÁT TỪ ẢNH IG THỜI KỲ MỚI, KHÔNG PHẢI MÃ SPEC.
+     Dùng cho band/hero, không dùng cho chữ hay UI. */
+  /* Hong thoi ky CU. DO DUOC tu hinh in tren san pham that, hue 336-348 do.
+     Xem reference/BRAND_ASSETS_AUDIT.md muc 2. KHONG dung cho UI. */
+  --vt-archive-pink: #C52458;
+
+  /* Nền của váng dầu. Gần đen, ám xanh lục rất nhẹ — dầu trên nhựa đường
+     không bao giờ đen tuyệt đối. Bốn biến --vt-iri-1..4 của bản cũ đã bỏ:
+     bản mới dựng dải quang phổ bằng hsl() viết thẳng, vì các chặng màu phải
+     đi liền một dãy quang phổ, tách thành bốn biến rời là mời người sau sửa
+     lệch một chặng và phá cả dãy. */
+  --vt-iri-base: #04060a;
+  /* Nen cua banner dau trang. Toi hon nen vang dau mot chut vi be mat thep
+     phan chieu manh hon, can nen sau hon de canh sang con noi bat. */
+  --vt-steel-base: #070809;
+
+  /* ---- Trạng thái ---- */
+  --vt-sale: #C2413A;
+  --vt-ok: #188479;    /* cu hut AA dung 0,01 */
+  /* Ô cảnh báo "chưa có dữ liệu" trong bộ trang tĩnh. Trước đây hardcode
+     rải rác 16 chỗ nên không đổi một lần được. */
+  --vt-flag: #B45309;
+  --vt-flag-bg: #FEF6E7;
+  --vt-yes: #166534;
+
+  /* ---- Không gian ---- */
+  --vt-header-h: 76px;
+  --vt-header-h-mobile: 64px;
+  /* FULL-WIDTH. Trang không có khung 1440px ở giữa — nội dung chạy sát mép,
+     chỉ chừa đúng một khoảng lề. Đây là ngôn ngữ layout của prototype. */
+  --vt-gutter: clamp(16px, 2.4vw, 32px);
+  --vt-max: none;
+  --vt-max-text: 68ch;
+  /* Trang TAI LIEU (chinh sach, gio, thanh toan) chan o day. Trang BRAND van
+     full-width. Do dai dong la yeu to doc duoc, khong phai so thich. */
+  --vt-max-doc: 1180px;
+  /* Le trong cac fragment trang tinh, rong hon --vt-gutter cua theme */
+  --vt-gutter-page: clamp(20px, 5vw, 72px);
+  /* Đường kẻ 2px giữa các ô — nền lộ ra qua khe gap, tạo hairline không cần border */
+  --vt-hair: 2px;
+
+  /* ---- Thang chữ ---- */
+  --vt-t-xs: 11px;
+  --vt-t-sm: 13px;
+  --vt-t-base: 15px;
+  --vt-t-md: 17px;
+  --vt-t-lg: clamp(20px, 2.4vw, 26px);
+  --vt-t-xl: clamp(24px, 3vw, 34px);
+  /* Chữ tiêu đề section — KHỔNG LỒ. Đây là điểm nhấn chính của trang.
+     5.4vw nghĩa là nó co giãn theo màn hình, không đứng yên một cỡ. */
+  --vt-t-2xl: clamp(38px, 5.4vw, 84px);
+  --vt-t-hero: clamp(50px, 8.4vw, 152px);
+
+  /* ---- Chuyển động ---- */
+  --vt-ease: cubic-bezier(.22, .61, .36, 1);
+  --vt-fast: .18s;
+  --vt-slow: .45s;
+}
+
+@media (max-width: 768px) {
+  :root { --vt-header-h: var(--vt-header-h-mobile); }
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--vt-font-primary);
+  background-color: var(--vt-paper);
+  color: var(--vt-ink);
+  font-size: var(--vt-t-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, video, svg { max-width: 100%; height: auto; display: block; }
+
+a { color: inherit; }
+/* 🔴 BẮT BUỘC — đừng xoá.
+   `reset.css` của Hello Elementor (theme cha) đặt:
+       a           { color: #cc3366 }   hồng
+       a:hover     { color: #333366 }   XANH NAVY ĐẬM
+   Ta đã đè `a` ở dòng trên, nhưng KHÔNG có rule cho `:hover` thì reset.css thắng
+   → rê chuột vào link trên header nền đen là chữ thành navy đậm, mất hút hoàn toàn.
+   Trả về `inherit` để link luôn ăn theo màu chữ của khối chứa nó.
+   Component nào cần màu hover riêng đều có selector đặc hiệu hơn nên vẫn thắng. */
+a:hover, a:focus, a:active { color: inherit; }
+
+/* 🔴 CÙNG MỘT THỦ PHẠM, LỖI THỨ HAI — cũng đừng xoá.
+   `reset.css` của Hello Elementor còn đặt:
+       button:hover, button:focus,
+       [type=button]:hover, [type=submit]:hover  { background: #cc3366; color: #fff }
+   Nút nào của theme không tự khai `:hover` là bị tô HỒNG nguyên khối khi rê chuột.
+   Thanh chuyển slide hero dính đúng lỗi này — nó là <button>.
+   Component có màu hover riêng đều đặc hiệu hơn (1 class + 1 pseudo) nên vẫn thắng. */
+button:hover, button:focus,
+[type="button"]:hover, [type="button"]:focus,
+[type="submit"]:hover, [type="submit"]:focus {
+  background-color: transparent;
+  color: inherit;
+}
+
+h1, h2, h3, h4 { text-wrap: balance; }
+
+:focus-visible {
+  outline: 2px solid var(--vt-ink);
+  outline-offset: 3px;
+}
+
+/* Bỏ qua tới nội dung — bắt buộc cho bàn phím và screen reader */
+.vt-skip {
+  position: absolute; left: -9999px; top: 0; z-index: 999;
+  background: var(--vt-ink); color: var(--vt-paper);
+  padding: 12px 20px; font-family: var(--vt-font-mono); font-size: var(--vt-t-sm);
+}
+.vt-skip:focus { left: 0; }
+
+.screen-reader-text {
+  position: absolute !important; width: 1px; height: 1px;
+  overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap;
+}
+
+/* Hello Elementor để lại tiêu đề trang mặc định — ẩn, ta tự dựng */
+.page-header, .site-main > .page-header { display: none !important; }
+
+/* HEADER XUYÊN THẤU — quy tắc trung tâm của toàn site.
+   --------------------------------------------------------------------
+   Header dán trên đỉnh, cao var(--vt-header-h). Có HAI trường hợp:
+
+   1. Trang MỞ BẰNG BANNER (`body.vt-banner-top`) — trang chủ, shop, category.
+      Nội dung bắt đầu từ đúng mép trên viewport, KHÔNG đệm. Banner chui xuống
+      dưới header, header trong suốt → cảm giác header nổi trên ảnh.
+      Banner tự chừa chỗ cho header bằng padding-top của chính nó.
+
+   2. Trang KHÔNG có banner — page, single, search, cart, checkout, 404.
+      Vẫn đệm đúng chiều cao header, header đục như thường. Đây là MẶC ĐỊNH:
+      quên khai báo banner thì tệ nhất là thừa khoảng trắng, chứ không phải
+      chữ chui xuống dưới header.
+
+   Class do `vt_top_banner_tone()` quyết định — xem inc/helpers.php.
+   .vt-main là container THẬT do header.php in ra.
+   (#content và .site-main là của Hello Elementor — giữ lại phòng khi
+   một trang nào đó vẫn đi qua template của theme cha.) */
+.vt-main,
+#content,
+.site-main { padding-top: var(--vt-header-h); }
+
+body.vt-banner-top .vt-main,
+body.vt-banner-top #content,
+body.vt-banner-top .site-main { padding-top: 0; }
+
+/* ==========================================================================
+   LAYOUT
+   ========================================================================== */
+
+/* Không còn khung giữa. Chỉ có lề. */
+.vt-wrap { width: 100%; padding-inline: var(--vt-gutter); }
+/* Tràn hoàn toàn, không lề — dùng cho gallery và lưới sản phẩm */
+.vt-bleed { width: 100%; padding-inline: 0; }
+.vt-wrap-narrow { max-width: 860px; margin-inline: auto; }
+.vt-section { padding-block: clamp(48px, 8vw, 112px); }
+.vt-section--tight { padding-block: clamp(32px, 5vw, 64px); }
+.vt-section--dark { background: var(--vt-ink); color: var(--vt-on-dark); }
+.vt-section--dark a { color: var(--vt-on-dark); }
+
+/* Đầu mỗi section: eyebrow đánh số + tiêu đề khổng lồ + link bên phải,
+   ngăn cách với nội dung bằng một đường kẻ đen đậm chạy hết chiều rộng.
+   Đường kẻ đó là thứ giữ nhịp cho cả trang. */
+.vt-section-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: clamp(16px, 3vw, 40px); flex-wrap: wrap;
+  padding-bottom: 22px; border-bottom: 1px solid var(--vt-ink);
+  margin-bottom: var(--vt-hair);
+}
+.vt-section-head .vt-eyebrow {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs);
+  letter-spacing: .2em; text-transform: uppercase; color: var(--vt-muted);
+  margin: 0 0 14px;
+}
+.vt-section-head h2 { font-size: var(--vt-t-2xl); }
+.vt-section--dark .vt-section-head { border-bottom-color: var(--vt-on-dark-line); }
+.vt-section--dark .vt-section-head .vt-eyebrow { color: var(--vt-on-dark-muted); }
+
+/* ==========================================================================
+   TYPOGRAPHY UTILITIES
+   ========================================================================== */
+
+.vt-display {
+  font-family: var(--vt-font-display); font-stretch: 125%; font-stretch: var(--vt-display-wide);
+  font-weight: 800; text-transform: uppercase;
+  letter-spacing: -.03em; line-height: 1.02; margin: 0;
+}
+/* .vt-title dùng cho tiêu đề section — Archivo ở bề ngang 125%, cỡ khổng lồ, in hoa.
+   Đây là điểm nhấn thị giác chính, không phải chữ trang trí. */
+.vt-title {
+  font-family: var(--vt-font-display); font-stretch: 125%; font-stretch: var(--vt-display-wide); font-size: var(--vt-t-2xl); font-weight: 800;
+  letter-spacing: -.03em; line-height: 1.02; margin: 0; text-transform: uppercase;
+}
+/* Bản nhỏ hơn cho tiêu đề trang tĩnh, PDP — không cần hét */
+.vt-title--sm { font-family: var(--vt-font-primary); font-size: var(--vt-t-xl); text-transform: none; letter-spacing: -.025em; }
+.vt-mono {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs);
+  letter-spacing: .18em; text-transform: uppercase;
+}
+.vt-lede { font-size: var(--vt-t-md); color: var(--vt-muted); max-width: var(--vt-max-text); }
+.vt-prose { max-width: var(--vt-max-text); }
+.vt-prose > * + * { margin-top: 1.1em; }
+.vt-prose h2 { font-size: var(--vt-t-lg); font-weight: 700; letter-spacing: -.02em; margin-top: 2em; }
+.vt-prose h3 { font-size: var(--vt-t-md); font-weight: 600; margin-top: 1.6em; }
+.vt-prose ul, .vt-prose ol { padding-left: 1.3em; }
+.vt-prose li + li { margin-top: .5em; }
+.vt-prose a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Liên kết gạch chân trượt — dùng cho link phụ */
+.vt-link {
+  text-decoration: none; position: relative; padding-bottom: 2px;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px; background-repeat: no-repeat; background-position: 0 100%;
+  transition: background-size var(--vt-fast) var(--vt-ease);
+}
+.vt-link:hover { background-size: 0% 1px; background-position: 100% 100%; }
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+
+.vt-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-sm); letter-spacing: .1em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 16px 30px; border: 1px solid var(--vt-ink); border-radius: 999px;
+  background: var(--vt-ink); color: var(--vt-paper); cursor: pointer;
+  transition: background var(--vt-fast) var(--vt-ease), color var(--vt-fast) var(--vt-ease);
+}
+.vt-btn:hover { background: transparent; color: var(--vt-ink); }
+.vt-btn svg { width: 1em; height: 1em; }
+.vt-btn--ghost { background: transparent; color: var(--vt-ink); }
+.vt-btn--ghost:hover { background: var(--vt-ink); color: var(--vt-paper); }
+.vt-btn--on-dark { background: var(--vt-paper); color: var(--vt-ink); border-color: var(--vt-paper); }
+.vt-btn--on-dark:hover { background: transparent; color: var(--vt-paper); }
+.vt-btn--block { width: 100%; }
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+.vt-header {
+  position: fixed; inset: 0 0 auto 0; z-index: 500;
+  height: var(--vt-header-h);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; padding-inline: var(--vt-gutter);
+  color: var(--vt-ink);
+  background: rgba(255, 255, 255, .82);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid var(--vt-line);
+  transition: background var(--vt-slow) var(--vt-ease), color var(--vt-slow) var(--vt-ease),
+              border-color var(--vt-slow) var(--vt-ease),
+              transform .34s var(--vt-ease);
+  will-change: transform;
+}
+
+/* ---- Kéo xuống thì trượt lên ẩn, kéo lên thì hiện lại ----
+   Trên trang sản phẩm và trang dài, header dán cứng ăn mất 76px chiều cao màn
+   hình suốt cả lượt cuộn. Ẩn khi đi xuống trả lại chỗ đó cho ảnh sản phẩm;
+   hiện lại ngay khi đi lên vì đó là lúc khách đang tìm đường quay ra.
+
+   Dùng transform chứ không đổi `top`: transform chạy trên compositor,
+   không kích hoạt layout lại. */
+.vt-header.is-hidden { transform: translateY(-100%); }
+
+/* Mở menu mobile thì KHÔNG BAO GIỜ ẩn header — nút đóng nằm trong đó. */
+.vt-header.is-menu-open { transform: none; }
+
+/* Giảm chuyển động: vẫn ẩn/hiện nhưng không trượt */
+@media (prefers-reduced-motion: reduce) {
+  .vt-header { transition: background var(--vt-slow) var(--vt-ease), color var(--vt-slow) var(--vt-ease),
+                           border-color var(--vt-slow) var(--vt-ease); }
+}
+
+/* Header ĐANG ĐÈ LÊN BANNER: trong suốt, không viền, chữ trắng.
+   Không còn dành riêng cho hero — bất kỳ banner đầu trang nào cũng dùng
+   (hero trang chủ, banner váng dầu trang archive…).
+   Class do JS gắn/gỡ theo sentinel ở đáy banner — xem assets/js/site.js.
+   Trạng thái khởi đầu render sẵn ở server để không nháy khi tải trang. */
+.vt-header.is-transparent {
+  background: transparent;
+  border-bottom-color: transparent;
+  color: var(--vt-paper);
+}
+
+.vt-header-left, .vt-header-right { display: flex; align-items: center; gap: clamp(14px, 2vw, 28px); }
+.vt-header-right { justify-content: flex-end; }
+
+.vt-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+.vt-brand:hover { opacity: .72; }
+.vt-brand img, .vt-brand svg { height: 20px; width: auto; }
+/* Slide tone SÁNG: header vẫn trong suốt nhưng chữ phải đen, nếu không mất hút.
+   JS gắn class này theo data-tone của slide đang hiện. */
+/* Banner tông SÁNG: header vẫn trong suốt nhưng chữ phải đen, nếu không mất hút.
+   Hero đổi theo từng slide; banner tĩnh lấy từ data-tone của chính nó. */
+.vt-header.is-transparent.is-light-bg { color: var(--vt-ink); }
+
+/* Logo là PNG đen tuyền. Trên slide tối phải đảo sang trắng; slide sáng thì giữ đen. */
+.vt-header.is-transparent .vt-brand img { filter: invert(1); }
+.vt-header.is-transparent.is-light-bg .vt-brand img { filter: none; }
+
+.vt-nav { display: flex; align-items: center; gap: clamp(12px, 1.8vw, 26px); list-style: none; margin: 0; padding: 0; }
+/* Chữ header dùng weight 800, KHÔNG phải 500.
+   Brand yêu cầu 30/08: nét mảnh quá. Ở 11px chữ hoa có letter-spacing, weight 500
+   của một font mono đọc ra rất mảnh, và trên header trong suốt đè lên video thì
+   gần như biến mất. 800 là nấc nặng nhất JetBrains Mono có, và nó PHẢI được nạp
+   thật trong inc/enqueue.php — thiếu là trình duyệt bôi đậm giả và ra nhoè.
+
+   KHÔNG dùng opacity để làm hiệu ứng hover nữa. Chữ mờ đọc ra mảnh hơn chính nó,
+   nên mọi lớp mờ đều kéo ngược lại đúng cái brand vừa yêu cầu. Hover giờ là gạch
+   chân — thấy rõ hơn, và không đụng gì tới độ đậm. */
+.vt-nav a {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); font-weight: 800;
+  letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
+  white-space: nowrap;
+  text-underline-offset: 5px; text-decoration-thickness: 2px;
+  transition: text-decoration-color var(--vt-fast);
+  text-decoration-line: underline; text-decoration-color: transparent;
+}
+.vt-nav a:hover, .vt-nav .current-menu-item > a { text-decoration-color: currentColor; }
+
+.vt-util {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); font-weight: 800;
+  letter-spacing: .1em; text-transform: uppercase; white-space: nowrap;
+  text-underline-offset: 5px; text-decoration-thickness: 2px;
+  transition: text-decoration-color var(--vt-fast);
+  text-decoration-line: underline; text-decoration-color: transparent;
+}
+.vt-util:hover { text-decoration-color: currentColor; }
+
+/* Chuyển ngôn ngữ — chữ EN / VI, không dùng cờ quốc gia */
+.vt-lang { display: inline-flex; align-items: center; gap: 6px; }
+/* Ngôn ngữ đang chọn phân biệt bằng ĐỘ MỜ, không phải bằng weight — cả hai đều 800
+   thì hai chữ EN / VI không bị nhảy chiều rộng khi đổi ngôn ngữ.
+   Đây là chỗ DUY NHẤT trên header còn dùng độ mờ, và nó có lý do: phải thấy được
+   ngôn ngữ nào đang bật. .55 chứ không phải .45 để chữ chưa chọn vẫn đủ đậm. */
+.vt-lang a, .vt-lang span {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); font-weight: 800;
+  letter-spacing: .08em; text-decoration: none; opacity: .55;
+}
+.vt-lang .is-active { opacity: 1; }
+.vt-lang .vt-lang-sep { opacity: .3; }
+
+/* Giỏ hàng — icon + badge. Rỗng thì ẩn số hoàn toàn. */
+.vt-cart {
+  position: relative; display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; padding: 7px 14px;
+  border: 2px solid currentColor; border-radius: 999px;
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); font-weight: 800;
+  letter-spacing: .08em;
+}
+.vt-cart svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 2.1; }
+.vt-cart-count {
+  position: absolute; top: -3px; right: -6px;
+  min-width: 17px; height: 17px; padding: 0 4px;
+  display: grid; place-items: center; border-radius: 999px;
+  background: var(--vt-accent); color: var(--vt-accent-on);
+  font-family: var(--vt-font-mono); font-size: 10px; line-height: 1; font-weight: 800;
+}
+.vt-cart-count.is-empty { display: none; }
+/* Badge phải giữ tương phản ở cả hai tone */
+.vt-header.is-transparent .vt-cart-count { background: var(--vt-paper); color: var(--vt-ink); }
+.vt-header.is-transparent.is-light-bg .vt-cart-count { background: var(--vt-ink); color: var(--vt-paper); }
+
+/* Nút menu mobile */
+.vt-burger { display: none; background: none; border: 0; padding: 6px; cursor: pointer; color: inherit; }
+.vt-burger svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2.4; fill: none; }
+
+/* Menu mobile — panel trượt, không phải drawer giỏ hàng */
+.vt-mobile-nav {
+  position: fixed; inset: 0; z-index: 600;
+  background: var(--vt-paper); color: var(--vt-ink);
+  padding: calc(var(--vt-header-h) + 24px) var(--vt-gutter) 40px;
+  display: flex; flex-direction: column; gap: 4px;
+  transform: translateY(-100%); visibility: hidden;
+  transition: transform var(--vt-slow) var(--vt-ease), visibility var(--vt-slow);
+  overflow-y: auto;
+}
+.vt-mobile-nav.is-open { transform: translateY(0); visibility: visible; }
+.vt-mobile-nav a {
+  font-family: var(--vt-font-display); font-stretch: 125%; font-stretch: var(--vt-display-wide); font-size: clamp(24px, 7vw, 38px); font-weight: 800;
+  text-transform: uppercase; letter-spacing: -.02em; text-decoration: none;
+  padding-block: 10px; border-bottom: 1px solid var(--vt-line);
+}
+.vt-mobile-nav .vt-mobile-foot { margin-top: auto; padding-top: 28px; display: flex; gap: 18px; flex-wrap: wrap; }
+.vt-mobile-nav .vt-mobile-foot a {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); font-weight: 800;
+  letter-spacing: .1em; border: 0; padding: 0;
+}
+.vt-mobile-close { position: fixed; top: 18px; right: var(--vt-gutter); z-index: 601; background: none; border: 0; cursor: pointer; padding: 8px; }
+.vt-mobile-close svg { width: 22px; height: 22px; stroke: var(--vt-ink); stroke-width: 1.6; fill: none; }
+
+@media (max-width: 1024px) {
+  .vt-header-left .vt-nav { display: none; }
+  .vt-burger { display: inline-flex; }
+  .vt-header-right .vt-util--search,
+  .vt-header-right .vt-util--account { display: none; }
+}
+
+/* ==========================================================================
+   HERO — 3 slide, chuyển bằng cross-fade
+   --------------------------------------------------------------------------
+   Slide có thể là TONE TỐI hoặc TONE SÁNG. Header phải đảo màu theo,
+   nếu không chữ trắng nằm trên nền sáng là mất hút. JS gắn data-tone.
+
+   LCP: chỉ media của SLIDE 1 được tải sớm và preload. Hai slide sau lazy.
+   Carousel above the fold vốn hại LCP — cách duy nhất giữ được là
+   không cho slide 2, 3 tranh băng thông ở giây đầu tiên.
+   ========================================================================== */
+
+.vt-hero {
+  position: relative; width: 100%;
+  height: 100svh; min-height: 640px;
+  overflow: hidden; background: var(--vt-ink); color: var(--vt-on-dark);
+  contain: paint;
+}
+
+.vt-slide {
+  position: absolute; inset: 0; z-index: 1;
+  opacity: 0; visibility: hidden;
+  transition: opacity .9s var(--vt-ease), visibility .9s;
+}
+.vt-slide.is-active { opacity: 1; visibility: visible; z-index: 2; }
+
+.vt-slide-media { position: absolute; inset: 0; }
+.vt-slide-media img,
+.vt-slide-media video { width: 100%; height: 100%; object-fit: cover; }
+.vt-slide-video { position: absolute; inset: 0; opacity: 0; transition: opacity .8s var(--vt-ease); }
+.vt-slide-video.is-ready { opacity: 1; }
+
+.vt-slide-scrim { position: absolute; inset: 0; pointer-events: none; }
+.vt-slide[data-tone="dark"] .vt-slide-scrim {
+  background: linear-gradient(to top, rgba(10,10,10,.78) 0%, rgba(10,10,10,.18) 55%, rgba(10,10,10,.34) 100%);
+}
+.vt-slide[data-tone="light"] .vt-slide-scrim {
+  background: linear-gradient(to top, rgba(255,255,255,.82) 0%, rgba(255,255,255,.14) 55%, rgba(255,255,255,.42) 100%);
+}
+.vt-slide[data-tone="light"] { color: var(--vt-ink); }
+
+/* 🔴 KHỐI CHỮ PHẢI BỊ CHẶN CẢ TRÊN LẪN DƯỚI.
+   Bản cũ chỉ đặt `bottom`, không đặt `top`. Khối tuyệt đối không có giới hạn
+   trên thì nó cao bao nhiêu cũng được — và tiêu đề 3 dòng ở 152px trên một
+   màn hình cao 860px đã tràn lên trên, chui hẳn sau header. Lỗi này chỉ hiện
+   ra ở màn THẤP, nên trên máy màn cao thì không ai thấy.
+
+   Đặt `top` = chiều cao header + một khoảng thở, rồi cho nội dung dồn xuống
+   đáy bằng flex. Từ giờ khối chữ không bao giờ chạm được vào header. */
+.vt-slide-content {
+  position: absolute; left: var(--vt-gutter); right: var(--vt-gutter);
+  top: calc(var(--vt-header-h) + clamp(10px, 2vh, 22px));
+  /* Phải cao hơn .vt-hero-nav đủ để không chạm vào nhãn của nó */
+  bottom: clamp(128px, 17vh, 176px);
+  display: flex; flex-direction: column; justify-content: flex-end;
+}
+.vt-slide-tag {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs);
+  letter-spacing: .2em; text-transform: uppercase; opacity: .8; margin: 0 0 20px;
+}
+/* Cỡ chữ chặn theo CẢ chiều rộng LẪN chiều cao màn hình.
+   `--vt-t-hero` chỉ tính theo `vw`, nên trên một màn 1920×860 nó vẫn nhảy lên
+   152px và ba dòng chiếm 465px — nhiều hơn phần trống còn lại. Thêm cận trên
+   theo `vh` là thứ duy nhất chặn được, vì lỗi này là lỗi CHIỀU CAO. */
+.vt-slide-title {
+  font-family: var(--vt-font-display); font-stretch: var(--vt-display-wide);
+  font-size: min(var(--vt-t-hero), 12vh);
+  font-weight: 800;
+  line-height: 1.02; letter-spacing: -.035em; margin: 0;
+  text-transform: uppercase; max-width: 16ch;
+}
+.vt-slide-foot {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: clamp(20px, 4vw, 40px); margin-top: 28px; flex-wrap: wrap;
+}
+.vt-slide-sub { margin: 0; max-width: 46ch; font-size: var(--vt-t-base); line-height: 1.6; opacity: .82; }
+
+/* Nút CTA đảo màu theo tone slide */
+.vt-slide[data-tone="dark"] .vt-slide-cta { background: var(--vt-paper); color: var(--vt-ink); border-color: var(--vt-paper); }
+.vt-slide[data-tone="dark"] .vt-slide-cta:hover { background: transparent; color: var(--vt-paper); }
+.vt-slide[data-tone="light"] .vt-slide-cta { background: var(--vt-ink); color: var(--vt-paper); border-color: var(--vt-ink); }
+.vt-slide[data-tone="light"] .vt-slide-cta:hover { background: transparent; color: var(--vt-ink); }
+
+/* ---- Thanh điều hướng: 3 track chạy hết chiều rộng ----
+   Vừa là chỉ báo tiến trình, vừa là nút bấm. Không dùng chấm tròn —
+   chấm tròn không cho biết còn bao lâu nữa thì chuyển. */
+.vt-hero-nav {
+  position: absolute; left: var(--vt-gutter); right: var(--vt-gutter);
+  /* Đẩy lên khỏi mép dưới. Ở 28px nó dính sát viền màn hình, trông như bị cắt
+     chứ không phải được đặt. Khoảng thở dưới phải LỚN HƠN khoảng cách giữa
+     track và nhãn, nếu không mắt gom cả cụm vào với mép màn hình. */
+  bottom: clamp(40px, 6.5vh, 68px); z-index: 6;
+  display: flex; align-items: flex-start; gap: clamp(14px, 1.8vw, 26px);
+  /* Thanh nav là ANH EM của .vt-slide, không nằm trong nó — nên nó KHÔNG
+     thừa hưởng màu của slide đang hiện. Trước đây nó luôn trắng, và trên
+     slide 3 nền trắng thì mất hút hoàn toàn. JS gắn data-tone lên .vt-hero. */
+  color: var(--vt-on-dark);
+  transition: color .5s var(--vt-ease);
+}
+.vt-hero[data-tone="light"] .vt-hero-nav { color: var(--vt-ink); }
+/* Track mảnh 2px màu đen trên nền trắng cần đậm hơn màu trắng trên nền tối,
+   nếu không nó biến thành vệt xám không ai thấy. */
+.vt-hero[data-tone="light"] .vt-hero-track { opacity: .22; }
+.vt-hero[data-tone="light"] .vt-hero-dot-label { opacity: .55; }
+.vt-hero[data-tone="light"] .vt-hero-dot.is-active .vt-hero-dot-label { opacity: 1; }
+.vt-hero-dot {
+  flex: 1 1 0; background: none; border: 0; padding: 0;
+  cursor: pointer; text-align: left; color: inherit;
+}
+.vt-hero-dot:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+/* Track dày hơn 2px và bo tròn. 2px vuông đọc như đường kẻ bảng; 3px bo tròn
+   đọc như thanh tiến trình — khách hiểu ngay là bấm được. */
+/* 🔴 `display: block` BẮT BUỘC.
+   Cả hai là <span>, mà <span> mặc định là INLINE — `height` KHÔNG có tác dụng lên
+   phần tử inline non-replaced. Thiếu dòng này thì `height: 3px` bị bỏ qua, hộp cao
+   bằng line-height (24px), `background` tô kín cả khối đó, và nhãn "01 — THE ICONIC"
+   nằm LỌT BÊN TRONG dải màu. Trông như một thanh đặc, không phải đường tiến trình. */
+.vt-hero-track {
+  display: block; height: 3px; border-radius: 999px;
+  background: currentColor; opacity: .26; overflow: hidden;
+}
+.vt-hero-bar {
+  display: block; height: 100%; border-radius: 999px;
+  background: currentColor; width: 0;
+}
+/* Vùng bấm cao hơn phần nhìn thấy — 3px là quá mỏng để nhắm trúng bằng chuột,
+   và dưới ngưỡng 24px tối thiểu cho ngón tay. */
+.vt-hero-dot { padding-block: 10px 0; margin-top: -10px; }
+.vt-hero-dot.is-active .vt-hero-bar { animation: vt-hero-fill var(--vt-hero-dur, 7s) linear forwards; }
+.vt-hero.is-paused .vt-hero-bar { animation-play-state: paused; }
+.vt-hero-dot.is-done .vt-hero-bar { width: 100%; }
+@keyframes vt-hero-fill { from { width: 0; } to { width: 100%; } }
+
+.vt-hero-dot-label {
+  font-family: var(--vt-font-mono); font-size: 10px; letter-spacing: .16em;
+  text-transform: uppercase; margin-top: 12px; opacity: .45;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.vt-hero-dot.is-active .vt-hero-dot-label { opacity: 1; }
+
+@media (max-width: 640px) {
+  .vt-hero-dot-label { font-size: 9px; letter-spacing: .1em; }
+  .vt-hero-nav { gap: 10px; bottom: clamp(32px, 5vh, 48px); }
+  .vt-slide-content { bottom: clamp(108px, 16vh, 146px); }
+}
+
+/* Sentinel — 1px vô hình ở ĐÁY BANNER cho IntersectionObserver của header.
+   Dùng chung cho hero và banner archive: header trong suốt chừng nào sentinel
+   còn nằm dưới gáy header, đục ngay khi vượt qua.
+   Không nghe scroll — scroll listener chạy hàng chục lần mỗi giây. */
+.vt-hero-sentinel,
+.vt-banner-sentinel { position: absolute; bottom: 0; left: 0; width: 100%; height: 1px; pointer-events: none; }
+
+/* Giảm chuyển động: không tự chạy, không cần thanh tiến trình động */
+@media (prefers-reduced-motion: reduce) {
+  .vt-hero-dot.is-active .vt-hero-bar { animation: none; width: 100%; }
+  .vt-slide { transition: none; }
+}
+
+/* ==========================================================================
+   IRIDESCENT — chỉ dùng ở vùng KỂ CHUYỆN, không có mockup sản phẩm
+   ========================================================================== */
+
+.vt-iri {
+  position: relative; overflow: hidden; background: var(--vt-iri-base);
+  contain: paint; isolation: isolate;
+}
+
+/* ==========================================================================
+   VÁNG DẦU
+   --------------------------------------------------------------------------
+   🔴 BẢN CŨ SAI VỀ CẤU TRÚC, KHÔNG PHẢI VỀ MÀU.
+   Bản trước dùng bốn vệt radial lớn rồi `blur(26px)`, phủ thêm một lớp quang
+   phổ `blur(44px)`. Bảng màu thì đúng, nhưng làm mờ ở mức đó xoá sạch mọi chi
+   tiết tần số cao — thứ còn lại là một khối gradient tím xanh, không ai đọc ra
+   váng dầu. Brand phản hồi đúng chỗ đó ngày 30/08/2026.
+
+   VÁNG DẦU THẬT LÀ GÌ
+   Giao thoa màng mỏng: ánh sáng phản xạ ở mặt trên và mặt dưới của lớp dầu
+   lệch pha nhau, cho ra các DẢI QUANG PHỔ HẸP lặp lại, bám theo đường viền
+   của vũng dầu. Ba tính chất phải giữ:
+     1. Dải HẸP và LẶP  → repeating-radial-gradient, không phải radial thường
+     2. Blur RẤT NHẸ    → 2-4px, đủ mượt, không xoá vân
+     3. Không phủ đều   → mặt nạ theo mảng, phần lớn diện tích vẫn gần đen
+
+   VÌ SAO TÂM VÂN ĐẶT NGOÀI KHUNG
+   `at 18% 128%` và `at 118% -20%` — cả hai đều nằm ngoài. Đặt tâm bên trong
+   thì mắt đọc ra bia bắn đồng tâm. Đặt ngoài thì chỉ thấy CUNG vân quét ngang,
+   đúng như nhìn một vũng dầu trên mặt đường.
+
+   BA LỚP, KHÔNG THÊM THẺ HTML NÀO
+     .vt-iri-layer          vân chính
+     .vt-iri-layer::before  vân thứ hai, chu kỳ khác, tâm phía đối diện
+     .vt-iri-layer::after   mặt nạ tối + ánh phản chiếu
+
+   Hai chu kỳ 120px và 138px không chia hết nhau, nên chỗ giao nhau không bao
+   giờ lặp đều — đó là thứ phá cảm giác "hoa văn in sẵn".
+
+   VẪN 0 KB: không ảnh, không JS, chạy bằng transform trên GPU.
+   ========================================================================== */
+.vt-iri > .vt-iri-layer {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  will-change: transform;
+  background:
+    repeating-radial-gradient(128% 82% at 18% 128%,
+      hsl(316 92% 60% / .95)   0px, hsl(24  98% 62% / .95)  19px,
+      hsl(52  94% 64% / .90)  35px, hsl(160 88% 56% / .95)  54px,
+      hsl(202 96% 58% / .95)  73px, hsl(272 92% 62% / .95)  95px,
+      hsl(316 92% 60% / .95) 120px);
+  filter: blur(2.5px) saturate(1.3);
+  mix-blend-mode: screen;
+  opacity: .66;
+  -webkit-mask-image:
+    radial-gradient(66% 82% at 28% 46%, #000 0%, rgba(0,0,0,.35) 58%, transparent 78%),
+    radial-gradient(42% 54% at 82% 24%, #000 0%, transparent 74%);
+  mask-image:
+    radial-gradient(66% 82% at 28% 46%, #000 0%, rgba(0,0,0,.35) 58%, transparent 78%),
+    radial-gradient(42% 54% at 82% 24%, #000 0%, transparent 74%);
+  animation: vt-iri-drift 30s ease-in-out infinite alternate;
+}
+
+.vt-iri > .vt-iri-layer::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    repeating-radial-gradient(96% 120% at 118% -20%,
+      hsl(268 92% 62% / .90)   0px, hsl(192 96% 58% / .90)  27px,
+      hsl(146 90% 56% / .85)  51px, hsl(40 100% 62% / .90)  77px,
+      hsl(326 92% 60% / .90) 105px, hsl(268 92% 62% / .90) 138px);
+  filter: blur(3.5px) saturate(1.25);
+  mix-blend-mode: screen;
+  opacity: .54;
+  -webkit-mask-image: radial-gradient(78% 70% at 68% 76%, #000 0%, transparent 76%);
+  mask-image: radial-gradient(78% 70% at 68% 76%, #000 0%, transparent 76%);
+  animation: vt-iri-drift2 38s ease-in-out infinite alternate;
+}
+
+/* Mặt nạ tối ở rìa + một vệt sáng phản chiếu.
+   Mặt nạ là thứ quyết định nó đọc ra MỘT VŨNG DẦU thay vì một tấm nền sặc màu.
+   Vệt sáng làm bề mặt trông ướt, không phải giấy in.
+   Lớp này cũng là thứ giữ chữ trắng còn đọc được: nó tối dần về phía đáy,
+   đúng chỗ tiêu đề banner nằm. */
+.vt-iri > .vt-iri-layer::after {
+  content: ''; position: absolute; inset: 0; z-index: 2;
+  background:
+    radial-gradient(52% 38% at 24% 16%, rgba(255,255,255,.14), transparent 62%),
+    radial-gradient(118% 128% at 30% 34%, transparent 0%,
+      rgba(4,6,10,.34) 58%, rgba(4,6,10,.92) 100%),
+    linear-gradient(to top, rgba(4,6,10,.82) 0%, transparent 48%);
+}
+
+@keyframes vt-iri-drift {
+  from { transform: translate3d(-3%, -2%, 0) scale(1.04) rotate(0deg); }
+  to   { transform: translate3d(4%, 3%, 0)  scale(1.16) rotate(8deg); }
+}
+@keyframes vt-iri-drift2 {
+  from { transform: translate3d(3%, 2%, 0)   scale(1.10) rotate(0deg); }
+  to   { transform: translate3d(-4%, -3%, 0) scale(1.02) rotate(-10deg); }
+}
+
+.vt-iri.is-idle > .vt-iri-layer,
+.vt-iri.is-idle > .vt-iri-layer::before { animation-play-state: paused; }
+
+/* Tôn trọng người tắt chuyển động: giữ nguyên màu, bỏ hẳn animation. */
+@media (prefers-reduced-motion: reduce) {
+  .vt-iri > .vt-iri-layer,
+  .vt-iri > .vt-iri-layer::before { animation: none; }
+}
+
+.vt-iri > .vt-wrap, .vt-iri > .vt-iri-content { position: relative; z-index: 1; }
+
+/* ==========================================================================
+   THÉP GẤP — chỉ dùng cho banner đầu trang
+   --------------------------------------------------------------------------
+   Váng dầu ở trên vẫn phục vụ VÙNG KỂ CHUYỆN. Khối này đè lên nó, và chỉ khi
+   phần tử mang thêm class `.vt-pagebanner`. Markup không đổi một chữ: hai
+   class nằm trên cùng một thẻ, nên (0,3,0) ở đây thắng (0,2,0) ở trên.
+
+   🔴 BẢN KIM LOẠI ĐẦU TIÊN SAI Ở ĐÂU
+   Nó dùng `repeating-linear-gradient`: một chu kỳ 108px, một góc 102°, lặp vô
+   hạn. Mắt bắt được quy luật trong nửa giây rồi đọc như giấy dán tường. Thiếu
+   không phải màu, thiếu là SỰ KHÔNG ĐỀU.
+
+   NÊN Ở ĐÂY KHÔNG CÓ MỘT `repeating-` NÀO
+   Mỗi chặng viết tay, và bề rộng chênh nhau rất mạnh: 34% tối liền mạch, rồi
+   một cạnh sáng 2%, rồi 5%, rồi 22%. Bản nháp đầu để các bản gần bằng nhau,
+   nhìn lại vẫn ra sọc đều — chênh lệch phải ĐỦ LỚN thì mắt mới không nối được
+   thành nhịp.
+
+   HAI HỆ NẾP CẮT NHAU
+   Lớp dưới ở 99°, lớp trên ở -133° và bị che nửa phải. Cạnh không còn song
+   song, nên nó đọc ra vật liệu BỊ GẤP chứ không phải sọc in.
+
+   VÌ SAO CHỌN THÉP GẤP CHỨ KHÔNG PHẢI KIM LOẠI CHẢY
+   Phần còn lại của site chạy trên đường kẻ hairline, lưới gap 2px, cạnh sắc,
+   không đổ bóng. Thép gấp nói cùng thứ tiếng đó. Bản kim loại chảy đẹp hơn khi
+   đứng một mình nhưng mềm hơn mọi thứ quanh nó.
+
+   VẪN 0 KB: không ảnh, không JS, chạy bằng transform trên GPU.
+   ========================================================================== */
+.vt-iri.vt-pagebanner { background: var(--vt-steel-base); }
+
+.vt-iri.vt-pagebanner > .vt-iri-layer {
+  background: linear-gradient(99deg,
+    #0a0c0f 0%,    #0a0c0f 34%,
+    #cdd4dd 34%,   #cdd4dd 36%,
+    #232830 36%,   #232830 41%,
+    #070809 41%,   #070809 63%,
+    #7d858f 63%,   #7d858f 64.5%,
+    #171b21 64.5%, #171b21 78%,
+    #f0f3f7 78%,   #f0f3f7 79.5%,
+    #3d434b 79.5%, #3d434b 83%,
+    #0b0d11 83%,   #0b0d11 100%);
+  filter: none;
+  mix-blend-mode: normal;
+  opacity: 1;
+  -webkit-mask-image: none;
+  mask-image: none;
+  animation: vt-steel-a 40s ease-in-out infinite alternate;
+}
+
+.vt-iri.vt-pagebanner > .vt-iri-layer::before {
+  background: linear-gradient(-133deg,
+    transparent 0%,   transparent 22%,
+    #e6eaf0 22%,      #e6eaf0 23.4%,
+    #1b1f26 23.4%,    #1b1f26 47%,
+    #949ca7 47%,      #949ca7 48%,
+    #0d1014 48%,      #0d1014 71%,
+    #5a616b 71%,      #5a616b 72%,
+    transparent 72%,  transparent 100%);
+  filter: none;
+  mix-blend-mode: normal;
+  opacity: .9;
+  -webkit-mask-image: linear-gradient(112deg, transparent 26%, #000 46%, #000 78%, transparent 96%);
+  mask-image: linear-gradient(112deg, transparent 26%, #000 46%, #000 78%, transparent 96%);
+  animation: vt-steel-b 47s ease-in-out infinite alternate;
+}
+
+/* Vệt sáng + mặt nạ tối, gộp một lớp.
+   Mặt nạ KHÔNG được chuyển động: nó tối dần về đáy, đúng chỗ tiêu đề banner
+   nằm, và đó là thứ giữ chữ trắng còn đọc được. Cho nó trôi theo là có lúc
+   chữ rơi vào vùng sáng. Chuyển động đã có ở hai lớp nếp bên dưới. */
+.vt-iri.vt-pagebanner > .vt-iri-layer::after {
+  background:
+    linear-gradient(99deg, transparent 38%, rgba(255,255,255,.20) 47%, transparent 56%),
+    radial-gradient(125% 125% at 24% 20%, transparent 0%,
+      rgba(7,8,9,.30) 58%, rgba(7,8,9,.90) 100%),
+    linear-gradient(to top, rgba(7,8,9,.85) 0%, transparent 48%);
+}
+
+@keyframes vt-steel-a {
+  from { transform: translate3d(-4%, 0, 0) scale(1.08); }
+  to   { transform: translate3d(4%, 0, 0)  scale(1.14); }
+}
+@keyframes vt-steel-b {
+  from { transform: translate3d(5%, 0, 0)   scale(1.12); }
+  to   { transform: translate3d(-5%, 0, 0)  scale(1.05); }
+}
+
+
+/* ---- Banner đầu trang archive / category ----
+   Dùng lại nguyên bộ .vt-iri ở trên — không nhân bản gradient, không thêm KB.
+   Chỉ định nghĩa phần KÍCH THƯỚC và CHỮ riêng cho banner.
+
+   Cao vừa phải, KHÔNG phải hero. Trang category tồn tại để khách xem sản phẩm;
+   banner cao 100vh ở đây là đẩy hàng xuống dưới nếp gấp mà chẳng đổi lại được gì.
+   Trên mobile còn thấp hơn nữa — màn hẹp thì mỗi pixel banner là một pixel bớt hàng. */
+.vt-pagebanner {
+  display: flex; align-items: flex-end;
+  color: var(--vt-on-dark);
+
+  /* HEADER ĐÈ LÊN BANNER NÀY.
+     Banner bắt đầu từ y=0 của viewport, header dán đè lên trên. Nên banner phải
+     TỰ chừa chiều cao header trong padding-top của chính nó, nếu không eyebrow
+     chui xuống dưới header.
+     --vt-header-h tự đổi 76px → 64px ở ≤768px, nên phép cộng này responsive sẵn,
+     không cần media query riêng. */
+  padding-top: calc(var(--vt-header-h) + clamp(18px, 3vw, 34px));
+  padding-bottom: clamp(24px, 3.5vw, 44px);
+
+  /* THẤP. Đây KHÔNG phải hero — trang category tồn tại để khách xem hàng.
+     Chiều cao thật = header + khối chữ, chứ không phải một con số vh cố định. */
+  min-height: calc(var(--vt-header-h) + clamp(110px, 14vh, 170px));
+}
+.vt-pagebanner-inner {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: clamp(16px, 3vw, 40px); flex-wrap: wrap;
+}
+.vt-pagebanner-text { min-width: 0; }
+.vt-pagebanner-eyebrow {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs);
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--vt-on-dark-muted); margin: 0 0 14px;
+}
+.vt-pagebanner-title {
+  font-family: var(--vt-font-display); font-stretch: 125%; font-stretch: var(--vt-display-wide); font-weight: 800; text-transform: uppercase;
+  /* Nhỏ hơn tiêu đề section một bậc. Banner là chỉ dẫn "bạn đang ở đâu",
+     không phải tuyên ngôn — để nó to bằng hero là ăn mất chỗ của sản phẩm. */
+  font-size: clamp(30px, 4.2vw, 62px); line-height: 1.02; letter-spacing: -.03em;
+  margin: 0; color: var(--vt-on-dark);
+}
+.vt-pagebanner-lede {
+  margin-top: 16px; max-width: 52ch; line-height: 1.65;
+  color: var(--vt-on-dark-muted); font-size: var(--vt-t-base);
+}
+.vt-pagebanner-lede p { margin: 0; }
+.vt-pagebanner-lede p + p { margin-top: 10px; }
+.vt-pagebanner-meta {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs);
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--vt-on-dark-muted); margin: 0; white-space: nowrap;
+}
+/* Breadcrumb nằm NGAY DƯỚI banner trên nền trắng, nên .vt-shop-head
+   không cần khoảng đệm trên nữa — banner đã tự gánh nhịp mở đầu. */
+.vt-pagebanner + .vt-wrap > .vt-shop-head { padding-top: clamp(16px, 2vw, 24px); }
+
+/* Mobile: ẩn lede trong banner — màn hẹp thì mỗi dòng chữ ở đây là một dòng
+   đẩy sản phẩm xuống dưới nếp gấp. Chuỗi vẫn nằm trong HTML nên bot đọc được;
+   `display:none` thì máy đọc màn hình KHÔNG đọc, nhưng mô tả category không
+   phải thông tin thiết yếu để mua hàng nên đánh đổi này chấp nhận được. */
+@media (max-width: 640px) {
+  .vt-pagebanner-lede { display: none; }
+  .vt-pagebanner-inner { gap: 10px; }
+  .vt-pagebanner-meta { white-space: normal; }
+}
+
+@keyframes vt-iri-slide { to { translate: -8% 3%; } }
+@keyframes vt-iri-grow { from { scale: 1; } to { scale: 1.34; } }
+@keyframes vt-iri-turn { from { rotate: -6deg; } to { rotate: 8deg; } }
+@keyframes vt-iri-hue {
+  from { filter: blur(26px) saturate(1.2) hue-rotate(0deg); }
+  to   { filter: blur(38px) saturate(1.45) hue-rotate(42deg); }
+}
+
+/* ==========================================================================
+   PRODUCT CARD & GRID
+   ========================================================================== */
+
+/* Lưới sản phẩm: KHÔNG có khoảng cách rộng giữa các ô.
+   gap 2px trên nền màu đường kẻ → khe hở trở thành hairline, ô sát nhau như tấm lịch.
+   Đây là điểm khác biệt lớn nhất so với lưới thương mại điện tử thông thường. */
+/* 🔴 KHÔNG tô nền lưới rồi để khe hở làm hairline.
+   Mẹo cũ (`background: var(--vt-line)` trên lưới + gap 2px) chỉ đẹp khi lưới ĐẦY.
+   Có 1 sản phẩm trên lưới 4 cột thì ba cột trống lộ nguyên mảng xám to đùng —
+   khách tưởng ảnh vỡ. Category mới, hàng sắp hết, kết quả lọc… đều rơi vào cảnh này.
+
+   Cách đúng: lưới trong suốt, mỗi Ô tự vẽ viền 1px bằng box-shadow. Hai ô cạnh nhau
+   lấp đầy khe 2px thành một đường liền — nhìn y hệt, nhưng cột trống thì trống thật. */
+.vt-grid {
+  display: grid; gap: var(--vt-hair);
+  /* 🔴 12 CỘT, KHÔNG PHẢI 4 — và đó không phải chuyện thẩm mỹ.
+     Ô thường chiếm 3 cột = 4 ô một hàng, nhìn y hệt bản cũ. Nhưng 12 chia hết
+     cho 4, 3 VÀ 2, nên số ô mỗi hàng đổi bằng cách đổi ĐỘ RỘNG CỦA Ô chứ không
+     phải đổi số cột của lưới. Nhờ vậy mới viết được luật "ít thẻ thì ô nở ra"
+     ở khối ngay dưới — với lưới 4 cột thì 3 thẻ không chia được, đành chịu. */
+  grid-template-columns: repeat(12, 1fr);
+  background: transparent;
+  grid-auto-flow: dense;
+}
+.vt-grid > * {
+  background: var(--vt-paper); box-shadow: 0 0 0 1px var(--vt-line);
+  grid-column: span 3;                                   /* 4 ô / hàng */
+}
+@media (max-width: 1100px) { .vt-grid > * { grid-column: span 4; } }   /* 3 ô / hàng */
+@media (max-width: 768px)  { .vt-grid > * { grid-column: span 6; } }   /* 2 ô / hàng */
+
+/* ==== LƯỚI CHƯA ĐỦ HÀNG ====
+   Đo 25/09 trên bản xem trước với catalog THẬT (4 SKU, NHAP-SAN-PHAM §3):
+     · section "T-Shirts"  — 3 thẻ trong lưới 4 cột →  340px trống (¼ hàng)
+     · section "Outerwear" — 1 thẻ trong lưới 4 cột → 1022px trống (¾ hàng)
+
+   Khối comment đầu mục này đã xử chuyện cột trống lộ mảng xám. Nhưng nó không
+   xử được chuyện còn lại: một thẻ nằm lẻ ở mép trái, ba phần tư hàng trắng trơn.
+   Người xem không đọc ra "catalog nhỏ", họ đọc ra "trang lỗi".
+
+   Đây KHÔNG phải cảnh hiếm. Nó xảy ra ở: catalog mới, category ít hàng, kết quả
+   lọc, kết quả tìm kiếm, và "sản phẩm liên quan" của SKU cuối cùng trong dòng.
+   Đúng lý do `:nth-last-child(n+5)` ở bố cục featured ra đời ngày 13/09.
+
+   Cách xử: ô nở ra cho kín hàng. Đếm bằng `:first-child:nth-last-child(n)` —
+   cùng một thủ thuật, không thêm class nào từ PHP, nên shop archive, tìm kiếm,
+   trang chủ và bản xem trước tĩnh đều ăn theo mà không phải sửa template. */
+
+/* 3 thẻ → 3 ô / hàng */
+.vt-grid > *:first-child:nth-last-child(3),
+.vt-grid > *:first-child:nth-last-child(3) ~ * { grid-column: span 4; }
+
+/* 2 thẻ → 2 ô / hàng */
+.vt-grid > *:first-child:nth-last-child(2),
+.vt-grid > *:first-child:nth-last-child(2) ~ * { grid-column: span 6; }
+
+/* 1 thẻ → nửa hàng, CANH GIỮA.
+   Không cho nó rộng cả hàng: ảnh sản phẩm là vuông 1:1, tràn 1361px thì thẻ
+   cao đúng 1361px và khách phải cuộn hết một màn hình chỉ để qua một cái áo. */
+.vt-grid > *:only-child { grid-column: 4 / span 6; }
+
+@media (max-width: 768px) {
+  /* Điện thoại: 2 ô/hàng, nên 3 thẻ xuống thành 2+1 chứ không ép 3 ô một hàng */
+  .vt-grid > *:first-child:nth-last-child(3),
+  .vt-grid > *:first-child:nth-last-child(3) ~ * { grid-column: span 6; }
+  /* Một thẻ thì tràn hàng — ở 375px thẻ chỉ cao 375px, không phải vấn đề */
+  .vt-grid > *:only-child { grid-column: 1 / -1; }
+}
+
+/* Bố cục FEATURED: ô đầu tiên chiếm 2×2, phần còn lại 1×1.
+   Một sản phẩm được nâng lên làm trung tâm thay vì tám ô ngang hàng. */
+/* 🔴 `:nth-last-child(n+5)` = "và tổng cộng có ít nhất 5 thẻ".
+   Không có mệnh đề này thì lúc catalog mới có 1–4 sản phẩm, ô đầu vẫn nở 2×2
+   và để lại hai, ba cột trắng trơn bên cạnh — đo 13/09 với 1 sản phẩm: thẻ
+   680px, ba cột trống. Đủ hàng để lấp thì bố cục mosaic mới có nghĩa. */
+.vt-grid--featured > .vt-card:first-child:nth-last-child(n+5) {
+  grid-column: span 6; grid-row: span 2;          /* 6/12 = nửa hàng, như span 2 của lưới 4 cột cũ */
+}
+.vt-grid--featured > .vt-card:first-child:nth-last-child(n+5) .vt-card-title {
+  font-size: var(--vt-t-md);
+}
+@media (max-width: 768px) {
+  .vt-grid--featured > .vt-card:first-child:nth-last-child(n+5) {
+    grid-column: span 12; grid-row: span 1;       /* tràn hàng, như span 2 của lưới 2 cột cũ */
+  }
+}
+
+.vt-card { position: relative; display: flex; flex-direction: column; }
+.vt-card-media {
+  position: relative; display: block; aspect-ratio: 1 / 1;
+  overflow: hidden; background: var(--vt-tint);
+}
+.vt-card-media img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+}
+/* Link phủ toàn ảnh. Tách khỏi .vt-card-media vì trong đó có link chọn size —
+   <a> lồng <a> là HTML không hợp lệ, trình duyệt đẩy link con ra khỏi thẻ cha
+   và chúng mất sạch CSS. z-index 2 để nằm trên ảnh, dưới badge và nút size. */
+.vt-card-media-link { position: absolute; inset: 0; display: block; z-index: 2; }
+/* Ảnh mặt sau nằm dưới, hiện khi hover.
+   Quy ước nhập hàng: Product image = mặt trước, Gallery ảnh ĐẦU TIÊN = mặt sau. */
+.vt-card-back { opacity: 0; transition: opacity var(--vt-slow) var(--vt-ease); }
+@media (hover: hover) and (pointer: fine) {
+  .vt-card:hover .vt-card-back,
+  .vt-card:focus-within .vt-card-back { opacity: 1; }
+}
+/* Không có hover trên cảm ứng — ảnh mặt sau ẩn hẳn, không chiếm chỗ, không tải thừa */
+@media (hover: none) { .vt-card-back { display: none; } }
+
+.vt-card-badge {
+  position: absolute; top: 10px; left: 10px; z-index: 3;
+  font-family: var(--vt-font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase;
+  padding: 4px 8px; background: var(--vt-ink); color: var(--vt-paper);
+}
+.vt-card-badge--sale { background: var(--vt-sale); }
+.vt-card-badge--out { background: var(--vt-dim); }
+
+/* Thông tin nằm TRONG ô, canh hai đầu — tên trái, giá phải, như bảng giá */
+.vt-card-body {
+  padding: 14px clamp(10px, 1vw, 16px) clamp(20px, 2vw, 28px);
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+}
+.vt-card-title {
+  font-size: var(--vt-t-sm); font-weight: 600; margin: 0; line-height: 1.35;
+  letter-spacing: .04em; text-transform: uppercase; flex: 1 1 auto;
+}
+.vt-card-title a { text-decoration: none; }
+.vt-card-title a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.vt-card-price { font-family: var(--vt-font-mono); font-size: var(--vt-t-sm); color: var(--vt-muted); }
+.vt-card-price del { opacity: .5; margin-right: 6px; }
+.vt-card-price ins { text-decoration: none; color: var(--vt-sale); }
+.vt-card-swatches { display: flex; gap: 5px; flex-basis: 100%; }
+.vt-card-swatch { width: 11px; height: 11px; border-radius: 999px; border: 1px solid var(--vt-line-strong); }
+
+/* ---- Chấm màu bấm được ----
+   Chỉ khi biến thể có ảnh riêng theo màu (.is-interactive). Không có ảnh thì
+   chấm vẫn là <span> trơ — dựng nút bấm mà bấm không ra gì là lừa người dùng. */
+.vt-card-swatches.is-interactive .vt-card-swatch {
+  padding: 0; cursor: pointer; appearance: none; -webkit-appearance: none;
+  transition: transform var(--vt-fast) var(--vt-ease), box-shadow var(--vt-fast) var(--vt-ease);
+}
+.vt-card-swatches.is-interactive .vt-card-swatch:hover,
+.vt-card-swatches.is-interactive .vt-card-swatch.is-active {
+  transform: scale(1.35);
+  box-shadow: 0 0 0 1px var(--vt-paper), 0 0 0 2px var(--vt-ink);
+}
+/* Vùng chạm 24px cho ngón tay, nhưng chấm vẫn vẽ 11px */
+@media (hover: none) {
+  .vt-card-swatches.is-interactive .vt-card-swatch { position: relative; }
+  .vt-card-swatches.is-interactive .vt-card-swatch::after {
+    content: ''; position: absolute; inset: -7px;
+  }
+}
+/* Đang xem màu khác → tắt lật mặt sau.
+   Ảnh mặt sau là ảnh cấp SẢN PHẨM, không có bản theo màu; lật sang nó lúc này
+   là hiện mặt sau của MỘT MÀU KHÁC. Thà đứng im. */
+.vt-card.is-swapped .vt-card-back { opacity: 0 !important; }
+
+/* ---- Nút chọn nhanh size, hiện khi rê chuột ----
+   Không phải nút thêm giỏ hàng. Nó là LỐI TẮT tới PDP đã chọn sẵn size —
+   thêm thẳng vào giỏ từ lưới sẽ bỏ qua bước xem số đo, và size sai là
+   nguyên nhân trả hàng số một. */
+.vt-card-quick {
+  position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 4;
+  display: flex; flex-direction: row; flex-wrap: nowrap; gap: 6px;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity var(--vt-fast) var(--vt-ease), transform var(--vt-fast) var(--vt-ease);
+}
+.vt-card-quick a {
+  flex: 1 1 0; text-align: center; text-decoration: none;
+  background: rgba(255, 255, 255, .94); border: 1px solid var(--vt-ink); color: var(--vt-ink);
+  font-family: var(--vt-font-mono); font-size: 10px; letter-spacing: .1em; padding: 9px 0;
+  transition: background var(--vt-fast), color var(--vt-fast);
+}
+.vt-card-quick a:hover { background: var(--vt-ink); color: var(--vt-paper); }
+@media (hover: hover) and (pointer: fine) {
+  .vt-card:hover .vt-card-quick,
+  .vt-card:focus-within .vt-card-quick { opacity: 1; transform: translateY(0); }
+}
+/* Cảm ứng: ẩn hẳn. Nút nhỏ trên màn cảm ứng chỉ gây bấm nhầm. */
+@media (hover: none) { .vt-card-quick { display: none; } }
+
+/* ==========================================================================
+   COLLECTION — khối chia đôi, nền tối, tràn viền
+   --------------------------------------------------------------------------
+   Chữ bên trái, ảnh campaign bên phải. Đây là điểm nghỉ giữa hai lưới sản phẩm
+   và là chỗ duy nhất trên trang chủ được nói dài hơn một dòng.
+   ========================================================================== */
+
+/* 🔴 CHIỀU CAO ĐO THEO MÀN HÌNH, KHÔNG PHẢI THEO PIXEL CỐ ĐỊNH.
+   Bản cũ đặt `min-height: 560px`. 560px là con số hợp lý trên màn 1080, nhưng
+   nội dung bên trong (tiêu đề tới 96px + đoạn văn + nút) tự nó đã cao hơn thế
+   trên màn thấp, nên khối phình ra và VƯỢT QUÁ một màn hình. Người xem phải
+   cuộn mới thấy hết một khối lẽ ra liếc là xong.
+
+   `clamp(380px, 68vh, 720px)` giữ nó luôn thấp hơn màn hình một khoảng, và
+   ảnh model co theo vì nó `object-fit: cover` trong ô lưới.
+
+   Cột chữ rộng hơn (1.35fr so với 1fr): ảnh nhỏ lại đúng như yêu cầu, và chữ
+   có chỗ thở nên tiêu đề bớt phải xuống dòng. */
+.vt-collection {
+  position: relative; overflow: hidden;
+  background: var(--vt-ink); color: var(--vt-on-dark);
+  display: grid; grid-template-columns: 1.35fr 1fr;
+  min-height: clamp(380px, 68vh, 720px);
+}
+.vt-collection--flip .vt-collection-media { order: -1; }
+.vt-collection-body {
+  /* Khối đã tràn viền, nên lề trong phải TỰ gánh phần .vt-wrap vừa bỏ đi —
+     nếu không chữ dính sát mép màn hình. Không bao giờ hẹp hơn lề trang. */
+  padding-block: clamp(28px, 3.4vw, 56px);
+  padding-inline: max(var(--vt-gutter), clamp(32px, 4vw, 64px));
+  /* `space-between` là thứ tạo ra khoảng trống lớn phía trên chữ: nó đẩy
+     eyebrow lên đỉnh và phần còn lại xuống đáy. Bỏ eyebrow rồi thì khoảng đó
+     thành trống trơn. `center` cho khối chữ nằm giữa chiều cao, không còn lỗ. */
+  display: flex; flex-direction: column; justify-content: center; gap: 24px;
+}
+.vt-collection-eyebrow {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs);
+  letter-spacing: .2em; text-transform: uppercase; opacity: .6; margin: 0;
+}
+.vt-collection-title {
+  font-family: var(--vt-font-display); font-stretch: 125%; font-stretch: var(--vt-display-wide); font-weight: 800; text-transform: uppercase;
+  font-size: clamp(36px, 4.8vw, 76px); line-height: 1.02; letter-spacing: -.03em;
+  margin: 0 0 20px;
+}
+.vt-collection-text { margin: 0 0 28px; max-width: 42ch; font-size: var(--vt-t-base); line-height: 1.65; opacity: .72; }
+.vt-collection-media { position: relative; overflow: hidden;
+  background: var(--vt-ink-soft); min-height: 320px; }
+/* 🔴 ẢNH PHẢI RA KHỎI LUỒNG, NẾU KHÔNG NÓ QUYẾT ĐỊNH CHIỀU CAO CẢ SECTION.
+   `height: 100%` cần một chiều cao XÁC ĐỊNH ở phần tử cha để tham chiếu.
+   Ô lưới này không có — chiều cao của nó do hàng lưới quyết, mà hàng lưới lại
+   đang chờ nội dung. Vòng luẩn quẩn đó làm `height: 100%` rơi về `auto`, tức là
+   ảnh dùng CHIỀU CAO THẬT của file.
+
+   Đo trên site 30/08/2026: `collection-01.webp` là 1050×1400 (ảnh dọc). Ở bề
+   rộng cột đó nó cao 899px và kéo cả khối lên 899px — cao hơn màn hình 860px.
+   Đúng cái user báo: "section nó còn lớn hơn màn hình".
+   Đặt `position: absolute` là ảnh không còn đóng góp vào chiều cao nữa; khối
+   trở về đúng `min-height` đã tính theo vh. Đo lại sau khi sửa: 585px, vừa màn.
+
+   ⚠️ Ảnh dọc vào ô ngang thì `object-fit: cover` sẽ cắt trên dưới. Đó là chủ ý,
+   nhưng khi thay ảnh trong Media Library nhớ ngắm lại phần bị cắt. */
+.vt-collection-media img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+@media (max-width: 860px) {
+  .vt-collection { grid-template-columns: 1fr; min-height: 0; }
+  .vt-collection--flip .vt-collection-media { order: 0; }
+  .vt-collection-media { aspect-ratio: 4 / 3; min-height: 0; }
+}
+
+/* ==========================================================================
+   SERVICES — dải 3 cột, hairline
+   ========================================================================== */
+
+.vt-services {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: var(--vt-hair); background: var(--vt-line);
+  border-top: 1px solid var(--vt-ink);
+}
+.vt-services > div { background: var(--vt-tint); padding: clamp(24px, 3vw, 36px) clamp(14px, 2vw, 24px); }
+.vt-services .vt-services-title {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs);
+  letter-spacing: .16em; text-transform: uppercase; margin: 0 0 10px;
+}
+.vt-services p { margin: 0; font-size: var(--vt-t-sm); color: var(--vt-muted); line-height: 1.6; }
+@media (max-width: 700px) { .vt-services { grid-template-columns: 1fr; } }
+
+/* ==========================================================================
+   EMPTY STATE
+   ========================================================================== */
+
+.vt-empty {
+  grid-column: 1 / -1; text-align: center;
+  padding: clamp(48px, 8vw, 96px) var(--vt-gutter);
+  border: 1px solid var(--vt-line);
+}
+.vt-empty p { margin: 0 0 16px; font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); letter-spacing: .14em; text-transform: uppercase; color: var(--vt-muted); }
+
+/* ==========================================================================
+   GALLERY — lưới mosaic kiểu lookbook
+   --------------------------------------------------------------------------
+   Nhịp cố tình KHÁC lưới sản phẩm: ô to nhỏ xen kẽ, không đều tăm tắp.
+   Lưới sản phẩm cần đều để so sánh; lookbook cần lệch để mắt có chỗ dừng.
+
+   grid-auto-rows cố định + aspect-ratio trên ô = KHÔNG CLS.
+   grid-auto-flow: dense lấp nốt khoảng trống, nên số ảnh lẻ vẫn không có lỗ hổng.
+   ========================================================================== */
+
+/* Khối lookbook nặng về thị giác — bớt khoảng đệm trên dưới so với section thường,
+   nếu không nó bị trôi khỏi nhịp của trang */
+.vt-gallery-section { padding-block: clamp(36px, 6vw, 88px); }
+/* Lưới nằm trong .vt-bleed — đầu section vẫn thụt lề, ảnh thì không.
+   Khoảng cách trên do .vt-section-head margin-bottom lo, không cộng thêm. */
+
+.vt-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: clamp(150px, 16vw, 240px);
+  grid-auto-flow: dense;
+  gap: var(--vt-hair);
+  background: var(--vt-line);
+}
+/* Ô vuông cơ sở — mọi span đều nhân lên từ đây */
+.vt-gallery > .vt-g { margin: 0; position: relative; overflow: hidden; background: var(--vt-tint); }
+.vt-gallery > .vt-g img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.vt-g--1x1 { grid-column: span 1; grid-row: span 1; }
+.vt-g--2x2 { grid-column: span 2; grid-row: span 2; }
+.vt-g--1x2 { grid-column: span 1; grid-row: span 2; }
+.vt-g--2x1 { grid-column: span 2; grid-row: span 1; }
+.vt-g--4x1 { grid-column: 1 / -1;  grid-row: span 1; }
+
+/* Zoom rất nhẹ khi rê chuột — đủ để thấy nó tương tác được, không đủ để làm phiền */
+@media (hover: hover) and (pointer: fine) {
+  .vt-gallery > .vt-g img { transition: transform var(--vt-slow) var(--vt-ease); }
+  .vt-gallery > .vt-g:hover img { transform: scale(1.04); }
+}
+
+/* Tablet: 3 cột. Ô 4x1 co lại thành 3x1 để không vỡ hàng. */
+@media (max-width: 1024px) {
+  .vt-gallery { grid-template-columns: repeat(3, 1fr); }
+
+}
+
+/* Mobile: 2 cột. Bỏ ô 1x2 dọc — trên màn hẹp nó cao lêu nghêu, đẩy mọi thứ khác xuống. */
+@media (max-width: 640px) {
+  .vt-gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 46vw; }
+  .vt-g--2x2 { grid-column: span 2; grid-row: span 2; }
+  .vt-g--1x2 { grid-row: span 1; }
+  .vt-g--2x1, .vt-g--4x1 { grid-column: span 2; grid-row: span 1; }
+}
+
+/* ==========================================================================
+   EDITORIAL
+   ========================================================================== */
+
+.vt-editorial { display: grid; gap: clamp(24px, 4vw, 56px); align-items: center; grid-template-columns: 1fr 1fr; }
+.vt-editorial--flip .vt-editorial-media { order: 2; }
+.vt-editorial-media { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--vt-tint); }
+.vt-editorial-media img { width: 100%; height: 100%; object-fit: cover; }
+.vt-editorial-body > * + * { margin-top: 18px; }
+@media (max-width: 860px) {
+  .vt-editorial { grid-template-columns: 1fr; }
+  .vt-editorial--flip .vt-editorial-media { order: 0; }
+}
+
+/* ==========================================================================
+   WOOCOMMERCE
+   ========================================================================== */
+
+.woocommerce .woocommerce-result-count,
+.woocommerce .woocommerce-ordering { font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); letter-spacing: .1em; }
+.woocommerce-breadcrumb {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); letter-spacing: .12em;
+  text-transform: uppercase; color: var(--vt-muted); margin-bottom: 20px;
+}
+.woocommerce-breadcrumb a { text-decoration: none; }
+
+.vt-shop-head { padding-block: clamp(24px, 4vw, 48px) clamp(18px, 2vw, 28px); }
+.vt-shop-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap; padding-block: 14px;
+  border-block: 1px solid var(--vt-line); margin-bottom: clamp(24px, 3vw, 40px);
+}
+
+/* Điều hướng bài trước / bài sau — chỉ dùng ở single.php */
+.vt-postnav {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap; padding-top: 22px; border-top: 1px solid var(--vt-line);
+}
+
+/* ==========================================================================
+   GIỎ HÀNG · THANH TOÁN · TÀI KHOẢN
+   --------------------------------------------------------------------------
+   CHỈ LÀ LỚP SƠN. Không gỡ field, không đổi thứ tự bước, không hook vào luồng
+   đặt hàng. Markup vẫn 100% của WooCommerce nên plugin thanh toán cắm vào được
+   như bình thường, và Woo update không phá.
+
+   Nguyên tắc thị giác giữ đúng phần còn lại của site: hairline, chữ mono in hoa
+   cho nhãn, nút bo tròn hoàn toàn, không đổ bóng, không bo góc ô.
+   ========================================================================== */
+
+.vt-woo-page { --vt-fieldline: var(--vt-line-strong); }
+
+/* ---- 🔴 SỬA LỖI TRÀN NGANG Ở /cart VÀ /checkout ----
+   WooCommerce 8+ dựng giỏ hàng và thanh toán bằng BLOCK, và block đó mang sẵn
+   class `alignwide` của Gutenberg. Trong một block theme, `alignwide` được nuôi
+   bằng biến `--wp--style--root--padding-*`: khung cha có padding nên margin âm
+   chỉ ăn vào phần padding đó. Theme này KHÔNG phải block theme, khung cha
+   padding 0, nên margin âm ăn thẳng ra ngoài màn hình.
+
+   THỦ PHẠM LÀ THEME CHA, KHÔNG PHẢI WOOCOMMERCE.
+   Đo trên site thật: `hello-elementor/assets/css/theme.css` khai
+       .alignwide { margin-inline: -80px }
+   Chỉ (0,1,0), và dùng thuộc tính LOGIC `margin-inline`.
+
+   🔴 BẢN SỬA NGÀY 30/08 KHÔNG CHẠY, GHI LẠI ĐỂ KHÔNG LẶP:
+   Nó viết `.vt-woo .vt-woo-page .alignwide`. Nhưng `.vt-woo` do
+   `vt_woo_wrapper_start()` in ra, và hàm đó CHỈ chạy trên template của
+   WooCommerce (shop archive, trang sản phẩm). Giỏ hàng, thanh toán, tài khoản
+   là **WP Page** dựng bằng `page.php` — ở đó chỉ có `.vt-woo-page`, không có
+   `.vt-woo`. Luật đúng cú pháp, nằm đúng trong file, và không bao giờ khớp.
+
+   Nên ở đây neo vào `.vt-woo-page` — class CÓ THẬT trên những trang đó — và
+   đặt `margin-inline` để triệt đúng thuộc tính mà theme cha dùng.
+   (0,2,0) so với (0,1,0) là đủ, không cần !important. */
+.vt-woo-page .alignwide,
+.vt-woo-page .alignfull,
+.vt-woo .alignwide,
+.vt-woo .alignfull,
+.vt-prose .alignwide,
+.vt-prose .alignfull {
+  margin-inline: 0;
+  max-width: 100%;
+}
+
+/* ---- Bề ngang đọc được ----
+   Giỏ hàng, thanh toán, tài khoản là TÀI LIỆU, không phải trang thương hiệu.
+   Quyết định FULL-WIDTH ở CLAUDE.md mục 5 nói về ngôn ngữ layout của trang
+   brand: hero, section title 84px, lưới sản phẩm. Một bảng giỏ hàng kéo hết
+   1920px thì mắt phải quét ngang cả màn để nối tên sản phẩm với giá của nó.
+   Cùng lý do và cùng con số với 11 trang chính sách. */
+.vt-woo-page { max-width: var(--vt-max-doc); }
+
+/* ---- Trang đăng nhập ----
+   Form đăng nhập có đúng hai ô. Kéo nó hết bề ngang trang làm ô nhập dài cả
+   nghìn pixel cho một chuỗi 20 ký tự — trông như trang bị lỗi chứ không phải
+   trang tối giản.
+
+   Chỉ thu hẹp khi CHƯA đăng nhập. Trang tài khoản sau khi đăng nhập có menu
+   bên trái + nội dung bên phải, vẫn cần bề ngang.
+   Giữ canh trái, không canh giữa, để thẳng hàng với tiêu đề trang phía trên. */
+body.woocommerce-account:not(.logged-in) .vt-woo-page { max-width: 520px; }
+
+
+/* ---- Bảng: giỏ hàng, chi tiết đơn, địa chỉ ----
+   Woo mặc định có viền quanh từng ô. Ta chỉ giữ một đường kẻ ngang giữa các
+   dòng — cùng ngôn ngữ với lưới hairline ở nơi khác. */
+.vt-woo-page table { width: 100%; border-collapse: collapse; }
+.vt-woo-page table th,
+.vt-woo-page table td {
+  padding: 16px 12px; text-align: left; vertical-align: middle;
+  border: 0; border-bottom: 1px solid var(--vt-line);
+}
+.vt-woo-page table th {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--vt-muted);
+}
+.vt-woo-page table thead th { border-bottom-color: var(--vt-ink); }
+.vt-woo-page .product-thumbnail img { width: 72px; height: auto; display: block; }
+.vt-woo-page .product-name a { text-decoration: none; font-weight: 600; }
+.vt-woo-page .product-name a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Bảng trên màn hẹp: cho cuộn ngang thay vì bóp cột.
+   Bóp cột làm giá và số lượng xuống hàng, khách đọc nhầm số tiền. */
+.vt-woo-page .woocommerce-cart-form,
+.vt-woo-page .woocommerce-checkout-review-order,
+.vt-woo-page .woocommerce-order-details,
+.vt-woo-page .woocommerce-MyAccount-content { overflow-x: auto; }
+
+/* ---- Biểu mẫu ---- */
+.vt-woo-page label {
+  display: block; font-family: var(--vt-font-mono); font-size: var(--vt-t-xs);
+  letter-spacing: .14em; text-transform: uppercase; color: var(--vt-muted);
+  margin-bottom: 8px;
+}
+.vt-woo-page .required { color: var(--vt-sale); text-decoration: none; }
+.vt-woo-page input[type="text"],
+.vt-woo-page input[type="email"],
+.vt-woo-page input[type="tel"],
+.vt-woo-page input[type="password"],
+.vt-woo-page input[type="number"],
+.vt-woo-page textarea,
+.vt-woo-page select,
+.vt-woo-page .select2-container .select2-selection--single {
+  width: 100%; padding: 13px 14px;
+  font-family: inherit; font-size: var(--vt-t-base); color: var(--vt-ink);
+  background: var(--vt-paper);
+  border: 1px solid var(--vt-fieldline); border-radius: 0;
+  transition: border-color var(--vt-fast) var(--vt-ease);
+}
+.vt-woo-page textarea { min-height: 110px; resize: vertical; }
+.vt-woo-page input:focus,
+.vt-woo-page textarea:focus,
+.vt-woo-page select:focus { outline: 0; border-color: var(--vt-ink); }
+/* 16px trên iOS: dưới 16px là Safari tự phóng to trang khi bấm vào ô nhập,
+   khách đang điền địa chỉ mà trang nhảy là mất đơn. */
+@media (max-width: 640px) {
+  .vt-woo-page input, .vt-woo-page textarea, .vt-woo-page select { font-size: 16px; }
+}
+.vt-woo-page .form-row { margin-bottom: 18px; }
+.vt-woo-page .form-row-first,
+.vt-woo-page .form-row-last { width: 100%; float: none; }
+@media (min-width: 641px) {
+  .vt-woo-page .form-row-first,
+  .vt-woo-page .form-row-last { width: calc(50% - 9px); display: inline-block; vertical-align: top; }
+  .vt-woo-page .form-row-first { margin-right: 14px; }
+}
+
+/* ---- Nút ---- */
+.vt-woo-page .button,
+.vt-woo-page button[type="submit"],
+.vt-woo-page #place_order {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 26px; border: 1px solid var(--vt-ink); border-radius: 999px;
+  background: var(--vt-ink); color: var(--vt-paper);
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); font-weight: 500;
+  letter-spacing: .14em; text-transform: uppercase; text-decoration: none;
+  cursor: pointer; transition: background var(--vt-fast), color var(--vt-fast);
+}
+.vt-woo-page .button:hover,
+.vt-woo-page button[type="submit"]:hover { background: transparent; color: var(--vt-ink); }
+.vt-woo-page .button:disabled,
+.vt-woo-page .button[disabled] { opacity: .45; cursor: not-allowed; }
+/* Nút đặt hàng là hành động cuối — cho nó chiếm hết chiều ngang, không để khách
+   phải tìm. Trên mobile đây là khác biệt thật giữa đặt được và bỏ giỏ. */
+.vt-woo-page #place_order { width: 100%; padding-block: 17px; }
+
+/* ---- Mã giảm giá ---- */
+.vt-woo-page .coupon { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.vt-woo-page .coupon input[type="text"] { width: auto; flex: 1 1 200px; }
+
+/* ---- Tổng tiền ---- */
+.vt-woo-page .cart_totals,
+.vt-woo-page .woocommerce-checkout-review-order {
+  border: 1px solid var(--vt-ink); padding: clamp(18px, 2.4vw, 28px); background: var(--vt-tint);
+}
+.vt-woo-page .cart_totals h2,
+.vt-woo-page .woocommerce-checkout h3 {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase; margin: 0 0 16px;
+}
+.vt-woo-page .order-total td,
+.vt-woo-page .order-total th { font-size: var(--vt-t-md); font-weight: 700; border-bottom: 0; }
+
+/* ---- Thông báo của Woo ---- */
+.vt-woo-page .woocommerce-message,
+.vt-woo-page .woocommerce-info,
+.vt-woo-page .woocommerce-error {
+  list-style: none; margin: 0 0 24px; padding: 14px 18px;
+  border-left: 3px solid var(--vt-ink); background: var(--vt-tint);
+  font-size: var(--vt-t-sm);
+}
+.vt-woo-page .woocommerce-error { border-left-color: var(--vt-sale); }
+
+/* ---- Trang tài khoản: cột menu + nội dung ---- */
+@media (min-width: 861px) {
+  .vt-woo-page .woocommerce-account .woocommerce {
+    display: grid; grid-template-columns: 220px 1fr; gap: clamp(24px, 4vw, 56px);
+  }
+}
+.vt-woo-page .woocommerce-MyAccount-navigation ul { list-style: none; margin: 0; padding: 0; }
+.vt-woo-page .woocommerce-MyAccount-navigation li { border-bottom: 1px solid var(--vt-line); }
+.vt-woo-page .woocommerce-MyAccount-navigation a {
+  display: block; padding: 12px 0; text-decoration: none;
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs);
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.vt-woo-page .woocommerce-MyAccount-navigation .is-active a { font-weight: 600; }
+
+/* ---- Khung bọc nội dung Woo (thay cho <main> lồng <main>) ----
+   Div trơn, cố ý KHÔNG có lề hay khoảng đệm: trang shop/category tự lo bố cục
+   vì banner phải tràn sát mép còn lưới sản phẩm thì phải có lề.
+   KHÔNG dùng `display: contents` — nó gỡ hộp khỏi cây bố cục và từng gây lỗi
+   ngữ nghĩa với máy đọc màn hình. Div block bình thường không ảnh hưởng gì. */
+.vt-woo { display: block; }
+.vt-woo--bare { padding: 0; }
+
+/* Phân trang */
+.woocommerce-pagination ul { display: flex; gap: 6px; list-style: none; padding: 0; justify-content: center; margin-top: 48px; }
+.woocommerce-pagination a, .woocommerce-pagination span {
+  display: grid; place-items: center; min-width: 38px; height: 38px;
+  border: 1px solid var(--vt-line); text-decoration: none;
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-sm);
+}
+.woocommerce-pagination .current { background: var(--vt-ink); color: var(--vt-paper); border-color: var(--vt-ink); }
+
+/* Thông báo Woo */
+.woocommerce-message, .woocommerce-info, .woocommerce-error {
+  border-top: 2px solid var(--vt-ink); background: var(--vt-tint);
+  padding: 16px 20px; font-size: var(--vt-t-sm); list-style: none; margin-bottom: 24px;
+}
+.woocommerce-error { border-top-color: var(--vt-sale); }
+
+/* PDP — chỉ style, KHÔNG đụng cấu trúc hay logic */
+.single-product div.product { padding-block: clamp(24px, 4vw, 56px); }
+.single-product .product_title { font-size: var(--vt-t-xl); font-weight: 800; letter-spacing: -.025em; }
+.single-product .price { font-family: var(--vt-font-mono); font-size: var(--vt-t-md); }
+.single-product .woocommerce-product-details__short-description { max-width: 52ch; color: var(--vt-muted); }
+/* Bảng thuộc tính = 4 gạch đầu dòng brand vẫn dùng trên IG: Fabric / Fit / Sizing / Print */
+.woocommerce-product-attributes { width: 100%; border-collapse: collapse; font-size: var(--vt-t-sm); }
+.woocommerce-product-attributes th, .woocommerce-product-attributes td {
+  text-align: left; padding: 10px 0; border-bottom: 1px solid var(--vt-line); vertical-align: top;
+}
+.woocommerce-product-attributes th {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); letter-spacing: .12em;
+  text-transform: uppercase; color: var(--vt-muted); width: 38%; font-weight: 500;
+}
+
+/* Nút Woo dùng chung kiểu với .vt-btn */
+.woocommerce button.button, .woocommerce a.button, .woocommerce input.button,
+.woocommerce #respond input#submit, .woocommerce button.button.alt {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-sm); letter-spacing: .1em;
+  text-transform: uppercase; border-radius: 999px;
+  background: var(--vt-ink); color: var(--vt-paper); border: 1px solid var(--vt-ink);
+  padding: 16px 30px; transition: background var(--vt-fast), color var(--vt-fast);
+}
+.woocommerce button.button:hover, .woocommerce a.button:hover,
+.woocommerce button.button.alt:hover { background: transparent; color: var(--vt-ink); }
+
+/* Bảng size — dùng ở PDP và trang Size Guide */
+.vt-size-table { width: 100%; border-collapse: collapse; font-size: var(--vt-t-sm); font-variant-numeric: tabular-nums; }
+.vt-size-table th, .vt-size-table td { padding: 11px 12px; border: 1px solid var(--vt-line); text-align: left; }
+.vt-size-table thead th {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); letter-spacing: .1em;
+  text-transform: uppercase; background: var(--vt-tint); font-weight: 500;
+}
+.vt-size-note { font-size: var(--vt-t-sm); color: var(--vt-muted); margin-top: 12px; }
+.vt-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+.vt-footer { background: var(--vt-ink); color: var(--vt-on-dark); padding-block: clamp(48px, 7vw, 88px) 0; margin-top: clamp(56px, 8vw, 120px); }
+.vt-footer a { color: inherit; text-decoration: none; }
+.vt-footer-grid {
+  display: grid; gap: clamp(28px, 4vw, 56px);
+  /* 5 cột: thương hiệu · Shop · Support · Legal · Follow.
+     Cột Legal tự ẩn khi chưa có trang pháp lý nào được publish — lúc đó ô
+     rỗng chỉ để lại khoảng trắng, lưới không vỡ. */
+  grid-template-columns: 1.6fr repeat(4, 1fr);
+}
+@media (max-width: 1100px) { .vt-footer-grid { grid-template-columns: 1fr 1fr 1fr; } }
+@media (max-width: 900px) { .vt-footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .vt-footer-grid { grid-template-columns: 1fr; } }
+
+/* Logo footer to gấp đôi header. Header phải nhường chỗ cho điều hướng;
+   footer thì không — đây là chỗ ký tên, để nhỏ bằng header là phí. */
+.vt-footer-brand img { height: 44px; width: auto; filter: invert(1); }
+@media (max-width: 520px) { .vt-footer-brand img { height: 34px; } }
+.vt-footer-desc { margin-top: 16px; color: var(--vt-on-dark-muted); font-size: var(--vt-t-sm); max-width: 34ch; }
+.vt-footer-col-title {
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); letter-spacing: .18em;
+  text-transform: uppercase; color: var(--vt-on-dark-muted); margin-bottom: 14px;
+}
+.vt-footer-links { display: flex; flex-direction: column; gap: 9px; }
+.vt-footer-links a { font-size: var(--vt-t-sm); opacity: .82; transition: opacity var(--vt-fast); }
+.vt-footer-links a:hover { opacity: 1; }
+.vt-footer-bottom {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  margin-top: clamp(40px, 5vw, 64px); padding-block: 22px;
+  border-top: 1px solid var(--vt-on-dark-line);
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs); letter-spacing: .1em;
+  color: var(--vt-on-dark-muted);
+}
+
+/* ==========================================================================
+   404 / SEARCH
+   ========================================================================== */
+
+.vt-center-page { min-height: 60vh; display: grid; place-items: center; text-align: center; padding-block: clamp(56px, 10vw, 120px); }
+.vt-center-page .vt-display { font-size: var(--vt-t-2xl); margin-bottom: 18px; }
+.vt-search-form { display: flex; gap: 0; max-width: 480px; margin-inline: auto; }
+.vt-search-form input[type="search"] {
+  flex: 1; padding: 14px 16px; border: 1px solid var(--vt-ink); border-right: 0;
+  font-family: var(--vt-font-primary); font-size: var(--vt-t-base); background: var(--vt-paper); color: var(--vt-ink);
+}
+.vt-search-form button { border-left: 0; }
+
+.vt-result-list { display: flex; flex-direction: column; }
+.vt-result { padding-block: 22px; border-bottom: 1px solid var(--vt-line); }
+.vt-result h2 { font-size: var(--vt-t-md); font-weight: 600; margin: 0 0 6px; }
+.vt-result h2 a { text-decoration: none; }
+.vt-result p { color: var(--vt-muted); font-size: var(--vt-t-sm); margin: 0; }
+
+/* ==========================================================================
+   MISC — các hook còn thiếu rule
+   ========================================================================== */
+
+/* <main> — giữ chiều cao tối thiểu để footer không dâng lên giữa màn hình
+   trên những trang nội dung ngắn (Contact, 404, giỏ hàng rỗng) */
+.vt-main { min-height: 52vh; }
+
+/* Trang tĩnh */
+.vt-page { display: block; }
+.vt-page-links { display: flex; gap: 8px; margin-top: 32px; font-family: var(--vt-font-mono); font-size: var(--vt-t-sm); }
+
+/* Bảng size gập/mở trên PDP — đặt ngay dưới ô chọn size, đúng chỗ khách phân vân */
+.vt-size-guide { margin: 20px 0; border-top: 1px solid var(--vt-line); border-bottom: 1px solid var(--vt-line); }
+.vt-size-guide > summary {
+  cursor: pointer; list-style: none; padding: 14px 0;
+  font-family: var(--vt-font-mono); font-size: var(--vt-t-xs);
+  letter-spacing: .14em; text-transform: uppercase;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.vt-size-guide > summary::-webkit-details-marker { display: none; }
+.vt-size-guide > summary::after { content: '+'; font-size: 16px; }
+.vt-size-guide[open] > summary::after { content: '–'; }
+.vt-size-guide > summary:focus-visible { outline: 2px solid var(--vt-ink); outline-offset: 2px; }
+.vt-size-guide > *:not(summary) { padding-bottom: 18px; }
+
+/* Lưới shop mang thêm class .products cho plugin lọc bám vào —
+   phải chắc chắn nó không thừa hưởng kiểu danh sách của WooCommerce */
+.vt-grid.products { list-style: none; margin: 0; padding: 0; }
+
+/* ==========================================================================
+   MOTION / ACCESSIBILITY
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important; scroll-behavior: auto !important;
+  }
+  .vt-hero-video { opacity: 1; }
+}
+
+@media print {
+  .vt-header, .vt-footer, .vt-hero-media, .vt-iri-layer { display: none !important; }
+  body { background: #fff; color: #000; }
+}
+
+/* ==========================================================================
+   PDP — chấm màu / nút size thay dropdown biến thể
+   Markup sinh ở inc/woocommerce.php mục 10, điều khiển ở assets/js/site.js.
+   ========================================================================== */
+
+/* <select> vẫn còn trong DOM và VẪN focus được — chỉ ẩn khỏi mắt.
+   display:none là mất khỏi cây trợ năng, mất luôn cả bàn phím. */
+.vt-varpick select {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.vt-varpick-list { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+/* ---- Chấm màu ---- */
+.vt-varpick-dot {
+  width: 26px; height: 26px; padding: 0;
+  border-radius: 999px; border: 1px solid var(--vt-line-strong);
+  cursor: pointer; appearance: none; -webkit-appearance: none;
+  transition: box-shadow var(--vt-fast) var(--vt-ease), transform var(--vt-fast) var(--vt-ease);
+}
+.vt-varpick-dot:hover { transform: scale(1.08); }
+.vt-varpick-dot.is-active {
+  box-shadow: 0 0 0 2px var(--vt-paper), 0 0 0 3px var(--vt-ink);
+}
+
+/* ---- Nút size ---- */
+.vt-varpick-btn {
+  min-width: 46px; padding: 9px 12px;
+  font-family: var(--vt-font-mono); font-size: 11px; font-weight: 700;
+  letter-spacing: .10em; text-transform: uppercase;
+  background: transparent; color: var(--vt-ink);
+  border: 1px solid var(--vt-line-strong); border-radius: 999px;
+  cursor: pointer; appearance: none; -webkit-appearance: none;
+  transition: background var(--vt-fast) var(--vt-ease), color var(--vt-fast) var(--vt-ease);
+}
+.vt-varpick-btn:hover { background: var(--vt-tint); }
+.vt-varpick-btn.is-active {
+  background: var(--vt-ink); color: var(--vt-paper); border-color: var(--vt-ink);
+}
+
+/* ---- Tổ hợp không mua được ----
+   Gạch chéo, KHÔNG ẩn đi. Ẩn là nút nhảy chỗ mỗi lần khách đổi màu, và khách
+   không bao giờ biết size đó có tồn tại. Thấy mà hết hàng là thông tin thật. */
+.vt-varpick-dot.is-unavailable,
+.vt-varpick-btn.is-unavailable {
+  opacity: .32; cursor: not-allowed; position: relative;
+}
+.vt-varpick-btn.is-unavailable::after,
+.vt-varpick-dot.is-unavailable::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top left,
+    transparent calc(50% - 1px), var(--vt-ink) calc(50% - 1px),
+    var(--vt-ink) calc(50% + 1px), transparent calc(50% + 1px));
+  border-radius: inherit;
+}
+
+/* Bảng .variations mặc định của Woo — bỏ khung kẻ, xếp dọc cho thoáng */
+.woocommerce div.product form.cart table.variations { border: 0; margin-bottom: 18px; }
+.woocommerce div.product form.cart table.variations td { border: 0; padding: 0 0 14px; }
+.woocommerce div.product form.cart table.variations th.label { border: 0; padding: 0 0 6px; text-align: left; }
+.woocommerce div.product form.cart table.variations th.label label {
+  font-family: var(--vt-font-mono); font-size: 10px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase; opacity: .7;
+}

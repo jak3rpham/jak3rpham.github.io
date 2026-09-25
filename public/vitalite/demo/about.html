@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>About — VITALITÉ</title>
+<meta name="theme-color" content="#0A0A0A">
+
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=JetBrains+Mono:wght@400;500;800&display=swap">
+<link rel="stylesheet" href="theme/style.css?v=1790320643">
+<link rel="stylesheet" href="preview-bar.css">
+</head>
+<body class="vt-banner-top">
+
+<div class="vtpv-bar">
+  <strong>DEMO</strong>
+  <span>Static build for layout review · products and prices are real, but <b>nothing sells here</b></span>
+  <a href="https://vitalite.io.vn" rel="noopener">Real store →</a>
+</div>
+
+<a class="vt-skip" href="#vt-main">Skip to content</a>
+
+<header id="vt-header" class="vt-header is-transparent" data-banner-tone="dark">
+  <div class="vt-header-left">
+    <button type="button" class="vt-burger" aria-label="Open menu" aria-expanded="false"
+            aria-controls="vt-mobile-nav" data-vt-menu-open><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <a class="vt-brand" href="index.html" rel="home">
+      <img src="theme/assets/vitalite-wordmark-trim.png" alt="VITALITÉ"
+           class="vt-brand-mark" width="140" height="20" decoding="async">
+    </a>
+    <nav class="vt-nav-wrap" aria-label="Primary"><ul class="vt-nav"><li><a href="shop.html">Shop All</a></li><li><a href="product.html">Product</a></li><li><a href="collection.html">Collection</a></li><li class="current-menu-item"><a href="about.html">About</a></li></ul></nav>
+  </div>
+
+  <div class="vt-header-right">
+    <div class="vt-lang">
+      <a href="#" class="is-active" lang="en">EN</a>
+      <span class="vt-lang-sep" aria-hidden="true">/</span>
+      <a href="#" lang="vi">VI</a>
+    </div>
+    <a class="vt-util vt-util--search" href="#">Search</a>
+    <a class="vt-util vt-util--account" href="account.html">Account</a>
+    <a class="vt-cart" href="cart.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 7h12l1 13H5L6 7Z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg>
+      <span class="screen-reader-text">Cart</span>
+      <span class="vt-cart-count is-empty" aria-hidden="true">0</span>
+    </a>
+  </div>
+</header>
+
+<div id="vt-mobile-nav" class="vt-mobile-nav" hidden>
+  <button type="button" class="vt-mobile-close" aria-label="Close menu" data-vt-menu-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  <a href="shop.html">Shop All</a><a href="product.html">Product</a><a href="collection.html">Collection</a><a href="about.html">About</a>
+  <div class="vt-mobile-foot">
+    <a href="#">Search</a><a href="account.html">Account</a>
+    <a href="https://www.instagram.com/vitalitevn/" target="_blank" rel="noopener me">IG</a><a href="https://www.tiktok.com/@vitalitevn" target="_blank" rel="noopener me">TIKTOK</a><a href="https://shopee.vn/vitalitevn" target="_blank" rel="noopener me">SHOPEE</a>
+  </div>
+</div>
+
+<main id="vt-main" class="vt-main">
+<div class="vta">
+<style>
+.vta{
+  
+  margin-bottom:calc(-1 * clamp(56px, 8vw, 120px));
+  --a-ink:var(--vt-ink,#0A0A0A);
+  --a-paper:var(--vt-paper,#FFFFFF);
+  --a-line:var(--vt-line,#E4E4E6);
+  --a-muted:var(--vt-muted,#6E6E76);
+  --a-tint:var(--vt-tint,#F4F4F4);
+  --a-onDark:var(--vt-on-dark,#F2F2F4);
+  --a-onDarkMuted:var(--vt-on-dark-muted,rgba(242,242,244,.68));
+  --a-i1:var(--vt-iri-1,rgba(126,72,240,.85));
+  --a-i2:var(--vt-iri-2,rgba(38,196,190,.72));
+  --a-i3:var(--vt-iri-3,rgba(214,72,158,.60));
+  --a-i4:var(--vt-iri-4,rgba(58,102,232,.75));
+  --a-mono:var(--vt-font-mono,'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace);
+  --a-disp:var(--vt-font-display,'Archivo','Helvetica Neue',Arial,sans-serif);
+  --a-gut:clamp(20px,5vw,72px);
+  color:var(--a-ink);font-size:16px;line-height:1.7;
+  
+  background:var(--vt-paper,#FFFFFF);
+  color-scheme:light;
+
+}
+.vta *,.vta *::before,.vta *::after{box-sizing:border-box;}
+
+:where(.vta) :where(p,h1,h2,h3,ul,dl,dd){margin:0;}
+.vta section{padding-inline:var(--a-gut);}
+
+.vta-two{
+  display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  gap:clamp(26px,4.5vw,88px);align-items:start;
+}
+.vta-two > * {min-width:0;}
+
+.vta-two > div > :first-child{margin-top:0;}
+@media (max-width:900px){ .vta-two{grid-template-columns:1fr;gap:26px;} }
+
+.vta-specs{display:grid;grid-template-columns:1fr;gap:clamp(22px,3vw,44px);}
+@media (min-width:1200px){ .vta-specs{grid-template-columns:1fr 1fr;} }
+.vta-specs .vta-spec dt{flex:0 0 clamp(76px,7vw,104px);}
+.vta-specs h3{margin-top:0 !important;}
+
+.vta-oil{
+  position:absolute;inset:-30%;z-index:0;pointer-events:none;will-change:transform;
+  background:
+    radial-gradient(46% 58% at 22% 28%,var(--a-i1),transparent 62%),
+    radial-gradient(52% 46% at 78% 36%,var(--a-i2),transparent 64%),
+    radial-gradient(44% 52% at 58% 78%,var(--a-i3),transparent 62%),
+    radial-gradient(60% 60% at 12% 88%,var(--a-i4),transparent 66%);
+  filter:blur(30px) saturate(1.45);opacity:.5;
+  animation:vta-slide 13s linear infinite,vta-grow 19s ease-in-out infinite alternate,vta-turn 23s ease-in-out infinite alternate;
+}
+
+.vta-oil::after{
+  content:"";position:absolute;inset:-12%;
+  background:repeating-conic-gradient(from 210deg at 50% 50%,
+    hsl(276 92% 62%/.60) 0deg,hsl(192 95% 58%/.60) 38deg,hsl(322 92% 62%/.58) 76deg,
+    hsl(152 88% 56%/.52) 114deg,hsl(248 94% 62%/.60) 152deg,hsl(276 92% 62%/.60) 190deg);
+  filter:blur(46px);mix-blend-mode:screen;opacity:.36;
+  animation:vta-spin 37s linear infinite reverse;
+}
+@keyframes vta-slide{to{translate:-8% 3%;}}
+@keyframes vta-grow{from{scale:1;}to{scale:1.32;}}
+@keyframes vta-turn{from{rotate:-6deg;}to{rotate:8deg;}}
+@keyframes vta-spin{to{rotate:360deg;}}
+
+.vta-marq{
+  background:var(--a-ink);color:var(--a-onDark);
+  padding-block:clamp(14px,2vw,22px);overflow:hidden;
+  border-top:1px solid rgba(242,242,244,.16);border-bottom:1px solid rgba(242,242,244,.16);
+  padding-inline:0;
+}
+.vta-marq-track{display:flex;width:max-content;animation:vta-marq 38s linear infinite;}
+.vta-marq-track:hover{animation-play-state:paused;}
+.vta-marq-track span{
+  font-family:var(--a-disp);font-stretch:125%;font-weight:800;text-transform:uppercase;
+  font-size:clamp(17px,2.4vw,34px);letter-spacing:-.02em;padding-inline:clamp(18px,2.6vw,42px);
+  white-space:nowrap;opacity:.34;
+}
+.vta-marq-track span:nth-child(odd){opacity:.9;}
+@keyframes vta-marq{to{transform:translateX(-50%);}}
+
+.vta-body{padding-block:clamp(56px,9vw,130px);}
+.vta-eyebrow{
+  font-family:var(--a-mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--a-muted);padding-bottom:14px;border-bottom:1px solid var(--a-ink);margin-bottom:clamp(26px,4vw,48px);
+}
+.vta-h2{
+  font-family:var(--a-disp);font-stretch:125%;font-weight:800;text-transform:uppercase;
+  font-size:clamp(24px,4.4vw,64px);line-height:1.02;letter-spacing:-.035em;max-width:17ch;
+}
+.vta-lead{margin-top:26px;max-width:60ch;font-size:clamp(16px,1.35vw,20px);line-height:1.62;}
+.vta-note{margin-top:18px;max-width:60ch;color:var(--a-muted);}
+.vta-said{margin-top:16px;font-family:var(--a-mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--a-muted);}
+.vta-quote{
+  margin-top:clamp(28px,4vw,52px);padding-left:clamp(18px,2.5vw,32px);border-left:2px solid var(--a-ink);
+}
+.vta-quote p{font-family:var(--a-disp);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(19px,2.6vw,36px);line-height:1.1;letter-spacing:-.025em;max-width:20ch;}
+
+.vta-eras{padding-block:clamp(40px,6vw,90px);background:var(--a-tint);}
+.vta-eras-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--a-line);border:1px solid var(--a-line);}
+.vta-era{background:var(--a-paper);padding:clamp(24px,3.2vw,46px);}
+.vta-era--dark{background:var(--a-ink);color:var(--a-onDark);}
+.vta-era em{display:block;font-style:normal;font-family:var(--a-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;margin-bottom:18px;}
+.vta-era strong{display:block;font-family:var(--a-disp);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(20px,2.6vw,38px);line-height:1.04;letter-spacing:-.03em;margin-bottom:16px;}
+.vta-era p{font-size:15px;line-height:1.65;opacity:.72;}
+.vta-era ul{list-style:none;padding:0;margin-top:20px;}
+.vta-era li{font-family:var(--a-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;padding:9px 0;border-top:1px solid currentColor;opacity:.5;}
+
+.vta-spec{margin-top:26px;border-top:1px solid var(--a-ink);}
+.vta-spec > div{display:flex;gap:clamp(14px,2vw,28px);padding:14px 0;border-bottom:1px solid var(--a-line);}
+.vta-spec dt{flex:0 0 clamp(88px,10vw,130px);font-family:var(--a-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--a-muted);padding-top:3px;}
+.vta-spec dd{font-weight:600;}
+
+.vta-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(242,242,244,.2);margin-top:clamp(28px,4vw,48px);}
+.vta-stats > div{background:var(--a-ink);padding:clamp(18px,2.4vw,30px) clamp(12px,1.6vw,20px);}
+.vta-stats b{display:block;font-family:var(--a-disp);font-stretch:125%;font-weight:800;font-size:clamp(26px,4.2vw,58px);line-height:1;letter-spacing:-.035em;}
+.vta-stats span{display:block;margin-top:12px;font-family:var(--a-mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--a-onDarkMuted);}
+
+.vta-close{
+  position:relative;overflow:hidden;isolation:isolate;
+  background:var(--a-ink);color:var(--a-onDark);padding-block:clamp(56px,9vw,120px);
+}
+.vta-close > *{position:relative;z-index:1;}
+.vta-cta{margin-top:clamp(26px,4vw,44px);display:flex;gap:12px;flex-wrap:wrap;}
+.vta-btn{
+  display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;
+  border:1px solid var(--a-onDark);background:var(--a-onDark);color:var(--a-ink);
+  font-family:var(--a-mono);font-size:11px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;text-decoration:none;transition:background .2s,color .2s;
+}
+.vta-btn:hover{background:transparent;color:var(--a-onDark);}
+.vta-btn--ghost{background:transparent;color:var(--a-onDark);}
+.vta-btn--ghost:hover{background:var(--a-onDark);color:var(--a-ink);}
+.vta-close a:not(.vta-btn),.vta-body a:not(.vta-btn){color:inherit;text-decoration:underline;text-underline-offset:3px;}
+
+.vta-source{
+  margin-top:16px;font-family:var(--a-mono);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--a-onDarkMuted);
+}
+
+.vta.js-on .vta-rev{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.vta.js-on .vta-rev.is-in{opacity:1;transform:none;}
+.vta.js-on .vta-rev:nth-child(2){transition-delay:.07s;}
+.vta.js-on .vta-rev:nth-child(3){transition-delay:.14s;}
+
+@media (max-width:820px){
+  .vta-eras-grid{grid-template-columns:1fr;}
+  .vta-stats{grid-template-columns:1fr 1fr;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .vta-oil,.vta-oil::after,.vta-marq-track{animation:none;}
+  .vta-h1 span i{transform:none;animation:none;}
+  .vta.js-on .vta-rev{opacity:1;transform:none;transition:none;}
+}
+</style>
+
+<div class="vsq"
+     data-seq-base="wp-content/uploads/seq/0823/"
+     data-seq-count="96"
+     data-seq-pad="3"
+     data-seq-ext="webp">
+<style>
+/* Mốc cho header trong suốt.
+
+   🔴 PHẢI LÀ `sticky`, KHÔNG PHẢI `absolute` NHƯ .vt-hero-sentinel.
+   Bản đầu chép y khuôn của theme: `position:absolute; bottom:0`. Sai, và sai vì
+   một lý do hình học.
+
+   Theme dùng khuôn đó cho `.vt-hero` và `.vt-pagebanner` — hai khối cao ĐÚNG
+   một khung nhìn. Mốc dán ở đáy chúng thì ngay lúc chưa cuộn nó đã nằm ở mép
+   dưới màn hình, tức IntersectionObserver thấy nó, tức header trong suốt.
+
+   `.vsq-track` ở đây KHÔNG cao một khung nhìn — nó cao bằng quãng cuộn của
+   chuỗi 96 frame. Đo trên site: 4500px trên màn 900px, tức GẤP 5 LẦN. Mốc dán
+   ở đáy nó nằm tận y=4500, ngoài tầm nhìn, nên observer không bao giờ báo
+   "đang thấy" và header không bao giờ trong suốt. Đó đúng là lỗi đã xảy ra.
+
+   `sticky` + `top:calc(100vh - 1px)` giữ mốc dính ở mép dưới khung nhìn suốt
+   chiều dài track, rồi thả ra khi track kết thúc. Kết quả đo lại trên trang
+   thật: trong suốt từ scroll 0 tới 4300, trắng lại từ 5100. Đúng ý đồ.
+
+   `margin-top:-1px` để 1px chiều cao này không đội layout lên. */
+.vsq-sentinel{
+  position:sticky;top:calc(100vh - 1px);
+  height:1px;margin-top:-1px;pointer-events:none;
+}
+.vsq{
+  --q-ink:var(--vt-ink,#0A0A0A);
+  --q-onDark:var(--vt-on-dark,#F2F2F4);
+  --q-onDarkMuted:var(--vt-on-dark-muted,rgba(242,242,244,.68));
+  /* Màu nhấn: TRẮNG, không magenta.
+     #CA2058 là màu THỜI KỲ CŨ — xem reference/BRAND_ERA_SPLIT.md §1.
+     Quyết định đã chốt --vt-accent = đen, mà đen trên nền đen là vô hình,
+     nên khối tối này dùng chính màu chữ. Không đưa màu lạ vào trang. */
+  --q-accent:var(--vt-on-dark,#F2F2F4);
+  --q-mono:var(--vt-font-mono,'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace);
+  --q-disp:var(--vt-font-display,'Archivo','Helvetica Neue',Arial,sans-serif);
+  --q-gut:clamp(20px,5vw,72px);
+  position:relative;background:var(--q-ink);color:var(--q-onDark);
+}
+.vsq *,.vsq *::before,.vsq *::after{box-sizing:border-box;}
+/* 🔴 Cùng lý do như `:where(.vta)` ở khối trên. Viết `.vsq p{margin:0}` là
+   nuốt sạch `.vsq-sub{margin-top}`, `.vsq-index{margin-bottom}` và
+   `.vsq-h{margin-bottom}` — hero mất hết khoảng thở giữa các dòng. */
+:where(.vsq) :where(p,h1,h2,h3){margin:0;}
+
+/* Đường chạy 500vh cho 4 mốc chữ */
+.vsq-track{height:500vh;position:relative;}
+
+.vsq-stage{
+  position:sticky;top:0;height:100svh;min-height:600px;
+  overflow:hidden;display:grid;place-items:center;
+}
+.vsq-media{position:absolute;inset:0;}
+.vsq-media img,.vsq-media canvas{width:100%;height:100%;object-fit:cover;display:block;}
+.vsq-media canvas{position:absolute;inset:0;opacity:0;transition:opacity .35s ease;}
+.vsq.is-live .vsq-media canvas{opacity:1;}
+
+.vsq-scrim{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(10,10,10,.10) 0%,rgba(10,10,10,.55) 75%,rgba(10,10,10,.85) 100%),
+             linear-gradient(to bottom,rgba(10,10,10,.72) 0%,transparent 28%,transparent 72%,rgba(10,10,10,.82) 100%);
+}
+
+/* HUD trên */
+/* Lưới bất đối xứng */
+.vsq-viewport{
+  position:relative;z-index:2;width:100%;height:100%;
+  padding:clamp(74px,10vh,112px) var(--q-gut) clamp(56px,7vh,84px);
+  display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(24px,4vw,60px);
+  align-items:center;pointer-events:none;
+}
+@media(max-width:900px){
+  .vsq-viewport{grid-template-columns:1fr;align-content:space-between;padding-block:84px 64px;}
+}
+
+.vsq-col-left{position:relative;display:grid;}
+.vsq-story{
+  grid-area:1/1;opacity:0;transform:translateY(28px) scale(.98);
+  transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1);
+  max-width:38ch;
+}
+.vsq-story.is-on{opacity:1;transform:none;}
+
+/* Mốc 0 — tiêu đề trang. To hơn ba mốc kia, và hiện ngay lúc tải. */
+.vsq-lede{max-width:none;}
+.vsq-h1{
+  font-family:var(--q-disp);font-stretch:125%;font-stretch:125%;font-weight:800;text-transform:uppercase;
+  font-size:clamp(36px,5.6vw,88px);line-height:.94;letter-spacing:-.04em;
+}
+.vsq-h1 span{display:block;overflow:hidden;}
+.vsq-h1 span i{display:block;font-style:normal;transform:translateY(105%);animation:vsq-rise .95s cubic-bezier(.16,1,.3,1) forwards;}
+.vsq-h1 span:nth-child(2) i{animation-delay:.10s;}
+.vsq-h1 span:nth-child(3) i{animation-delay:.20s;}
+@keyframes vsq-rise{to{transform:translateY(0);}}
+.vsq-sub{margin-top:clamp(20px,2.6vh,32px);max-width:46ch;color:var(--q-onDarkMuted);font-size:clamp(15px,1.3vw,18px);line-height:1.6;}
+
+.vsq-index{
+  font-family:var(--q-mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--q-onDarkMuted);margin-bottom:14px;display:flex;align-items:center;gap:10px;
+}
+.vsq-index span{color:var(--q-accent);}
+.vsq-h{
+  font-family:var(--q-disp);font-stretch:125%;font-stretch:125%;font-weight:800;text-transform:uppercase;
+  font-size:clamp(32px,4.8vw,68px);line-height:.96;letter-spacing:-.04em;margin-bottom:16px;
+}
+.vsq-p{color:var(--q-onDarkMuted);font-size:clamp(14px,1.15vw,16px);line-height:1.6;max-width:34ch;}
+
+.vsq-col-right{position:relative;display:grid;justify-items:end;}
+.vsq-card{
+  grid-area:1/1;opacity:0;transform:translateY(-20px) rotate(1deg);
+  transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1);
+  background:rgba(14,14,16,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(242,242,244,.12);padding:20px 24px;border-radius:2px;
+  width:100%;max-width:324px;
+}
+.vsq-card.is-on{opacity:1;transform:rotate(0deg);}
+.vsq-card-tag{
+  font-family:var(--q-mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--q-onDarkMuted);border-bottom:1px solid rgba(242,242,244,.10);padding-bottom:10px;
+  margin-bottom:12px;display:flex;justify-content:space-between;gap:10px;
+}
+.vsq-spec-item{
+  display:flex;justify-content:space-between;gap:14px;font-family:var(--q-mono);
+  font-size:11px;line-height:2;color:var(--q-onDarkMuted);
+}
+.vsq-spec-item b{color:var(--q-onDark);font-weight:500;text-align:right;}
+
+/* Suy giảm — không JS / màn hẹp / giảm chuyển động / tiết kiệm dữ liệu:
+   poster tĩnh, chữ hiện hết và xếp dọc, KHÔNG tải frame nào.
+
+   🔴 BA DÒNG DƯỚI ĐÂY LÀ BẮT BUỘC, ĐỪNG GỠ:
+     min-height:0     — không thì khối cao đúng 600px rồi thôi
+     overflow:visible — .vsq-stage lúc chạy thật là overflow:hidden; để nguyên
+                        thì chữ xếp dọc bị CẮT CỤT, mất hẳn 3/4 nội dung
+     height:auto trên .vsq-viewport — nó đang height:100% để dính màn hình;
+                        trong stage cao tự động thì 100% ra số vô nghĩa
+   Đây là bố cục MẶC ĐỊNH của mọi khách mobile. Hỏng ở đây là hỏng với đa số. */
+.vsq:not(.is-ready) .vsq-story,.vsq:not(.is-ready) .vsq-card{
+  opacity:1;transform:none;position:relative;grid-area:auto;
+}
+/* 🔴 VÀ hai cột cha cũng phải thôi làm grid. Bốn mốc chữ đều đặt grid-area:1/1
+   để CHỒNG LÊN NHAU lúc chạy thật — cột cha còn display:grid thì ở bố cục tĩnh
+   chúng vẫn chồng, khách chỉ đọc được mốc cuối cùng. */
+.vsq:not(.is-ready) .vsq-col-left,.vsq:not(.is-ready) .vsq-col-right{display:block;}
+.vsq:not(.is-ready) .vsq-viewport{display:block;height:auto;}
+.vsq:not(.is-ready) .vsq-track{height:auto;}
+.vsq:not(.is-ready) .vsq-stage{
+  position:relative;height:auto;min-height:0;overflow:visible;
+  display:block;padding-block:clamp(64px,11vh,96px);
+}
+.vsq:not(.is-ready) .vsq-story{margin-bottom:clamp(26px,4vw,44px);}
+.vsq:not(.is-ready) .vsq-card{margin-bottom:clamp(26px,4vw,44px);margin-left:auto;}
+/* Poster bị kéo cao gấp mấy lần khung gốc thì vùng giữa ảnh sáng trắng,
+   chữ trắng đè lên là không đọc được. Scrim phẳng, không gradient theo %. */
+.vsq:not(.is-ready) .vsq-scrim{
+  background:linear-gradient(to bottom,rgba(10,10,10,.74),rgba(10,10,10,.88));
+}
+
+@media (prefers-reduced-motion:reduce){
+  .vsq-story,.vsq-card{transition:none;}
+  .vsq-h1 span i{transform:none;animation:none;}
+}
+</style>
+
+<div class="vsq-track" data-tone="dark">
+  <div class="vsq-sentinel" data-vt-header-sentinel aria-hidden="true"></div>
+  <div class="vsq-stage">
+
+    <div class="vsq-media">
+      
+      <img class="vsq-poster"
+           src="wp-content/uploads/seq/0823/poster-1440.webp"
+           srcset="wp-content/uploads/seq/0823/poster-960.webp 960w,
+                   wp-content/uploads/seq/0823/poster-1440.webp 1440w,
+                   wp-content/uploads/seq/0823/poster-1920.webp 1920w"
+           sizes="100vw"
+           alt="Vitalité heavyweight hoodie shown in a concrete hall."
+           width="1920" height="1080"
+           fetchpriority="high" decoding="async">
+      <canvas class="vsq-canvas" aria-hidden="true"></canvas>
+    </div>
+
+    <div class="vsq-scrim" aria-hidden="true"></div>
+
+    <div class="vsq-viewport">
+
+      <div class="vsq-col-left">
+        <div class="vsq-story vsq-lede" data-from="0.00" data-to="0.26">
+          <h1 class="vsq-h1">
+            <span><i>Even in</i></span>
+            <span><i>chaos,</i></span>
+            <span><i>you are alive.</i></span>
+          </h1>
+          <p class="vsq-sub">A streetwear label from Saigon. Screen-printed, unisex, made in
+          Vietnam, and rebuilt from the ground up in 2026.</p>
+        </div>
+
+        <div class="vsq-story" data-from="0.26" data-to="0.51">
+          <p class="vsq-index"><span>&#9679;</span> Weight</p>
+          <h2 class="vsq-h">Heavy in weight.</h2>
+          <p class="vsq-p">500+ GSM heavyweight cotton blend. The label publishes the number with
+          every drop, in the same four lines each time.</p>
+        </div>
+
+        <div class="vsq-story" data-from="0.51" data-to="0.76">
+          <p class="vsq-index"><span>&#9679;</span> Fit</p>
+          <h2 class="vsq-h">Unmatched in fit.</h2>
+          <p class="vsq-p">Signature Boxy Fit, unisex, in S / M / L. The same three sizes across
+          both eras of the label.</p>
+        </div>
+
+        <div class="vsq-story" data-from="0.76" data-to="1.01">
+          <p class="vsq-index"><span>&#9679;</span> Behaviour</p>
+          <h2 class="vsq-h">Holds its shape all day.</h2>
+          <p class="vsq-p">A structured silhouette. Those are the label&rsquo;s own words for it.
+          A still photograph cannot show that. Only movement can.</p>
+        </div>
+      </div>
+
+      <div class="vsq-col-right">
+        <div class="vsq-card" data-from="0.00" data-to="0.26">
+          <div class="vsq-card-tag"><span>The label</span><span>[Record]</span></div>
+          <div class="vsq-spec-item"><span>Based in</span><b>Saigon, Vietnam</b></div>
+          <div class="vsq-spec-item"><span>Ships to</span><b>Vietnam &middot; United States</b></div>
+          <div class="vsq-spec-item"><span>Also on</span><b>Shopee &middot; IG &middot; TikTok</b></div>
+        </div>
+
+        <div class="vsq-card" data-from="0.26" data-to="0.51">
+          <div class="vsq-card-tag"><span>Spec // 01</span><span>[Fabric]</span></div>
+          <div class="vsq-spec-item"><span>Outerwear</span><b>500+ GSM cotton blend</b></div>
+          <div class="vsq-spec-item"><span>T&#8209;shirts</span><b>250 GSM cotton</b></div>
+          <div class="vsq-spec-item"><span>Source</span><b>IG &middot; 25 Jul 2026</b></div>
+        </div>
+
+        <div class="vsq-card" data-from="0.51" data-to="0.76">
+          <div class="vsq-card-tag"><span>Spec // 02</span><span>[Fit]</span></div>
+          <div class="vsq-spec-item"><span>Fit</span><b>Signature boxy</b></div>
+          <div class="vsq-spec-item"><span>Cut</span><b>Unisex</b></div>
+          <div class="vsq-spec-item"><span>Sizing</span><b>S / M / L</b></div>
+        </div>
+
+        <div class="vsq-card" data-from="0.76" data-to="1.01">
+          <div class="vsq-card-tag"><span>Spec // 03</span><span>[Origin]</span></div>
+          <div class="vsq-spec-item"><span>Made in</span><b>Vietnam</b></div>
+          <div class="vsq-spec-item"><span>Print</span><b>Screen printed</b></div>
+          <div class="vsq-spec-item"><span>Full spec</span><b>Section 04, below</b></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.currentScript.closest('.vsq');
+  if (!root) return;
+
+  var track    = root.querySelector('.vsq-track');
+  var canvas   = root.querySelector('.vsq-canvas');
+  var steps    = [].slice.call(root.querySelectorAll('.vsq-story, .vsq-card'));
+
+  var base  = root.getAttribute('data-seq-base') || '';
+  var count = parseInt(root.getAttribute('data-seq-count'), 10) || 0;
+  var pad   = parseInt(root.getAttribute('data-seq-pad'), 10) || 3;
+  var ext   = root.getAttribute('data-seq-ext') || 'webp';
+
+  var reduce   = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var narrow   = matchMedia('(max-width: 820px)').matches;
+  var saveData = (navigator.connection && navigator.connection.saveData) === true;
+
+  /* Thoát TRƯỚC khi gắn .is-ready — không có class thì chữ hiện hết,
+     xếp dọc trên poster, và không một frame nào được tải. */
+  if (!count || reduce || narrow || saveData) return;
+
+  root.classList.add('is-ready');
+
+  function num(i){ var n = String(i); while (n.length < pad) n = '0' + n; return n; }
+  function src(i){ return base + num(i + 1) + '.' + ext; }
+
+  var imgs = new Array(count);
+  var loaded = 0;
+  var ctx = canvas.getContext('2d', { alpha: false });
+  var current = -1;
+  var ticking = false;
+
+  function preload(){
+    for (var i = 0; i < count; i++) {
+      (function(i){
+        var im = new Image();
+        im.decoding = 'async';
+        im.onload = function(){
+          imgs[i] = im;
+          loaded++;
+          if (i === 0) { sizeCanvas(); draw(0); }
+          if (loaded === Math.ceil(count * 0.20)) root.classList.add('is-live');
+        };
+        im.onerror = function(){ loaded++; };
+        im.src = src(i);
+      })(i);
+    }
+  }
+
+  function sizeCanvas(){
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var r = canvas.getBoundingClientRect();
+    canvas.width  = Math.round(r.width  * dpr);
+    canvas.height = Math.round(r.height * dpr);
+  }
+
+  /* Frame chưa về thì giữ frame gần nhất ĐÃ CÓ — mạng chậm thì hơi giật,
+     không bao giờ thấy khung trắng. */
+  function draw(i){
+    var im = imgs[i];
+    if (!im) {
+      for (var k = i; k >= 0; k--) { if (imgs[k]) { im = imgs[k]; break; } }
+      if (!im) return;
+    }
+    if (i === current) return;
+    current = i;
+    var cw = canvas.width, ch = canvas.height;
+    if (!cw || !ch) return;
+    var s = Math.max(cw / im.naturalWidth, ch / im.naturalHeight);
+    var w = im.naturalWidth * s, h = im.naturalHeight * s;
+    ctx.drawImage(im, (cw - w) / 2, (ch - h) / 2, w, h);
+  }
+
+  function progress(){
+    var r = track.getBoundingClientRect();
+    var total = r.height - window.innerHeight;
+    if (total <= 0) return 0;
+    return Math.min(Math.max(-r.top / total, 0), 1);
+  }
+
+  function update(){
+    ticking = false;
+    var p = progress();
+    var frameIdx = Math.min(count - 1, Math.round(p * (count - 1)));
+    draw(frameIdx);
+    for (var i = 0; i < steps.length; i++) {
+      var a = parseFloat(steps[i].getAttribute('data-from'));
+      var b = parseFloat(steps[i].getAttribute('data-to'));
+      steps[i].classList.toggle('is-on', p >= a && p < b);
+    }
+  }
+
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', function(){
+    if (imgs[0]) { sizeCanvas(); current = -1; }
+    onScroll();
+  }, { passive: true });
+
+  /* Mốc chữ chạy NGAY, không chờ ảnh. Khách thấy tiêu đề và bảng bên phải
+     đổi theo cuộn kể cả khi chưa một frame nào về. */
+  update();
+
+  var started = false;
+  function start(){
+    if (started) return;
+    started = true;
+    preload();
+    update();
+  }
+
+  /* 🔴 KHỐI NÀY NẰM ĐẦU TRANG, KHÔNG PHẢI DƯỚI FOLD.
+     Nên IntersectionObserver báo "đang trong tầm nhìn" ngay khung hình đầu —
+     nó không còn là cái van tiết kiệm băng thông nữa. Cái van bây giờ là
+     window.load: 10,6 MB frame KHÔNG được phép tranh băng thông với poster,
+     mà poster chính là LCP của cả trang.
+     Gỡ hàng rào load này là trang đầu tải 10,6 MB trước khi khách thấy gì. */
+  var armed = false;
+  function arm(){
+    if (armed) return;
+    armed = true;
+    if ('IntersectionObserver' in window) {
+      var observerAlive = false;
+      var io = new IntersectionObserver(function(es){
+        observerAlive = true;
+        if (es[0].isIntersecting) { io.disconnect(); start(); }
+      }, { rootMargin: '150% 0px' });
+      io.observe(track);
+      window.setTimeout(function(){ if (!observerAlive) start(); }, 3000);
+    } else {
+      start();
+    }
+  }
+
+  if (document.readyState === 'complete') arm();
+  else window.addEventListener('load', arm, { once: true });
+  /* Lưới an toàn: load không nổ (ảnh treo, script bên thứ ba chết) thì sau
+     8 giây cứ chạy. Không có nó thì hero đứng im ở poster vĩnh viễn. */
+  window.setTimeout(arm, 8000);
+})();
+</script>
+</div>
+
+<div class="vta-marq" aria-hidden="true">
+  <div class="vta-marq-track">
+    <span>Finding harmony within chaos</span><span>&#9679;</span>
+    <span>Chasing the lights, but we are the main source</span><span>&#9679;</span>
+    <span>Old things still shine</span><span>&#9679;</span>
+    <span>Heavy in weight. Unmatched in fit.</span><span>&#9679;</span>
+    <span>Finding harmony within chaos</span><span>&#9679;</span>
+    <span>Chasing the lights, but we are the main source</span><span>&#9679;</span>
+    <span>Old things still shine</span><span>&#9679;</span>
+    <span>Heavy in weight. Unmatched in fit.</span><span>&#9679;</span>
+  </div>
+</div>
+
+<section class="vta-body">
+  <p class="vta-eyebrow vta-rev">01 &middot; The name</p>
+  <div class="vta-two">
+    <div>
+      <h2 class="vta-h2 vta-rev">Vitalité is French for being alive.</h2>
+    </div>
+    <div>
+      <p class="vta-lead vta-rev">Everything the label makes points back at that one word. It is
+      not a tagline written for a website. It is the idea the brand has been circling in every
+      drop, said a different way each time.</p>
+      <div class="vta-quote vta-rev">
+        <p>An icon shaped by imperfect lines, bold details, and your own way of wearing it.</p>
+        <p class="vta-said">Instagram &middot; 29 July 2026</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="vta-body" style="background:var(--a-tint)">
+  <p class="vta-eyebrow vta-rev">02 &middot; The comeback</p>
+  <div class="vta-two">
+    <div>
+      <h2 class="vta-h2 vta-rev">Silence was not absence.</h2>
+      <p class="vta-lead vta-rev">The label went quiet. In April 2026 it came back, and said so
+      without decoration.</p>
+    </div>
+    <div>
+      <div class="vta-quote vta-rev">
+        <p>Preparing for a lifetime.</p>
+        <p class="vta-note" style="margin-top:14px">After a long hiatus, we are back to redefine
+        the standards. Every detail has been sharpened; every silhouette evolved.</p>
+        <p class="vta-said">Facebook &middot; 18 April 2026 &middot; #thecomeback</p>
+      </div>
+      <p class="vta-note vta-rev" style="margin-top:30px">Heavier cloth. Boxy cuts. Blue and violet
+      on iridescent surfaces, where there used to be magenta. The work made before that date was
+      not deleted. It was given a name.</p>
+    </div>
+  </div>
+</section>
+
+<section class="vta-eras">
+  <p class="vta-eyebrow vta-rev">03 &middot; Two eras, one label</p>
+  <div class="vta-eras-grid vta-rev">
+    <div class="vta-era">
+      <em>Until 2023 &middot; Archive</em>
+      <strong>Old things<br>still shine.</strong>
+      <p>Magenta prints, shot flat, worn on the street in Saigon. Still in stock. Still sold.
+      Never disowned.</p>
+      <ul>
+        <li>Pink Graffiti</li><li>Porsche</li><li>Starlight</li>
+      </ul>
+    </div>
+    <div class="vta-era vta-era--dark">
+      <em>From April 2026 &middot; Now</em>
+      <strong>Two sides of the same street culture.</strong>
+      <p>Heavier cloth, boxy fit, harder light. English captions, directed shoots, iridescent
+      surfaces.</p>
+      <ul>
+        <li>The Iconic</li><li>The Moments</li><li>Old Money</li>
+      </ul>
+    </div>
+  </div>
+  <div class="vta-two" style="margin-top:clamp(24px,3vw,40px)">
+    <p class="vta-note vta-rev" style="max-width:none">Most labels bury the old catalogue when the
+    direction changes. This one framed it instead, in its own words: <em>old things still
+    shine</em>. And left it on the shelf.</p>
+    <p class="vta-note vta-rev" style="max-width:none">Buy from either era. The sizing is the same
+    across both: S, M and L, unisex. Archive pieces are still stocked and still sold, on this site
+    and on Shopee.</p>
+  </div>
+</section>
+
+<section class="vta-body">
+  <p class="vta-eyebrow vta-rev">04 &middot; What it is made of</p>
+  <div class="vta-two">
+    <div>
+      <h2 class="vta-h2 vta-rev">Published with every drop.</h2>
+      <p class="vta-lead vta-rev">The label writes its own spec sheet. Nothing below is marketing
+      language. It is the same list that goes out with each release, in the same four lines.</p>
+      <div class="vta-cta vta-rev">
+        <a class="vta-btn" style="background:var(--a-ink);color:var(--a-paper);border-color:var(--a-ink)" href="size-guide.html">Size guide</a>
+      </div>
+    </div>
+
+    <div class="vta-specs">
+      <div class="vta-rev">
+        <h3 style="font-family:var(--a-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--a-muted)">T&#8209;Shirts</h3>
+        <dl class="vta-spec">
+          <div><dt>Fabric</dt><dd>250 GSM Cotton</dd></div>
+          <div><dt>Print</dt><dd>Screen printed</dd></div>
+          <div><dt>Fit</dt><dd>Unisex</dd></div>
+          <div><dt>Sizing</dt><dd>S / M / L</dd></div>
+        </dl>
+      </div>
+
+      <div class="vta-rev">
+        <h3 style="font-family:var(--a-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--a-muted)">Outerwear</h3>
+        <dl class="vta-spec">
+          <div><dt>Fabric</dt><dd>500+ GSM Cotton Blend</dd></div>
+          <div><dt>Fit</dt><dd>Signature Boxy Fit</dd></div>
+          <div><dt>Sizing</dt><dd>S / M / L</dd></div>
+          <div><dt>Made in</dt><dd>Vietnam</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="vta-close">
+  <div class="vta-oil" aria-hidden="true"></div>
+  <p class="vta-eyebrow vta-rev" style="color:var(--a-onDarkMuted);border-bottom-color:rgba(242,242,244,.3)">05 &middot; The record</p>
+  <div class="vta-two">
+    <div>
+      <h2 class="vta-h2 vta-rev">Four years before this site existed.</h2>
+    </div>
+    <div>
+      <p class="vta-lead vta-rev" style="color:var(--a-onDarkMuted);max-width:none">This site ships inside
+      Vietnam and to the United States. Inside Vietnam you can also buy through Shopee, where the
+      label has traded for four years. We are <strong style="color:var(--a-onDark)">@vitalitevn</strong> on Instagram,
+      Facebook, TikTok and Shopee. Anything else is not us.</p>
+      <div class="vta-cta vta-rev">
+        <a class="vta-btn" href="shop.html">Shop all</a>
+        <a class="vta-btn vta-btn--ghost" href="https://www.instagram.com/vitalitevn/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="vta-stats vta-rev">
+    <div><b data-count="4">4</b><span>Years selling</span></div>
+    <div><b data-count="4.9">4.9</b><span>Average rating</span></div>
+    <div><b data-count="973">973</b><span>Customer reviews</span></div>
+    <div><b data-count="7002">7,002</b><span>On Instagram</span></div>
+  </div>
+
+  <p class="vta-source vta-rev">Rating and reviews from the Shopee store &middot; following from
+  Instagram &middot; figures as of August 2026</p>
+
+  <p class="vta-said vta-rev" style="margin-top:34px;color:var(--a-onDarkMuted)">
+    Based in Saigon &middot; Made in Vietnam &middot;
+    <a href="mailto:vitalitevn@gmail.com">vitalitevn@gmail.com</a>
+  </p>
+</section>
+
+<script>
+(function(){
+  var root = document.currentScript.closest('.vta');
+  if (!root) return;
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Bật trạng thái ẩn của hiệu ứng. Trước dòng này mọi thứ đều hiện —
+     nên script chết ở bất kỳ đâu phía trên cũng không làm mất chữ. */
+  root.classList.add('js-on');
+
+  /* Hiện dần khi cuộn tới.
+   *
+   * 🔴 BA LỚP AN TOÀN — vì hỏng ở đây nghĩa là TOÀN BỘ CHỮ VÔ HÌNH VĨNH VIỄN.
+   *   Mọi .vta-rev bắt đầu ở opacity:0. Nếu không có gì gỡ nó ra thì khách mở
+   *   trang lên và thấy một trang trắng. Đây là kiểu lỗi tệ nhất: không báo lỗi,
+   *   không log, chỉ là trang trống.
+   *
+   *   Lớp 1 — không có IntersectionObserver, hoặc người dùng tắt chuyển động:
+   *           hiện hết ngay lập tức.
+   *   Lớp 2 — cái gì đã nằm trong màn hình lúc tải: hiện luôn, không chờ observer.
+   *   Lớp 3 — sau 1,5 giây mà observer chưa gỡ được MỘT phần tử nào thì coi như
+   *           nó không chạy (tab nền, trình duyệt tiết kiệm pin, webview lạ)
+   *           → hiện hết. Nếu observer có chạy thì lớp này không đụng vào gì cả,
+   *           hiệu ứng cuộn giữ nguyên.
+   */
+  var items = root.querySelectorAll('.vta-rev');
+  function revealAll(){
+    for (var n = 0; n < items.length; n++) items[n].classList.add('is-in');
+  }
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    revealAll();                                            // lớp 1
+  } else {
+    var fired = false;
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting){ fired = true; e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: .12 });
+
+    for (var j = 0; j < items.length; j++) {
+      var r = items[j].getBoundingClientRect();             // lớp 2
+      if (r.top < (window.innerHeight || 0) && r.bottom > 0) {
+        items[j].classList.add('is-in');
+        fired = true;
+      } else {
+        io.observe(items[j]);
+      }
+    }
+
+    window.setTimeout(function(){                            // lớp 3
+      if (!fired) { io.disconnect(); revealAll(); }
+    }, 1500);
+  }
+
+  /* Đếm số.
+     🔴 Con số THẬT đã nằm sẵn trong HTML. JS chỉ kéo nó về 0 rồi đếm lên,
+     và chỉ làm vậy ngay trước khi thật sự chạy hiệu ứng.
+     Bản trước để "0" trong HTML rồi nhờ JS điền — JS không chạy là khách đọc
+     thấy "0 đánh giá", tức là một con số SAI, tệ hơn hẳn không có hiệu ứng. */
+  var nums = root.querySelectorAll('[data-count]');
+  function run(el){
+    var end = parseFloat(el.getAttribute('data-count'));
+    var dec = (el.getAttribute('data-count').indexOf('.') > -1) ? 1 : 0;
+    if (reduce){ el.textContent = end.toLocaleString('en-US',{minimumFractionDigits:dec}); return; }
+    var dur = 1100, t0 = null;
+    function step(t){
+      if (t0 === null) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 3);               // ease-out, dừng êm
+      el.textContent = (end * e).toLocaleString('en-US',{minimumFractionDigits:dec, maximumFractionDigits:dec});
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  /* Đếm số — cùng ba lớp an toàn. Số nằm im ở "0" còn tệ hơn không có hiệu ứng:
+     khách sẽ đọc là "0 đánh giá". */
+  function runAll(){ for (var q = 0; q < nums.length; q++) run(nums[q]); }
+
+  if (!('IntersectionObserver' in window)) {
+    runAll();
+  } else {
+    var fired2 = false;
+    var io2 = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if (e.isIntersecting){ fired2 = true; run(e.target); io2.unobserve(e.target); } });
+    }, { threshold: .5 });
+    for (var m = 0; m < nums.length; m++) io2.observe(nums[m]);
+    window.setTimeout(function(){ if (!fired2) { io2.disconnect(); runAll(); } }, 1500);
+  }
+})();
+</script>
+</div>
+</main>
+
+<footer class="vt-footer">
+  <div class="vt-wrap">
+    <div class="vt-footer-grid">
+      <div class="vt-footer-brand">
+        <img src="theme/assets/vitalite-wordmark-trim.png" alt="VITALITÉ" class="vt-footer-logo"
+             width="140" height="20" decoding="async">
+        <p class="vt-footer-desc">Streetwear made in Vietnam.</p>
+      </div>
+      <div><div class="vt-footer-col-title">Shop</div><div class="vt-footer-links"><a href="shop.html">Shop All</a><a href="shop.html">New Arrivals</a><a href="shop.html">T-Shirts</a><a href="shop.html">Outerwear</a><a href="shop.html">Sale</a></div></div>
+      <div><div class="vt-footer-col-title">Support</div><div class="vt-footer-links"><a href="size-guide.html">Size Guide</a><a href="shipping.html">Shipping</a><a href="returns.html">Returns</a><a href="contact.html">Contact</a><a href="faq.html">FAQ</a><a href="account.html">My Account</a>
+        <a href="mailto:vitalitevn@gmail.com">vitalitevn@gmail.com</a></div></div>
+      <div><div class="vt-footer-col-title">Legal</div><div class="vt-footer-links"><a href="payment.html">Payment</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="complaints.html">Complaints</a><a href="seller-information.html">Seller Information</a></div></div>
+      <div><div class="vt-footer-col-title">Follow</div><div class="vt-footer-links"><a href="https://www.instagram.com/vitalitevn/" target="_blank" rel="noopener me">IG</a><a href="https://www.tiktok.com/@vitalitevn" target="_blank" rel="noopener me">TIKTOK</a><a href="https://shopee.vn/vitalitevn" target="_blank" rel="noopener me">SHOPEE</a></div></div>
+    </div>
+    <div class="vt-footer-bottom">
+      <span>© 2026 VITALITÉ ®</span>
+      <span class="vt-mono">Saigon, Vietnam</span>
+    </div>
+  </div>
+</footer>
+
+<script src="theme/assets/js/site.js" defer></script>
+</body>
+</html>

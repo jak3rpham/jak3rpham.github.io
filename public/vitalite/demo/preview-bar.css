@@ -1,0 +1,11 @@
+body{margin:0}
+.vtpv-bar{position:fixed;left:0;right:0;bottom:0;z-index:9999;
+  display:flex;gap:12px;align-items:center;justify-content:center;
+  height:30px;padding:0 14px;background:#B45309;color:#fff;white-space:nowrap;
+  font:500 11px/1 'JetBrains Mono',ui-monospace,Menlo,monospace;letter-spacing:.03em}
+.vtpv-bar>*{overflow:hidden;text-overflow:ellipsis}
+.vtpv-bar b{color:#FEF6E7}
+.vtpv-bar a{color:#fff;text-decoration:underline;text-underline-offset:3px;flex:none}
+body{padding-bottom:30px}
+.vt-card-badge.vtpv-ph{background:#B45309;color:#fff}
+@media(max-width:900px){.vtpv-bar span{display:none}}

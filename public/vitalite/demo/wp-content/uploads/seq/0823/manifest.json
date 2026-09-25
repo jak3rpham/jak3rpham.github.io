@@ -1,0 +1,10 @@
+{
+  "name": "0823",
+  "count": 96,
+  "width": 2560,
+  "quality": 85,
+  "source_duration_s": 7.709,
+  "total_kb": 10842.8,
+  "largest_frame_kb": 189.2,
+  "pattern": "%03d.webp"
+}
