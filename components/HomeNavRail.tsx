@@ -15,6 +15,7 @@ const ITEMS = [
   { id: "systems", label: "Systems" },
   { id: "work", label: "Products" },
   { id: "nhaminh", label: "Nhà Mình" },
+  { id: "vitalite", label: "Vitalité" },
   { id: "aru", label: "AI film" },
   { id: "bong", label: "Bóng Vespera" },
   { id: "video", label: "Films" },

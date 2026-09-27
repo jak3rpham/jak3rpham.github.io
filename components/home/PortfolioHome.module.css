@@ -681,3 +681,23 @@ to{opacity:1;
 .previewPause{font-size:14px;cursor:pointer;margin:14px 0;text-decoration:underline;text-underline-offset:5px}
 
 .heroName{display:block;font-family:var(--font-bricolage);font-size:clamp(22px,2.2vw,32px);line-height:1.2;letter-spacing:-.04em;margin-bottom:9px}.portraitFacts{margin-top:24px;display:grid;gap:20px;color:#24372a}.portraitFacts>div{display:grid;grid-template-columns:90px 1fr;gap:12px}.portraitFacts dt{font-size:14px;opacity:.65}.portraitFacts dd{font-size:16px;line-height:1.5}.productImage{flex-shrink:0}.filmStills a:nth-child(2) img{aspect-ratio:16/9}.filmStills{align-items:center}
+
+.vitalite{margin:100px 0 120px;background:#111;color:#f3f2ee;--color-cream:#f3f2ee;--color-ink:#111;--color-forest:#b8babd;overflow:hidden}
+.vitaliteTop{display:flex;justify-content:space-between;gap:20px;padding:24px 32px;border-bottom:1px solid #ffffff25}
+.vitaliteScene{display:block;position:relative;aspect-ratio:1.9;overflow:hidden}
+.vitaliteCampaign{width:100%;height:100%;object-fit:cover;object-position:center 40%;transition:transform 700ms cubic-bezier(.22,1,.36,1)}
+.vitaliteScene:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#111c,transparent 65%);pointer-events:none}
+.vitaliteTitle{position:absolute;left:4%;bottom:10%;z-index:1}
+.home .vitaliteTitle h3{font-size:clamp(64px,10.5vw,160px);line-height:.9;margin:0 0 20px}
+.vitaliteTitle>span{font-size:18px}
+.vitaliteArrow{position:absolute;right:4%;top:8%;z-index:1;border:1px solid #f3f2ee80;border-radius:50%;width:54px;height:54px;display:grid;place-items:center;font-size:28px;transition:transform 250ms ease}
+.vitaliteBottom{display:grid;grid-template-columns:.8fr 1.2fr;gap:6%;padding:0 4% 5%;align-items:end;position:relative;z-index:2}
+.vitaliteCopy{padding-top:36px;display:flex;flex-direction:column;align-items:flex-start;gap:22px}
+.vitaliteCopy p{font-size:22px;line-height:1.4;max-width:25ch}
+.vitaliteCopy>.eyebrow{color:#b8babd;font-size:12px}
+.vitaliteScreen{margin-top:-54px;display:block;border:1px solid #ffffff35;background:#f3f2ee;box-shadow:0 18px 60px #0005;transform:rotate(-3deg);transition:transform 350ms ease}
+.vitaliteBrowser{display:flex;justify-content:space-between;gap:10px;padding:9px 12px;background:#242424;color:#f3f2ee;font-size:10px;letter-spacing:.1em}
+.vitaliteScreen img{display:block;width:100%;height:auto}
+@media(hover:hover){.vitaliteScene:hover .vitaliteCampaign{transform:scale(1.035)}.vitaliteScene:hover .vitaliteArrow{transform:rotate(45deg)}.vitaliteScreen:hover{transform:rotate(0deg) translateY(-5px)}}
+@media(max-width:759px){.vitalite{margin:60px -12px 70px}.vitaliteTop{padding:20px;flex-direction:column;gap:5px}.vitaliteTop .eyebrow{font-size:11px}.vitaliteScene{aspect-ratio:.85}.vitaliteCampaign{object-position:60% center}.vitaliteTitle{left:6%;bottom:12%}.home .vitaliteTitle h3{font-size:clamp(54px,15vw,90px)}.vitaliteTitle>span{font-size:16px}.vitaliteBottom{grid-template-columns:1fr;padding:0 7% 32px;gap:28px}.vitaliteScreen{grid-row:1;margin-top:-22px}.vitaliteCopy{padding-top:0;gap:18px}.vitaliteCopy p{font-size:20px}.vitaliteArrow{width:44px;height:44px;font-size:24px}}
+@media(prefers-reduced-motion:reduce){.vitaliteCampaign,.vitaliteArrow,.vitaliteScreen{transition:none}.vitaliteScene:hover .vitaliteCampaign{transform:none}.vitaliteScreen:hover{transform:rotate(-3deg)}}
