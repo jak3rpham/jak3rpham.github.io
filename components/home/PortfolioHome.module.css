@@ -62,10 +62,22 @@
   --color-cream:#f1f3ea;
   --color-ink:#0d0f0d;
   --color-forest:#c0e686}
+.heroReel{position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  background:#0d0f0d}
 .heroShade{position:absolute;
   inset:0;
-  background:linear-gradient(90deg,#080f0aa6,transparent 85%),linear-gradient(0deg,#080f0abf,transparent 60%);
+  background:linear-gradient(90deg,#080f0ad9,#080f0a59 70%,transparent),linear-gradient(0deg,#080f0ae6,transparent 65%);
   pointer-events:none}
+.heroActions{display:flex;
+  flex-wrap:wrap;
+  gap:14px}
+.heroActions button{font:inherit;
+  font-size:16px;
+  cursor:pointer}
 .heroCopy{position:absolute;
   left:var(--space);
   right:var(--space);

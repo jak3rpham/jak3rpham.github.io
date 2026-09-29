@@ -18,11 +18,17 @@ try {
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'No horizontal overflow');
   assert.equal(await page.evaluate(()=>performance.getEntriesByType('resource').filter(r=>r.name.includes('/frames/')).length),0);
   await page.screenshot({path:path.join(output,`new-${width}-hero.png`)});
+  assert.equal(await page.locator('#hero video').evaluate(v=>v.paused),false,'Hero reel plays in view');
+  await page.getByRole('button',{name:/Watch the reel/}).click(); await page.waitForTimeout(400);
+  assert.equal(await page.locator('video source[src*="tatsuki-reel-2026"]').count(),2,'Reel player opens with AV1 and H.264 sources');
+  assert.equal(await page.locator('#hero video').evaluate(v=>v.paused),true,'Hero reel pauses behind the open player');
+  await page.keyboard.press('Escape'); await page.waitForTimeout(500);
+  assert.equal(await page.locator('video source[src*="tatsuki-reel-2026"]').count(),0,'Reel player closes on Escape');
   await page.evaluate(()=>scrollTo(0,450)); await page.waitForTimeout(300);
   await page.setViewportSize({width,height:850}); await page.waitForTimeout(300);
   await page.evaluate(()=>scrollTo(0,0)); await page.waitForTimeout(300);
-  const cover=await page.locator('#hero canvas').evaluate(c=>({canvas:c.getBoundingClientRect().height,parent:c.parentElement.getBoundingClientRect().height}));
-  assert.ok(Math.abs(cover.canvas-cover.parent)<2,'Canvas covers its mount after resize while scrolled');
+  const cover=await page.locator('#hero video').evaluate(v=>({video:v.getBoundingClientRect().height,parent:v.parentElement.getBoundingClientRect().height}));
+  assert.ok(Math.abs(cover.video-cover.parent)<2,'Hero reel covers the hero after resize while scrolled');
   await page.setViewportSize({width,height:900});
   const positions=[];
   for(const y of [200,400,600]) {
@@ -56,18 +62,18 @@ try {
   await page.screenshot({path:path.join(output,`new-${width}-bong.png`)});
   for (const id of ['terra','nhaminh','work','aru','bong','video','about']) assert.ok(await page.locator(`#${id} img`).count()>0 || id==='aru');
   await page.locator('#about').evaluate(el=>el.scrollIntoView()); await page.waitForTimeout(500);
-  assert.equal(await page.locator('[data-animating]').getAttribute('data-animating'),'false');
+  assert.equal(await page.locator('#hero video').evaluate(v=>v.paused),true,'Hero reel pauses offscreen');
   const broken=await page.locator('main img').evaluateAll(images=>images.filter(i=>i.complete && i.naturalWidth===0).map(i=>i.src));
   assert.deepEqual(broken,[],'No broken loaded image');
   assert.deepEqual(errors,[]);
-  console.log(`${width}px: continuous scroll, shrink, preview hover, product tabs, film, themes, images, stopped offscreen 3D passed`);
+  console.log(`${width}px: continuous scroll, shrink, preview hover, product tabs, film, themes, images, hero reel plays, pauses offscreen, reel player passed`);
   await page.close();
  }
  const page=await browser.newPage({reducedMotion:'reduce'});
  await page.goto(base,{waitUntil:'networkidle'}); await page.waitForTimeout(1700);
  await page.evaluate(()=>scrollTo(0,400)); await page.waitForTimeout(300);
  assert.equal(await page.locator('[data-hero-frame]').evaluate(el=>getComputedStyle(el).transform),'matrix(1, 0, 0, 1, 0, 0)');
- assert.equal(await page.locator('[data-animating]').getAttribute('data-animating'),'false');
+ assert.equal(await page.locator('#hero video').evaluate(v=>v.paused),true,'Reduced motion keeps the hero reel on its poster');
  console.log('Reduced motion passed');
 } finally {await browser.close();}
 

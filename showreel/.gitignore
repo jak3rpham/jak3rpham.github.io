@@ -1,0 +1,17 @@
+cache/
+audit/
+audit2/
+# the owner's own uploads, downloaded for v2 (hundreds of MB)
+footage/
+# three.js 0.186.1 unpacked from `npm pack three@0.186.1`
+vendor/
+# the master is over GitHub's 100 MB file limit; keep only what the site would use
+out/*
+!out/tatsuki-reel-2026-web.mp4
+!out/tatsuki-reel-2026-poster.jpg
+!out/tatsuki-reel-2026-30s-web.mp4
+!out/tatsuki-reel-2026-30s-poster.jpg
+
+# The noir comic reel's audio sources: third-party files, not part of the portfolio (see noir-comic/README.md)
+noir-comic/music/
+noir-comic/sfx/

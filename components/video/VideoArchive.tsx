@@ -11,6 +11,7 @@ import { VideoNavRail } from './VideoNavRail';
 import { Story, Action } from '../stories/StoryKit';
 import { ScrollArtwork } from '../visual/ScrollArtwork';
 import { SECTIONS, HOME_PRIORITY, thumb } from '@/lib/videoData';
+import { REEL } from '../home/HeroReel';
 import s from './VideoArchive.module.css';
 const railItems=Object.values(SECTIONS);
 
@@ -20,6 +21,7 @@ export function VideoArchive() {
       <ScrollArtwork variant="film" images={HOME_PRIORITY.map(f=>({src:thumb(f.yt),alt:f.title}))}/>
       <div className={s.heroCopy}><a href="/" className={s.label}>← Pham Ngoc Thanh / Moving image</a><h1>Every story<br/><em>has a rhythm.</em></h1><div className={s.heroBottom}><p>Brand films. Music. Campaigns.<br/>Different formats, different ways to feel.</p><span>Editor on every film · full scope on the TVCs<br/>Video Manager · SRadio / Vice President · L.O.M<br/>2× Top 1 TVC · Business Challenge, UEH ISB</span></div></div>
     </section>
+    <section id="reel" className={s.reel} aria-labelledby="reel-title"><div className={s.reelHead}><span className={s.label}>The 2026 reel · {REEL.length}</span><h2 id="reel-title">Ideas into<br/><em>actual things.</em></h2></div><video className={s.reelPlayer} poster={REEL.fullPoster} controls playsInline preload="none" title="Tatsuki reel 2026">{REEL.full.map(v=><source key={v.src} src={v.src} type={v.type}/>)}</video></section>
     <div id="archive"><nav className={s.index} aria-label="Film categories">{Object.values(SECTIONS).map((section,i)=><a key={section.id} href={`#${section.id}`}><span>0{i+1}</span>{section.label}<b>↘</b></a>)}</nav>
     <div id="films-0" className={s.awards}><TvcStage/></div>
     <div id="films-1" className={s.projects}><ProjectTvcIndex/></div>

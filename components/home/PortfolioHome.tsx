@@ -4,7 +4,8 @@ import { HomeNavRail } from "../HomeNavRail";
 import { ScrollArtwork } from "../visual/ScrollArtwork";
 import { WorkflowVisual, CareIllustration } from "./WorkflowVisual";
 import { HomeSchematics, HomeRange } from "./RetainedHome";
-import { Assembly } from "./Assembly";
+import { HeroReel, REEL } from "./HeroReel";
+import { VideoLightbox } from "../VideoLightbox";
 import { useShowcase } from "@/lib/useShowcase";
 import { onScrollFrame } from "@/lib/scrollTicker";
 import { FlowGround, ThemeFlow } from "../ThemeFlow";
@@ -44,6 +45,7 @@ export function PortfolioHome() {
   const screen = preview.index;
   const setScreen = preview.select;
   const [film, setFilm] = useState(false);
+  const [reel, setReel] = useState(false);
   useEffect(() => {
     const media = matchMedia("(prefers-reduced-motion: reduce)");
     const stop = onScrollFrame((y, vh) => {
@@ -62,10 +64,11 @@ export function PortfolioHome() {
   }, []);
   return <main ref={root} className={s.home}><FlowGround /><ThemeFlow initial="dark">
     <section id="hero" data-zone="dark" className={s.hero}><div ref={frame} className={s.heroFrame} data-hero-frame>
-      <Assembly /><div className={s.heroShade} />
-      <div className={s.heroCopy}><p className={s.eyebrow}><span className={s.heroName}>Pham Ngoc Thanh / Tatsuki</span><span>Ho Chi Minh City</span></p><h1>Ideas into<br /><em>actual things.</em></h1><div className={s.heroBottom}><p>I direct AI, connect disciplines,<br />and make things happen.<br /><span>Growth. Products. Creative.</span></p><Link href="#terra">Explore selected work</Link></div></div>
+      <HeroReel /><div className={s.heroShade} />
+      <div className={s.heroCopy}><p className={s.eyebrow}><span className={s.heroName}>Pham Ngoc Thanh / Tatsuki</span><span>Ho Chi Minh City</span></p><h1>Ideas into<br /><em>actual things.</em></h1><div className={s.heroBottom}><p>I direct AI, connect disciplines,<br />and make things happen.<br /><span>Growth. Products. Creative.</span></p><div className={s.heroActions}><Link href="#terra">Explore selected work</Link><button className={`${s.link} ${s.quiet}`} onClick={() => setReel(true)}><span>Watch the reel · {REEL.length}</span><span aria-hidden="true">▶</span></button></div></div></div>
       <div className={s.heroIndex}><span>Independent mind. Many ways to make.</span><span>Scroll to explore ↓</span></div>
     </div></section>
+    <VideoLightbox sources={reel ? REEL.full : null} poster={REEL.fullPoster} title="Tatsuki reel 2026" onClose={() => setReel(false)} />
     <section id="terra" data-zone="light" className={`${s.terra} ${s.section}`}>
       <div className={s.sectionTop}><span className={s.eyebrow}>01 / The work behind the growth</span><span className={s.eyebrow}>terra · Digital Marketing Executive · Sep 2024 – Jun 2026</span></div>
       <div className={s.terraHeading} data-reveal><h2>One brand.<br /><em>Many moving parts.</em></h2><div><p>22 months connecting growth strategy, content, design and AI-assisted workflows for a B2B HR & payroll business, in a team of three.</p><Link href="/terra">Inside the terra work</Link></div></div>

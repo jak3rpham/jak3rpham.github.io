@@ -3,20 +3,28 @@ import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { beginVideoPlayback, endVideoPlayback } from "@/lib/videoPlayback";
+import type { VideoSource } from "./home/HeroReel";
 
 export function VideoLightbox({
-  videoId,
+  videoId = null,
+  sources = null,
+  poster,
   title,
   vertical = false,
   onClose,
 }: {
-  videoId: string | null;
+  /** A YouTube id, or */
+  videoId?: string | null;
+  /** self-hosted files, played natively; the browser takes the first it can decode. */
+  sources?: VideoSource[] | null;
+  poster?: string;
   title?: string;
   vertical?: boolean;
   onClose: () => void;
 }) {
+  const open = videoId || sources;
   useEffect(() => {
-    if (!videoId) return;
+    if (!open) return;
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
     }
@@ -31,7 +39,7 @@ export function VideoLightbox({
       document.body.style.overflow = prev;
       endVideoPlayback();
     };
-  }, [videoId, onClose]);
+  }, [open, onClose]);
 
   if (typeof document === "undefined") return null;
 
@@ -39,7 +47,7 @@ export function VideoLightbox({
   // transforms that trap `position: fixed`, which let later sections paint over the player).
   return createPortal(
     <AnimatePresence>
-      {videoId && (
+      {open && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -62,13 +70,26 @@ export function VideoLightbox({
             >
               ✕ Close
             </button>
-            <iframe
-              className={`w-full rounded-[10px] border-none ${vertical ? "aspect-[9/16]" : "aspect-video"}`}
-              src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-              title={title ?? "YouTube video player"}
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-            />
+            {sources ? (
+              <video
+                className={`w-full rounded-[10px] bg-black ${vertical ? "aspect-[9/16]" : "aspect-video"}`}
+                poster={poster}
+                title={title}
+                controls
+                autoPlay
+                playsInline
+              >
+                {sources.map(v => <source key={v.src} src={v.src} type={v.type} />)}
+              </video>
+            ) : (
+              <iframe
+                className={`w-full rounded-[10px] border-none ${vertical ? "aspect-[9/16]" : "aspect-video"}`}
+                src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+                title={title ?? "YouTube video player"}
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+              />
+            )}
           </motion.div>
         </motion.div>
       )}
